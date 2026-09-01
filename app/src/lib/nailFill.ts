@@ -245,7 +245,7 @@ function clamp(v: number, a = 0, b = 1): number {
   return Math.min(b, Math.max(a, v))
 }
 
-function hexToRgb01(hex: string): [number, number, number] {
+export function hexToRgb01(hex: string): [number, number, number] {
   return [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255) as [number, number, number]
 }
 

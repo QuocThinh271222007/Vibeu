@@ -9,7 +9,7 @@ import { StudioTopBar } from '@/components/studio/StudioTopBar'
 import { FingerSelector } from '@/components/studio/FingerSelector'
 import { ShapeLengthTab } from '@/components/studio/ShapeLengthTab'
 import { PaintTab } from '@/components/studio/PaintTab'
-import { CharmsTab } from '@/components/studio/CharmsTab'
+import { DecalLibrary } from '@/components/studio/DecalLibrary'
 import { ResultView } from '@/components/studio/ResultView'
 import { Button } from '@/components/ui/Button'
 import { findTemplate } from '@/data/templates'
@@ -128,7 +128,7 @@ export default function Studio() {
                   />
                 )}
                 {s.activeTab === 'charms' && (
-                  <CharmsTab onAdd={(stickerId, variant) => s.addSticker(s.selectedFinger, stickerId, variant)} />
+                  <DecalLibrary onAdd={(decalId) => s.addSticker(s.selectedFinger, decalId)} />
                 )}
               </motion.div>
             </AnimatePresence>

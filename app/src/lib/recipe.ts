@@ -1,5 +1,5 @@
 import { EFFECT_LABEL_VI, FINGER_LABEL_VI, FINGER_ORDER, SHAPE_LABEL_VI } from '@/types/vibeu'
-import type { ColorPreset, FingerId, FingerDesign, StickerDef } from '@/types/vibeu'
+import type { ColorPreset, DecalAsset, FingerId, FingerDesign } from '@/types/vibeu'
 
 export interface SpecRow {
   finger: FingerId
@@ -15,7 +15,7 @@ export interface SpecRow {
 export function buildSpecRows(
   fingers: Record<FingerId, FingerDesign>,
   presetsById: Record<string, ColorPreset>,
-  stickersById: Record<string, StickerDef>,
+  stickersById: Record<string, DecalAsset>,
 ): SpecRow[] {
   return FINGER_ORDER.map((f) => {
     const d = fingers[f]

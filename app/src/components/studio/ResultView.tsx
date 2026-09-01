@@ -3,7 +3,8 @@ import { motion } from 'framer-motion'
 import { ArrowLeft, Check, Copy, Download, Send, Sparkles } from 'lucide-react'
 import { HandCanvas } from '@/components/studio/HandCanvas'
 import { Button } from '@/components/ui/Button'
-import { useColorPresets, useStickers } from '@/data/loaders'
+import { useColorPresets, useDecals } from '@/data/loaders'
+import { useStudioStore } from '@/store/studioStore'
 import { buildShareUrl, buildSpecRows, generateShareId } from '@/lib/recipe'
 import { useQrCode } from '@/lib/useQrCode'
 import type { FingerDesign, FingerId, SkinToneId } from '@/types/vibeu'
@@ -19,7 +20,8 @@ export function ResultView({
   onBack: () => void
 }) {
   const { presets } = useColorPresets()
-  const { stickers } = useStickers()
+  const { decals } = useDecals()
+  const customDecals = useStudioStore((s) => s.customDecals)
   const navigate = useNavigate()
   const [toast, setToast] = useState<string | null>(null)
   const [posted, setPosted] = useState(false)
@@ -29,7 +31,7 @@ export function ResultView({
   const qr = useQrCode(shareUrl)
 
   const presetsById = useMemo(() => Object.fromEntries(presets.map((p) => [p.id, p])), [presets])
-  const stickersById = useMemo(() => Object.fromEntries(stickers.map((s) => [s.id, s])), [stickers])
+  const stickersById = useMemo(() => Object.fromEntries([...decals, ...customDecals].map((d) => [d.id, d])), [decals, customDecals])
   const rows = useMemo(() => buildSpecRows(fingers, presetsById, stickersById), [fingers, presetsById, stickersById])
 
   function flashToast(msg: string) {

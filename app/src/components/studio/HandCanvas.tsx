@@ -1,6 +1,6 @@
 import { useEffect, useId, useMemo, useRef, useState } from 'react'
 import { Copy, RotateCw, X } from 'lucide-react'
-import { useColorPresets, useHandData, useStickers, handBaseUrl, stickerAssetUrl } from '@/data/loaders'
+import { useColorPresets, useHandData, useDecals, handBaseUrl, resolveDecalPath } from '@/data/loaders'
 import {
   lengthScaleMatrix,
   LENGTH_SCALE,
@@ -11,11 +11,12 @@ import {
   shapeTrimUv,
   trimPolygonToImagePoints,
 } from '@/lib/geometry'
-import { buildMaterialConfig, buildPaintConfig, composeNail, DEFAULT_LIGHT, type DecalLayer } from '@/lib/nailFill'
+import { buildMaterialConfig, buildPaintConfig, composeNail, DEFAULT_LIGHT, hexToRgb01, type DecalLayer } from '@/lib/nailFill'
 import { getPreparedHand, type PreparedNail } from '@/lib/nailLighting'
 import { getResolvedDecalAsset, type ResolvedDecalAsset } from '@/lib/decalCache'
 import { clientToSvgPoint } from '@/lib/svgPoint'
-import type { FingerDesign, FingerId, NailCoord, SkinToneId, StickerDef, StickerInstance } from '@/types/vibeu'
+import { useStudioStore } from '@/store/studioStore'
+import type { DecalAsset, FingerDesign, FingerId, NailCoord, SkinToneId, StickerInstance } from '@/types/vibeu'
 import { FINGER_ORDER } from '@/types/vibeu'
 
 /** Decodes+caches decal pixel data for a set of image URLs, keyed by the URL set itself. */
@@ -102,7 +103,8 @@ export function HandCanvas({
 }: HandCanvasProps) {
   const { hand, loading: handLoading } = useHandData(skinTone)
   const { presets, loading: presetsLoading } = useColorPresets()
-  const { stickers, loading: stickersLoading } = useStickers()
+  const { decals, loading: decalsLoading } = useDecals()
+  const customDecals = useStudioStore((s) => s.customDecals)
   const prepared = usePreparedHand(skinTone)
   const svgRef = useRef<SVGSVGElement>(null)
   // Namespaces every <defs> id/url(#...) reference so multiple HandCanvas
@@ -112,10 +114,13 @@ export function HandCanvas({
   const iid = useId()
 
   const presetsById = useMemo(() => Object.fromEntries(presets.map((p) => [p.id, p])), [presets])
-  const stickersById = useMemo(() => Object.fromEntries(stickers.map((s) => [s.id, s])), [stickers])
+  const stickersById = useMemo(
+    () => Object.fromEntries([...decals, ...customDecals].map((d) => [d.id, d])),
+    [decals, customDecals],
+  )
   const [liveDrag, setLiveDrag] = useState<LiveDragOverride | null>(null)
 
-  const ready = hand && !handLoading && !presetsLoading && !stickersLoading && prepared
+  const ready = hand && !handLoading && !presetsLoading && !decalsLoading && prepared
 
   if (!ready) {
     return (
@@ -205,7 +210,7 @@ function NailPaint({
   nail: NailCoord
   design: FingerDesign
   preset: ReturnType<typeof useColorPresets>['presets'][number] | undefined
-  stickersById: Record<string, StickerDef>
+  stickersById: Record<string, DecalAsset>
   prepared: PreparedNail | undefined
   iid: string
   liveDrag: LiveDragOverride | null
@@ -222,7 +227,7 @@ function NailPaint({
     const urls: string[] = []
     for (const st of sortedStickers) {
       const sticker = stickersById[st.stickerId]
-      if (sticker) urls.push(stickerAssetUrl(sticker.variants[st.variant].path))
+      if (sticker) urls.push(resolveDecalPath(sticker.path))
     }
     return urls
   }, [sortedStickers, stickersById])
@@ -240,13 +245,14 @@ function NailPaint({
     const layers: DecalLayer[] = []
     for (const st of sortedStickers) {
       if (liveDragInstanceId === st.instanceId) continue // shown as a transient preview instead
+      if (st.visible === false) continue
       const sticker = stickersById[st.stickerId]
       if (!sticker) continue
-      const url = stickerAssetUrl(sticker.variants[st.variant].path)
+      const url = resolveDecalPath(sticker.path)
       const resolved = resolvedAssets.get(url)
       if (!resolved) continue
       const [cx, cy] = localToImage(nail, st.uv)
-      const widthPx = nailWidthPx(nail) * sticker.suggestedInitialScaleRelativeToNailWidth * st.scale
+      const widthPx = nailWidthPx(nail) * sticker.defaultScale * st.scale
       const [, , cbw, cbh] = resolved.contentBounds
       const contentAspect = (cbh * resolved.pixels.height) / (cbw * resolved.pixels.width || 1)
       layers.push({
@@ -257,11 +263,11 @@ function NailPaint({
         widthPx,
         heightPx: widthPx * contentAspect,
         rotationDeg: st.rotation,
-        flipX: false,
-        opacity: 1,
-        tint: null,
+        flipX: st.flipX ?? false,
+        opacity: st.opacity ?? 1,
+        tint: sticker.tintable && st.tint ? hexToRgb01(st.tint) : null,
         curvature: 0.55,
-        layerType: 'decal',
+        layerType: sticker.layerType === 'raised' ? 'raised' : sticker.layerType,
       })
     }
     return layers
@@ -320,7 +326,7 @@ function TransientStickerPreview({
   instanceId: string
   patch: Partial<StickerInstance>
   design: FingerDesign
-  stickersById: Record<string, StickerDef>
+  stickersById: Record<string, DecalAsset>
 }) {
   const base = design.stickers.find((st) => st.instanceId === instanceId)
   if (!base) return null
@@ -328,11 +334,10 @@ function TransientStickerPreview({
   const sticker = stickersById[instance.stickerId]
   if (!sticker) return null
   const [cx, cy] = localToImage(nail, instance.uv)
-  const size = nailWidthPx(nail) * sticker.suggestedInitialScaleRelativeToNailWidth * instance.scale
-  const variant = sticker.variants[instance.variant]
+  const size = nailWidthPx(nail) * sticker.defaultScale * instance.scale
   return (
-    <g transform={`translate(${cx} ${cy}) rotate(${instance.rotation})`} opacity={0.92}>
-      <image href={stickerAssetUrl(variant.path)} x={-size / 2} y={-size / 2} width={size} height={size} preserveAspectRatio="xMidYMid meet" />
+    <g transform={`translate(${cx} ${cy}) rotate(${instance.rotation}) scale(${instance.flipX ? -1 : 1}, 1)`} opacity={(instance.opacity ?? 1) * 0.92}>
+      <image href={resolveDecalPath(sticker.path)} x={-size / 2} y={-size / 2} width={size} height={size} preserveAspectRatio="xMidYMid meet" />
     </g>
   )
 }
@@ -354,7 +359,7 @@ function StickerGizmoLayer({
   svgRef: React.RefObject<SVGSVGElement | null>
   nail: NailCoord
   stickers: StickerInstance[]
-  stickersById: Record<string, StickerDef>
+  stickersById: Record<string, DecalAsset>
   selectedId: string | null
   onSelect: (id: string | null) => void
   onUpdate: (instanceId: string, patch: Partial<StickerInstance>) => void
@@ -398,7 +403,7 @@ function StickerGizmo({
   svgRef: React.RefObject<SVGSVGElement | null>
   nail: NailCoord
   instance: StickerInstance
-  sticker: StickerDef | undefined
+  sticker: DecalAsset | undefined
   selected: boolean
   onSelect: () => void
   onUpdate: (patch: Partial<StickerInstance>) => void
@@ -421,7 +426,7 @@ function StickerGizmo({
 
   const effective = livePatch ? { ...instance, ...livePatch } : instance
   const [cx, cy] = localToImage(nail, effective.uv)
-  const baseSize = nailWidthPx(nail) * sticker.suggestedInitialScaleRelativeToNailWidth
+  const baseSize = nailWidthPx(nail) * sticker.defaultScale
   const size = baseSize * effective.scale
   const hs = size / 2
   // Handles are sized in image-space units but the canvas renders far smaller than

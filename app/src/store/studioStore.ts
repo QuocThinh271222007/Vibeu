@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { FINGER_ORDER, type CustomGradient, type FingerDesign, type FingerId, type SkinToneId, type StickerInstance, type Template } from '@/types/vibeu'
+import { FINGER_ORDER, type CustomGradient, type DecalAsset, type FingerDesign, type FingerId, type SkinToneId, type StickerInstance, type Template } from '@/types/vibeu'
 
 const DEFAULT_PRESET_ID = 'cloud-candy'
 
@@ -42,6 +42,8 @@ interface StudioState {
   selectedStickerInstance: string | null
   view: StudioView
   activeTemplateName: string | null
+  /** User-uploaded decal assets, registered at runtime so they can be placed like any library decal. */
+  customDecals: DecalAsset[]
 
   setSkinTone: (tone: SkinToneId) => void
   selectFinger: (finger: FingerId) => void
@@ -52,7 +54,8 @@ interface StudioState {
   setCustomColor: (finger: FingerId, hex: string | null) => void
   setCustomGradient: (finger: FingerId, gradient: CustomGradient | null) => void
   setEffect: (finger: FingerId, effect: FingerDesign['effect']) => void
-  addSticker: (finger: FingerId, stickerId: string, variant: StickerInstance['variant']) => void
+  addSticker: (finger: FingerId, stickerId: string, uv?: [number, number]) => void
+  addCustomDecal: (asset: DecalAsset) => void
   updateSticker: (finger: FingerId, instanceId: string, patch: Partial<StickerInstance>) => void
   removeSticker: (finger: FingerId, instanceId: string) => void
   duplicateSticker: (finger: FingerId, instanceId: string) => void
@@ -71,6 +74,7 @@ export const useStudioStore = create<StudioState>((set, get) => ({
   selectedStickerInstance: null,
   view: 'design',
   activeTemplateName: null,
+  customDecals: [],
 
   setSkinTone: (tone) => set({ skinTone: tone }),
   selectFinger: (finger) => set({ selectedFinger: finger, selectedStickerInstance: null }),
@@ -101,16 +105,20 @@ export const useStudioStore = create<StudioState>((set, get) => ({
   setEffect: (finger, effect) =>
     set((s) => ({ fingers: { ...s.fingers, [finger]: { ...s.fingers[finger], effect } } })),
 
-  addSticker: (finger, stickerId, variant) =>
+  addSticker: (finger, stickerId, uv) =>
     set((s) => {
       const existing = s.fingers[finger].stickers
       const instance: StickerInstance = {
         instanceId: nextInstanceId(),
         stickerId,
-        variant,
-        uv: [0.5, 0.48],
+        uv: uv ?? [0.5, 0.48],
         scale: 1,
         rotation: 0,
+        flipX: false,
+        opacity: 1,
+        tint: null,
+        visible: true,
+        locked: false,
         z: existing.length,
       }
       return {
@@ -122,6 +130,8 @@ export const useStudioStore = create<StudioState>((set, get) => ({
         selectedFinger: finger,
       }
     }),
+
+  addCustomDecal: (asset) => set((s) => ({ customDecals: [...s.customDecals.filter((d) => d.id !== asset.id), asset] })),
 
   updateSticker: (finger, instanceId, patch) =>
     set((s) => ({

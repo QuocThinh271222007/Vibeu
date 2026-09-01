@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react'
-import type { ColorPreset, HandData, SkinToneId, StickerCategory, StickerDef } from '@/types/vibeu'
+import type { ColorPreset, DecalAsset, HandData, SkinToneId, StickerCategory } from '@/types/vibeu'
 
 interface ColorManifest {
   presets: ColorPreset[]
 }
 
-interface StickerManifest {
+interface DecalManifest {
   categories: StickerCategory[]
-  stickers: StickerDef[]
+  decals: DecalAsset[]
 }
 
 function cachedFetch<T>(url: string): () => Promise<T> {
@@ -24,7 +24,7 @@ function cachedFetch<T>(url: string): () => Promise<T> {
 }
 
 const getColorManifest = cachedFetch<ColorManifest>('/assets/colors/manifest.json')
-const getStickerManifest = cachedFetch<StickerManifest>('/assets/stickers/manifest.json')
+const getDecalManifest = cachedFetch<DecalManifest>('/assets/decals/manifest.json')
 const getHandCozy = cachedFetch<HandData>('/assets/hands/cozy/coordinates.json')
 const getHandMatcha = cachedFetch<HandData>('/assets/hands/matcha/coordinates.json')
 
@@ -63,9 +63,9 @@ export function useColorPresets() {
   return { presets: data?.presets ?? [], loading, error }
 }
 
-export function useStickers() {
-  const { data, loading, error } = useAsync(getStickerManifest, [])
-  return { stickers: data?.stickers ?? [], categories: data?.categories ?? [], loading, error }
+export function useDecals() {
+  const { data, loading, error } = useAsync(getDecalManifest, [])
+  return { decals: data?.decals ?? [], categories: data?.categories ?? [], loading, error }
 }
 
 export function useHandData(tone: SkinToneId) {
@@ -73,8 +73,13 @@ export function useHandData(tone: SkinToneId) {
   return { hand: data, loading, error }
 }
 
-export function stickerAssetUrl(path: string) {
-  return `/assets/stickers/${path}`
+export function decalAssetUrl(path: string) {
+  return `/assets/decals/${path}`
+}
+
+/** Library decals have a manifest-relative path; custom uploads carry a ready-to-use data: URL. */
+export function resolveDecalPath(path: string): string {
+  return path.startsWith('data:') || path.startsWith('http') || path.startsWith('/') ? path : decalAssetUrl(path)
 }
 
 export function colorSwatchUrl(path: string) {
@@ -90,15 +95,15 @@ export async function getPresetById(id: string): Promise<ColorPreset | undefined
   return m.presets.find((p) => p.id === id)
 }
 
-export async function getStickerById(id: string): Promise<StickerDef | undefined> {
-  const m = await getStickerManifest()
-  return m.stickers.find((s) => s.id === id)
+export async function getDecalById(id: string): Promise<DecalAsset | undefined> {
+  const m = await getDecalManifest()
+  return m.decals.find((d) => d.id === id)
 }
 
 export async function getAllPresets(): Promise<ColorPreset[]> {
   return (await getColorManifest()).presets
 }
 
-export async function getAllStickers(): Promise<StickerDef[]> {
-  return (await getStickerManifest()).stickers
+export async function getAllDecals(): Promise<DecalAsset[]> {
+  return (await getDecalManifest()).decals
 }

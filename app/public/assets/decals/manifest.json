@@ -1,0 +1,3400 @@
+{
+  "packId": "vibeu-decal-pack-v1",
+  "generatedBy": "scripts/generate-decals.mjs",
+  "totalDecals": 121,
+  "categories": [
+    {
+      "id": "floral",
+      "nameVi": "Hoa lá",
+      "count": 12
+    },
+    {
+      "id": "hearts",
+      "nameVi": "Trái tim",
+      "count": 8
+    },
+    {
+      "id": "celestial",
+      "nameVi": "Ngôi sao & mặt trăng",
+      "count": 10
+    },
+    {
+      "id": "butterfly",
+      "nameVi": "Bướm & côn trùng",
+      "count": 8
+    },
+    {
+      "id": "bows",
+      "nameVi": "Nơ & ruy băng",
+      "count": 6
+    },
+    {
+      "id": "animal-print",
+      "nameVi": "Họa tiết da thú",
+      "count": 8
+    },
+    {
+      "id": "geometric",
+      "nameVi": "Hình học & đường nét",
+      "count": 15
+    },
+    {
+      "id": "foil-abstract",
+      "nameVi": "Foil & trừu tượng",
+      "count": 10
+    },
+    {
+      "id": "fruit",
+      "nameVi": "Trái cây",
+      "count": 8
+    },
+    {
+      "id": "seasonal",
+      "nameVi": "Mùa & thời tiết",
+      "count": 11
+    },
+    {
+      "id": "text-symbols",
+      "nameVi": "Chữ & ký hiệu",
+      "count": 6
+    },
+    {
+      "id": "gems",
+      "nameVi": "Đá & kim cương (phẳng)",
+      "count": 6
+    },
+    {
+      "id": "misc",
+      "nameVi": "Khác",
+      "count": 13
+    }
+  ],
+  "decals": [
+    {
+      "id": "daisy-round",
+      "name": "Round Daisy",
+      "nameVi": "Hoa cúc tròn",
+      "category": "floral",
+      "categoryVi": "Hoa lá",
+      "path": "svg/floral/daisy-round.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "flower",
+        "daisy",
+        "floral"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "daisy-thin",
+      "name": "Thin-petal Daisy",
+      "nameVi": "Hoa cúc cánh mảnh",
+      "category": "floral",
+      "categoryVi": "Hoa lá",
+      "path": "svg/floral/daisy-thin.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "flower",
+        "daisy",
+        "floral"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "sakura",
+      "name": "Cherry Blossom",
+      "nameVi": "Hoa anh đào",
+      "category": "floral",
+      "categoryVi": "Hoa lá",
+      "path": "svg/floral/sakura.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "flower",
+        "sakura",
+        "spring"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "poppy",
+      "name": "Poppy",
+      "nameVi": "Hoa anh túc",
+      "category": "floral",
+      "categoryVi": "Hoa lá",
+      "path": "svg/floral/poppy.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "flower",
+        "poppy",
+        "red"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "sunflower",
+      "name": "Sunflower",
+      "nameVi": "Hoa hướng dương",
+      "category": "floral",
+      "categoryVi": "Hoa lá",
+      "path": "svg/floral/sunflower.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "flower",
+        "sunflower",
+        "yellow"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "forget-me-not",
+      "name": "Forget-me-not Cluster",
+      "nameVi": "Cụm hoa lưu ly",
+      "category": "floral",
+      "categoryVi": "Hoa lá",
+      "path": "svg/floral/forget-me-not.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "flower",
+        "ditsy",
+        "blue"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "hibiscus",
+      "name": "Hibiscus",
+      "nameVi": "Hoa dâm bụt",
+      "category": "floral",
+      "categoryVi": "Hoa lá",
+      "path": "svg/floral/hibiscus.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "flower",
+        "hibiscus",
+        "tropical"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "tulip",
+      "name": "Tulip",
+      "nameVi": "Hoa tulip",
+      "category": "floral",
+      "categoryVi": "Hoa lá",
+      "path": "svg/floral/tulip.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "flower",
+        "tulip"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "rose-swirl",
+      "name": "Rose Swirl",
+      "nameVi": "Hoa hồng xoáy",
+      "category": "floral",
+      "categoryVi": "Hoa lá",
+      "path": "svg/floral/rose-swirl.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "flower",
+        "rose"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "orchid",
+      "name": "Orchid",
+      "nameVi": "Hoa lan",
+      "category": "floral",
+      "categoryVi": "Hoa lá",
+      "path": "svg/floral/orchid.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "flower",
+        "orchid"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "leaf-sprig",
+      "name": "Leaf Sprig",
+      "nameVi": "Cành lá",
+      "category": "floral",
+      "categoryVi": "Hoa lá",
+      "path": "svg/floral/leaf-sprig.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "leaf",
+        "sprig",
+        "green"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "daisy-chain",
+      "name": "Ditsy Flower Trio",
+      "nameVi": "Chùm hoa nhỏ",
+      "category": "floral",
+      "categoryVi": "Hoa lá",
+      "path": "svg/floral/daisy-chain.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "flower",
+        "ditsy"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "heart-solid",
+      "name": "Solid Heart",
+      "nameVi": "Trái tim đầy",
+      "category": "hearts",
+      "categoryVi": "Trái tim",
+      "path": "svg/hearts/heart-solid.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "heart",
+        "love"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "heart-outline",
+      "name": "Heart Outline",
+      "nameVi": "Trái tim viền",
+      "category": "hearts",
+      "categoryVi": "Trái tim",
+      "path": "svg/hearts/heart-outline.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "heart",
+        "love",
+        "outline"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "heart-double",
+      "name": "Double Heart",
+      "nameVi": "Đôi trái tim",
+      "category": "hearts",
+      "categoryVi": "Trái tim",
+      "path": "svg/hearts/heart-double.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "heart",
+        "love"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "heart-arrow",
+      "name": "Heart with Arrow",
+      "nameVi": "Tim mũi tên",
+      "category": "hearts",
+      "categoryVi": "Trái tim",
+      "path": "svg/hearts/heart-arrow.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "heart",
+        "love",
+        "arrow"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "heart-lace",
+      "name": "Lace-trim Heart",
+      "nameVi": "Tim viền ren",
+      "category": "hearts",
+      "categoryVi": "Trái tim",
+      "path": "svg/hearts/heart-lace.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "heart",
+        "love",
+        "lace"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "heart-wings",
+      "name": "Winged Heart",
+      "nameVi": "Tim cánh thiên thần",
+      "category": "hearts",
+      "categoryVi": "Trái tim",
+      "path": "svg/hearts/heart-wings.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "heart",
+        "love",
+        "wings"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "heart-broken",
+      "name": "Broken Heart",
+      "nameVi": "Trái tim vỡ",
+      "category": "hearts",
+      "categoryVi": "Trái tim",
+      "path": "svg/hearts/heart-broken.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "heart",
+        "broken"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "love-knot",
+      "name": "Love Knot",
+      "nameVi": "Nút thắt tình yêu",
+      "category": "hearts",
+      "categoryVi": "Trái tim",
+      "path": "svg/hearts/love-knot.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "heart",
+        "knot",
+        "infinity"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "star-5",
+      "name": "Classic Star",
+      "nameVi": "Ngôi sao 5 cánh",
+      "category": "celestial",
+      "categoryVi": "Ngôi sao & mặt trăng",
+      "path": "svg/celestial/star-5.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "star",
+        "celestial"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "star-6",
+      "name": "Six-point Star",
+      "nameVi": "Ngôi sao 6 cánh",
+      "category": "celestial",
+      "categoryVi": "Ngôi sao & mặt trăng",
+      "path": "svg/celestial/star-6.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "star",
+        "celestial"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "star-8-sparkle",
+      "name": "Eight-point Sparkle",
+      "nameVi": "Sao lấp lánh 8 cánh",
+      "category": "celestial",
+      "categoryVi": "Ngôi sao & mặt trăng",
+      "path": "svg/celestial/star-8-sparkle.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "star",
+        "sparkle"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "sparkle-diamond",
+      "name": "Diamond Sparkle",
+      "nameVi": "Ánh lấp lánh kim cương",
+      "category": "celestial",
+      "categoryVi": "Ngôi sao & mặt trăng",
+      "path": "svg/celestial/sparkle-diamond.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "sparkle",
+        "twinkle"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "moon-crescent",
+      "name": "Crescent Moon",
+      "nameVi": "Trăng lưỡi liềm",
+      "category": "celestial",
+      "categoryVi": "Ngôi sao & mặt trăng",
+      "path": "svg/celestial/moon-crescent.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "moon",
+        "celestial"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "moon-star",
+      "name": "Moon & Star",
+      "nameVi": "Trăng và sao",
+      "category": "celestial",
+      "categoryVi": "Ngôi sao & mặt trăng",
+      "path": "svg/celestial/moon-star.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "moon",
+        "star"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "sun-burst",
+      "name": "Sun Burst",
+      "nameVi": "Mặt trời tỏa nắng",
+      "category": "celestial",
+      "categoryVi": "Ngôi sao & mặt trăng",
+      "path": "svg/celestial/sun-burst.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "sun",
+        "celestial"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "comet",
+      "name": "Comet",
+      "nameVi": "Sao chổi",
+      "category": "celestial",
+      "categoryVi": "Ngôi sao & mặt trăng",
+      "path": "svg/celestial/comet.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "comet",
+        "celestial"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "shooting-star",
+      "name": "Shooting Star",
+      "nameVi": "Sao băng",
+      "category": "celestial",
+      "categoryVi": "Ngôi sao & mặt trăng",
+      "path": "svg/celestial/shooting-star.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "star",
+        "shooting"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "constellation",
+      "name": "Constellation",
+      "nameVi": "Chòm sao",
+      "category": "celestial",
+      "categoryVi": "Ngôi sao & mặt trăng",
+      "path": "svg/celestial/constellation.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "star",
+        "constellation"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "butterfly-classic",
+      "name": "Classic Butterfly",
+      "nameVi": "Bướm cổ điển",
+      "category": "butterfly",
+      "categoryVi": "Bướm & côn trùng",
+      "path": "svg/butterfly/butterfly-classic.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "butterfly",
+        "bug"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "butterfly-ornate",
+      "name": "Ornate Butterfly",
+      "nameVi": "Bướm hoa văn",
+      "category": "butterfly",
+      "categoryVi": "Bướm & côn trùng",
+      "path": "svg/butterfly/butterfly-ornate.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "butterfly",
+        "bug"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "butterfly-monarch",
+      "name": "Monarch Butterfly",
+      "nameVi": "Bướm chúa cam",
+      "category": "butterfly",
+      "categoryVi": "Bướm & côn trùng",
+      "path": "svg/butterfly/butterfly-monarch.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "butterfly",
+        "monarch"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "moth",
+      "name": "Moth",
+      "nameVi": "Bướm đêm",
+      "category": "butterfly",
+      "categoryVi": "Bướm & côn trùng",
+      "path": "svg/butterfly/moth.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "moth",
+        "bug"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "dragonfly",
+      "name": "Dragonfly",
+      "nameVi": "Chuồn chuồn",
+      "category": "butterfly",
+      "categoryVi": "Bướm & côn trùng",
+      "path": "svg/butterfly/dragonfly.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "dragonfly",
+        "bug"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "ladybug",
+      "name": "Ladybug",
+      "nameVi": "Bọ rùa",
+      "category": "butterfly",
+      "categoryVi": "Bướm & côn trùng",
+      "path": "svg/butterfly/ladybug.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "ladybug",
+        "bug"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "bee",
+      "name": "Bee",
+      "nameVi": "Ong",
+      "category": "butterfly",
+      "categoryVi": "Bướm & côn trùng",
+      "path": "svg/butterfly/bee.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "bee",
+        "bug"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "snail",
+      "name": "Snail",
+      "nameVi": "Ốc sên",
+      "category": "butterfly",
+      "categoryVi": "Bướm & côn trùng",
+      "path": "svg/butterfly/snail.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "snail",
+        "bug",
+        "cute"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "bow-classic",
+      "name": "Classic Bow",
+      "nameVi": "Nơ cổ điển",
+      "category": "bows",
+      "categoryVi": "Nơ & ruy băng",
+      "path": "svg/bows/bow-classic.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "bow",
+        "ribbon"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "bow-skinny",
+      "name": "Skinny Bow",
+      "nameVi": "Nơ mảnh",
+      "category": "bows",
+      "categoryVi": "Nơ & ruy băng",
+      "path": "svg/bows/bow-skinny.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "bow",
+        "ribbon"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "bow-tails",
+      "name": "Bow with Tails",
+      "nameVi": "Nơ có dải",
+      "category": "bows",
+      "categoryVi": "Nơ & ruy băng",
+      "path": "svg/bows/bow-tails.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "bow",
+        "ribbon"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "ribbon-curl",
+      "name": "Ribbon Curl",
+      "nameVi": "Ruy băng xoăn",
+      "category": "bows",
+      "categoryVi": "Nơ & ruy băng",
+      "path": "svg/bows/ribbon-curl.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "ribbon",
+        "curl"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "ribbon-banner",
+      "name": "Ribbon Banner",
+      "nameVi": "Dải băng ngang",
+      "category": "bows",
+      "categoryVi": "Nơ & ruy băng",
+      "path": "svg/bows/ribbon-banner.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "ribbon",
+        "banner"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "bow-double",
+      "name": "Double-loop Bow",
+      "nameVi": "Nơ hai tầng",
+      "category": "bows",
+      "categoryVi": "Nơ & ruy băng",
+      "path": "svg/bows/bow-double.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "bow",
+        "ribbon"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "leopard-spot",
+      "name": "Leopard Spot",
+      "nameVi": "Đốm báo",
+      "category": "animal-print",
+      "categoryVi": "Họa tiết da thú",
+      "path": "svg/animal-print/leopard-spot.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "animal",
+        "leopard",
+        "print"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "giraffe-patch",
+      "name": "Giraffe Patch",
+      "nameVi": "Mảng hươu cao cổ",
+      "category": "animal-print",
+      "categoryVi": "Họa tiết da thú",
+      "path": "svg/animal-print/giraffe-patch.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "animal",
+        "giraffe",
+        "print"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "cow-patch",
+      "name": "Cow Patch",
+      "nameVi": "Mảng bò sữa",
+      "category": "animal-print",
+      "categoryVi": "Họa tiết da thú",
+      "path": "svg/animal-print/cow-patch.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "animal",
+        "cow",
+        "print"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "zebra-stripe",
+      "name": "Zebra Stripe",
+      "nameVi": "Vằn ngựa vằn",
+      "category": "animal-print",
+      "categoryVi": "Họa tiết da thú",
+      "path": "svg/animal-print/zebra-stripe.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "animal",
+        "zebra",
+        "print"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "tiger-stripe",
+      "name": "Tiger Stripe",
+      "nameVi": "Vằn hổ",
+      "category": "animal-print",
+      "categoryVi": "Họa tiết da thú",
+      "path": "svg/animal-print/tiger-stripe.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "animal",
+        "tiger",
+        "print"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "snake-scale",
+      "name": "Snake Scale",
+      "nameVi": "Vảy rắn",
+      "category": "animal-print",
+      "categoryVi": "Họa tiết da thú",
+      "path": "svg/animal-print/snake-scale.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "animal",
+        "snake",
+        "print"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "dalmatian-spot",
+      "name": "Dalmatian Spot",
+      "nameVi": "Đốm đốm dalmatian",
+      "category": "animal-print",
+      "categoryVi": "Họa tiết da thú",
+      "path": "svg/animal-print/dalmatian-spot.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "animal",
+        "dalmatian",
+        "print"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "cheetah-rosette",
+      "name": "Cheetah Rosette",
+      "nameVi": "Đốm hoa hồng báo Cheetah",
+      "category": "animal-print",
+      "categoryVi": "Họa tiết da thú",
+      "path": "svg/animal-print/cheetah-rosette.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "animal",
+        "cheetah",
+        "print"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "french-arc-single",
+      "name": "French Tip Arc",
+      "nameVi": "Vòng cung French",
+      "category": "geometric",
+      "categoryVi": "Hình học & đường nét",
+      "path": "svg/geometric/french-arc-single.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "french",
+        "tip",
+        "line"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "french-arc-double",
+      "name": "Double French Line",
+      "nameVi": "Hai vòng cung French",
+      "category": "geometric",
+      "categoryVi": "Hình học & đường nét",
+      "path": "svg/geometric/french-arc-double.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "french",
+        "tip",
+        "line"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "chevron",
+      "name": "Chevron",
+      "nameVi": "Hình chữ V",
+      "category": "geometric",
+      "categoryVi": "Hình học & đường nét",
+      "path": "svg/geometric/chevron.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "geometric",
+        "chevron"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "houndstooth",
+      "name": "Houndstooth Unit",
+      "nameVi": "Họa tiết răng chó",
+      "category": "geometric",
+      "categoryVi": "Hình học & đường nét",
+      "path": "svg/geometric/houndstooth.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "geometric",
+        "houndstooth"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "plaid-cross",
+      "name": "Plaid Cross",
+      "nameVi": "Ô kẻ caro chéo",
+      "category": "geometric",
+      "categoryVi": "Hình học & đường nét",
+      "path": "svg/geometric/plaid-cross.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "geometric",
+        "plaid"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "checker",
+      "name": "Checker 2x2",
+      "nameVi": "Ô caro 2x2",
+      "category": "geometric",
+      "categoryVi": "Hình học & đường nét",
+      "path": "svg/geometric/checker.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "geometric",
+        "checker"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "wavy-line",
+      "name": "Wavy Line",
+      "nameVi": "Đường lượn sóng",
+      "category": "geometric",
+      "categoryVi": "Hình học & đường nét",
+      "path": "svg/geometric/wavy-line.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "geometric",
+        "wave",
+        "line"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "marble-vein",
+      "name": "Marble Vein",
+      "nameVi": "Vân đá cẩm thạch",
+      "category": "geometric",
+      "categoryVi": "Hình học & đường nét",
+      "path": "svg/geometric/marble-vein.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "geometric",
+        "marble",
+        "abstract"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "triangle-outline",
+      "name": "Triangle Outline",
+      "nameVi": "Tam giác viền",
+      "category": "geometric",
+      "categoryVi": "Hình học & đường nét",
+      "path": "svg/geometric/triangle-outline.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "geometric",
+        "triangle"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "diamond-outline",
+      "name": "Diamond Outline",
+      "nameVi": "Kim cương viền",
+      "category": "geometric",
+      "categoryVi": "Hình học & đường nét",
+      "path": "svg/geometric/diamond-outline.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "geometric",
+        "diamond"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "dot-cluster",
+      "name": "Dot Cluster",
+      "nameVi": "Cụm chấm bi",
+      "category": "geometric",
+      "categoryVi": "Hình học & đường nét",
+      "path": "svg/geometric/dot-cluster.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "geometric",
+        "dots",
+        "polka"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "cross-hatch",
+      "name": "Cross Hatch",
+      "nameVi": "Đan chéo",
+      "category": "geometric",
+      "categoryVi": "Hình học & đường nét",
+      "path": "svg/geometric/cross-hatch.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "geometric",
+        "crosshatch"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "herringbone",
+      "name": "Herringbone Unit",
+      "nameVi": "Xương cá",
+      "category": "geometric",
+      "categoryVi": "Hình học & đường nét",
+      "path": "svg/geometric/herringbone.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "geometric",
+        "herringbone"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "arrow-line",
+      "name": "Arrow",
+      "nameVi": "Mũi tên",
+      "category": "geometric",
+      "categoryVi": "Hình học & đường nét",
+      "path": "svg/geometric/arrow-line.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "geometric",
+        "arrow"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "zigzag",
+      "name": "Zigzag",
+      "nameVi": "Đường ziczac",
+      "category": "geometric",
+      "categoryVi": "Hình học & đường nét",
+      "path": "svg/geometric/zigzag.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "geometric",
+        "zigzag"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "foil-flake",
+      "name": "Foil Flake Cluster",
+      "nameVi": "Mảnh foil vụn",
+      "category": "foil-abstract",
+      "categoryVi": "Foil & trừu tượng",
+      "path": "svg/foil-abstract/foil-flake.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "foil",
+        "flake",
+        "abstract"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "crackle-vein",
+      "name": "Crackle Vein",
+      "nameVi": "Vân rạn nứt",
+      "category": "foil-abstract",
+      "categoryVi": "Foil & trừu tượng",
+      "path": "svg/foil-abstract/crackle-vein.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "foil",
+        "crackle",
+        "abstract"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "marble-swirl",
+      "name": "Marble Swirl",
+      "nameVi": "Xoáy đá cẩm thạch",
+      "category": "foil-abstract",
+      "categoryVi": "Foil & trừu tượng",
+      "path": "svg/foil-abstract/marble-swirl.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "foil",
+        "marble",
+        "abstract"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "confetti-burst",
+      "name": "Confetti Burst",
+      "nameVi": "Pháo giấy vụn",
+      "category": "foil-abstract",
+      "categoryVi": "Foil & trừu tượng",
+      "path": "svg/foil-abstract/confetti-burst.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "foil",
+        "confetti",
+        "party"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "paint-splatter",
+      "name": "Paint Splatter",
+      "nameVi": "Vệt sơn văng",
+      "category": "foil-abstract",
+      "categoryVi": "Foil & trừu tượng",
+      "path": "svg/foil-abstract/paint-splatter.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "foil",
+        "splatter",
+        "abstract"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "ink-blot",
+      "name": "Ink Blot",
+      "nameVi": "Vệt mực loang",
+      "category": "foil-abstract",
+      "categoryVi": "Foil & trừu tượng",
+      "path": "svg/foil-abstract/ink-blot.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "foil",
+        "ink",
+        "abstract"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "gold-fragment",
+      "name": "Gold Leaf Fragment",
+      "nameVi": "Mảnh vàng lá",
+      "category": "foil-abstract",
+      "categoryVi": "Foil & trừu tượng",
+      "path": "svg/foil-abstract/gold-fragment.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "foil",
+        "gold",
+        "abstract"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "glitter-spray",
+      "name": "Glitter Spray",
+      "nameVi": "Vệt nhũ bay",
+      "category": "foil-abstract",
+      "categoryVi": "Foil & trừu tượng",
+      "path": "svg/foil-abstract/glitter-spray.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "foil",
+        "glitter",
+        "sparkle"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "brush-stroke",
+      "name": "Brush Stroke",
+      "nameVi": "Nét cọ",
+      "category": "foil-abstract",
+      "categoryVi": "Foil & trừu tượng",
+      "path": "svg/foil-abstract/brush-stroke.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "foil",
+        "brush",
+        "abstract"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "paint-drip",
+      "name": "Paint Drip",
+      "nameVi": "Giọt sơn chảy",
+      "category": "foil-abstract",
+      "categoryVi": "Foil & trừu tượng",
+      "path": "svg/foil-abstract/paint-drip.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "foil",
+        "drip",
+        "abstract"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "cherry-pair",
+      "name": "Cherry Pair",
+      "nameVi": "Cặp quả anh đào",
+      "category": "fruit",
+      "categoryVi": "Trái cây",
+      "path": "svg/fruit/cherry-pair.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "fruit",
+        "cherry"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "strawberry",
+      "name": "Strawberry",
+      "nameVi": "Dâu tây",
+      "category": "fruit",
+      "categoryVi": "Trái cây",
+      "path": "svg/fruit/strawberry.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "fruit",
+        "strawberry"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "lemon-slice",
+      "name": "Lemon Slice",
+      "nameVi": "Lát chanh",
+      "category": "fruit",
+      "categoryVi": "Trái cây",
+      "path": "svg/fruit/lemon-slice.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "fruit",
+        "lemon",
+        "citrus"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "watermelon-slice",
+      "name": "Watermelon Slice",
+      "nameVi": "Lát dưa hấu",
+      "category": "fruit",
+      "categoryVi": "Trái cây",
+      "path": "svg/fruit/watermelon-slice.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "fruit",
+        "watermelon"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "pineapple",
+      "name": "Pineapple",
+      "nameVi": "Dứa",
+      "category": "fruit",
+      "categoryVi": "Trái cây",
+      "path": "svg/fruit/pineapple.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "fruit",
+        "pineapple",
+        "tropical"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "orange-slice",
+      "name": "Orange Slice",
+      "nameVi": "Lát cam",
+      "category": "fruit",
+      "categoryVi": "Trái cây",
+      "path": "svg/fruit/orange-slice.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "fruit",
+        "orange",
+        "citrus"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "grapes",
+      "name": "Grapes",
+      "nameVi": "Chùm nho",
+      "category": "fruit",
+      "categoryVi": "Trái cây",
+      "path": "svg/fruit/grapes.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "fruit",
+        "grapes"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "donut",
+      "name": "Donut",
+      "nameVi": "Bánh donut",
+      "category": "fruit",
+      "categoryVi": "Trái cây",
+      "path": "svg/fruit/donut.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "food",
+        "donut",
+        "sweet"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "snowflake-simple",
+      "name": "Simple Snowflake",
+      "nameVi": "Bông tuyết đơn giản",
+      "category": "seasonal",
+      "categoryVi": "Mùa & thời tiết",
+      "path": "svg/seasonal/snowflake-simple.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "winter",
+        "snowflake"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "snowflake-feathered",
+      "name": "Feathered Snowflake",
+      "nameVi": "Bông tuyết cầu kỳ",
+      "category": "seasonal",
+      "categoryVi": "Mùa & thời tiết",
+      "path": "svg/seasonal/snowflake-feathered.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "winter",
+        "snowflake"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "snowman",
+      "name": "Snowman",
+      "nameVi": "Người tuyết",
+      "category": "seasonal",
+      "categoryVi": "Mùa & thời tiết",
+      "path": "svg/seasonal/snowman.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "winter",
+        "snowman"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "pumpkin",
+      "name": "Pumpkin",
+      "nameVi": "Bí ngô",
+      "category": "seasonal",
+      "categoryVi": "Mùa & thời tiết",
+      "path": "svg/seasonal/pumpkin.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "halloween",
+        "pumpkin",
+        "autumn"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "candy-cane",
+      "name": "Candy Cane",
+      "nameVi": "Kẹo gậy Giáng sinh",
+      "category": "seasonal",
+      "categoryVi": "Mùa & thời tiết",
+      "path": "svg/seasonal/candy-cane.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "christmas",
+        "candy"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "holly",
+      "name": "Holly Sprig",
+      "nameVi": "Cành nhựa ruồi",
+      "category": "seasonal",
+      "categoryVi": "Mùa & thời tiết",
+      "path": "svg/seasonal/holly.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "christmas",
+        "holly"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "gift-box",
+      "name": "Gift Box Bow",
+      "nameVi": "Nơ hộp quà",
+      "category": "seasonal",
+      "categoryVi": "Mùa & thời tiết",
+      "path": "svg/seasonal/gift-box.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "christmas",
+        "gift"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "autumn-leaf",
+      "name": "Autumn Leaf",
+      "nameVi": "Lá mùa thu",
+      "category": "seasonal",
+      "categoryVi": "Mùa & thời tiết",
+      "path": "svg/seasonal/autumn-leaf.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "autumn",
+        "leaf",
+        "fall"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "raindrop",
+      "name": "Raindrop",
+      "nameVi": "Giọt mưa",
+      "category": "seasonal",
+      "categoryVi": "Mùa & thời tiết",
+      "path": "svg/seasonal/raindrop.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "weather",
+        "rain"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "cloud",
+      "name": "Cloud",
+      "nameVi": "Đám mây",
+      "category": "seasonal",
+      "categoryVi": "Mùa & thời tiết",
+      "path": "svg/seasonal/cloud.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "weather",
+        "cloud"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "rainbow",
+      "name": "Rainbow",
+      "nameVi": "Cầu vồng",
+      "category": "seasonal",
+      "categoryVi": "Mùa & thời tiết",
+      "path": "svg/seasonal/rainbow.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "weather",
+        "rainbow"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "xo",
+      "name": "XO",
+      "nameVi": "Chữ XO",
+      "category": "text-symbols",
+      "categoryVi": "Chữ & ký hiệu",
+      "path": "svg/text-symbols/xo.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "text",
+        "love",
+        "symbol"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "infinity",
+      "name": "Infinity",
+      "nameVi": "Vô cực",
+      "category": "text-symbols",
+      "categoryVi": "Chữ & ký hiệu",
+      "path": "svg/text-symbols/infinity.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "text",
+        "infinity",
+        "symbol"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "ampersand-swirl",
+      "name": "Ampersand Swirl",
+      "nameVi": "Ký hiệu & xoắn",
+      "category": "text-symbols",
+      "categoryVi": "Chữ & ký hiệu",
+      "path": "svg/text-symbols/ampersand-swirl.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "text",
+        "symbol",
+        "swirl"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "exclaim-heart",
+      "name": "Heart Exclamation",
+      "nameVi": "Chấm than trái tim",
+      "category": "text-symbols",
+      "categoryVi": "Chữ & ký hiệu",
+      "path": "svg/text-symbols/exclaim-heart.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "text",
+        "symbol"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "yes-bubble",
+      "name": "Speech Bubble Check",
+      "nameVi": "Bong bóng dấu tick",
+      "category": "text-symbols",
+      "categoryVi": "Chữ & ký hiệu",
+      "path": "svg/text-symbols/yes-bubble.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "text",
+        "symbol",
+        "chat"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "love-script-swirl",
+      "name": "Love Script Swirl",
+      "nameVi": "Nét chữ tình yêu",
+      "category": "text-symbols",
+      "categoryVi": "Chữ & ký hiệu",
+      "path": "svg/text-symbols/love-script-swirl.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "text",
+        "love",
+        "script"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "gem-round",
+      "name": "Round Gem Outline",
+      "nameVi": "Đá tròn viền facet",
+      "category": "gems",
+      "categoryVi": "Đá & kim cương (phẳng)",
+      "path": "svg/gems/gem-round.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "gem",
+        "rhinestone",
+        "flat"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "gem-marquise",
+      "name": "Marquise Gem Outline",
+      "nameVi": "Đá marquise viền facet",
+      "category": "gems",
+      "categoryVi": "Đá & kim cương (phẳng)",
+      "path": "svg/gems/gem-marquise.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "gem",
+        "rhinestone",
+        "flat"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "gem-oval",
+      "name": "Oval Gem Outline",
+      "nameVi": "Đá oval viền facet",
+      "category": "gems",
+      "categoryVi": "Đá & kim cương (phẳng)",
+      "path": "svg/gems/gem-oval.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "gem",
+        "rhinestone",
+        "flat"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "gem-heart",
+      "name": "Heart Gem Outline",
+      "nameVi": "Đá trái tim viền facet",
+      "category": "gems",
+      "categoryVi": "Đá & kim cương (phẳng)",
+      "path": "svg/gems/gem-heart.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "gem",
+        "rhinestone",
+        "flat"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "gem-cluster",
+      "name": "Gem Cluster (3)",
+      "nameVi": "Cụm 3 viên đá",
+      "category": "gems",
+      "categoryVi": "Đá & kim cương (phẳng)",
+      "path": "svg/gems/gem-cluster.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "gem",
+        "rhinestone",
+        "flat",
+        "cluster"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "gem-teardrop",
+      "name": "Teardrop Gem Outline",
+      "nameVi": "Đá giọt nước viền facet",
+      "category": "gems",
+      "categoryVi": "Đá & kim cương (phẳng)",
+      "path": "svg/gems/gem-teardrop.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "gem",
+        "rhinestone",
+        "flat"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "crown",
+      "name": "Crown",
+      "nameVi": "Vương miện",
+      "category": "misc",
+      "categoryVi": "Khác",
+      "path": "svg/misc/crown.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "crown",
+        "royal",
+        "symbol"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "lightning",
+      "name": "Lightning Bolt",
+      "nameVi": "Tia sét",
+      "category": "misc",
+      "categoryVi": "Khác",
+      "path": "svg/misc/lightning.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "lightning",
+        "bolt",
+        "symbol"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "flame",
+      "name": "Flame",
+      "nameVi": "Ngọn lửa",
+      "category": "misc",
+      "categoryVi": "Khác",
+      "path": "svg/misc/flame.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "flame",
+        "fire",
+        "symbol"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "wave-single",
+      "name": "Single Wave",
+      "nameVi": "Sóng đơn",
+      "category": "misc",
+      "categoryVi": "Khác",
+      "path": "svg/misc/wave-single.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "wave",
+        "symbol"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "leaf-single",
+      "name": "Single Leaf",
+      "nameVi": "Lá đơn",
+      "category": "misc",
+      "categoryVi": "Khác",
+      "path": "svg/misc/leaf-single.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "leaf",
+        "nature"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "feather",
+      "name": "Feather",
+      "nameVi": "Lông vũ",
+      "category": "misc",
+      "categoryVi": "Khác",
+      "path": "svg/misc/feather.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "feather",
+        "boho"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "anchor",
+      "name": "Anchor",
+      "nameVi": "Mỏ neo",
+      "category": "misc",
+      "categoryVi": "Khác",
+      "path": "svg/misc/anchor.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "anchor",
+        "nautical"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "mushroom",
+      "name": "Mushroom",
+      "nameVi": "Nấm",
+      "category": "misc",
+      "categoryVi": "Khác",
+      "path": "svg/misc/mushroom.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "mushroom",
+        "cute"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "cactus",
+      "name": "Cactus",
+      "nameVi": "Xương rồng",
+      "category": "misc",
+      "categoryVi": "Khác",
+      "path": "svg/misc/cactus.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "cactus",
+        "desert"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "palm-tree",
+      "name": "Palm Tree",
+      "nameVi": "Cây dừa",
+      "category": "misc",
+      "categoryVi": "Khác",
+      "path": "svg/misc/palm-tree.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "palm",
+        "tropical",
+        "summer"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "umbrella",
+      "name": "Umbrella",
+      "nameVi": "Cây dù",
+      "category": "misc",
+      "categoryVi": "Khác",
+      "path": "svg/misc/umbrella.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "umbrella",
+        "weather"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "key",
+      "name": "Key",
+      "nameVi": "Chìa khóa",
+      "category": "misc",
+      "categoryVi": "Khác",
+      "path": "svg/misc/key.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "key",
+        "symbol"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "balloon",
+      "name": "Balloon",
+      "nameVi": "Bóng bay",
+      "category": "misc",
+      "categoryVi": "Khác",
+      "path": "svg/misc/balloon.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "balloon",
+        "party"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    }
+  ]
+}

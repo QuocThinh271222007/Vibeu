@@ -5,7 +5,6 @@ type CharmSpec = Partial<StickerInstance> & Pick<StickerInstance, 'stickerId'>
 function charm(spec: CharmSpec): StickerInstance {
   return {
     instanceId: 'tmp',
-    variant: '3d',
     uv: [0.5, 0.42],
     scale: 1,
     rotation: 0,
@@ -42,7 +41,7 @@ export const TEMPLATES: Template[] = [
     skinTone: 'cozy',
     fingers: allFive(
       { presetId: 'lavender-dream', effect: 'catEye', shape: 'almond' },
-      { ring: finger({ presetId: 'opal-pearl', effect: 'catEye', charms: [charm({ stickerId: 'fluent-sparkles' })] }) },
+      { ring: finger({ presetId: 'opal-pearl', effect: 'catEye', charms: [charm({ stickerId: 'star-8-sparkle' })] }) },
     ),
   },
   {
@@ -53,7 +52,7 @@ export const TEMPLATES: Template[] = [
     skinTone: 'matcha',
     fingers: allFive(
       { presetId: 'butter-bloom', effect: 'gel', shape: 'coffin' },
-      { ring: finger({ presetId: 'champagne-glitter', effect: 'chrome', charms: [charm({ stickerId: 'fluent-sun' })] }) },
+      { ring: finger({ presetId: 'champagne-glitter', effect: 'chrome', charms: [charm({ stickerId: 'sun-burst' })] }) },
     ),
   },
   {
@@ -65,8 +64,8 @@ export const TEMPLATES: Template[] = [
     fingers: allFive(
       { presetId: 'ocean-breeze', effect: 'jelly', shape: 'oval' },
       {
-        middle: finger({ presetId: 'mermaid-aurora', effect: 'jelly', charms: [charm({ stickerId: 'fluent-jellyfish' })] }),
-        ring: finger({ presetId: 'mermaid-aurora', effect: 'jelly', charms: [charm({ stickerId: 'fluent-spiral-shell' })] }),
+        middle: finger({ presetId: 'mermaid-aurora', effect: 'jelly', charms: [charm({ stickerId: 'wave-single' })] }),
+        ring: finger({ presetId: 'mermaid-aurora', effect: 'jelly', charms: [charm({ stickerId: 'gem-teardrop' })] }),
       },
     ),
   },
@@ -78,7 +77,7 @@ export const TEMPLATES: Template[] = [
     skinTone: 'cozy',
     fingers: allFive(
       { presetId: 'cloud-candy', effect: 'jelly', shape: 'oval' },
-      { ring: finger({ charms: [charm({ stickerId: 'fluent-crescent-moon' })] }) },
+      { ring: finger({ charms: [charm({ stickerId: 'moon-crescent' })] }) },
     ),
   },
   {
@@ -89,7 +88,7 @@ export const TEMPLATES: Template[] = [
     skinTone: 'matcha',
     fingers: allFive(
       { presetId: 'strawberry-milk', effect: 'gel', shape: 'almond' },
-      { ring: finger({ presetId: 'cherry-cola', effect: 'gel', charms: [charm({ stickerId: 'fluent-heart-on-fire' })] }) },
+      { ring: finger({ presetId: 'cherry-cola', effect: 'gel', charms: [charm({ stickerId: 'flame' })] }) },
     ),
   },
   {
@@ -108,7 +107,7 @@ export const TEMPLATES: Template[] = [
     skinTone: 'matcha',
     fingers: allFive(
       { presetId: 'midnight-galaxy', effect: 'chrome', shape: 'almond' },
-      { ring: finger({ charms: [charm({ stickerId: 'fluent-glowing-star' })] }), little: finger({ charms: [charm({ stickerId: 'fluent-crescent-moon' })] }) },
+      { ring: finger({ charms: [charm({ stickerId: 'star-8-sparkle' })] }), little: finger({ charms: [charm({ stickerId: 'moon-crescent' })] }) },
     ),
   },
   {
@@ -119,7 +118,7 @@ export const TEMPLATES: Template[] = [
     skinTone: 'matcha',
     fingers: allFive(
       { presetId: 'terracotta-sunset', effect: 'gel', shape: 'coffin' },
-      { ring: finger({ charms: [charm({ stickerId: 'fluent-sun-behind-small-cloud' })] }) },
+      { ring: finger({ charms: [charm({ stickerId: 'cloud' })] }) },
     ),
   },
   {
@@ -130,7 +129,7 @@ export const TEMPLATES: Template[] = [
     skinTone: 'cozy',
     fingers: allFive(
       { presetId: 'silver-chrome', effect: 'chrome', shape: 'square' },
-      { ring: finger({ charms: [charm({ stickerId: 'fluent-crown', scale: 0.85 })] }) },
+      { ring: finger({ charms: [charm({ stickerId: 'crown', scale: 0.85 })] }) },
     ),
   },
   {
@@ -141,7 +140,7 @@ export const TEMPLATES: Template[] = [
     skinTone: 'cozy',
     fingers: allFive(
       { presetId: 'mermaid-aurora', effect: 'catEye', shape: 'almond' },
-      { middle: finger({ charms: [charm({ stickerId: 'fluent-sparkles' })] }) },
+      { middle: finger({ charms: [charm({ stickerId: 'star-8-sparkle' })] }) },
     ),
   },
   {
@@ -152,7 +151,7 @@ export const TEMPLATES: Template[] = [
     skinTone: 'matcha',
     fingers: allFive(
       { presetId: 'matcha-latte', effect: 'gel', shape: 'oval' },
-      { ring: finger({ charms: [charm({ stickerId: 'fluent-four-leaf-clover' })] }) },
+      { ring: finger({ charms: [charm({ stickerId: 'leaf-single' })] }) },
     ),
   },
   {
@@ -163,7 +162,7 @@ export const TEMPLATES: Template[] = [
     skinTone: 'cozy',
     fingers: allFive(
       { presetId: 'rose-quartz', effect: 'gel', shape: 'almond' },
-      { ring: finger({ charms: [charm({ stickerId: 'fluent-ribbon' })] }) },
+      { ring: finger({ charms: [charm({ stickerId: 'bow-classic' })] }) },
     ),
   },
   {
@@ -175,8 +174,8 @@ export const TEMPLATES: Template[] = [
     fingers: allFive(
       { presetId: 'pink-coquette', effect: 'jelly', shape: 'oval' },
       {
-        ring: finger({ charms: [charm({ stickerId: 'fluent-cherry-blossom' })] }),
-        middle: finger({ charms: [charm({ stickerId: 'fluent-cherry-blossom', scale: 0.8, uv: [0.32, 0.55] })] }),
+        ring: finger({ charms: [charm({ stickerId: 'sakura' })] }),
+        middle: finger({ charms: [charm({ stickerId: 'sakura', scale: 0.8, uv: [0.32, 0.55] })] }),
       },
     ),
   },
@@ -188,7 +187,7 @@ export const TEMPLATES: Template[] = [
     skinTone: 'matcha',
     fingers: allFive(
       { presetId: 'ocean-breeze', effect: 'gel', shape: 'square' },
-      { ring: finger({ charms: [charm({ stickerId: 'fluent-palm-tree' })] }), middle: finger({ charms: [charm({ stickerId: 'fluent-tropical-fish', scale: 0.85 })] }) },
+      { ring: finger({ charms: [charm({ stickerId: 'palm-tree' })] }), middle: finger({ charms: [charm({ stickerId: 'raindrop', scale: 0.85 })] }) },
     ),
   },
   {
@@ -199,7 +198,7 @@ export const TEMPLATES: Template[] = [
     skinTone: 'matcha',
     fingers: allFive(
       { presetId: 'terracotta-sunset', effect: 'gel', shape: 'coffin' },
-      { ring: finger({ charms: [charm({ stickerId: 'fluent-leaf-fluttering-in-wind' })] }) },
+      { ring: finger({ charms: [charm({ stickerId: 'autumn-leaf' })] }) },
     ),
   },
   {
@@ -210,7 +209,7 @@ export const TEMPLATES: Template[] = [
     skinTone: 'cozy',
     fingers: allFive(
       { presetId: 'winter-frost', effect: 'chrome', shape: 'oval' },
-      { ring: finger({ charms: [charm({ stickerId: 'fluent-snowflake' })] }) },
+      { ring: finger({ charms: [charm({ stickerId: 'snowflake-simple' })] }) },
     ),
   },
   {
@@ -222,8 +221,8 @@ export const TEMPLATES: Template[] = [
     fingers: allFive(
       { presetId: 'silver-chrome', effect: 'chrome', shape: 'square' },
       {
-        ring: finger({ presetId: 'pink-coquette', effect: 'chrome', charms: [charm({ stickerId: 'fluent-butterfly' })] }),
-        thumb: finger({ charms: [charm({ stickerId: 'fluent-butterfly', scale: 0.7, uv: [0.3, 0.35] })] }),
+        ring: finger({ presetId: 'pink-coquette', effect: 'chrome', charms: [charm({ stickerId: 'butterfly-classic' })] }),
+        thumb: finger({ charms: [charm({ stickerId: 'butterfly-classic', scale: 0.7, uv: [0.3, 0.35] })] }),
       },
     ),
   },
@@ -236,8 +235,8 @@ export const TEMPLATES: Template[] = [
     fingers: allFive(
       { presetId: 'strawberry-milk', effect: 'gel', shape: 'square' },
       {
-        ring: finger({ presetId: 'cloud-candy', charms: [charm({ stickerId: 'fluent-lollipop' })] }),
-        middle: finger({ charms: [charm({ stickerId: 'fluent-candy', scale: 0.8 })] }),
+        ring: finger({ presetId: 'cloud-candy', charms: [charm({ stickerId: 'donut' })] }),
+        middle: finger({ charms: [charm({ stickerId: 'candy-cane', scale: 0.8 })] }),
       },
     ),
   },
@@ -258,7 +257,7 @@ export const TEMPLATES: Template[] = [
     fingers: {
       thumb: finger({ presetId: 'pink-coquette', effect: 'gel', shape: 'oval' }),
       index: finger({ presetId: 'cloud-candy', effect: 'gel', shape: 'oval' }),
-      middle: finger({ presetId: 'butter-bloom', effect: 'gel', shape: 'oval', charms: [charm({ stickerId: 'fluent-sparkles', scale: 0.7 })] }),
+      middle: finger({ presetId: 'butter-bloom', effect: 'gel', shape: 'oval', charms: [charm({ stickerId: 'star-8-sparkle', scale: 0.7 })] }),
       ring: finger({ presetId: 'mint-jelly', effect: 'gel', shape: 'oval' }),
       little: finger({ presetId: 'lavender-dream', effect: 'gel', shape: 'oval' }),
     },

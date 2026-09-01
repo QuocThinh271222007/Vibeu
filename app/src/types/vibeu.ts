@@ -101,27 +101,31 @@ export const SHAPE_LABEL_VI: Record<NailShape, string> = {
 
 export type NailLength = 'S' | 'M' | 'L'
 
-export interface StickerVariantMeta {
-  path: string
-  width?: number | string
-  height?: number | string
-}
+export type DecalLayerType = 'decal' | 'foil' | 'raised'
 
-export interface StickerDef {
+/**
+ * One nail-art decal asset. Real vector nail decals (florals, hearts, celestial,
+ * butterflies, bows, animal print, geometric/French-tip lines, foil/abstract,
+ * fruit, seasonal, text/symbols, flat gem outlines) — not emoji illustrations.
+ * `contentBounds` is the actual (non-transparent-padding) region of the asset
+ * in 0..1 image-space, so centering/scaling isn't thrown off by SVG margin.
+ */
+export interface DecalAsset {
   id: string
   name: string
   nameVi: string
   category: string
   categoryVi: string
   tags: string[]
-  variants: {
-    '3d': StickerVariantMeta
-    color: StickerVariantMeta
-    flat: StickerVariantMeta
-  }
-  defaultVariant: '3d' | 'color' | 'flat'
-  suggestedInitialScaleRelativeToNailWidth: number
-  suggestedAnchor: [number, number]
+  path: string
+  viewBox: [number, number]
+  contentBounds: [number, number, number, number]
+  defaultScale: number
+  /** Whether the app's tint control may recolor this asset (line-art) vs. it being inherently multi-color (florals, fruit, gems). */
+  tintable: boolean
+  layerType: DecalLayerType
+  source: string
+  license: string
 }
 
 export interface StickerCategory {
@@ -133,10 +137,14 @@ export interface StickerCategory {
 export interface StickerInstance {
   instanceId: string
   stickerId: string
-  variant: '3d' | 'color' | 'flat'
   uv: [number, number]
   scale: number
   rotation: number
+  flipX?: boolean
+  opacity?: number
+  tint?: string | null
+  visible?: boolean
+  locked?: boolean
   z: number
 }
 
