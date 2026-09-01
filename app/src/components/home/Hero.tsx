@@ -70,7 +70,7 @@ export function Hero() {
               <motion.div
                 animate={{ y: [0, -12, 0] }}
                 transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut', delay: s.delay }}
-                className="overflow-hidden rounded-[1.5rem] border-4 border-white bg-white shadow-vibe-lg"
+                className="relative overflow-hidden rounded-[1.5rem] border-4 border-white bg-white shadow-vibe-lg"
               >
                 <TemplatePreviewMedia
                   template={s.id}
@@ -78,8 +78,16 @@ export function Hero() {
                   imageClassName="scale-[1.01]"
                   eager
                 />
+                {/* Caption lives inside the card's own clipped frame — as a sibling outside
+                    this rotated/offset motion.div it would inherit the same rotate+translate
+                    as the card and swing sideways into a neighboring stacked card's space,
+                    reading as overlapping garbled text (see the landing-page report). Baking
+                    it into the frame keeps it attached and upright regardless of the stack's
+                    transform. */}
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 via-black/25 to-transparent px-3 pb-2 pt-6">
+                  <p className="truncate text-center font-display text-xs font-semibold text-white">{s.id.name}</p>
+                </div>
               </motion.div>
-              <p className="mt-2 text-center font-display text-xs font-semibold text-vibe-ink/70">{s.id.name}</p>
             </motion.div>
           ))}
         </div>
