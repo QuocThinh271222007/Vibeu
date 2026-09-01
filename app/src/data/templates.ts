@@ -262,6 +262,26 @@ export const TEMPLATES: Template[] = [
       little: finger({ presetId: 'lavender-dream', effect: 'gel', shape: 'oval' }),
     },
   },
+  {
+    id: 'strawberry-lace-dream',
+    name: 'Strawberry Lace Dream',
+    hashtag: '#Strawberry #Lace #Coquette',
+    tags: ['tone', 'y2k'],
+    skinTone: 'cozy',
+    preview: {
+      type: 'curated',
+      image: '/assets/templates/strawberry-lace-dream/cover.jpg',
+      objectPosition: 'center center',
+      alt: 'Mẫu nail hồng jelly với dâu tây, viền ren trắng và charm ngọc trai',
+    },
+    fingers: {
+      thumb: finger({ presetId: 'pink-coquette', effect: 'jelly', shape: 'almond', length: 'L', charms: [charm({ stickerId: 'strawberry', scale: 0.72, uv: [0.5, 0.43] })] }),
+      index: finger({ presetId: 'pink-coquette', effect: 'jelly', shape: 'almond', length: 'L', charms: [charm({ stickerId: 'strawberry', scale: 0.68, uv: [0.5, 0.43] })] }),
+      middle: finger({ presetId: 'pink-coquette', effect: 'jelly', shape: 'almond', length: 'L', charms: [charm({ stickerId: 'strawberry', scale: 0.67, uv: [0.5, 0.43] })] }),
+      ring: finger({ presetId: 'pink-coquette', effect: 'jelly', shape: 'almond', length: 'L', charms: [charm({ stickerId: 'strawberry', scale: 0.65, uv: [0.5, 0.43] })] }),
+      little: finger({ presetId: 'pink-coquette', effect: 'jelly', shape: 'almond', length: 'L', charms: [charm({ stickerId: 'strawberry', scale: 0.6, uv: [0.5, 0.43] })] }),
+    },
+  },
 ]
 
 export function findTemplate(id: string): Template | undefined {
