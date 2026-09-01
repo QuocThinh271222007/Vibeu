@@ -11,7 +11,16 @@ import {
   shapeTrimUv,
   trimPolygonToImagePoints,
 } from '@/lib/geometry'
-import { buildMaterialConfig, buildPaintConfig, composeNail, DEFAULT_LIGHT, hexToRgb01, type DecalLayer } from '@/lib/nailFill'
+import {
+  buildMaterialConfig,
+  buildPaintConfig,
+  composeNail,
+  DEFAULT_LIGHT,
+  hexToRgb01,
+  renderDebugView,
+  type DebugViewMode,
+  type DecalLayer,
+} from '@/lib/nailFill'
 import { getPreparedHand, type PreparedNail } from '@/lib/nailLighting'
 import { getResolvedDecalAsset, type ResolvedDecalAsset } from '@/lib/decalCache'
 import { clientToSvgPoint } from '@/lib/svgPoint'
@@ -106,7 +115,10 @@ export function HandCanvas({
   const customDecals = useStudioStore((s) => s.customDecals)
   const stickersById = useDecalsById(customDecals)
   const prepared = usePreparedHand(skinTone)
+  const debugMode = useStudioStore((s) => s.debugMode)
   const svgRef = useRef<SVGSVGElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const [debugPointer, setDebugPointer] = useState<{ img: [number, number]; nailId: FingerId | null; uv: [number, number] | null } | null>(null)
   // Namespaces every <defs> id/url(#...) reference so multiple HandCanvas
   // instances on one page (Library grid, Home suggestions) never collide on
   // ids like "clip-real-thumb" — url(#...) resolution across duplicate ids
@@ -127,8 +139,32 @@ export function HandCanvas({
     )
   }
 
+  const showDebug = interactive && debugMode
+
+  const handleDebugPointerMove = (e: React.PointerEvent) => {
+    if (!showDebug || !svgRef.current) return
+    const point = clientToSvgPoint(svgRef.current, e.clientX, e.clientY)
+    if (!point) return
+    let nailId: FingerId | null = null
+    for (const el of document.elementsFromPoint(e.clientX, e.clientY)) {
+      const id = (el as HTMLElement).dataset?.nailId
+      if (id) {
+        nailId = id as FingerId
+        break
+      }
+    }
+    const nail = nailId ? hand.nails.find((n) => n.id === nailId) ?? null : null
+    const uv = nail ? imageToLocal(nail, point) : null
+    setDebugPointer({ img: point, nailId, uv })
+  }
+
   return (
-    <div className={`relative aspect-[1024/1536] w-full select-none ${className}`}>
+    <div
+      ref={containerRef}
+      className={`relative aspect-[1024/1536] w-full select-none ${className}`}
+      onPointerMove={handleDebugPointerMove}
+      onPointerLeave={() => setDebugPointer(null)}
+    >
       <img
         src={handBaseUrl(skinTone)}
         alt="Bàn tay mô phỏng"
@@ -157,6 +193,7 @@ export function HandCanvas({
             <path
               key={`hit-${nail.id}`}
               d={nail.path}
+              data-nail-id={nail.id}
               fill="transparent"
               className="cursor-pointer"
               onPointerDown={(e) => {
@@ -179,6 +216,7 @@ export function HandCanvas({
             onLiveDrag={(instanceId, patch) => setLiveDrag(patch ? { finger: selectedFinger, instanceId, patch } : null)}
           />
         )}
+        {showDebug && <DebugOverlaySvg hand={hand} fingers={fingers} stickersById={stickersById} />}
       </svg>
       {interactive && (
         <div className="pointer-events-none absolute inset-x-0 bottom-2 flex justify-center gap-1.5 sm:hidden">
@@ -190,6 +228,130 @@ export function HandCanvas({
           ))}
         </div>
       )}
+      {showDebug && <DebugReadout pointer={debugPointer} />}
+      {showDebug && selectedFinger && (
+        <DebugViewsPanel
+          finger={selectedFinger}
+          prepared={prepared!.get(selectedFinger)}
+          design={fingers[selectedFinger]}
+          preset={presetsById[fingers[selectedFinger].presetId]}
+        />
+      )}
+    </div>
+  )
+}
+
+/** Dashed outline of every real nail.path + always-visible bounding boxes (with corner
+ * coordinates) for every decal instance — QA-only, toggled via the Debug button. */
+function DebugOverlaySvg({
+  hand,
+  fingers,
+  stickersById,
+}: {
+  hand: NonNullable<ReturnType<typeof useHandData>['hand']>
+  fingers: Record<FingerId, FingerDesign>
+  stickersById: Record<string, DecalAsset>
+}) {
+  return (
+    <g pointerEvents="none">
+      {hand.nails.map((nail) => (
+        <path key={`dbg-outline-${nail.id}`} d={nail.path} fill="none" stroke="#39ff88" strokeWidth={2} strokeDasharray="8 5" opacity={0.85} />
+      ))}
+      {hand.nails.map((nail) =>
+        fingers[nail.id].stickers
+          .filter((st) => st.visible !== false)
+          .map((st) => {
+            const sticker = stickersById[st.stickerId]
+            if (!sticker) return null
+            const [cx, cy] = localToImage(nail, st.uv)
+            // Square footprint approximation — the exact content-aspect box is drawn by the
+            // real gizmo when selected; this overlay only needs to show approximate bounds
+            // + coordinates for every decal at once, without resolving each decal's pixels.
+            const w = nailWidthPx(nail) * sticker.defaultScale * st.scale
+            const h = w
+            const hw = w / 2
+            const hh = h / 2
+            const corners: [number, number][] = [
+              [-hw, -hh],
+              [hw, -hh],
+              [hw, hh],
+              [-hw, hh],
+            ].map(([dx, dy]) => rotatePointDeg(dx, dy, st.rotation)) as [number, number][]
+            return (
+              <g key={`dbg-decal-${st.instanceId}`}>
+                <rect
+                  x={-hw}
+                  y={-hh}
+                  width={w}
+                  height={h}
+                  transform={`translate(${cx} ${cy}) rotate(${st.rotation})`}
+                  fill="none"
+                  stroke="#22d3ee"
+                  strokeWidth={1.5}
+                />
+                {corners.map(([dx, dy], i) => (
+                  <text key={i} x={cx + dx} y={cy + dy} fontSize={11} fill="#0891b2" style={{ paintOrder: 'stroke', stroke: 'white', strokeWidth: 2 }}>
+                    {Math.round(cx + dx)},{Math.round(cy + dy)}
+                  </text>
+                ))}
+              </g>
+            )
+          }),
+      )}
+    </g>
+  )
+}
+
+function DebugReadout({ pointer }: { pointer: { img: [number, number]; nailId: FingerId | null; uv: [number, number] | null } | null }) {
+  if (!pointer) return null
+  const [ix, iy] = pointer.img
+  return (
+    <div className="pointer-events-none absolute left-2 top-2 rounded-lg bg-black/80 px-2.5 py-1.5 font-mono text-[10px] leading-tight text-lime-300">
+      <div>image: {ix.toFixed(1)}, {iy.toFixed(1)}</div>
+      <div>finger: {pointer.nailId ?? '—'}</div>
+      <div>uv: {pointer.uv ? `${pointer.uv[0].toFixed(3)}, ${pointer.uv[1].toFixed(3)}` : '—'}</div>
+    </div>
+  )
+}
+
+const DEBUG_VIEW_MODES: { mode: DebugViewMode; label: string }[] = [
+  { mode: 'normal', label: 'Normal' },
+  { mode: 'roughness', label: 'Roughness' },
+  { mode: 'fresnel', label: 'Fresnel' },
+  { mode: 'curve', label: 'Curvature' },
+  { mode: 'edge', label: 'Edge' },
+]
+
+/** Diagnostic proof that macro/micro normal, per-pixel roughness and Fresnel actually
+ * drive the render, not just the final lit composite — see Phase 1R in the plan. */
+function DebugViewsPanel({
+  finger,
+  prepared,
+  design,
+  preset,
+}: {
+  finger: FingerId
+  prepared: PreparedNail | undefined
+  design: FingerDesign
+  preset: ReturnType<typeof useColorPresets>['presets'][number] | undefined
+}) {
+  const materialCfg = useMemo(() => (preset ? buildMaterialConfig(preset, design.effect) : null), [preset, design.effect])
+  const seed = useMemo(() => FINGER_ORDER.indexOf(finger), [finger])
+  const urls = useMemo(() => {
+    if (!prepared || !materialCfg) return null
+    return Object.fromEntries(DEBUG_VIEW_MODES.map(({ mode }) => [mode, renderDebugView(prepared, materialCfg, mode, seed).toDataURL()]))
+  }, [prepared, materialCfg, seed])
+
+  if (!urls) return null
+
+  return (
+    <div className="pointer-events-none absolute bottom-2 left-2 flex gap-2 rounded-xl bg-black/70 p-2">
+      {DEBUG_VIEW_MODES.map(({ mode, label }) => (
+        <div key={mode} className="flex flex-col items-center gap-0.5">
+          <img src={urls[mode]} alt={label} className="h-14 w-14 rounded bg-white/10 object-contain" />
+          <span className="font-mono text-[9px] text-white/80">{label}</span>
+        </div>
+      ))}
     </div>
   )
 }

@@ -53,6 +53,9 @@ interface StudioState extends DesignSnapshot {
   past: DesignSnapshot[]
   future: DesignSnapshot[]
   savedDesigns: SavedDesignMeta[]
+  /** QA-only overlay (mask outline, pointer/uv readout, decal bounds, normal/roughness/Fresnel
+   * views) — off by default, never part of the design/history so toggling it can't be undone. */
+  debugMode: boolean
 
   setSkinTone: (tone: SkinToneId) => void
   selectFinger: (finger: FingerId) => void
@@ -78,6 +81,7 @@ interface StudioState extends DesignSnapshot {
   backToDesign: () => void
   undo: () => void
   redo: () => void
+  toggleDebugMode: () => void
   refreshSavedDesigns: () => void
   saveCurrentDesign: (name: string) => void
   loadSavedDesign: (id: string) => void
@@ -111,6 +115,7 @@ export const useStudioStore = create<StudioState>((set, get) => ({
   past: [],
   future: [],
   savedDesigns: listSavedDesigns(),
+  debugMode: false,
 
   setSkinTone: (tone) => withHistory(set, () => ({ skinTone: tone })),
   selectFinger: (finger) => set({ selectedFinger: finger, selectedStickerInstance: null }),
@@ -310,6 +315,8 @@ export const useStudioStore = create<StudioState>((set, get) => ({
         selectedStickerInstance: null,
       }
     }),
+
+  toggleDebugMode: () => set((s) => ({ debugMode: !s.debugMode })),
 
   refreshSavedDesigns: () => set({ savedDesigns: listSavedDesigns() }),
 

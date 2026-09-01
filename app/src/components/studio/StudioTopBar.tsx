@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ArrowLeft, ExternalLink, FolderOpen, Redo2, RefreshCcw, Save, Trash2, Undo2 } from 'lucide-react'
+import { ArrowLeft, Bug, ExternalLink, FolderOpen, Redo2, RefreshCcw, Save, Trash2, Undo2 } from 'lucide-react'
 import { Logo } from '@/components/ui/Logo'
 import { useStudioStore } from '@/store/studioStore'
 import type { SkinToneId } from '@/types/vibeu'
@@ -24,6 +24,8 @@ export function StudioTopBar({
   const future = useStudioStore((s) => s.future)
   const undo = useStudioStore((s) => s.undo)
   const redo = useStudioStore((s) => s.redo)
+  const debugMode = useStudioStore((s) => s.debugMode)
+  const toggleDebugMode = useStudioStore((s) => s.toggleDebugMode)
   const [savePanelOpen, setSavePanelOpen] = useState(false)
 
   return (
@@ -93,6 +95,15 @@ export function StudioTopBar({
           className="flex items-center gap-1.5 rounded-full border-2 border-vibe-ink/10 px-3.5 py-2 text-sm font-medium text-vibe-ink-soft transition-colors hover:border-vibe-pink/50 hover:text-vibe-ink"
         >
           <RefreshCcw size={15} /> <span className="hidden sm:inline">Reset</span>
+        </button>
+        <button
+          onClick={toggleDebugMode}
+          title="Chế độ debug (QA only): viền mask, tọa độ con trỏ, khung decal, chế độ xem normal/roughness/Fresnel"
+          className={`flex items-center gap-1.5 rounded-full border-2 px-3.5 py-2 text-sm font-medium transition-colors ${
+            debugMode ? 'border-amber-500 bg-amber-50 text-amber-700' : 'border-vibe-ink/10 text-vibe-ink-soft hover:border-amber-400/50 hover:text-vibe-ink'
+          }`}
+        >
+          <Bug size={15} /> <span className="hidden sm:inline">Debug</span>
         </button>
       </div>
 

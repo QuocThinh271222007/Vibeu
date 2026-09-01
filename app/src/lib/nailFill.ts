@@ -546,6 +546,73 @@ export function composeNail(
   return canvas
 }
 
+// ---------------------------------------------------------------------------
+// Debug visualization modes — objective, inspectable proof that the macro/micro
+// normal, per-pixel roughness and Fresnel term computed above actually
+// participate in the render, not just the final lit composite. Diagnostic
+// only; never shown outside the debug overlay (Phase 5).
+// ---------------------------------------------------------------------------
+
+export type DebugViewMode = 'normal' | 'roughness' | 'fresnel' | 'curve' | 'edge'
+
+export function renderDebugView(g: PreparedNail, material: MaterialConfig, mode: DebugViewMode, seed = 0): HTMLCanvasElement {
+  const profile = resolveMaterialProfile(material)
+  const isGlitter = profile.glitterDensity > 0.05
+  const n = g.w * g.h
+  const canvas = document.createElement('canvas')
+  canvas.width = g.w
+  canvas.height = g.h
+  const ctx = canvas.getContext('2d')!
+  const im = ctx.createImageData(g.w, g.h)
+  const out = im.data
+
+  for (let k = 0; k < n; k++) {
+    const off = k * 4
+    if (!g.alpha[k]) continue
+    const xx = k % g.w
+    const yy = (k - xx) / g.w
+
+    if (mode === 'normal') {
+      const [mnx, mny] = microNormalOffset(xx, yy, seed + 1, profile.microNormalStrength, isGlitter)
+      const fn = norm3([g.normal[k * 3] + mnx, g.normal[k * 3 + 1] + mny, g.normal[k * 3 + 2]])
+      // Standard tangent-space normal-map encoding: xyz in [-1,1] -> rgb in [0,255].
+      out[off] = clamp(fn[0] * 0.5 + 0.5) * 255
+      out[off + 1] = clamp(fn[1] * 0.5 + 0.5) * 255
+      out[off + 2] = clamp(fn[2] * 0.5 + 0.5) * 255
+    } else if (mode === 'roughness') {
+      const roughVariation = (hash(xx, yy, seed * 7 + 3) - 0.5) * 2 * profile.roughnessVariation
+      const pixelRoughness = clamp(profile.roughness + roughVariation, 0.03, 0.97)
+      // Grayscale: black = mirror-smooth, white = fully diffuse/rough.
+      const v = pixelRoughness * 255
+      out[off] = v
+      out[off + 1] = v
+      out[off + 2] = v
+    } else if (mode === 'fresnel') {
+      const ndotv = clamp(g.normal[k * 3 + 2])
+      const F = fresnelSchlick(profile.fresnelF0, ndotv)
+      // Grayscale: black = low reflectance at this view angle, white = near-total (grazing) reflectance.
+      const v = clamp(F) * 255
+      out[off] = v
+      out[off + 1] = v
+      out[off + 2] = v
+    } else if (mode === 'curve') {
+      // Signed curvature field, remapped from [-1,1] to [0,255] around mid-gray.
+      const v = clamp(g.curve[k] * 0.5 + 0.5) * 255
+      out[off] = v
+      out[off + 1] = v
+      out[off + 2] = v
+    } else if (mode === 'edge') {
+      const v = clamp(g.edge[k]) * 255
+      out[off] = v
+      out[off + 1] = v
+      out[off + 2] = v
+    }
+    out[off + 3] = g.alpha[k]
+  }
+  ctx.putImageData(im, 0, 0)
+  return canvas
+}
+
 function hsv2rgb(h: number, s: number, v: number): [number, number, number] {
   const k = (n: number) => (n + h * 6) % 6
   const f = (n: number) => v - v * s * Math.max(0, Math.min(k(n), 4 - k(n), 1))
