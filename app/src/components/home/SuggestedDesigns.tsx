@@ -5,11 +5,11 @@ import { TemplatePreviewCard } from '@/components/studio/TemplatePreviewCard'
 import { TEMPLATES } from '@/data/templates'
 import { Button } from '@/components/ui/Button'
 
-const FEATURED_IDS = ['gemini-sparkle', 'y2k-candy-pop', 'pisces-ocean-dream', 'leo-golden-glow']
+const FEATURED_IDS = ['strawberry-lace-dream', 'gemini-sparkle', 'pisces-ocean-dream', 'leo-golden-glow']
 
 export function SuggestedDesigns() {
   const navigate = useNavigate()
-  const templates = TEMPLATES.filter((t) => FEATURED_IDS.includes(t.id))
+  const templates = FEATURED_IDS.map((id) => TEMPLATES.find((t) => t.id === id)).filter((t): t is NonNullable<typeof t> => Boolean(t))
 
   return (
     <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
