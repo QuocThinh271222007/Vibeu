@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import type { ColorPreset, DecalAsset, HandData, SkinToneId, StickerCategory } from '@/types/vibeu'
 
 interface ColorManifest {
@@ -66,6 +66,12 @@ export function useColorPresets() {
 export function useDecals() {
   const { data, loading, error } = useAsync(getDecalManifest, [])
   return { decals: data?.decals ?? [], categories: data?.categories ?? [], loading, error }
+}
+
+/** Library decals + this session's custom uploads, merged and keyed by id — the one lookup HandCanvas and the layers panel both need. */
+export function useDecalsById(customDecals: DecalAsset[]): Record<string, DecalAsset> {
+  const { decals } = useDecals()
+  return useMemo(() => Object.fromEntries([...decals, ...customDecals].map((d) => [d.id, d])), [decals, customDecals])
 }
 
 export function useHandData(tone: SkinToneId) {

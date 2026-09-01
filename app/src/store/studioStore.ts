@@ -1,7 +1,9 @@
 import { create } from 'zustand'
+import { deleteDesign, listSavedDesigns, loadDesign, saveDesign, type SavedDesignMeta } from '@/lib/persistence'
 import { FINGER_ORDER, type CustomGradient, type DecalAsset, type FingerDesign, type FingerId, type SkinToneId, type StickerInstance, type Template } from '@/types/vibeu'
 
 const DEFAULT_PRESET_ID = 'cloud-candy'
+const MAX_HISTORY = 50
 
 function defaultFinger(): FingerDesign {
   return {
@@ -34,9 +36,13 @@ function nextInstanceId() {
 export type StudioView = 'design' | 'result'
 export type StudioTab = 'shape' | 'paint' | 'charms'
 
-interface StudioState {
+/** The part of the design that undo/redo and save/load actually operate on. */
+interface DesignSnapshot {
   skinTone: SkinToneId
   fingers: Record<FingerId, FingerDesign>
+}
+
+interface StudioState extends DesignSnapshot {
   selectedFinger: FingerId
   activeTab: StudioTab
   selectedStickerInstance: string | null
@@ -44,6 +50,9 @@ interface StudioState {
   activeTemplateName: string | null
   /** User-uploaded decal assets, registered at runtime so they can be placed like any library decal. */
   customDecals: DecalAsset[]
+  past: DesignSnapshot[]
+  future: DesignSnapshot[]
+  savedDesigns: SavedDesignMeta[]
 
   setSkinTone: (tone: SkinToneId) => void
   selectFinger: (finger: FingerId) => void
@@ -59,11 +68,35 @@ interface StudioState {
   updateSticker: (finger: FingerId, instanceId: string, patch: Partial<StickerInstance>) => void
   removeSticker: (finger: FingerId, instanceId: string) => void
   duplicateSticker: (finger: FingerId, instanceId: string) => void
+  setStickerVisible: (finger: FingerId, instanceId: string, visible: boolean) => void
+  setStickerLocked: (finger: FingerId, instanceId: string, locked: boolean) => void
+  reorderSticker: (finger: FingerId, instanceId: string, direction: 'up' | 'down') => void
   selectSticker: (instanceId: string | null) => void
   reset: () => void
   loadTemplate: (template: Template) => void
   goToResult: () => void
   backToDesign: () => void
+  undo: () => void
+  redo: () => void
+  refreshSavedDesigns: () => void
+  saveCurrentDesign: (name: string) => void
+  loadSavedDesign: (id: string) => void
+  deleteSavedDesign: (id: string) => void
+}
+
+/** Every design-mutating action goes through this so undo/redo stays correct without
+ * having to remember to wire history into each action by hand. Commits happen at
+ * interaction boundaries (a finished drag, a click) — see the LiveDragOverride perf
+ * note in HandCanvas.tsx for why intermediate drag frames never reach the store at all. */
+function withHistory(
+  set: (fn: (s: StudioState) => Partial<StudioState>) => void,
+  updater: (s: StudioState) => Partial<DesignSnapshot> & Partial<StudioState>,
+) {
+  set((s) => {
+    const entry: DesignSnapshot = { skinTone: s.skinTone, fingers: s.fingers }
+    const past = [...s.past, entry].slice(-MAX_HISTORY)
+    return { ...updater(s), past, future: [] }
+  })
 }
 
 export const useStudioStore = create<StudioState>((set, get) => ({
@@ -75,19 +108,22 @@ export const useStudioStore = create<StudioState>((set, get) => ({
   view: 'design',
   activeTemplateName: null,
   customDecals: [],
+  past: [],
+  future: [],
+  savedDesigns: listSavedDesigns(),
 
-  setSkinTone: (tone) => set({ skinTone: tone }),
+  setSkinTone: (tone) => withHistory(set, () => ({ skinTone: tone })),
   selectFinger: (finger) => set({ selectedFinger: finger, selectedStickerInstance: null }),
   setActiveTab: (tab) => set({ activeTab: tab }),
 
   setShape: (finger, shape) =>
-    set((s) => ({ fingers: { ...s.fingers, [finger]: { ...s.fingers[finger], shape } } })),
+    withHistory(set, (s) => ({ fingers: { ...s.fingers, [finger]: { ...s.fingers[finger], shape } } })),
 
   setLength: (finger, length) =>
-    set((s) => ({ fingers: { ...s.fingers, [finger]: { ...s.fingers[finger], length } } })),
+    withHistory(set, (s) => ({ fingers: { ...s.fingers, [finger]: { ...s.fingers[finger], length } } })),
 
   setPreset: (finger, presetId, applyToAll) =>
-    set((s) => {
+    withHistory(set, (s) => {
       if (applyToAll) {
         const next = { ...s.fingers }
         for (const f of FINGER_ORDER) next[f] = { ...next[f], presetId, customColor: null, customGradient: null }
@@ -97,16 +133,20 @@ export const useStudioStore = create<StudioState>((set, get) => ({
     }),
 
   setCustomColor: (finger, hex) =>
-    set((s) => ({ fingers: { ...s.fingers, [finger]: { ...s.fingers[finger], customColor: hex, customGradient: hex ? null : s.fingers[finger].customGradient } } })),
+    withHistory(set, (s) => ({
+      fingers: { ...s.fingers, [finger]: { ...s.fingers[finger], customColor: hex, customGradient: hex ? null : s.fingers[finger].customGradient } },
+    })),
 
   setCustomGradient: (finger, gradient) =>
-    set((s) => ({ fingers: { ...s.fingers, [finger]: { ...s.fingers[finger], customGradient: gradient, customColor: gradient ? null : s.fingers[finger].customColor } } })),
+    withHistory(set, (s) => ({
+      fingers: { ...s.fingers, [finger]: { ...s.fingers[finger], customGradient: gradient, customColor: gradient ? null : s.fingers[finger].customColor } },
+    })),
 
   setEffect: (finger, effect) =>
-    set((s) => ({ fingers: { ...s.fingers, [finger]: { ...s.fingers[finger], effect } } })),
+    withHistory(set, (s) => ({ fingers: { ...s.fingers, [finger]: { ...s.fingers[finger], effect } } })),
 
   addSticker: (finger, stickerId, uv) =>
-    set((s) => {
+    withHistory(set, (s) => {
       const existing = s.fingers[finger].stickers
       const instance: StickerInstance = {
         instanceId: nextInstanceId(),
@@ -134,7 +174,7 @@ export const useStudioStore = create<StudioState>((set, get) => ({
   addCustomDecal: (asset) => set((s) => ({ customDecals: [...s.customDecals.filter((d) => d.id !== asset.id), asset] })),
 
   updateSticker: (finger, instanceId, patch) =>
-    set((s) => ({
+    withHistory(set, (s) => ({
       fingers: {
         ...s.fingers,
         [finger]: {
@@ -145,7 +185,7 @@ export const useStudioStore = create<StudioState>((set, get) => ({
     })),
 
   removeSticker: (finger, instanceId) =>
-    set((s) => ({
+    withHistory(set, (s) => ({
       fingers: {
         ...s.fingers,
         [finger]: {
@@ -157,7 +197,7 @@ export const useStudioStore = create<StudioState>((set, get) => ({
     })),
 
   duplicateSticker: (finger, instanceId) =>
-    set((s) => {
+    withHistory(set, (s) => {
       const src = s.fingers[finger].stickers.find((st) => st.instanceId === instanceId)
       if (!src) return s
       const copy: StickerInstance = {
@@ -175,12 +215,50 @@ export const useStudioStore = create<StudioState>((set, get) => ({
       }
     }),
 
+  setStickerVisible: (finger, instanceId, visible) =>
+    withHistory(set, (s) => ({
+      fingers: {
+        ...s.fingers,
+        [finger]: {
+          ...s.fingers[finger],
+          stickers: s.fingers[finger].stickers.map((st) => (st.instanceId === instanceId ? { ...st, visible } : st)),
+        },
+      },
+    })),
+
+  setStickerLocked: (finger, instanceId, locked) =>
+    withHistory(set, (s) => ({
+      fingers: {
+        ...s.fingers,
+        [finger]: {
+          ...s.fingers[finger],
+          stickers: s.fingers[finger].stickers.map((st) => (st.instanceId === instanceId ? { ...st, locked } : st)),
+        },
+      },
+    })),
+
+  reorderSticker: (finger, instanceId, direction) =>
+    withHistory(set, (s) => {
+      const sorted = [...s.fingers[finger].stickers].sort((a, b) => a.z - b.z)
+      const idx = sorted.findIndex((st) => st.instanceId === instanceId)
+      const swapWith = direction === 'up' ? idx + 1 : idx - 1
+      if (idx < 0 || swapWith < 0 || swapWith >= sorted.length) return s
+      const zA = sorted[idx].z
+      const zB = sorted[swapWith].z
+      const stickers = s.fingers[finger].stickers.map((st) => {
+        if (st.instanceId === sorted[idx].instanceId) return { ...st, z: zB }
+        if (st.instanceId === sorted[swapWith].instanceId) return { ...st, z: zA }
+        return st
+      })
+      return { fingers: { ...s.fingers, [finger]: { ...s.fingers[finger], stickers } } }
+    }),
+
   selectSticker: (instanceId) => set({ selectedStickerInstance: instanceId }),
 
-  reset: () => set({ fingers: defaultFingers(), selectedStickerInstance: null, view: 'design', activeTemplateName: null }),
+  reset: () => withHistory(set, () => ({ fingers: defaultFingers(), selectedStickerInstance: null, view: 'design', activeTemplateName: null })),
 
   loadTemplate: (template) =>
-    set((s) => {
+    withHistory(set, (s) => {
       const next = defaultFingers()
       for (const f of FINGER_ORDER) {
         const patch = template.fingers[f]
@@ -204,4 +282,58 @@ export const useStudioStore = create<StudioState>((set, get) => ({
 
   goToResult: () => set({ view: 'result', selectedStickerInstance: null }),
   backToDesign: () => set({ view: 'design' }),
+
+  undo: () =>
+    set((s) => {
+      if (!s.past.length) return s
+      const prev = s.past[s.past.length - 1]
+      const current: DesignSnapshot = { skinTone: s.skinTone, fingers: s.fingers }
+      return {
+        skinTone: prev.skinTone,
+        fingers: prev.fingers,
+        past: s.past.slice(0, -1),
+        future: [current, ...s.future].slice(0, MAX_HISTORY),
+        selectedStickerInstance: null,
+      }
+    }),
+
+  redo: () =>
+    set((s) => {
+      if (!s.future.length) return s
+      const next = s.future[0]
+      const current: DesignSnapshot = { skinTone: s.skinTone, fingers: s.fingers }
+      return {
+        skinTone: next.skinTone,
+        fingers: next.fingers,
+        past: [...s.past, current].slice(-MAX_HISTORY),
+        future: s.future.slice(1),
+        selectedStickerInstance: null,
+      }
+    }),
+
+  refreshSavedDesigns: () => set({ savedDesigns: listSavedDesigns() }),
+
+  saveCurrentDesign: (name) => {
+    const s = get()
+    saveDesign(name, s.skinTone, s.fingers, s.customDecals)
+    set({ savedDesigns: listSavedDesigns() })
+  },
+
+  loadSavedDesign: (id) => {
+    const found = loadDesign(id)
+    if (!found) return
+    withHistory(set, () => ({
+      skinTone: found.skinTone,
+      fingers: found.fingers,
+      customDecals: found.customDecals,
+      selectedStickerInstance: null,
+      view: 'design',
+      activeTemplateName: found.name,
+    }))
+  },
+
+  deleteSavedDesign: (id) => {
+    deleteDesign(id)
+    set({ savedDesigns: listSavedDesigns() })
+  },
 }))

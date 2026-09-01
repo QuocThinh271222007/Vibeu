@@ -34,12 +34,24 @@ export function nailHeightPx(nail: NailCoord): number {
   return nail.uvFrame.maxV - nail.uvFrame.minV
 }
 
+export interface AffineMatrix {
+  a: number
+  b: number
+  c: number
+  d: number
+  e: number
+  f: number
+}
+
 /**
- * Build an SVG affine matrix() string that anisotropically scales the nail
- * along its local V axis (cuticle -> tip) by `scale`, pivoting at the cuticle
- * point (u=0.5, v=0), so length changes grow the tip outward realistically.
+ * Anisotropically scales the nail along its local V axis (cuticle -> tip) by
+ * `scale`, pivoting at the cuticle point (u=0.5, v=0), so length changes grow
+ * the tip outward realistically. Returns the raw affine components — used both
+ * for the live SVG transform (as a matrix() string, see `lengthScaleMatrix`)
+ * and for the canvas export path (via `ctx.transform(a,b,c,d,e,f)`), so both
+ * render paths apply the exact same length transform.
  */
-export function lengthScaleMatrix(nail: NailCoord, scale: number): string {
+export function lengthScaleMatrixValues(nail: NailCoord, scale: number): AffineMatrix {
   const [vx, vy] = nail.uvFrame.v
   const s = scale
   const a = 1 + (s - 1) * vx * vx
@@ -49,6 +61,12 @@ export function lengthScaleMatrix(nail: NailCoord, scale: number): string {
   const [px, py] = localToImage(nail, [0.5, 0])
   const e = px - (a * px + c * py)
   const f = py - (b * px + d * py)
+  return { a, b, c, d, e, f }
+}
+
+/** Build an SVG affine matrix() string form of {@link lengthScaleMatrixValues}. */
+export function lengthScaleMatrix(nail: NailCoord, scale: number): string {
+  const { a, b, c, d, e, f } = lengthScaleMatrixValues(nail, scale)
   return `matrix(${a} ${b} ${c} ${d} ${e} ${f})`
 }
 

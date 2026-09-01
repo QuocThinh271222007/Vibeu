@@ -1,11 +1,12 @@
 import { useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
-import { ArrowLeft, Check, Copy, Download, Send, Sparkles } from 'lucide-react'
+import { ArrowLeft, Check, Copy, Download, ImageDown, Send, Sparkles } from 'lucide-react'
 import { HandCanvas } from '@/components/studio/HandCanvas'
 import { Button } from '@/components/ui/Button'
 import { useColorPresets, useDecals } from '@/data/loaders'
 import { useStudioStore } from '@/store/studioStore'
 import { buildShareUrl, buildSpecRows, generateShareId } from '@/lib/recipe'
+import { downloadBlob, exportDesignPng } from '@/lib/exportImage'
 import { useQrCode } from '@/lib/useQrCode'
 import type { FingerDesign, FingerId, SkinToneId } from '@/types/vibeu'
 import { useNavigate } from 'react-router-dom'
@@ -25,6 +26,7 @@ export function ResultView({
   const navigate = useNavigate()
   const [toast, setToast] = useState<string | null>(null)
   const [posted, setPosted] = useState(false)
+  const [exporting, setExporting] = useState(false)
 
   const shareId = useMemo(() => generateShareId(), [])
   const shareUrl = buildShareUrl(shareId)
@@ -48,6 +50,18 @@ export function ResultView({
     setPosted(true)
     flashToast('Đã đăng lên diễn đàn!')
     setTimeout(() => navigate('/community'), 1100)
+  }
+
+  async function exportPng() {
+    setExporting(true)
+    try {
+      const blob = await exportDesignPng(skinTone, fingers, presetsById, stickersById)
+      downloadBlob(blob, `vibeu-nail-design-${Date.now()}.png`)
+    } catch {
+      flashToast('Xuất ảnh thất bại, thử lại nhé.')
+    } finally {
+      setExporting(false)
+    }
   }
 
   return (
@@ -105,7 +119,10 @@ export function ResultView({
             <Button variant="secondary" onClick={() => window.print()}>
               <Download size={18} /> Tải công thức HD
             </Button>
-            <Button onClick={postToForum} disabled={posted}>
+            <Button variant="secondary" onClick={exportPng} disabled={exporting}>
+              <ImageDown size={18} /> {exporting ? 'Đang xuất ảnh…' : 'Xuất ảnh PNG (sạch)'}
+            </Button>
+            <Button className="sm:col-span-2" onClick={postToForum} disabled={posted}>
               {posted ? <Check size={18} /> : <Send size={18} />} Đăng lên Diễn đàn
             </Button>
           </div>

@@ -1,6 +1,6 @@
 import { useEffect, useId, useMemo, useRef, useState } from 'react'
 import { Copy, RotateCw, X } from 'lucide-react'
-import { useColorPresets, useHandData, useDecals, handBaseUrl, resolveDecalPath } from '@/data/loaders'
+import { useColorPresets, useHandData, useDecalsById, handBaseUrl, resolveDecalPath } from '@/data/loaders'
 import {
   lengthScaleMatrix,
   LENGTH_SCALE,
@@ -103,8 +103,8 @@ export function HandCanvas({
 }: HandCanvasProps) {
   const { hand, loading: handLoading } = useHandData(skinTone)
   const { presets, loading: presetsLoading } = useColorPresets()
-  const { decals, loading: decalsLoading } = useDecals()
   const customDecals = useStudioStore((s) => s.customDecals)
+  const stickersById = useDecalsById(customDecals)
   const prepared = usePreparedHand(skinTone)
   const svgRef = useRef<SVGSVGElement>(null)
   // Namespaces every <defs> id/url(#...) reference so multiple HandCanvas
@@ -114,13 +114,9 @@ export function HandCanvas({
   const iid = useId()
 
   const presetsById = useMemo(() => Object.fromEntries(presets.map((p) => [p.id, p])), [presets])
-  const stickersById = useMemo(
-    () => Object.fromEntries([...decals, ...customDecals].map((d) => [d.id, d])),
-    [decals, customDecals],
-  )
   const [liveDrag, setLiveDrag] = useState<LiveDragOverride | null>(null)
 
-  const ready = hand && !handLoading && !presetsLoading && !decalsLoading && prepared
+  const ready = hand && !handLoading && !presetsLoading && prepared
 
   if (!ready) {
     return (
@@ -439,6 +435,7 @@ function StickerGizmo({
   const startDrag = (m: GizmoMode) => (e: React.PointerEvent) => {
     e.stopPropagation()
     onSelect()
+    if (instance.locked) return
     const svg = svgRef.current
     if (!svg) return
     try {
@@ -556,10 +553,12 @@ function StickerGizmo({
             />
           </g>
 
-          <g transform={`translate(${cx + delDx} ${cy + delDy})`} onPointerDown={(e) => { e.stopPropagation(); onRemove() }} className="cursor-pointer">
-            <circle r={smallBtnR} fill="white" stroke="#e5484d" strokeWidth={4} />
-            <X x={-smallBtnR * 0.5} y={-smallBtnR * 0.5} width={smallBtnR} height={smallBtnR} color="#e5484d" strokeWidth={3} />
-          </g>
+          {!instance.locked && (
+            <g transform={`translate(${cx + delDx} ${cy + delDy})`} onPointerDown={(e) => { e.stopPropagation(); onRemove() }} className="cursor-pointer">
+              <circle r={smallBtnR} fill="white" stroke="#e5484d" strokeWidth={4} />
+              <X x={-smallBtnR * 0.5} y={-smallBtnR * 0.5} width={smallBtnR} height={smallBtnR} color="#e5484d" strokeWidth={3} />
+            </g>
+          )}
 
           <g transform={`translate(${cx + dupDx} ${cy + dupDy})`} onPointerDown={(e) => { e.stopPropagation(); onDuplicate() }} className="cursor-pointer">
             <circle r={smallBtnR} fill="white" stroke="var(--color-vibe-yellow-dark)" strokeWidth={4} />

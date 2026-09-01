@@ -10,6 +10,7 @@ import { FingerSelector } from '@/components/studio/FingerSelector'
 import { ShapeLengthTab } from '@/components/studio/ShapeLengthTab'
 import { PaintTab } from '@/components/studio/PaintTab'
 import { DecalLibrary } from '@/components/studio/DecalLibrary'
+import { LayersPanel } from '@/components/studio/LayersPanel'
 import { ResultView } from '@/components/studio/ResultView'
 import { Button } from '@/components/ui/Button'
 import { findTemplate } from '@/data/templates'
@@ -43,7 +44,20 @@ export default function Studio() {
       const current = useStudioStore.getState()
       if ((e.key === 'Delete' || e.key === 'Backspace') && current.selectedStickerInstance) {
         e.preventDefault()
-        current.removeSticker(current.selectedFinger, current.selectedStickerInstance)
+        const sticker = current.fingers[current.selectedFinger].stickers.find((st) => st.instanceId === current.selectedStickerInstance)
+        if (!sticker?.locked) current.removeSticker(current.selectedFinger, current.selectedStickerInstance)
+        return
+      }
+      const isUndoKey = (e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z'
+      if (isUndoKey) {
+        e.preventDefault()
+        if (e.shiftKey) current.redo()
+        else current.undo()
+        return
+      }
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'y') {
+        e.preventDefault()
+        current.redo()
       }
     }
     window.addEventListener('keydown', onKey)
@@ -128,7 +142,10 @@ export default function Studio() {
                   />
                 )}
                 {s.activeTab === 'charms' && (
-                  <DecalLibrary onAdd={(decalId) => s.addSticker(s.selectedFinger, decalId)} />
+                  <div className="space-y-5">
+                    {activeDesign.stickers.length > 0 && <LayersPanel finger={s.selectedFinger} />}
+                    <DecalLibrary onAdd={(decalId) => s.addSticker(s.selectedFinger, decalId)} />
+                  </div>
                 )}
               </motion.div>
             </AnimatePresence>
