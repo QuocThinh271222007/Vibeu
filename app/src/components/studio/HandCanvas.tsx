@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useId, useMemo, useRef, useState } from 'react'
 import { Copy, RotateCw, X } from 'lucide-react'
 import { useColorPresets, useHandData, useStickers, handBaseUrl, stickerAssetUrl } from '@/data/loaders'
 import {
@@ -66,6 +66,11 @@ export function HandCanvas({
   const { stickers, loading: stickersLoading } = useStickers()
   const prepared = usePreparedHand(skinTone)
   const svgRef = useRef<SVGSVGElement>(null)
+  // Namespaces every <defs> id/url(#...) reference so multiple HandCanvas
+  // instances on one page (Library grid, Home suggestions) never collide on
+  // ids like "clip-real-thumb" — url(#...) resolution across duplicate ids
+  // in one document is undefined behavior.
+  const iid = useId()
 
   const presetsById = useMemo(() => Object.fromEntries(presets.map((p) => [p.id, p])), [presets])
   const stickersById = useMemo(() => Object.fromEntries(stickers.map((s) => [s.id, s])), [stickers])
@@ -102,6 +107,7 @@ export function HandCanvas({
             preset={presetsById[fingers[nail.id].presetId]}
             stickersById={stickersById}
             prepared={prepared!.get(nail.id)}
+            iid={iid}
           />
         ))}
         {interactive &&
@@ -151,12 +157,14 @@ function NailPaint({
   preset,
   stickersById,
   prepared,
+  iid,
 }: {
   nail: NailCoord
   design: FingerDesign
   preset: ReturnType<typeof useColorPresets>['presets'][number] | undefined
   stickersById: Record<string, StickerDef>
   prepared: PreparedNail | undefined
+  iid: string
 }) {
   const seed = useMemo(() => FINGER_ORDER.indexOf(nail.id), [nail.id])
   const paintCfg = useMemo(() => (preset ? buildPaintConfig(preset, design.customColor) : null), [preset, design.customColor])
@@ -167,7 +175,7 @@ function NailPaint({
   }, [prepared, paintCfg, materialCfg, seed])
 
   if (!preset || !prepared || !dataUrl) return null
-  const uid = nail.id
+  const uid = `${iid}-${nail.id}`
   const trimUv = shapeTrimUv(design.shape)
   const lengthMatrix = lengthScaleMatrix(nail, LENGTH_SCALE[design.length])
   const sorted = [...design.stickers].sort((a, b) => a.z - b.z)
@@ -308,8 +316,10 @@ function StickerGizmo({
     const svg = svgRef.current
     if (!svg) return
     ;(e.target as Element).setPointerCapture(e.pointerId)
+    const point = clientToSvgPoint(svg, e.clientX, e.clientY)
+    if (!point) return
     setMode(m)
-    const [px, py] = clientToSvgPoint(svg, e.clientX, e.clientY)
+    const [px, py] = point
     if (m === 'rotate') {
       const angleToPointer = (Math.atan2(py - cy, px - cx) * 180) / Math.PI
       dragInfo.current.startAngleOffset = instance.rotation - angleToPointer
@@ -326,7 +336,9 @@ function StickerGizmo({
     if (!mode) return
     const svg = svgRef.current
     if (!svg) return
-    const [px, py] = clientToSvgPoint(svg, e.clientX, e.clientY)
+    const point = clientToSvgPoint(svg, e.clientX, e.clientY)
+    if (!point) return
+    const [px, py] = point
     if (mode === 'move') {
       const [ox, oy] = dragInfo.current.moveOffset
       const uv = imageToLocal(nail, [px + ox, py + oy])
