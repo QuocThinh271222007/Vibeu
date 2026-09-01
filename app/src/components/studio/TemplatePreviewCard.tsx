@@ -2,17 +2,15 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Heart, Wand2 } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
-import { HandCanvas } from '@/components/studio/HandCanvas'
+import { TemplatePreviewMedia } from '@/components/studio/TemplatePreviewMedia'
 import type { Template } from '@/types/vibeu'
-import { fingersFromTemplate } from '@/lib/templateUtils'
 
 export function TemplatePreviewCard({ template, index = 0 }: { template: Template; index?: number }) {
   const [saved, setSaved] = useState(false)
   const navigate = useNavigate()
-  const fingers = fingersFromTemplate(template)
 
   return (
-    <motion.div
+    <motion.article
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-40px' }}
@@ -20,16 +18,22 @@ export function TemplatePreviewCard({ template, index = 0 }: { template: Templat
       whileHover={{ y: -6 }}
       className="group overflow-hidden rounded-[1.75rem] bg-white shadow-[0_10px_30px_-16px_rgba(80,50,120,0.25)] transition-shadow hover:shadow-vibe-lg"
     >
-      <div className="relative">
-        <HandCanvas skinTone={template.skinTone} fingers={fingers} className="rounded-none" />
+      <div className="relative aspect-[2/3] overflow-hidden">
+        <TemplatePreviewMedia
+          template={template}
+          className="h-full w-full"
+          imageClassName="transition-transform duration-500 ease-out group-hover:scale-[1.025]"
+        />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/10 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
         <button
           onClick={() => setSaved((s) => !s)}
           aria-label="Lưu mẫu"
-          className="absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-full bg-white/85 backdrop-blur transition-transform hover:scale-110 active:scale-95"
+          className="absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-full bg-white/88 shadow-sm backdrop-blur transition-transform hover:scale-110 active:scale-95"
         >
           <Heart size={17} className={saved ? 'fill-vibe-pink-dark text-vibe-pink-dark' : 'text-vibe-ink-soft'} />
         </button>
       </div>
+
       <div className="p-4">
         <p className="font-display text-sm font-semibold text-vibe-ink">{template.name}</p>
         <p className="mt-0.5 truncate text-xs text-vibe-ink-soft">{template.hashtag}</p>
@@ -40,6 +44,6 @@ export function TemplatePreviewCard({ template, index = 0 }: { template: Templat
           <Wand2 size={14} /> Dùng mẫu này
         </button>
       </div>
-    </motion.div>
+    </motion.article>
   )
 }
