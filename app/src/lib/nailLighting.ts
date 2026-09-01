@@ -29,13 +29,18 @@ export interface PreparedNail {
   edge: Float32Array // w*h, 0 at the mask boundary rising to 1 a few px inside
   light: Float32Array // w*h, luminance-derived shading multiplier from the real photo
   spec: Float32Array // w*h, specular baseline from the real photo's highlights
-  source: Uint8ClampedArray // w*h*4, original photo pixels for this nail's bbox
-  photoAmbient: number // ~0.6-1.3, ambient brightness estimated from the skin around this nail
+  source: Uint8ClampedArray // w*h*4, original photo detail normalized to a neutral nail substrate
+  photoAmbient: number // ~0.75-1.3, ambient brightness estimated from the skin around this nail
   photoTint: [number, number, number] // normalized (mean-1) warm/cool tint estimated from the same skin sample
 }
 
 function clamp01(v: number): number {
   return Math.min(1, Math.max(0, v))
+}
+
+function smoothstep(a: number, b: number, v: number): number {
+  const t = clamp01((v - a) / Math.max(1e-6, b - a))
+  return t * t * (3 - 2 * t)
 }
 
 function norm3(v: [number, number, number]): [number, number, number] {
@@ -68,7 +73,7 @@ function chamferDistanceInside(alpha: Uint8ClampedArray, w: number, h: number): 
   return d
 }
 
-const EDGE_RADIUS_PX = 2.2
+const EDGE_RADIUS_PX = 1.6
 
 export function prepareNail(nail: NailCoord, fullImage: ImageData): PreparedNail {
   const x = Math.round(nail.bbox[0])
@@ -115,7 +120,7 @@ export function prepareNail(nail: NailCoord, fullImage: ImageData): PreparedNail
       const insideBbox = sx >= x && sx < x + w && sy >= y && sy < y + h
       if (insideBbox) {
         const mi = (sy - y) * w + (sx - x)
-        if (maskAlpha[mi * 4 + 3] >= 128) continue // skip nail pixels, we only want skin
+        if (maskAlpha[mi * 4 + 3] >= 128) continue
       }
       const idx = (sy * fullImage.width + sx) * 4
       skinR += fullImage.data[idx]
@@ -128,7 +133,7 @@ export function prepareNail(nail: NailCoord, fullImage: ImageData): PreparedNail
   const avgG = skinN ? skinG / skinN / 255 : 0.5
   const avgB = skinN ? skinB / skinN / 255 : 0.45
   const avgLum = avgR * 0.2126 + avgG * 0.7152 + avgB * 0.0722
-  const photoAmbient = Math.min(1.3, Math.max(0.62, avgLum / 0.5))
+  const photoAmbient = Math.min(1.22, Math.max(0.78, avgLum / 0.5))
   const tintLum = (avgR + avgG + avgB) / 3 || 1
   const photoTint: [number, number, number] = [avgR / tintLum, avgG / tintLum, avgB / tintLum]
 
@@ -173,11 +178,11 @@ export function prepareNail(nail: NailCoord, fullImage: ImageData): PreparedNail
     const v = uv[k * 2 + 1]
     const row = rowOf[k]
     const rel = clamp01((u - lo[row]) / (hi[row] - lo[row] || 1))
-    const c = rel - 0.5 // signed curvature term, shared by paint bump + decal warp
+    const c = rel - 0.5
     curve[k] = c
-    const nx = c * 1.72
-    const ny = (v - 0.5) * 0.65
-    const nz = Math.sqrt(Math.max(0.08, 1 - nx * nx - ny * ny))
+    const nx = c * 1.56
+    const ny = (v - 0.5) * 0.5
+    const nz = Math.sqrt(Math.max(0.12, 1 - nx * nx - ny * ny))
     const n = norm3([nx * ux + ny * vx, nx * uy + ny * vy, nz])
     normal[k * 3] = n[0]
     normal[k * 3 + 1] = n[1]
@@ -186,13 +191,39 @@ export function prepareNail(nail: NailCoord, fullImage: ImageData): PreparedNail
     const g = source[k * 4 + 1]
     const b = source[k * 4 + 2]
     const lum = (r * 0.2126 + g * 0.7152 + b * 0.0722) / 255
-    light[k] = Math.min(1.08, Math.max(0.55, 0.7 + 0.31 * n[2] + (lum / median - 1) * 0.17))
-    spec[k] = clamp01((lum - median * 0.98) / (1 - median + 0.001))
+    light[k] = Math.min(1.06, Math.max(0.72, 0.78 + 0.23 * n[2] + (lum / median - 1) * 0.11))
+    spec[k] = clamp01((lum - median * 0.99) / (1 - median + 0.001))
+
+    // For translucent/jelly materials the compositor mixes the pigment with
+    // `source`. Feeding the literal RGB from the photo made deep side-lighting
+    // and nearby skin/shadow contamination turn some nails grey/brown. Keep
+    // the real photographic *luminance detail* but normalize chroma to a
+    // neutral natural-nail substrate, so translucent polish still feels
+    // photographic without inheriting unrelated colour casts.
+    const detail = Math.min(1.08, Math.max(0.82, lum / Math.max(0.001, median)))
+    source[k * 4] = Math.round(255 * Math.min(1, 0.95 * detail))
+    source[k * 4 + 1] = Math.round(255 * Math.min(1, 0.92 * detail))
+    source[k * 4 + 2] = Math.round(255 * Math.min(1, 0.9 * detail))
   }
 
   const dist = chamferDistanceInside(alpha, w, h)
   const edge = new Float32Array(w * h)
-  for (let k = 0; k < w * h; k++) edge[k] = clamp01(dist[k] / EDGE_RADIUS_PX)
+  const featherPx = Math.max(4.5, Math.min(w, h) * 0.035)
+  for (let k = 0; k < w * h; k++) {
+    if (alpha[k] < 128) {
+      alpha[k] = 0
+      source[k * 4 + 3] = 0
+      continue
+    }
+    // The authored SVG paths intentionally err slightly outside the nail bed.
+    // A soft inward coverage ramp hides those registration errors at cuticle
+    // and side walls, blending the digital polish back into the real photo
+    // instead of drawing a hard dark outline on skin.
+    const coverage = smoothstep(0.65, featherPx, dist[k])
+    alpha[k] = Math.round(255 * coverage)
+    source[k * 4 + 3] = alpha[k]
+    edge[k] = clamp01(dist[k] / EDGE_RADIUS_PX)
+  }
 
   return { id: nail.id, x, y, w, h, alpha, uv, normal, curve, edge, light, spec, source, photoAmbient, photoTint }
 }
