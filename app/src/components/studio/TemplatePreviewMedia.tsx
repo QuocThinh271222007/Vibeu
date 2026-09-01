@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { HandCanvas } from '@/components/studio/HandCanvas'
 import { fingersFromTemplate } from '@/lib/templateUtils'
+import { resolveTemplatePreview } from '@/data/curatedPreviews'
 import type { Template } from '@/types/vibeu'
 
 interface TemplatePreviewMediaProps {
@@ -25,7 +26,7 @@ export function TemplatePreviewMedia({
   eager = false,
 }: TemplatePreviewMediaProps) {
   const [curatedFailed, setCuratedFailed] = useState(false)
-  const preview = template.preview
+  const preview = resolveTemplatePreview(template)
   const canUseCurated = preview?.type === 'curated' && Boolean(preview.image) && !curatedFailed
 
   return (

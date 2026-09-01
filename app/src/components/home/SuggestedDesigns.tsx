@@ -5,7 +5,7 @@ import { TemplatePreviewCard } from '@/components/studio/TemplatePreviewCard'
 import { TEMPLATES } from '@/data/templates'
 import { Button } from '@/components/ui/Button'
 
-const FEATURED_IDS = ['strawberry-lace-dream', 'gemini-sparkle', 'pisces-ocean-dream', 'leo-golden-glow']
+const FEATURED_IDS = ['strawberry-lace-dream', 'gemini-sparkle', 'xuan-cherry-blossom', 'minimalist-nude']
 
 export function SuggestedDesigns() {
   const navigate = useNavigate()

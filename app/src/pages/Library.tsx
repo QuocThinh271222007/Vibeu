@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { Search } from 'lucide-react'
 import { Chip } from '@/components/ui/Chip'
 import { TemplatePreviewCard } from '@/components/studio/TemplatePreviewCard'
+import { curatedPreviewRank } from '@/data/curatedPreviews'
 import { TEMPLATES } from '@/data/templates'
 
 const FILTERS = [
@@ -27,7 +28,7 @@ export default function Library() {
       const q = query.trim().toLowerCase()
       list = list.filter((t) => t.name.toLowerCase().includes(q) || t.hashtag.toLowerCase().includes(q))
     }
-    return list
+    return [...list].sort((a, b) => curatedPreviewRank(a) - curatedPreviewRank(b))
   }, [filter, query])
 
   return (

@@ -6,9 +6,9 @@ import { TemplatePreviewMedia } from '@/components/studio/TemplatePreviewMedia'
 import { findTemplate } from '@/data/templates'
 
 const SHOWCASE = [
-  { id: findTemplate('libra-rose-quartz')!, rotate: -9, x: -34, y: 26, z: 10, delay: 0 },
+  { id: findTemplate('gemini-sparkle')!, rotate: -9, x: -34, y: 26, z: 10, delay: 0 },
   { id: findTemplate('strawberry-lace-dream')!, rotate: 4, x: 18, y: -6, z: 30, delay: 0.6 },
-  { id: findTemplate('y2k-butterfly-chrome')!, rotate: 13, x: 66, y: 34, z: 20, delay: 1.2 },
+  { id: findTemplate('xuan-cherry-blossom')!, rotate: 13, x: 66, y: 34, z: 20, delay: 1.2 },
 ]
 
 export function Hero() {
@@ -76,7 +76,7 @@ export function Hero() {
                   template={s.id}
                   className="aspect-[2/3] w-full"
                   imageClassName="scale-[1.01]"
-                  eager={index === 1}
+                  eager={true}
                 />
               </motion.div>
               <p className="mt-2 text-center font-display text-xs font-semibold text-vibe-ink/70">{s.id.name}</p>
