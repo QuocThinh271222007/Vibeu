@@ -2,13 +2,12 @@ import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
 import { ArrowRight, PlayCircle, Sparkles } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
-import { HandCanvas } from '@/components/studio/HandCanvas'
-import { fingersFromTemplate } from '@/lib/templateUtils'
+import { TemplatePreviewMedia } from '@/components/studio/TemplatePreviewMedia'
 import { findTemplate } from '@/data/templates'
 
 const SHOWCASE = [
   { id: findTemplate('libra-rose-quartz')!, rotate: -9, x: -34, y: 26, z: 10, delay: 0 },
-  { id: findTemplate('gemini-sparkle')!, rotate: 4, x: 18, y: -6, z: 30, delay: 0.6 },
+  { id: findTemplate('strawberry-lace-dream')!, rotate: 4, x: 18, y: -6, z: 30, delay: 0.6 },
   { id: findTemplate('y2k-butterfly-chrome')!, rotate: 13, x: 66, y: 34, z: 20, delay: 1.2 },
 ]
 
@@ -53,13 +52,13 @@ export function Hero() {
 
           <div className="mt-10 flex items-center gap-6 text-sm text-vibe-ink-soft">
             <Stat value="24" label="bảng phối màu" />
-            <Stat value="144" label="charm 3D" />
+            <Stat value="121" label="decal nail art" />
             <Stat value="0đ" label="phí xuất công thức" />
           </div>
         </motion.div>
 
         <div className="relative mx-auto h-[420px] w-full max-w-md lg:h-[480px]">
-          {SHOWCASE.map((s) => (
+          {SHOWCASE.map((s, index) => (
             <motion.div
               key={s.id.id}
               initial={{ opacity: 0, scale: 0.85, rotate: s.rotate - 6 }}
@@ -73,7 +72,12 @@ export function Hero() {
                 transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut', delay: s.delay }}
                 className="overflow-hidden rounded-[1.5rem] border-4 border-white bg-white shadow-vibe-lg"
               >
-                <HandCanvas skinTone={s.id.skinTone} fingers={fingersFromTemplate(s.id)} className="rounded-none" />
+                <TemplatePreviewMedia
+                  template={s.id}
+                  className="aspect-[2/3] w-full"
+                  imageClassName="scale-[1.01]"
+                  eager={index === 1}
+                />
               </motion.div>
               <p className="mt-2 text-center font-display text-xs font-semibold text-vibe-ink/70">{s.id.name}</p>
             </motion.div>
