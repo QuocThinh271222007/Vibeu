@@ -1,3 +1,14 @@
+/** A real submitted photo for a post. Optional: without one, the card falls back to a
+ * live HandCanvas render of the linked template — an explicit, honest "this is a design
+ * preview, not a submitted photo" fallback, acceptable only because every current post
+ * here is fictional demo/seed content with no real underlying photo (see Community.tsx). */
+export interface CommunityMedia {
+  src: string
+  alt: string
+  type: 'image'
+  objectPosition?: string
+}
+
 export interface CommunityPost {
   id: string
   templateId: string
@@ -10,6 +21,7 @@ export interface CommunityPost {
   hashtags: string[]
   likes: number
   comments: number
+  media?: CommunityMedia
 }
 
 const AVATAR_COLORS = ['#90B8EB', '#FF92F9', '#FFD879', '#8CCABD', '#B6A6E5', '#F4B094']

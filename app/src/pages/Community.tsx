@@ -58,8 +58,25 @@ function PostCard({ post, index }: { post: (typeof COMMUNITY_POSTS)[number]; ind
         </div>
       </div>
 
-      <div className="mx-4 overflow-hidden rounded-2xl">
-        <HandCanvas skinTone={template.skinTone} fingers={fingersFromTemplate(template)} className="rounded-2xl" />
+      <div className="relative mx-4 overflow-hidden rounded-2xl">
+        {post.media ? (
+          <img
+            src={post.media.src}
+            alt={post.media.alt}
+            className="aspect-[4/5] w-full object-cover"
+            style={{ objectPosition: post.media.objectPosition ?? 'center center' }}
+            loading="lazy"
+          />
+        ) : (
+          <>
+            {/* No submitted photo on this (fictional demo) post — shown as a live design
+                preview, not disguised as a real photo, per the media model's fallback rule. */}
+            <HandCanvas skinTone={template.skinTone} fingers={fingersFromTemplate(template)} className="rounded-2xl" />
+            <span className="pointer-events-none absolute left-2.5 top-2.5 rounded-full bg-black/55 px-2.5 py-1 text-[10px] font-medium text-white backdrop-blur-sm">
+              Xem trước thiết kế (chưa có ảnh thật)
+            </span>
+          </>
+        )}
       </div>
 
       <div className="p-4">

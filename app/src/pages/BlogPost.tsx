@@ -1,7 +1,26 @@
 import { Link, useParams, Navigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowLeft } from 'lucide-react'
-import { BLOG_CATEGORY_LABEL, findBlogPost, relatedPosts } from '@/data/blog'
+import { MediaPlaceholder } from '@/components/ui/MediaPlaceholder'
+import { BLOG_CATEGORY_LABEL, findBlogPost, relatedPosts, type BlogPost as BlogPostType } from '@/data/blog'
+
+function CoverMedia({ post, className, compact = false }: { post: BlogPostType; className: string; compact?: boolean }) {
+  return (
+    <div className={className} style={{ background: post.cover ? undefined : `${post.accentColor}22` }}>
+      {post.cover ? (
+        <img
+          src={post.cover.src}
+          alt={post.cover.alt}
+          className="h-full w-full object-cover"
+          style={{ objectPosition: post.cover.objectPosition ?? 'center center' }}
+          loading="lazy"
+        />
+      ) : (
+        <MediaPlaceholder className="h-full w-full" compact={compact} />
+      )}
+    </div>
+  )
+}
 
 export default function BlogPost() {
   const { slug } = useParams<{ slug: string }>()
@@ -18,9 +37,7 @@ export default function BlogPost() {
       </Link>
 
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-        <div className="mt-6 grid aspect-[21/9] place-items-center rounded-[2rem] text-7xl shadow-vibe" style={{ background: post.gradient }}>
-          {post.emoji}
-        </div>
+        <CoverMedia post={post} className="mt-6 aspect-[21/9] overflow-hidden rounded-[2rem] shadow-vibe" />
 
         <span className="mt-6 inline-block text-xs font-semibold uppercase tracking-wide text-vibe-pink-dark">
           {BLOG_CATEGORY_LABEL[post.category]}
@@ -43,9 +60,7 @@ export default function BlogPost() {
           <div className="grid gap-3 sm:grid-cols-3">
             {related.map((r) => (
               <Link key={r.slug} to={`/blog/${r.slug}`} className="rounded-2xl bg-white p-4 shadow-sm transition-shadow hover:shadow-vibe">
-                <div className="grid h-12 w-12 place-items-center rounded-xl text-xl" style={{ background: r.gradient }}>
-                  {r.emoji}
-                </div>
+                <CoverMedia post={r} className="h-12 w-12 overflow-hidden rounded-xl" compact />
                 <p className="mt-2.5 line-clamp-2 text-sm font-semibold text-vibe-ink">{r.title}</p>
               </Link>
             ))}

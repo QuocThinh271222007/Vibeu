@@ -6,13 +6,26 @@ export const BLOG_CATEGORY_LABEL: Record<BlogCategory, string> = {
   care: 'Hướng dẫn dưỡng móng',
 }
 
+/**
+ * Real editorial cover photo/illustration for a post. Optional: a post without one falls
+ * back to MediaPlaceholder rather than emoji-on-gradient "cover art" — see Blog.tsx/BlogPost.tsx.
+ */
+export interface BlogCover {
+  src: string
+  alt: string
+  objectPosition?: string
+  credit?: string
+  sourceUrl?: string
+}
+
 export interface BlogPost {
   slug: string
   title: string
   category: BlogCategory
   excerpt: string
-  emoji: string
-  gradient: string
+  /** Subtle fallback background tint behind the placeholder — never primary artwork on its own. */
+  accentColor: string
+  cover?: BlogCover
   date: string
   readMinutes: number
   content: string[]
@@ -24,8 +37,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title: 'Y2K trở lại: 5 cách phối charm chrome không bị "sến"',
     category: 'trend',
     excerpt: 'Chrome, bướm và trái tim đang phủ sóng khắp TikTok — làm sao để phối cho sang chứ không sến? VIBEU gợi ý 5 công thức dễ áp dụng.',
-    emoji: '🦋',
-    gradient: 'linear-gradient(135deg,#B6C7EA,#FF92F9)',
+    accentColor: '#B6C7EA',
     date: '2026-08-18',
     readMinutes: 4,
     content: [
@@ -40,8 +52,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title: 'Chọn form móng hợp dáng tay: Vuông, Coffin, Nhọn hay Oval?',
     category: 'tips',
     excerpt: 'Không phải form móng nào cũng hợp với mọi bàn tay. Đây là cách chọn nhanh chỉ trong 30 giây.',
-    emoji: '💅',
-    gradient: 'linear-gradient(135deg,#FFD879,#FF92F9)',
+    accentColor: '#FFD879',
     date: '2026-08-10',
     readMinutes: 5,
     content: [
@@ -56,8 +67,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title: '3 bước dưỡng móng sau khi gỡ gel để móng không yếu đi',
     category: 'care',
     excerpt: 'Sơn gel đẹp nhưng gỡ sai cách rất dễ làm móng mỏng, giòn. Đây là quy trình dưỡng phục hồi VIBEU khuyên dùng.',
-    emoji: '🌿',
-    gradient: 'linear-gradient(135deg,#8CCABD,#B8C5A0)',
+    accentColor: '#8CCABD',
     date: '2026-07-29',
     readMinutes: 4,
     content: [
@@ -72,8 +82,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title: '12 cung hoàng đạo, 12 gu nail: bạn hợp phong cách nào?',
     category: 'trend',
     excerpt: 'Từ Bạch Dương cá tính đến Song Ngư mộng mơ — mỗi cung hoàng đạo đều có một bộ nail đại diện trong thư viện mẫu VIBEU.',
-    emoji: '✨',
-    gradient: 'linear-gradient(135deg,#A697D5,#90B8EB)',
+    accentColor: '#A697D5',
     date: '2026-07-15',
     readMinutes: 3,
     content: [
@@ -88,8 +97,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title: 'Mẹo chụp ảnh bộ nail lung linh để đăng cộng đồng VIBEU',
     category: 'tips',
     excerpt: 'Ánh sáng, góc chụp và phông nền — chỉ 3 yếu tố này thôi cũng đủ nâng tầm bức ảnh nail của bạn.',
-    emoji: '📸',
-    gradient: 'linear-gradient(135deg,#F4B094,#FFD879)',
+    accentColor: '#F4B094',
     date: '2026-07-02',
     readMinutes: 3,
     content: [
@@ -104,8 +112,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title: 'Từ ý tưởng đến tiệm nail chỉ trong 3 bước với VIBEU Studio',
     category: 'tips',
     excerpt: 'Không biết diễn tả ý tưởng cho thợ nail? Đây là cách VIBEU giúp bạn xuất công thức chuẩn xác chỉ bằng vài cú click.',
-    emoji: '📋',
-    gradient: 'linear-gradient(135deg,#90B8EB,#8CCABD)',
+    accentColor: '#90B8EB',
     date: '2026-06-20',
     readMinutes: 4,
     content: [

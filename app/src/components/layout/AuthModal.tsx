@@ -55,7 +55,7 @@ export function AuthModal({ open, onClose }: { open: boolean; onClose: () => voi
 
               {done ? (
                 <div className="py-10 text-center">
-                  <p className="font-display text-lg font-semibold text-vibe-ink">Chào mừng đến VIBEU! ✨</p>
+                  <p className="font-display text-lg font-semibold text-vibe-ink">Chào mừng đến VIBEU!</p>
                   <p className="mt-2 text-sm text-vibe-ink-soft">Đây là bản demo giao diện — chưa kết nối hệ thống tài khoản thật.</p>
                 </div>
               ) : (

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { ArrowRight, PlayCircle, Sparkles } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { TemplatePreviewMedia } from '@/components/studio/TemplatePreviewMedia'
+import { useDecals } from '@/data/loaders'
 import { findTemplate } from '@/data/templates'
 
 const SHOWCASE = [
@@ -13,6 +14,7 @@ const SHOWCASE = [
 
 export function Hero() {
   const navigate = useNavigate()
+  const { decals } = useDecals()
 
   return (
     <section className="relative overflow-hidden pb-20 pt-10 sm:pt-16">
@@ -52,7 +54,7 @@ export function Hero() {
 
           <div className="mt-10 flex items-center gap-6 text-sm text-vibe-ink-soft">
             <Stat value="24" label="bảng phối màu" />
-            <Stat value="121" label="decal nail art" />
+            <Stat value={decals.length ? `${decals.length}` : '…'} label="decal nail art" />
             <Stat value="0đ" label="phí xuất công thức" />
           </div>
         </motion.div>
