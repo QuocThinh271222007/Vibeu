@@ -1,5 +1,0 @@
-Permission notice for the original VIBEU Color Pack 24 recipes and accompanying metadata:
-
-Permission is granted to use, copy, modify, merge, distribute, sublicense, and sell these original color recipes, swatches, and metadata, without restriction. They are provided as-is, without warranty of any kind.
-
-This permission notice applies only to the original color-pack material. Microsoft Fluent Emoji artwork is supplied in a separate sticker pack under its own MIT license.

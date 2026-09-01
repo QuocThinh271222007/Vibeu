@@ -28,7 +28,13 @@ public/assets/  bản sao tài nguyên đã dùng từ 3 gói gốc (colors/stic
 
 ## Nguồn tài nguyên
 
-Ba gói ở thư mục gốc dự án (`VIBEU-Color-Pack-24`, `VIBEU-Sticker-Pack-144`, `VIBEU-Studio-Pro`) là nguồn gốc — chỉ phần cần dùng được copy sang `public/assets/` theo đúng hướng dẫn trong từng `AGENT-HANDOFF.md`. Sticker pack dùng lại từ Microsoft Fluent Emoji (MIT) — giữ `LICENSE-MICROSOFT.txt` khi phân phối lại.
+Ba gói nguồn ở thư mục gốc dự án (`VIBEU-Color-Pack-24`, `VIBEU-Sticker-Pack-144`, `VIBEU-Studio-Pro`) đã được gỡ bỏ để tinh gọn repo sau khi phần cần dùng đã được copy sang `public/assets/`:
+
+- `VIBEU-Color-Pack-24` → `public/assets/colors/` (24 bảng phối màu, còn nguyên).
+- `VIBEU-Studio-Pro` → `public/assets/hand-*` (2 ảnh tay thật, `cozy`/`matcha`) + `coordinates.json`. Phần `maps/` (normal/mask thử nghiệm) của gói này **không** được dùng — renderer hiện mô phỏng normal từ chính biên dạng mask thật (`nailLighting.ts`), không dựa trên map nào có sẵn.
+- `VIBEU-Sticker-Pack-144` (Microsoft Fluent Emoji, MIT) → **không còn được dùng nữa**. Toàn bộ 144 sticker gốc trong gói này là emoji, không phải nail-art decal thật; đã bị thay hoàn toàn bằng thư viện decal SVG gốc trong `public/assets/decals/` (`scripts/generate-decals.mjs`, 125 decal, tự vẽ cho dự án — xem `source`/`license` trong `manifest.json`). Không còn nghĩa vụ giữ `LICENSE-MICROSOFT.txt` vì Fluent Emoji không còn được phân phối lại trong app.
+
+Lịch sử git (trước commit gỡ 3 gói này) vẫn còn đầy đủ nội dung gốc nếu cần tra lại.
 
 ## Quyết định thiết kế đáng chú ý
 
