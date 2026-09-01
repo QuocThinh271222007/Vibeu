@@ -5,7 +5,7 @@ import { useColorPresets, colorSwatchUrl } from '@/data/loaders'
 import type { EffectId, FingerDesign } from '@/types/vibeu'
 import { EFFECT_LABEL_VI } from '@/types/vibeu'
 
-const EFFECTS: EffectId[] = ['gel', 'jelly', 'catEye', 'chrome']
+const EFFECTS: EffectId[] = ['gel', 'jelly', 'matte', 'catEye', 'glitter', 'chrome', 'holo']
 
 export function PaintTab({
   design,

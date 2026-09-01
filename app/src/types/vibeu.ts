@@ -78,13 +78,16 @@ export interface ColorPreset {
   }
 }
 
-export type EffectId = 'gel' | 'jelly' | 'catEye' | 'chrome'
+export type EffectId = 'gel' | 'jelly' | 'catEye' | 'chrome' | 'matte' | 'glitter' | 'holo'
 
 export const EFFECT_LABEL_VI: Record<EffectId, string> = {
   gel: 'Sơn Gel',
   jelly: 'Sơn thạch',
   catEye: 'Mắt mèo',
   chrome: 'Chrome',
+  matte: 'Lì (Matte)',
+  glitter: 'Nhũ óng ánh',
+  holo: 'Ánh cầu vồng (Holo)',
 }
 
 export type NailShape = 'oval' | 'square' | 'coffin' | 'almond'

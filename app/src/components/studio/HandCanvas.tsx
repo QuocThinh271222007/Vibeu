@@ -11,11 +11,35 @@ import {
   shapeTrimUv,
   trimPolygonToImagePoints,
 } from '@/lib/geometry'
-import { buildMaterialConfig, buildPaintConfig, DEFAULT_LIGHT, renderNailBitmap } from '@/lib/nailFill'
+import { buildMaterialConfig, buildPaintConfig, composeNail, DEFAULT_LIGHT, type DecalLayer } from '@/lib/nailFill'
 import { getPreparedHand, type PreparedNail } from '@/lib/nailLighting'
+import { getResolvedDecalAsset, type ResolvedDecalAsset } from '@/lib/decalCache'
 import { clientToSvgPoint } from '@/lib/svgPoint'
 import type { FingerDesign, FingerId, NailCoord, SkinToneId, StickerDef, StickerInstance } from '@/types/vibeu'
 import { FINGER_ORDER } from '@/types/vibeu'
+
+/** Decodes+caches decal pixel data for a set of image URLs, keyed by the URL set itself. */
+function useResolvedDecalAssets(urls: string[]): Map<string, ResolvedDecalAsset> {
+  const key = urls.join('|')
+  const [map, setMap] = useState<Map<string, ResolvedDecalAsset>>(new Map())
+
+  useEffect(() => {
+    if (!urls.length) {
+      setMap(new Map())
+      return
+    }
+    let alive = true
+    Promise.all(urls.map((u) => getResolvedDecalAsset(u).then((r) => [u, r] as const))).then((entries) => {
+      if (alive) setMap(new Map(entries))
+    })
+    return () => {
+      alive = false
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [key])
+
+  return map
+}
 
 function usePreparedHand(tone: SkinToneId) {
   const [prepared, setPrepared] = useState<Map<FingerId, PreparedNail> | null>(null)
@@ -32,6 +56,21 @@ function usePreparedHand(tone: SkinToneId) {
   }, [tone])
 
   return prepared
+}
+
+/**
+ * While a sticker gizmo is actively being dragged, the full lit raster (with
+ * its curvature-warped decals + clear coat) is NOT recomputed on every
+ * pointermove — measured at ~260ms/event for a single nail, that would make
+ * dragging unusably janky. Instead the dragged sticker is excluded from that
+ * nail's baked composite and shown as a cheap flat preview on top; the real
+ * composite (with the sticker properly lit and curvature-warped) is only
+ * rebaked once, on pointerup, when the change is committed to the store.
+ */
+interface LiveDragOverride {
+  finger: FingerId
+  instanceId: string
+  patch: Partial<StickerInstance>
 }
 
 interface HandCanvasProps {
@@ -74,6 +113,7 @@ export function HandCanvas({
 
   const presetsById = useMemo(() => Object.fromEntries(presets.map((p) => [p.id, p])), [presets])
   const stickersById = useMemo(() => Object.fromEntries(stickers.map((s) => [s.id, s])), [stickers])
+  const [liveDrag, setLiveDrag] = useState<LiveDragOverride | null>(null)
 
   const ready = hand && !handLoading && !presetsLoading && !stickersLoading && prepared
 
@@ -108,6 +148,7 @@ export function HandCanvas({
             stickersById={stickersById}
             prepared={prepared!.get(nail.id)}
             iid={iid}
+            liveDrag={liveDrag && liveDrag.finger === nail.id ? liveDrag : null}
           />
         ))}
         {interactive &&
@@ -134,6 +175,7 @@ export function HandCanvas({
             onUpdate={(instanceId, patch) => onUpdateSticker?.(selectedFinger, instanceId, patch)}
             onRemove={(instanceId) => onRemoveSticker?.(selectedFinger, instanceId)}
             onDuplicate={(instanceId) => onDuplicateSticker?.(selectedFinger, instanceId)}
+            onLiveDrag={(instanceId, patch) => setLiveDrag(patch ? { finger: selectedFinger, instanceId, patch } : null)}
           />
         )}
       </svg>
@@ -158,6 +200,7 @@ function NailPaint({
   stickersById,
   prepared,
   iid,
+  liveDrag,
 }: {
   nail: NailCoord
   design: FingerDesign
@@ -165,20 +208,71 @@ function NailPaint({
   stickersById: Record<string, StickerDef>
   prepared: PreparedNail | undefined
   iid: string
+  liveDrag: LiveDragOverride | null
 }) {
   const seed = useMemo(() => FINGER_ORDER.indexOf(nail.id), [nail.id])
   const paintCfg = useMemo(() => (preset ? buildPaintConfig(preset, design.customColor) : null), [preset, design.customColor])
   const materialCfg = useMemo(() => (preset ? buildMaterialConfig(preset, design.effect) : null), [preset, design.effect])
+
+  const sortedStickers = useMemo(() => [...design.stickers].sort((a, b) => a.z - b.z), [design.stickers])
+  const stickerUrls = useMemo(() => {
+    const urls: string[] = []
+    for (const st of sortedStickers) {
+      const sticker = stickersById[st.stickerId]
+      if (sticker) urls.push(stickerAssetUrl(sticker.variants[st.variant].path))
+    }
+    return urls
+  }, [sortedStickers, stickersById])
+  const resolvedAssets = useResolvedDecalAssets(stickerUrls)
+
+  // Decals are baked directly into the lit raster below (curvature-warped, shaded,
+  // and glossed over by the same clear-coat pass as the paint) instead of floating
+  // above the photo as separate unlit <image> elements.
+  // Only the *identity* of the actively-dragged sticker matters for exclusion — not its
+  // constantly-changing live patch — so this memo doesn't recompute (and re-trigger the
+  // expensive composeNail bake) on every pointermove, only when a drag starts or ends.
+  const liveDragInstanceId = liveDrag?.instanceId ?? null
+  const decalLayers = useMemo<DecalLayer[]>(() => {
+    if (!prepared) return []
+    const layers: DecalLayer[] = []
+    for (const st of sortedStickers) {
+      if (liveDragInstanceId === st.instanceId) continue // shown as a transient preview instead
+      const sticker = stickersById[st.stickerId]
+      if (!sticker) continue
+      const url = stickerAssetUrl(sticker.variants[st.variant].path)
+      const resolved = resolvedAssets.get(url)
+      if (!resolved) continue
+      const [cx, cy] = localToImage(nail, st.uv)
+      const widthPx = nailWidthPx(nail) * sticker.suggestedInitialScaleRelativeToNailWidth * st.scale
+      const [, , cbw, cbh] = resolved.contentBounds
+      const contentAspect = (cbh * resolved.pixels.height) / (cbw * resolved.pixels.width || 1)
+      layers.push({
+        pixels: resolved.pixels,
+        contentBounds: resolved.contentBounds,
+        centerX: cx,
+        centerY: cy,
+        widthPx,
+        heightPx: widthPx * contentAspect,
+        rotationDeg: st.rotation,
+        flipX: false,
+        opacity: 1,
+        tint: null,
+        curvature: 0.55,
+        layerType: 'decal',
+      })
+    }
+    return layers
+  }, [prepared, sortedStickers, stickersById, resolvedAssets, nail, liveDragInstanceId])
+
   const dataUrl = useMemo(() => {
     if (!prepared || !paintCfg || !materialCfg) return null
-    return renderNailBitmap(prepared, paintCfg, materialCfg, DEFAULT_LIGHT, seed).toDataURL()
-  }, [prepared, paintCfg, materialCfg, seed])
+    return composeNail(prepared, paintCfg, materialCfg, decalLayers, DEFAULT_LIGHT, seed).toDataURL()
+  }, [prepared, paintCfg, materialCfg, decalLayers, seed])
 
   if (!preset || !prepared || !dataUrl) return null
   const uid = `${iid}-${nail.id}`
   const trimUv = shapeTrimUv(design.shape)
   const lengthMatrix = lengthScaleMatrix(nail, LENGTH_SCALE[design.length])
-  const sorted = [...design.stickers].sort((a, b) => a.z - b.z)
 
   return (
     <g pointerEvents="none">
@@ -197,31 +291,45 @@ function NailPaint({
           <g transform={lengthMatrix}>
             <image href={dataUrl} x={prepared.x} y={prepared.y} width={prepared.w} height={prepared.h} preserveAspectRatio="none" />
           </g>
-          {sorted.map((st) => (
-            <StickerVisual key={st.instanceId} nail={nail} instance={st} sticker={stickersById[st.stickerId]} />
-          ))}
+          {liveDrag && (
+            <TransientStickerPreview nail={nail} instanceId={liveDrag.instanceId} patch={liveDrag.patch} design={design} stickersById={stickersById} />
+          )}
         </g>
       </g>
     </g>
   )
 }
 
-function StickerVisual({ nail, instance, sticker }: { nail: NailCoord; instance: StickerInstance; sticker: StickerDef | undefined }) {
+/**
+ * Cheap, flat, unlit preview of the one sticker currently being dragged —
+ * intentionally NOT run through the lit compositor (see the perf note on
+ * LiveDragOverride above). Swapped for the real curvature-warped, lit decal
+ * the moment the drag ends.
+ */
+function TransientStickerPreview({
+  nail,
+  instanceId,
+  patch,
+  design,
+  stickersById,
+}: {
+  nail: NailCoord
+  instanceId: string
+  patch: Partial<StickerInstance>
+  design: FingerDesign
+  stickersById: Record<string, StickerDef>
+}) {
+  const base = design.stickers.find((st) => st.instanceId === instanceId)
+  if (!base) return null
+  const instance = { ...base, ...patch }
+  const sticker = stickersById[instance.stickerId]
   if (!sticker) return null
   const [cx, cy] = localToImage(nail, instance.uv)
   const size = nailWidthPx(nail) * sticker.suggestedInitialScaleRelativeToNailWidth * instance.scale
   const variant = sticker.variants[instance.variant]
   return (
-    <g transform={`translate(${cx} ${cy}) rotate(${instance.rotation})`}>
-      <image
-        href={stickerAssetUrl(variant.path)}
-        x={-size / 2}
-        y={-size / 2}
-        width={size}
-        height={size}
-        preserveAspectRatio="xMidYMid meet"
-        style={instance.variant === '3d' ? { filter: 'drop-shadow(0 3px 4px rgba(60,30,60,0.28))' } : undefined}
-      />
+    <g transform={`translate(${cx} ${cy}) rotate(${instance.rotation})`} opacity={0.92}>
+      <image href={stickerAssetUrl(variant.path)} x={-size / 2} y={-size / 2} width={size} height={size} preserveAspectRatio="xMidYMid meet" />
     </g>
   )
 }
@@ -238,6 +346,7 @@ function StickerGizmoLayer({
   onUpdate,
   onRemove,
   onDuplicate,
+  onLiveDrag,
 }: {
   svgRef: React.RefObject<SVGSVGElement | null>
   nail: NailCoord
@@ -248,6 +357,7 @@ function StickerGizmoLayer({
   onUpdate: (instanceId: string, patch: Partial<StickerInstance>) => void
   onRemove: (instanceId: string) => void
   onDuplicate: (instanceId: string) => void
+  onLiveDrag: (instanceId: string, patch: Partial<StickerInstance> | null) => void
 }) {
   return (
     <g>
@@ -263,6 +373,7 @@ function StickerGizmoLayer({
           onUpdate={(patch) => onUpdate(instance.instanceId, patch)}
           onRemove={() => onRemove(instance.instanceId)}
           onDuplicate={() => onDuplicate(instance.instanceId)}
+          onLiveDrag={(patch) => onLiveDrag(instance.instanceId, patch)}
         />
       ))}
     </g>
@@ -279,6 +390,7 @@ function StickerGizmo({
   onUpdate,
   onRemove,
   onDuplicate,
+  onLiveDrag,
 }: {
   svgRef: React.RefObject<SVGSVGElement | null>
   nail: NailCoord
@@ -289,8 +401,13 @@ function StickerGizmo({
   onUpdate: (patch: Partial<StickerInstance>) => void
   onRemove: () => void
   onDuplicate: () => void
+  onLiveDrag: (patch: Partial<StickerInstance> | null) => void
 }) {
   const [mode, setMode] = useState<GizmoMode>(null)
+  // Local-only while dragging: the gizmo's own handles track this immediately, but the
+  // expensive lit re-composite (via onUpdate -> the store) only fires once, on release —
+  // see the LiveDragOverride perf note in HandCanvas.
+  const [livePatch, setLivePatch] = useState<Partial<StickerInstance> | null>(null)
   const dragInfo = useRef<{ startAngleOffset: number; baseSize: number; moveOffset: [number, number] }>({
     startAngleOffset: 0,
     baseSize: 1,
@@ -299,9 +416,10 @@ function StickerGizmo({
 
   if (!sticker) return null
 
-  const [cx, cy] = localToImage(nail, instance.uv)
+  const effective = livePatch ? { ...instance, ...livePatch } : instance
+  const [cx, cy] = localToImage(nail, effective.uv)
   const baseSize = nailWidthPx(nail) * sticker.suggestedInitialScaleRelativeToNailWidth
-  const size = baseSize * instance.scale
+  const size = baseSize * effective.scale
   const hs = size / 2
   // Handles are sized in image-space units but the canvas renders far smaller than
   // its 1024px-wide viewBox (e.g. ~340px in the studio), so a "visually right" handle
@@ -322,7 +440,7 @@ function StickerGizmo({
     const [px, py] = point
     if (m === 'rotate') {
       const angleToPointer = (Math.atan2(py - cy, px - cx) * 180) / Math.PI
-      dragInfo.current.startAngleOffset = instance.rotation - angleToPointer
+      dragInfo.current.startAngleOffset = effective.rotation - angleToPointer
     }
     if (m === 'scale') {
       dragInfo.current.baseSize = baseSize
@@ -339,28 +457,38 @@ function StickerGizmo({
     const point = clientToSvgPoint(svg, e.clientX, e.clientY)
     if (!point) return
     const [px, py] = point
+    let patch: Partial<StickerInstance> | null = null
     if (mode === 'move') {
       const [ox, oy] = dragInfo.current.moveOffset
       const uv = imageToLocal(nail, [px + ox, py + oy])
       const clamped: [number, number] = [Math.min(1.2, Math.max(-0.2, uv[0])), Math.min(1.25, Math.max(-0.2, uv[1]))]
-      onUpdate({ uv: clamped })
+      patch = { uv: clamped }
     } else if (mode === 'rotate') {
       const angle = (Math.atan2(py - cy, px - cx) * 180) / Math.PI
-      onUpdate({ rotation: Math.round(angle + dragInfo.current.startAngleOffset) })
+      patch = { rotation: Math.round(angle + dragInfo.current.startAngleOffset) }
     } else if (mode === 'scale') {
       const dist = Math.hypot(px - cx, py - cy)
       const restDist = (dragInfo.current.baseSize / 2) * Math.SQRT2
       const scale = Math.min(2.6, Math.max(0.35, dist / restDist))
-      onUpdate({ scale })
+      patch = { scale }
+    }
+    if (patch) {
+      setLivePatch(patch)
+      onLiveDrag(patch)
     }
   }
 
-  const endDrag = () => setMode(null)
+  const endDrag = () => {
+    setMode(null)
+    if (livePatch) onUpdate(livePatch)
+    setLivePatch(null)
+    onLiveDrag(null)
+  }
 
-  const [scaleDx, scaleDy] = rotatePointDeg(hs, hs, instance.rotation)
-  const [rotDx, rotDy] = rotatePointDeg(0, -hs - handleR - 14, instance.rotation)
-  const [delDx, delDy] = rotatePointDeg(hs, -hs, instance.rotation)
-  const [dupDx, dupDy] = rotatePointDeg(-hs, -hs, instance.rotation)
+  const [scaleDx, scaleDy] = rotatePointDeg(hs, hs, effective.rotation)
+  const [rotDx, rotDy] = rotatePointDeg(0, -hs - handleR - 14, effective.rotation)
+  const [delDx, delDy] = rotatePointDeg(hs, -hs, effective.rotation)
+  const [dupDx, dupDy] = rotatePointDeg(-hs, -hs, effective.rotation)
 
   return (
     <g>
@@ -369,7 +497,7 @@ function StickerGizmo({
         y={-hs}
         width={size}
         height={size}
-        transform={`translate(${cx} ${cy}) rotate(${instance.rotation})`}
+        transform={`translate(${cx} ${cy}) rotate(${effective.rotation})`}
         fill="transparent"
         stroke={selected ? 'var(--color-vibe-pink-dark)' : 'transparent'}
         strokeWidth={selected ? 3 : 0}

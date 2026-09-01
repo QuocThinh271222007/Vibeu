@@ -3,12 +3,18 @@ import { getHandData, handBaseUrl } from '@/data/loaders'
 import type { FingerId, NailCoord, SkinToneId } from '@/types/vibeu'
 
 /**
- * Per-nail baked geometry used for lit rendering: the real photographic mask
- * (rasterized from the same `nail.path` the SVG clip uses, so paint can never
- * drift off the real nail) plus a synthetic surface normal derived from the
- * mask's own width profile along the nail's rotated uvFrame axes. Deriving the
- * normal this way means lighting is automatically correct for tilted fingers
- * (thumb/ring/little) without any per-finger special-casing.
+ * Per-nail baked geometry — the single authoritative source every shading
+ * pass (paint, decal warp, clear coat, debug views) reads from. Built once
+ * per (skin tone, finger) and cached; never recomputed independently inside
+ * individual render branches.
+ *
+ * `normal`/`curve` are a SIMULATED macro surface normal derived from the
+ * real photographic mask's own width profile — not a measured/scanned
+ * normal map. `light`/`spec` are derived from the real photo's luminance.
+ * `edge` is a cheap chamfer distance-to-boundary field used for restrained
+ * cuticle/contact shading. `photoAmbient`/`photoTint` are a heuristic
+ * estimate of the local skin lighting sampled from the pixels immediately
+ * around the nail, not a real inverse-rendering solve.
  */
 export interface PreparedNail {
   id: FingerId
@@ -18,10 +24,14 @@ export interface PreparedNail {
   h: number
   alpha: Uint8ClampedArray
   uv: Float32Array // w*h*2, normalized (u across width, v cuticle->tip)
-  normal: Float32Array // w*h*3
+  normal: Float32Array // w*h*3, macro surface normal (image-space xyz, simulated)
+  curve: Float32Array // w*h, signed curvature term in [-0.5, 0.5]; the same value that drives `normal`, reused by decal warp
+  edge: Float32Array // w*h, 0 at the mask boundary rising to 1 a few px inside
   light: Float32Array // w*h, luminance-derived shading multiplier from the real photo
   spec: Float32Array // w*h, specular baseline from the real photo's highlights
   source: Uint8ClampedArray // w*h*4, original photo pixels for this nail's bbox
+  photoAmbient: number // ~0.6-1.3, ambient brightness estimated from the skin around this nail
+  photoTint: [number, number, number] // normalized (mean-1) warm/cool tint estimated from the same skin sample
 }
 
 function clamp01(v: number): number {
@@ -32,6 +42,33 @@ function norm3(v: [number, number, number]): [number, number, number] {
   const l = Math.hypot(v[0], v[1], v[2]) || 1
   return [v[0] / l, v[1] / l, v[2] / l]
 }
+
+/** Two-pass chamfer distance transform: 0 outside the mask, rising with distance inside it. */
+function chamferDistanceInside(alpha: Uint8ClampedArray, w: number, h: number): Float32Array {
+  const INF = 1e6
+  const d = new Float32Array(w * h)
+  for (let k = 0; k < w * h; k++) d[k] = alpha[k] >= 128 ? INF : 0
+
+  const at = (xx: number, yy: number) => (xx < 0 || yy < 0 || xx >= w || yy >= h ? INF : d[yy * w + xx])
+
+  for (let yy = 0; yy < h; yy++) {
+    for (let xx = 0; xx < w; xx++) {
+      const k = yy * w + xx
+      if (d[k] === 0) continue
+      d[k] = Math.min(d[k], at(xx - 1, yy) + 1, at(xx, yy - 1) + 1, at(xx - 1, yy - 1) + 1.4, at(xx + 1, yy - 1) + 1.4)
+    }
+  }
+  for (let yy = h - 1; yy >= 0; yy--) {
+    for (let xx = w - 1; xx >= 0; xx--) {
+      const k = yy * w + xx
+      if (d[k] === 0) continue
+      d[k] = Math.min(d[k], at(xx + 1, yy) + 1, at(xx, yy + 1) + 1, at(xx + 1, yy + 1) + 1.4, at(xx - 1, yy + 1) + 1.4)
+    }
+  }
+  return d
+}
+
+const EDGE_RADIUS_PX = 2.2
 
 export function prepareNail(nail: NailCoord, fullImage: ImageData): PreparedNail {
   const x = Math.round(nail.bbox[0])
@@ -51,6 +88,7 @@ export function prepareNail(nail: NailCoord, fullImage: ImageData): PreparedNail
   const alpha = new Uint8ClampedArray(w * h)
   const uv = new Float32Array(w * h * 2)
   const normal = new Float32Array(w * h * 3)
+  const curve = new Float32Array(w * h)
   const light = new Float32Array(w * h)
   const spec = new Float32Array(w * h)
   const source = new Uint8ClampedArray(w * h * 4)
@@ -60,6 +98,39 @@ export function prepareNail(nail: NailCoord, fullImage: ImageData): PreparedNail
   const lo = new Float32Array(rows).fill(1)
   const hi = new Float32Array(rows).fill(0)
   const lums: number[] = []
+
+  // Skin-lighting sample ring: pixels outside the mask but within a padded
+  // box around it, used to heuristically estimate the local photo lighting.
+  const pad = Math.round(Math.max(w, h) * 0.35)
+  const sx0 = Math.max(0, x - pad)
+  const sy0 = Math.max(0, y - pad)
+  const sx1 = Math.min(fullImage.width - 1, x + w + pad)
+  const sy1 = Math.min(fullImage.height - 1, y + h + pad)
+  let skinR = 0
+  let skinG = 0
+  let skinB = 0
+  let skinN = 0
+  for (let sy = sy0; sy < sy1; sy += 3) {
+    for (let sx = sx0; sx < sx1; sx += 3) {
+      const insideBbox = sx >= x && sx < x + w && sy >= y && sy < y + h
+      if (insideBbox) {
+        const mi = (sy - y) * w + (sx - x)
+        if (maskAlpha[mi * 4 + 3] >= 128) continue // skip nail pixels, we only want skin
+      }
+      const idx = (sy * fullImage.width + sx) * 4
+      skinR += fullImage.data[idx]
+      skinG += fullImage.data[idx + 1]
+      skinB += fullImage.data[idx + 2]
+      skinN++
+    }
+  }
+  const avgR = skinN ? skinR / skinN / 255 : 0.6
+  const avgG = skinN ? skinG / skinN / 255 : 0.5
+  const avgB = skinN ? skinB / skinN / 255 : 0.45
+  const avgLum = avgR * 0.2126 + avgG * 0.7152 + avgB * 0.0722
+  const photoAmbient = Math.min(1.3, Math.max(0.62, avgLum / 0.5))
+  const tintLum = (avgR + avgG + avgB) / 3 || 1
+  const photoTint: [number, number, number] = [avgR / tintLum, avgG / tintLum, avgB / tintLum]
 
   for (let yy = 0; yy < h; yy++) {
     for (let xx = 0; xx < w; xx++) {
@@ -102,7 +173,9 @@ export function prepareNail(nail: NailCoord, fullImage: ImageData): PreparedNail
     const v = uv[k * 2 + 1]
     const row = rowOf[k]
     const rel = clamp01((u - lo[row]) / (hi[row] - lo[row] || 1))
-    const nx = (rel - 0.5) * 1.72
+    const c = rel - 0.5 // signed curvature term, shared by paint bump + decal warp
+    curve[k] = c
+    const nx = c * 1.72
     const ny = (v - 0.5) * 0.65
     const nz = Math.sqrt(Math.max(0.08, 1 - nx * nx - ny * ny))
     const n = norm3([nx * ux + ny * vx, nx * uy + ny * vy, nz])
@@ -117,7 +190,11 @@ export function prepareNail(nail: NailCoord, fullImage: ImageData): PreparedNail
     spec[k] = clamp01((lum - median * 0.98) / (1 - median + 0.001))
   }
 
-  return { id: nail.id, x, y, w, h, alpha, uv, normal, light, spec, source }
+  const dist = chamferDistanceInside(alpha, w, h)
+  const edge = new Float32Array(w * h)
+  for (let k = 0; k < w * h; k++) edge[k] = clamp01(dist[k] / EDGE_RADIUS_PX)
+
+  return { id: nail.id, x, y, w, h, alpha, uv, normal, curve, edge, light, spec, source, photoAmbient, photoTint }
 }
 
 function loadImagePixels(tone: SkinToneId, width: number, height: number): Promise<ImageData> {
