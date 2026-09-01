@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { FINGER_ORDER, type FingerDesign, type FingerId, type SkinToneId, type StickerInstance, type Template } from '@/types/vibeu'
+import { FINGER_ORDER, type CustomGradient, type FingerDesign, type FingerId, type SkinToneId, type StickerInstance, type Template } from '@/types/vibeu'
 
 const DEFAULT_PRESET_ID = 'cloud-candy'
 
@@ -9,6 +9,7 @@ function defaultFinger(): FingerDesign {
     length: 'M',
     presetId: DEFAULT_PRESET_ID,
     customColor: null,
+    customGradient: null,
     effect: 'gel',
     stickers: [],
   }
@@ -49,6 +50,7 @@ interface StudioState {
   setLength: (finger: FingerId, length: FingerDesign['length']) => void
   setPreset: (finger: FingerId, presetId: string, applyToAll?: boolean) => void
   setCustomColor: (finger: FingerId, hex: string | null) => void
+  setCustomGradient: (finger: FingerId, gradient: CustomGradient | null) => void
   setEffect: (finger: FingerId, effect: FingerDesign['effect']) => void
   addSticker: (finger: FingerId, stickerId: string, variant: StickerInstance['variant']) => void
   updateSticker: (finger: FingerId, instanceId: string, patch: Partial<StickerInstance>) => void
@@ -84,14 +86,17 @@ export const useStudioStore = create<StudioState>((set, get) => ({
     set((s) => {
       if (applyToAll) {
         const next = { ...s.fingers }
-        for (const f of FINGER_ORDER) next[f] = { ...next[f], presetId, customColor: null }
+        for (const f of FINGER_ORDER) next[f] = { ...next[f], presetId, customColor: null, customGradient: null }
         return { fingers: next }
       }
-      return { fingers: { ...s.fingers, [finger]: { ...s.fingers[finger], presetId, customColor: null } } }
+      return { fingers: { ...s.fingers, [finger]: { ...s.fingers[finger], presetId, customColor: null, customGradient: null } } }
     }),
 
   setCustomColor: (finger, hex) =>
-    set((s) => ({ fingers: { ...s.fingers, [finger]: { ...s.fingers[finger], customColor: hex } } })),
+    set((s) => ({ fingers: { ...s.fingers, [finger]: { ...s.fingers[finger], customColor: hex, customGradient: hex ? null : s.fingers[finger].customGradient } } })),
+
+  setCustomGradient: (finger, gradient) =>
+    set((s) => ({ fingers: { ...s.fingers, [finger]: { ...s.fingers[finger], customGradient: gradient, customColor: gradient ? null : s.fingers[finger].customColor } } })),
 
   setEffect: (finger, effect) =>
     set((s) => ({ fingers: { ...s.fingers, [finger]: { ...s.fingers[finger], effect } } })),

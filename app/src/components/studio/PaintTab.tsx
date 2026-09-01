@@ -2,7 +2,8 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Check, Palette } from 'lucide-react'
 import { useColorPresets, colorSwatchUrl } from '@/data/loaders'
-import type { EffectId, FingerDesign } from '@/types/vibeu'
+import { GradientEditor } from '@/components/studio/GradientEditor'
+import type { CustomGradient, EffectId, FingerDesign } from '@/types/vibeu'
 import { EFFECT_LABEL_VI } from '@/types/vibeu'
 
 const EFFECTS: EffectId[] = ['gel', 'jelly', 'matte', 'catEye', 'glitter', 'chrome', 'holo']
@@ -12,14 +13,17 @@ export function PaintTab({
   onPreset,
   onEffect,
   onCustomColor,
+  onCustomGradient,
 }: {
   design: FingerDesign
   onPreset: (id: string, applyToAll: boolean) => void
   onEffect: (e: EffectId) => void
   onCustomColor: (hex: string | null) => void
+  onCustomGradient: (g: CustomGradient | null) => void
 }) {
   const { presets, loading } = useColorPresets()
   const [applyToAll, setApplyToAll] = useState(false)
+  const currentPreset = presets.find((p) => p.id === design.presetId) ?? presets[0]
 
   return (
     <div className="space-y-7">
@@ -82,6 +86,14 @@ export function PaintTab({
           </div>
         )}
       </div>
+
+      {currentPreset && (
+        <GradientEditor
+          gradient={design.customGradient}
+          fallback={currentPreset.paint}
+          onChange={onCustomGradient}
+        />
+      )}
 
       <div>
         <p className="mb-3 flex items-center gap-1.5 text-sm font-semibold text-vibe-ink">

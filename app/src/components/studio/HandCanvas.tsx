@@ -211,7 +211,10 @@ function NailPaint({
   liveDrag: LiveDragOverride | null
 }) {
   const seed = useMemo(() => FINGER_ORDER.indexOf(nail.id), [nail.id])
-  const paintCfg = useMemo(() => (preset ? buildPaintConfig(preset, design.customColor) : null), [preset, design.customColor])
+  const paintCfg = useMemo(
+    () => (preset ? buildPaintConfig(preset, design.customColor, design.customGradient) : null),
+    [preset, design.customColor, design.customGradient],
+  )
   const materialCfg = useMemo(() => (preset ? buildMaterialConfig(preset, design.effect) : null), [preset, design.effect])
 
   const sortedStickers = useMemo(() => [...design.stickers].sort((a, b) => a.z - b.z), [design.stickers])
@@ -433,7 +436,12 @@ function StickerGizmo({
     onSelect()
     const svg = svgRef.current
     if (!svg) return
-    ;(e.target as Element).setPointerCapture(e.pointerId)
+    try {
+      ;(e.target as Element).setPointerCapture(e.pointerId)
+    } catch {
+      // No active pointer to capture (synthetic input, some pen/touch edge cases) — the
+      // drag still works via bubbled pointermove/pointerup, just without outside-capture.
+    }
     const point = clientToSvgPoint(svg, e.clientX, e.clientY)
     if (!point) return
     setMode(m)

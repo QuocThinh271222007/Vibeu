@@ -6,6 +6,7 @@ function defaultFinger(): FingerDesign {
     length: 'M',
     presetId: 'cloud-candy',
     customColor: null,
+    customGradient: null,
     effect: 'gel',
     stickers: [],
   }

@@ -124,6 +124,7 @@ export default function Studio() {
                     onPreset={(id, all) => s.setPreset(s.selectedFinger, id, all)}
                     onEffect={(effect) => s.setEffect(s.selectedFinger, effect)}
                     onCustomColor={(hex) => s.setCustomColor(s.selectedFinger, hex)}
+                    onCustomGradient={(g) => s.setCustomGradient(s.selectedFinger, g)}
                   />
                 )}
                 {s.activeTab === 'charms' && (

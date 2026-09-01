@@ -140,11 +140,20 @@ export interface StickerInstance {
   z: number
 }
 
+export interface CustomGradient {
+  mode: PaintMode
+  stops: PaintStop[]
+  start: [number, number]
+  end: [number, number]
+}
+
 export interface FingerDesign {
   shape: NailShape
   length: NailLength
   presetId: string
   customColor: string | null
+  /** Per-finger gradient override, independent of the shared preset library — editing it never mutates preset data. Mutually exclusive with customColor. */
+  customGradient: CustomGradient | null
   effect: EffectId
   stickers: StickerInstance[]
 }

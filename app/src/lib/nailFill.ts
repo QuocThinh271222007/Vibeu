@@ -1,5 +1,5 @@
 import type { PreparedNail } from '@/lib/nailLighting'
-import type { ColorPreset, EffectId } from '@/types/vibeu'
+import type { ColorPreset, CustomGradient, EffectId } from '@/types/vibeu'
 
 export interface PaintConfig {
   mode: 'linear' | 'radial' | 'aurora' | 'solid'
@@ -28,9 +28,12 @@ export interface LightState {
 /** A soft, slightly top-left key light — matches the natural light in the stock hand photos. */
 export const DEFAULT_LIGHT: LightState = { angle: -45, elevation: 62, strength: 0.5, ambient: 0.88, photo: 0.7 }
 
-export function buildPaintConfig(preset: ColorPreset, customColor: string | null): PaintConfig {
+export function buildPaintConfig(preset: ColorPreset, customColor: string | null, customGradient?: CustomGradient | null): PaintConfig {
   if (customColor) {
     return { mode: 'solid', stops: [{ at: 0, color: customColor }], start: [0.5, 0], end: [0.5, 1], opacity: 1 }
+  }
+  if (customGradient) {
+    return { mode: customGradient.mode, stops: customGradient.stops, start: customGradient.start, end: customGradient.end, opacity: 1 }
   }
   const { paint } = preset
   return { mode: paint.mode, stops: paint.stops, start: paint.start, end: paint.end, opacity: paint.opacity }
