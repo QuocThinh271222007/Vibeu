@@ -214,6 +214,31 @@ add(BOW, BOW_VI, 'bow-tails', 'Bow with Tails', 'Nơ có dải', ['bow', 'ribbon
 add(BOW, BOW_VI, 'ribbon-curl', 'Ribbon Curl', 'Ruy băng xoăn', ['ribbon', 'curl'], true, 'decal', `<path d="M20 20 C 60 20, 20 50, 60 50 C 20 50, 60 80, 20 80" fill="none" stroke="#e8547b" stroke-width="8" stroke-linecap="round"/>`)
 add(BOW, BOW_VI, 'ribbon-banner', 'Ribbon Banner', 'Dải băng ngang', ['ribbon', 'banner'], true, 'decal', `<path d="M10 40 L90 40 L80 50 L90 60 L10 60 L20 50 Z" fill="#8fb6ef"/>`)
 add(BOW, BOW_VI, 'bow-double', 'Double-loop Bow', 'Nơ hai tầng', ['bow', 'ribbon'], true, 'decal', bowSvg({ color: '#e8547b' }) + `<ellipse cx="28" cy="42" rx="14" ry="7" fill="#ffffff" opacity="0.35" transform="rotate(-18 28 42)"/><ellipse cx="72" cy="42" rx="14" ry="7" fill="#ffffff" opacity="0.35" transform="rotate(18 72 42)"/>`)
+// A raised charm (padded/puffy satin bow), not a flat decal — same no-pre-baked-shadow
+// rule as pearl-dome, so composeNail's raised-charm pass can dome-shade the true
+// silhouette (both loops + knot) instead of a hand-painted flat sheen.
+add(
+  BOW,
+  BOW_VI,
+  'coquette-bow-raised',
+  'Coquette Bow (Raised)',
+  'Nơ coquette nổi',
+  ['bow', 'ribbon', 'raised', 'charm', 'coquette'],
+  false,
+  'raised',
+  `<defs>
+    <radialGradient id="bowGrad" cx="50%" cy="35%" r="75%">
+      <stop offset="0%" stop-color="#ffd6e6"/>
+      <stop offset="55%" stop-color="#f295b8"/>
+      <stop offset="100%" stop-color="#d94f83"/>
+    </radialGradient>
+  </defs>
+  <ellipse cx="24" cy="42" rx="22" ry="19" fill="url(#bowGrad)" stroke="#a82f5c" stroke-width="2.2" transform="rotate(-20 24 42)"/>
+  <ellipse cx="76" cy="42" rx="22" ry="19" fill="url(#bowGrad)" stroke="#a82f5c" stroke-width="2.2" transform="rotate(20 76 42)"/>
+  <circle cx="50" cy="45" r="14" fill="url(#bowGrad)" stroke="#a82f5c" stroke-width="2.4"/>
+  <ellipse cx="22" cy="34" rx="7" ry="4" fill="#ffffff" opacity="0.5" transform="rotate(-18 22 34)"/>
+  <ellipse cx="78" cy="34" rx="7" ry="4" fill="#ffffff" opacity="0.5" transform="rotate(18 78 34)"/>`,
+)
 
 // --- Animal print ---
 const ANI = 'animal-print'
@@ -232,6 +257,31 @@ const GEO = 'geometric'
 const GEO_VI = 'Hình học & đường nét'
 add(GEO, GEO_VI, 'french-arc-single', 'French Tip Arc', 'Vòng cung French', ['french', 'tip', 'line'], true, 'decal', `<path d="M5 55 Q 50 90 95 55 L95 65 Q 50 100 5 65 Z" fill="#ffffff" stroke="#e0d8ea" stroke-width="1.5"/>`)
 add(GEO, GEO_VI, 'french-arc-double', 'Double French Line', 'Hai vòng cung French', ['french', 'tip', 'line'], true, 'decal', `<path d="M5 50 Q 50 82 95 50" stroke="#f0a5c8" stroke-width="4" fill="none"/><path d="M5 62 Q 50 94 95 62" stroke="#e8547b" stroke-width="4" fill="none"/>`)
+// Delicate scalloped lace hem for the lower/tip region of a nail. The fill is kept
+// translucent (not a solid opaque block, which reads as a plain French tip rather than
+// lace) and small embroidered flower/dot appliqués break up the flat area so it reads as
+// fine lace texture at a glance, not a flat white shape with a wavy edge.
+add(
+  GEO,
+  GEO_VI,
+  'lace-edge-white',
+  'Lace Edge',
+  'Viền ren trắng',
+  ['lace', 'french', 'tip', 'coquette'],
+  true,
+  'decal',
+  `<path d="M4 58 Q13 72 22 58 Q31 72 40 58 Q49 72 58 58 Q67 72 76 58 Q85 72 94 58 L94 92 L4 92 Z" fill="#fdfcff" stroke="#e3d8ee" stroke-width="1.4" opacity="0.62"/>
+  <path d="M4 58 Q13 72 22 58 Q31 72 40 58 Q49 72 58 58 Q67 72 76 58 Q85 72 94 58" fill="none" stroke="#d8c9e6" stroke-width="1.6" opacity="0.9"/>
+  <line x1="6" y1="50" x2="94" y2="50" stroke="#d8c9e6" stroke-width="1" opacity="0.85" stroke-dasharray="2.5 3"/>
+  ${[13, 31, 49, 67, 85].map((x) => `<circle cx="${x}" cy="50" r="2.1" fill="#fdfcff" stroke="#d8c9e6" stroke-width="0.8"/>`).join('')}
+  ${[22, 40, 58, 76].map((x) => `<circle cx="${x}" cy="44" r="1.3" fill="none" stroke="#e3d8ee" stroke-width="0.8"/>`).join('')}
+  ${[[18, 68], [40, 76], [62, 70], [82, 78], [28, 84]]
+    .map(
+      ([x, y]) =>
+        `<g opacity="0.85">${flower({ petals: 5, petalLen: 8, petalWidth: 4, petalColor: '#fdfcff', petalStroke: '#d8c9e6', centerColor: '#e3d8ee', centerR: 1.4, cx: x, cy: y })}</g>`,
+    )
+    .join('')}`,
+)
 add(GEO, GEO_VI, 'chevron', 'Chevron', 'Hình chữ V', ['geometric', 'chevron'], true, 'decal', `<path d="M10 30 L50 60 L90 30 M10 55 L50 85 L90 55" stroke="#5a7dc9" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`)
 add(GEO, GEO_VI, 'houndstooth', 'Houndstooth Unit', 'Họa tiết răng chó', ['geometric', 'houndstooth'], true, 'decal', `<path d="M20 20 L50 20 L50 40 L70 40 L70 60 L50 60 L50 80 L30 80 L30 60 L20 60 L20 40 L40 40 L40 20" fill="#241c1a"/>`)
 add(GEO, GEO_VI, 'plaid-cross', 'Plaid Cross', 'Ô kẻ caro chéo', ['geometric', 'plaid'], true, 'decal', `<line x1="0" y1="35" x2="100" y2="35" stroke="#c9457a" stroke-width="8"/><line x1="0" y1="65" x2="100" y2="65" stroke="#c9457a" stroke-width="8"/><line x1="35" y1="0" x2="35" y2="100" stroke="#c9457a" stroke-width="8"/><line x1="65" y1="0" x2="65" y2="100" stroke="#c9457a" stroke-width="8"/>`)
@@ -265,6 +315,43 @@ const FRUIT = 'fruit'
 const FRUIT_VI = 'Trái cây'
 add(FRUIT, FRUIT_VI, 'cherry-pair', 'Cherry Pair', 'Cặp quả anh đào', ['fruit', 'cherry'], false, 'decal', `<path d="M45 50 Q40 20 55 10 M55 50 Q65 20 55 10" stroke="#5c8a4a" stroke-width="3" fill="none"/><circle cx="42" cy="62" r="16" fill="#d1273e"/><circle cx="62" cy="68" r="16" fill="#e6435a"/>`)
 add(FRUIT, FRUIT_VI, 'strawberry', 'Strawberry', 'Dâu tây', ['fruit', 'strawberry'], false, 'decal', `<path d="M50 30 C 20 30, 15 90, 50 92 C 85 90, 80 30, 50 30 Z" fill="#e6394a"/><path d="M35 25 L50 32 L65 25 L58 15 L50 22 L42 15 Z" fill="#5c8a4a"/>${[[40, 45], [60, 45], [35, 60], [65, 60], [50, 55], [45, 75], [55, 75]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="2" fill="#fce27a"/>`).join('')}`)
+// Richer, gradient-shaded strawberry with a rim, a two-tone leaf and curve-following
+// seeds (each with a tiny highlight stroke for depth) — a nail-art motif meant to read
+// as glazed/glossy under the compositor's own lighting, not a flat emoji-style icon.
+add(
+  FRUIT,
+  FRUIT_VI,
+  'strawberry-glossy',
+  'Glossy Strawberry',
+  'Dâu tây bóng',
+  ['fruit', 'strawberry', 'glossy'],
+  false,
+  'decal',
+  `<defs>
+    <radialGradient id="sgBody" cx="38%" cy="28%" r="78%">
+      <stop offset="0%" stop-color="#ff92a8"/>
+      <stop offset="38%" stop-color="#f2445c"/>
+      <stop offset="78%" stop-color="#c81f39"/>
+      <stop offset="100%" stop-color="#8a0f24"/>
+    </radialGradient>
+    <linearGradient id="sgLeaf" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#93d16f"/>
+      <stop offset="100%" stop-color="#4c8a3c"/>
+    </linearGradient>
+  </defs>
+  <path d="M50 30 C 20 30, 15 90, 50 92 C 85 90, 80 30, 50 30 Z" fill="url(#sgBody)"/>
+  <path d="M50 30 C 20 30, 15 90, 50 92 C 85 90, 80 30, 50 30 Z" fill="none" stroke="#700f20" stroke-width="1.5" opacity="0.45"/>
+  <path d="M35 25 L50 33 L65 25 L58 14 L50 21 L42 14 Z" fill="url(#sgLeaf)"/>
+  <path d="M35 25 L50 33 L65 25 L58 14 L50 21 L42 14 Z" fill="none" stroke="#2f5c26" stroke-width="1"/>
+  ${[[40, 45, -10], [60, 46, 8], [34, 58, -15], [66, 58, 14], [50, 54, 0], [42, 72, -8], [58, 73, 10], [50, 82, 0]]
+    .map(
+      ([x, y, rot]) =>
+        `<g transform="rotate(${rot} ${x} ${y})"><ellipse cx="${x}" cy="${y}" rx="2.6" ry="4" fill="#fce27a"/><path d="M${x - 1.6} ${y - 3} q1.6 -2 3.2 0" stroke="#caa23a" stroke-width="0.8" fill="none"/></g>`,
+    )
+    .join('')}
+  <ellipse cx="36" cy="40" rx="9" ry="15" fill="#ffffff" opacity="0.3" transform="rotate(-18 36 40)"/>
+  <ellipse cx="33" cy="35" rx="4" ry="7" fill="#ffffff" opacity="0.5" transform="rotate(-18 33 35)"/>`,
+)
 add(FRUIT, FRUIT_VI, 'lemon-slice', 'Lemon Slice', 'Lát chanh', ['fruit', 'lemon', 'citrus'], false, 'decal', `<circle cx="50" cy="50" r="38" fill="#fbe067"/><circle cx="50" cy="50" r="30" fill="#fef6c9"/>${Array.from({ length: 8 }, (_, i) => { const a = i * 45; const [x, y] = pt(50, 50, 30, a); return `<line x1="50" y1="50" x2="${f1(x)}" y2="${f1(y)}" stroke="#fbe067" stroke-width="2"/>` }).join('')}`)
 add(FRUIT, FRUIT_VI, 'watermelon-slice', 'Watermelon Slice', 'Lát dưa hấu', ['fruit', 'watermelon'], false, 'decal', `<path d="M10 60 A40 40 0 0 1 90 60 Z" fill="#e6394a"/><path d="M10 60 A40 40 0 0 1 90 60 L86 60 A36 36 0 0 0 14 60 Z" fill="#fef6e0"/><path d="M14 60 A36 36 0 0 1 86 60" fill="none" stroke="#3f7d3f" stroke-width="4"/>${[[35, 45], [50, 38], [65, 45], [50, 52]].map(([x, y]) => `<ellipse cx="${x}" cy="${y}" rx="2" ry="3.5" fill="#2b2320"/>`).join('')}`)
 add(FRUIT, FRUIT_VI, 'pineapple', 'Pineapple', 'Dứa', ['fruit', 'pineapple', 'tropical'], false, 'decal', `<ellipse cx="50" cy="62" rx="24" ry="30" fill="#f0a92e"/>${[0, 1, 2].map((r) => Array.from({ length: 5 }, (_, i) => `<path d="M${30 + i * 10} ${45 + r * 15} l5 8 l5 -8" stroke="#c9820f" stroke-width="1.5" fill="none"/>`).join('')).join('')}<path d="M40 30 L45 8 M50 30 L50 5 M60 30 L55 8" stroke="#5c8a4a" stroke-width="4" stroke-linecap="round"/>`)
@@ -299,13 +386,38 @@ add(TXT, TXT_VI, 'love-script-swirl', 'Love Script Swirl', 'Nét chữ tình yê
 
 // --- Gems / rhinestone flat outline ---
 const GEM = 'gems'
-const GEM_VI = 'Đá & kim cương (phẳng)'
+const GEM_VI = 'Đá & ngọc trai'
 add(GEM, GEM_VI, 'gem-round', 'Round Gem Outline', 'Đá tròn viền facet', ['gem', 'rhinestone', 'flat'], false, 'decal', gemFacets({ shape: 'round', color: '#cdeaff', stroke: '#6fb8e0' }))
 add(GEM, GEM_VI, 'gem-marquise', 'Marquise Gem Outline', 'Đá marquise viền facet', ['gem', 'rhinestone', 'flat'], false, 'decal', gemFacets({ shape: 'marquise', color: '#f7d9ec', stroke: '#d68fc0' }))
 add(GEM, GEM_VI, 'gem-oval', 'Oval Gem Outline', 'Đá oval viền facet', ['gem', 'rhinestone', 'flat'], false, 'decal', gemFacets({ shape: 'oval', color: '#e3f7d9', stroke: '#8fc06f' }))
 add(GEM, GEM_VI, 'gem-heart', 'Heart Gem Outline', 'Đá trái tim viền facet', ['gem', 'rhinestone', 'flat'], false, 'decal', heartPath({ color: '#ffe3ee', scale: 0.85 }) + heartOutline({ color: '#e08fc0', strokeWidth: 2.5, scale: 0.85 }) + `<line x1="50" y1="35" x2="50" y2="75" stroke="#e08fc0" stroke-width="1.2"/>`)
 add(GEM, GEM_VI, 'gem-cluster', 'Gem Cluster (3)', 'Cụm 3 viên đá', ['gem', 'rhinestone', 'flat', 'cluster'], false, 'decal', gemFacets({ shape: 'round', color: '#cdeaff', stroke: '#6fb8e0', cx: 35, cy: 60, r: 18 }) + gemFacets({ shape: 'round', color: '#f7d9ec', stroke: '#d68fc0', cx: 62, cy: 55, r: 22 }) + gemFacets({ shape: 'round', color: '#fff3c9', stroke: '#e0c06f', cx: 70, cy: 78, r: 13 }))
 add(GEM, GEM_VI, 'gem-teardrop', 'Teardrop Gem Outline', 'Đá giọt nước viền facet', ['gem', 'rhinestone', 'flat'], false, 'decal', `<path d="M50 10 C 70 35, 82 55, 82 68 A32 32 0 1 1 18 68 C 18 55, 30 35, 50 10 Z" fill="#eaf3ff" stroke="#7fa8d6" stroke-width="2.5"/><line x1="50" y1="20" x2="50" y2="90" stroke="#7fa8d6" stroke-width="1.2"/><line x1="30" y1="55" x2="70" y2="55" stroke="#7fa8d6" stroke-width="1.2"/>`)
+// A raised charm, not a flat decal: intentionally just a clean silhouette + base gradient
+// with NO pre-baked contact shadow (composeNail's raised-charm pass synthesizes its own
+// dome shading + contact shadow from this exact alpha silhouette at render time — baking
+// a shadow into these pixels would corrupt that silhouette into a lopsided blob).
+add(
+  GEM,
+  GEM_VI,
+  'pearl-dome',
+  'Pearl Dome',
+  'Ngọc trai nổi',
+  ['pearl', 'raised', 'charm'],
+  false,
+  'raised',
+  `<defs>
+    <radialGradient id="pearlBody" cx="35%" cy="30%" r="75%">
+      <stop offset="0%" stop-color="#fffdf6"/>
+      <stop offset="45%" stop-color="#f7e9e0"/>
+      <stop offset="80%" stop-color="#e3c9c2"/>
+      <stop offset="100%" stop-color="#c9a8a8"/>
+    </radialGradient>
+  </defs>
+  <circle cx="50" cy="50" r="38" fill="url(#pearlBody)"/>
+  <ellipse cx="38" cy="34" rx="10" ry="7" fill="#ffffff" opacity="0.75"/>
+  <ellipse cx="34" cy="30" rx="4" ry="3" fill="#ffffff" opacity="0.9"/>`,
+)
 
 // --- Misc symbols ---
 const MISC = 'misc'

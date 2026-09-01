@@ -1,7 +1,7 @@
 {
   "packId": "vibeu-decal-pack-v1",
   "generatedBy": "scripts/generate-decals.mjs",
-  "totalDecals": 121,
+  "totalDecals": 125,
   "categories": [
     {
       "id": "floral",
@@ -26,7 +26,7 @@
     {
       "id": "bows",
       "nameVi": "Nơ & ruy băng",
-      "count": 6
+      "count": 7
     },
     {
       "id": "animal-print",
@@ -36,7 +36,7 @@
     {
       "id": "geometric",
       "nameVi": "Hình học & đường nét",
-      "count": 15
+      "count": 16
     },
     {
       "id": "foil-abstract",
@@ -46,7 +46,7 @@
     {
       "id": "fruit",
       "nameVi": "Trái cây",
-      "count": 8
+      "count": 9
     },
     {
       "id": "seasonal",
@@ -60,8 +60,8 @@
     },
     {
       "id": "gems",
-      "nameVi": "Đá & kim cương (phẳng)",
-      "count": 6
+      "nameVi": "Đá & ngọc trai",
+      "count": 7
     },
     {
       "id": "misc",
@@ -1273,6 +1273,36 @@
       "license": "Original / project-owned — free to use within VIBEU"
     },
     {
+      "id": "coquette-bow-raised",
+      "name": "Coquette Bow (Raised)",
+      "nameVi": "Nơ coquette nổi",
+      "category": "bows",
+      "categoryVi": "Nơ & ruy băng",
+      "path": "svg/bows/coquette-bow-raised.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "raised",
+      "tags": [
+        "bow",
+        "ribbon",
+        "raised",
+        "charm",
+        "coquette"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
       "id": "leopard-spot",
       "name": "Leopard Spot",
       "nameVi": "Đốm báo",
@@ -1548,6 +1578,35 @@
         "french",
         "tip",
         "line"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "lace-edge-white",
+      "name": "Lace Edge",
+      "nameVi": "Viền ren trắng",
+      "category": "geometric",
+      "categoryVi": "Hình học & đường nét",
+      "path": "svg/geometric/lace-edge-white.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": true,
+      "layerType": "decal",
+      "tags": [
+        "lace",
+        "french",
+        "tip",
+        "coquette"
       ],
       "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
       "license": "Original / project-owned — free to use within VIBEU"
@@ -2241,6 +2300,34 @@
       "license": "Original / project-owned — free to use within VIBEU"
     },
     {
+      "id": "strawberry-glossy",
+      "name": "Glossy Strawberry",
+      "nameVi": "Dâu tây bóng",
+      "category": "fruit",
+      "categoryVi": "Trái cây",
+      "path": "svg/fruit/strawberry-glossy.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "tags": [
+        "fruit",
+        "strawberry",
+        "glossy"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
       "id": "lemon-slice",
       "name": "Lemon Slice",
       "nameVi": "Lát chanh",
@@ -2877,7 +2964,7 @@
       "name": "Round Gem Outline",
       "nameVi": "Đá tròn viền facet",
       "category": "gems",
-      "categoryVi": "Đá & kim cương (phẳng)",
+      "categoryVi": "Đá & ngọc trai",
       "path": "svg/gems/gem-round.svg",
       "viewBox": [
         100,
@@ -2905,7 +2992,7 @@
       "name": "Marquise Gem Outline",
       "nameVi": "Đá marquise viền facet",
       "category": "gems",
-      "categoryVi": "Đá & kim cương (phẳng)",
+      "categoryVi": "Đá & ngọc trai",
       "path": "svg/gems/gem-marquise.svg",
       "viewBox": [
         100,
@@ -2933,7 +3020,7 @@
       "name": "Oval Gem Outline",
       "nameVi": "Đá oval viền facet",
       "category": "gems",
-      "categoryVi": "Đá & kim cương (phẳng)",
+      "categoryVi": "Đá & ngọc trai",
       "path": "svg/gems/gem-oval.svg",
       "viewBox": [
         100,
@@ -2961,7 +3048,7 @@
       "name": "Heart Gem Outline",
       "nameVi": "Đá trái tim viền facet",
       "category": "gems",
-      "categoryVi": "Đá & kim cương (phẳng)",
+      "categoryVi": "Đá & ngọc trai",
       "path": "svg/gems/gem-heart.svg",
       "viewBox": [
         100,
@@ -2989,7 +3076,7 @@
       "name": "Gem Cluster (3)",
       "nameVi": "Cụm 3 viên đá",
       "category": "gems",
-      "categoryVi": "Đá & kim cương (phẳng)",
+      "categoryVi": "Đá & ngọc trai",
       "path": "svg/gems/gem-cluster.svg",
       "viewBox": [
         100,
@@ -3018,7 +3105,7 @@
       "name": "Teardrop Gem Outline",
       "nameVi": "Đá giọt nước viền facet",
       "category": "gems",
-      "categoryVi": "Đá & kim cương (phẳng)",
+      "categoryVi": "Đá & ngọc trai",
       "path": "svg/gems/gem-teardrop.svg",
       "viewBox": [
         100,
@@ -3037,6 +3124,34 @@
         "gem",
         "rhinestone",
         "flat"
+      ],
+      "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
+      "license": "Original / project-owned — free to use within VIBEU"
+    },
+    {
+      "id": "pearl-dome",
+      "name": "Pearl Dome",
+      "nameVi": "Ngọc trai nổi",
+      "category": "gems",
+      "categoryVi": "Đá & ngọc trai",
+      "path": "svg/gems/pearl-dome.svg",
+      "viewBox": [
+        100,
+        100
+      ],
+      "contentBounds": [
+        0.05,
+        0.05,
+        0.9,
+        0.9
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "raised",
+      "tags": [
+        "pearl",
+        "raised",
+        "charm"
       ],
       "source": "Original artwork generated for VIBEU (parametric + hand-authored SVG)",
       "license": "Original / project-owned — free to use within VIBEU"

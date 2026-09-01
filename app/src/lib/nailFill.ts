@@ -245,6 +245,11 @@ function clamp(v: number, a = 0, b = 1): number {
   return Math.min(b, Math.max(a, v))
 }
 
+function smoothstep01(a: number, b: number, v: number): number {
+  const t = clamp((v - a) / (b - a || 1))
+  return t * t * (3 - 2 * t)
+}
+
 export function hexToRgb01(hex: string): [number, number, number] {
   return [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255) as [number, number, number]
 }
@@ -324,9 +329,11 @@ function microNormalOffset(xx: number, yy: number, seed: number, strength: numbe
  * single bbox-sized canvas, per pixel:
  *
  *   pigment (paint gradient, lit by macro+micro normal + real photo luminance)
- *     -> decals, curvature-warped, lit by the same shading, tinted if tintable
- *     -> clear-coat specular + Fresnel + environment reflection over the combined buffer
- *     -> restrained cuticle/edge contact shading
+ *     -> embedded/flat decals, curvature-warped, lit by the same local exposure, tinted if tintable
+ *     -> clear-coat specular + Fresnel + environment reflection over the combined buffer,
+ *        plus restrained cuticle/edge contact shading
+ *     -> raised charms (pearls, domed gems, padded bows): independent dome shading +
+ *        contact shadow, composited ON TOP of the clear coat, never curvature-warped
  *
  * All per-pixel randomness is a deterministic hash of (pixel, seed) — never
  * time-based — so re-rendering the same design produces an identical result.
@@ -411,7 +418,13 @@ export function composeNail(
       }
     }
 
-    const opacity = paint.opacity * (1 - profile.translucency)
+    // Real sheer/jelly polish reads sheerest right at the cuticle and builds toward the
+    // free edge (one light coat near the base, coverage catching up by the tip) rather than
+    // a uniform flat tint — a translucent material keeps that same v-gradient here so the
+    // natural nail plate stays visible near the cuticle instead of looking like a uniform
+    // "opaque colour rectangle" dropped on top of the photo.
+    const tipDensity = profile.translucency > 0.01 ? 0.78 + 0.22 * smoothstep01(0.15, 0.75, v) : 1
+    const opacity = clamp(paint.opacity * (1 - profile.translucency) * tipDensity)
     const srcColor: [number, number, number] = [g.source[k * 4] / 255, g.source[k * 4 + 1] / 255, g.source[k * 4 + 2] / 255]
     color = mix3(srcColor, color, opacity)
 
@@ -420,7 +433,15 @@ export function composeNail(
     work[k * 3 + 2] = color[2]
   }
 
-  // Pass B — decals (flat/foil only; raised charms render through renderRaisedCharm instead).
+  // Pass B — embedded/flat decals (foil too; raised charms are Pass D below). The goal is
+  // a decal that reads as *printed on the same lit surface* as the pigment, not an RGBA
+  // sprite dropped on top: local exposure follows the nail's own light map + diffuse
+  // response (same signal Pass A uses, so a decal on a shadowed side-wall genuinely dims
+  // with the surface it's embedded in), hue is preserved by scaling all channels by one
+  // exposure term rather than tinting toward a fixed shade, local contrast is softened at
+  // strong curvature (the shading swing at grazing macro-normal angles otherwise reads as
+  // harsh banding across a decal instead of gentle wrap), and the box edge is feathered so
+  // decals whose artwork nearly fills their footprint don't show a hard rectangular cutoff.
   for (const decal of decals) {
     if (decal.layerType === 'raised') continue
     const rad = (-decal.rotationDeg * Math.PI) / 180
@@ -452,7 +473,10 @@ export function composeNail(
         const srcX = (cbx + (nx + 0.5) * cbw) * decal.pixels.width
         const srcY = (cby + (ny + 0.5) * cbh) * decal.pixels.height
         const [r, gg, b, a] = sampleBilinear(decal.pixels, srcX, srcY)
-        const alpha01 = (a / 255) * decal.opacity
+        // Feather the last ~8% of the placement box instead of a hard box cutoff, so
+        // artwork drawn close to its own bounds (e.g. a lace hem) doesn't show a seam.
+        const edgeFalloff = 1 - smoothstep01(0.42, 0.5, Math.max(Math.abs(nx), Math.abs(ny)))
+        let alpha01 = (a / 255) * decal.opacity * edgeFalloff
         if (alpha01 <= 0.001) continue
 
         let dr = r / 255
@@ -464,11 +488,23 @@ export function composeNail(
           dg = decal.tint[1] * lum
           db = decal.tint[2] * lum
         }
+
         const diffuse = Math.max(0, finalNormal[k * 3] * L[0] + finalNormal[k * 3 + 1] * L[1] + finalNormal[k * 3 + 2] * L[2])
-        const shade = g.light[k] * g.photoAmbient * (light.ambient + light.strength * (diffuse - 0.75) * 0.5)
-        dr = clamp(dr * shade)
-        dg = clamp(dg * shade)
-        db = clamp(db * shade)
+        // Dampened (60%) and curvature-softened diffuse swing relative to the pigment's own —
+        // ink/pigment sitting *in* the polish doesn't lose as much apparent colour under raking
+        // light as a glassy clear-coat area does, and a strong-curvature edge (where the macro
+        // normal turns sharply) shouldn't read as a hard dark/light band across one decal.
+        const curveMag = Math.min(1, Math.abs(g.curve[k]) * 2)
+        const diffuseTerm = light.strength * (diffuse - 0.75) * 0.5 * 0.6 * (1 - curveMag * 0.5)
+        const localExposure = clamp(g.light[k] * g.photoAmbient * (light.ambient + diffuseTerm), 0.62, 1.18)
+        dr = clamp(dr * localExposure)
+        dg = clamp(dg * localExposure)
+        db = clamp(db * localExposure)
+
+        // Mild pigment-absorption: a decal catching more of the surface's own light reads as
+        // slightly more opaque/on-top; one sitting in a dimmer pocket blends a touch further
+        // into the base coat beneath it, instead of every pixel using the sticker's raw alpha.
+        alpha01 = clamp(alpha01 * (0.88 + localExposure * 0.12), 0, 1)
 
         work[k * 3] = work[k * 3] * (1 - alpha01) + dr * alpha01
         work[k * 3 + 1] = work[k * 3 + 1] * (1 - alpha01) + dg * alpha01
@@ -527,6 +563,120 @@ export function composeNail(
     work[k * 3] = color[0]
     work[k * 3 + 1] = color[1]
     work[k * 3 + 2] = color[2]
+  }
+
+  // Pass D — raised charms (pearls, domed gems, padded bows): independent dome-shaded
+  // objects sitting ON TOP of the finished clear coat, not embedded in it — they do NOT
+  // receive Pass C's clearcoat/Fresnel/environment treatment (a solid charm physically
+  // blocks whatever gloss was underneath it, exactly like a real applied embellishment).
+  // The dome normal is an analytic ellipsoid fit to the decal's own placement box, masked
+  // by that decal's true alpha silhouette (so a bow's two loops+knot are lit as one
+  // coherent puffy shape, not a plain circle) — not curvature-warped, since a rigid charm
+  // keeps its own form regardless of the nail's curvature underneath it.
+  for (const decal of decals) {
+    if (decal.layerType !== 'raised') continue
+    const rad = (-decal.rotationDeg * Math.PI) / 180
+    const cos = Math.cos(rad)
+    const sin = Math.sin(rad)
+    const [cbx, cby, cbw, cbh] = decal.contentBounds
+    const halfDiag = Math.hypot(decal.widthPx, decal.heightPx) / 2 + 4
+    const minX = Math.max(0, Math.floor(decal.centerX - g.x - halfDiag))
+    const maxX = Math.min(g.w, Math.ceil(decal.centerX - g.x + halfDiag))
+    const minY = Math.max(0, Math.floor(decal.centerY - g.y - halfDiag))
+    const maxY = Math.min(g.h, Math.ceil(decal.centerY - g.y + halfDiag))
+
+    // Feathered (not hard-cutoff) box edge — a decal like the padded bow, whose loops
+    // reach close to its own placement-box edge, would otherwise show a visible straight
+    // clip line exactly where the box boundary crosses still-opaque artwork.
+    const sampleShapeAlpha = (nx: number, ny: number): number => {
+      if (nx < -0.5 || nx > 0.5 || ny < -0.5 || ny > 0.5) return 0
+      const srcX = (cbx + (nx + 0.5) * cbw) * decal.pixels.width
+      const srcY = (cby + (ny + 0.5) * cbh) * decal.pixels.height
+      const raw = sampleBilinear(decal.pixels, srcX, srcY)[3] / 255
+      const edgeFalloff = 1 - smoothstep01(0.42, 0.5, Math.max(Math.abs(nx), Math.abs(ny)))
+      return raw * edgeFalloff
+    }
+
+    for (let yy = minY; yy < maxY; yy++) {
+      for (let xx = minX; xx < maxX; xx++) {
+        const k = yy * g.w + xx
+        if (!g.alpha[k]) continue
+        const ix = g.x + xx
+        const iy = g.y + yy
+        const rx = ix - decal.centerX
+        const ry = iy - decal.centerY
+        const lx = rx * cos - ry * sin
+        const ly = rx * sin + ry * cos
+        let nx = lx / decal.widthPx
+        const ny = ly / decal.heightPx
+        if (decal.flipX) nx = -nx
+        if (nx < -0.5 || nx > 0.5 || ny < -0.5 || ny > 0.5) continue
+
+        const shapeAlpha = sampleShapeAlpha(nx, ny)
+
+        // Soft isotropic contact shadow in the ring just outside the true silhouette —
+        // sampling the same shape function at a shrunk coordinate tests membership in a
+        // ~14%-dilated copy of it, so the ring falls exactly around the real shape.
+        const dilatedAlpha = sampleShapeAlpha(nx / 1.14, ny / 1.14)
+        const shadowRing = clamp(dilatedAlpha - shapeAlpha) * 0.4
+        if (shadowRing > 0.001) {
+          work[k * 3] *= 1 - shadowRing
+          work[k * 3 + 1] *= 1 - shadowRing
+          work[k * 3 + 2] *= 1 - shadowRing
+        }
+
+        const alpha01 = shapeAlpha * decal.opacity
+        if (alpha01 <= 0.001) continue
+
+        const srcX = (cbx + (nx + 0.5) * cbw) * decal.pixels.width
+        const srcY = (cby + (ny + 0.5) * cbh) * decal.pixels.height
+        const [r, gg, b] = sampleBilinear(decal.pixels, srcX, srcY)
+        let dr = r / 255
+        let dg = gg / 255
+        let db = b / 255
+        if (decal.tint) {
+          const lum = dr * 0.2126 + dg * 0.7152 + db * 0.0722
+          dr = decal.tint[0] * lum
+          dg = decal.tint[1] * lum
+          db = decal.tint[2] * lum
+        }
+
+        const dnx = clamp(nx * 2, -1, 1)
+        const dny = clamp(ny * 2, -1, 1)
+        const dnz = Math.sqrt(Math.max(0.06, 1 - dnx * dnx - dny * dny))
+        const domeN = norm3([dnx, dny, dnz])
+        const diffuse = Math.max(0, domeN[0] * L[0] + domeN[1] * L[1] + domeN[2] * L[2])
+        const spec = Math.pow(Math.max(0, domeN[0] * H[0] + domeN[1] * H[1] + domeN[2] * H[2]), 46)
+
+        // A touch of the nail's own photo-derived ambient tint, so the same charm reads
+        // consistently warm/cool with the rest of this hand photo's lighting — dampened to
+        // ~22% strength; the raw photoTint ratio is tuned for pigment mixing in Pass A and
+        // is far too strong applied directly to a near-white pearl (it reads as orange).
+        const tintAmount = 0.22
+        const ambientTint: [number, number, number] = [
+          1 + (g.photoTint[0] - 1) * tintAmount,
+          1 + (g.photoTint[1] - 1) * tintAmount,
+          1 + (g.photoTint[2] - 1) * tintAmount,
+        ]
+        // Blend the dome-shaded result with the artwork's own flat colour (30%) rather than
+        // fully replacing it — a single ellipsoid normal spans the whole placement box, so a
+        // multi-lobe shape (a bow's two loops + knot) needs some of its own painted shading
+        // (the darker gap between overlapping loops) to survive, or the dome sweep flattens
+        // the silhouette into one smooth blob with no visible lobes.
+        const domeShade = 0.5 + 0.5 * diffuse
+        let lit: [number, number, number] = [
+          dr * (domeShade * 0.7 + 0.3),
+          dg * (domeShade * 0.7 + 0.3),
+          db * (domeShade * 0.7 + 0.3),
+        ]
+        lit = [clamp(lit[0] * ambientTint[0]), clamp(lit[1] * ambientTint[1]), clamp(lit[2] * ambientTint[2])]
+        lit = [clamp(lit[0] + spec * 0.65), clamp(lit[1] + spec * 0.65), clamp(lit[2] + spec * 0.65)]
+
+        work[k * 3] = work[k * 3] * (1 - alpha01) + lit[0] * alpha01
+        work[k * 3 + 1] = work[k * 3 + 1] * (1 - alpha01) + lit[1] * alpha01
+        work[k * 3 + 2] = work[k * 3 + 2] * (1 - alpha01) + lit[2] * alpha01
+      }
+    }
   }
 
   const canvas = document.createElement('canvas')
@@ -619,56 +769,7 @@ function hsv2rgb(h: number, s: number, v: number): [number, number, number] {
   return [f(5), f(3), f(1)]
 }
 
-// ---------------------------------------------------------------------------
-// Raised charm / rhinestone layer — architecturally separate from flat decals.
-// A small synthetic dome normal + its own specular + a soft baked-in contact
-// shadow, rather than the flat-decal shading formula above.
-// ---------------------------------------------------------------------------
-
-export function renderRaisedCharm(sizePx: number, baseColor: string, light: LightState = DEFAULT_LIGHT): HTMLCanvasElement {
-  const canvas = document.createElement('canvas')
-  const pad = Math.ceil(sizePx * 0.18)
-  const dim = Math.ceil(sizePx + pad * 2)
-  canvas.width = dim
-  canvas.height = dim
-  const ctx = canvas.getContext('2d')!
-  const im = ctx.createImageData(dim, dim)
-  const out = im.data
-  const base = hexToRgb01(baseColor)
-  const r = sizePx / 2
-  const cx = dim / 2
-  const cy = dim / 2 + pad * 0.15
-
-  const az = (light.angle * Math.PI) / 180
-  const el = (light.elevation * Math.PI) / 180
-  const L = norm3([Math.cos(az) * Math.cos(el), Math.sin(az) * Math.cos(el), Math.sin(el)])
-  const H = norm3([L[0], L[1], L[2] + 1])
-
-  for (let yy = 0; yy < dim; yy++) {
-    for (let xx = 0; xx < dim; xx++) {
-      const dx = (xx - cx) / r
-      const dy = (yy - cy) / r
-      const d2 = dx * dx + dy * dy
-      const off = (yy * dim + xx) * 4
-      if (d2 > 1.08) continue
-      if (d2 > 1) {
-        // soft contact shadow just outside the dome footprint
-        const shadowT = clamp((1.08 - d2) / 0.08)
-        out[off + 3] = shadowT * 70
-        continue
-      }
-      const nz = Math.sqrt(Math.max(0, 1 - d2))
-      const n = norm3([dx, dy, nz])
-      const diffuse = Math.max(0, n[0] * L[0] + n[1] * L[1] + n[2] * L[2])
-      const spec = Math.pow(Math.max(0, n[0] * H[0] + n[1] * H[1] + n[2] * H[2]), 40)
-      let color = mix3(base, [base[0] * 0.5, base[1] * 0.5, base[2] * 0.55], 1 - diffuse)
-      color = [clamp(color[0] + spec), clamp(color[1] + spec), clamp(color[2] + spec)]
-      out[off] = color[0] * 255
-      out[off + 1] = color[1] * 255
-      out[off + 2] = color[2] * 255
-      out[off + 3] = 255
-    }
-  }
-  ctx.putImageData(im, 0, 0)
-  return canvas
-}
+// Raised charms (pearls, domed gems, padded bows) are rendered end-to-end inside
+// composeNail's Pass D, from the decal's own alpha silhouette — see the comment there.
+// (A prior standalone renderRaisedCharm() existed here but was never wired into the
+// compositor; Pass D supersedes it and reads any real decal shape, not just a circle.)
