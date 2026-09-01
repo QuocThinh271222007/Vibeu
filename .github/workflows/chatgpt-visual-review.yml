@@ -27,42 +27,65 @@ jobs:
         run: |
           npm install --no-save --no-package-lock playwright@1.55.0
           npx playwright install --with-deps chromium
-      - name: Start Vite
+      - name: Start production preview
         working-directory: app
         run: |
-          npm run dev -- --host 127.0.0.1 > /tmp/vibeu-vite.log 2>&1 &
+          npm run preview -- --host 127.0.0.1 --port 4173 > /tmp/vibeu-preview.log 2>&1 &
           for i in {1..60}; do
-            if curl -fsS http://127.0.0.1:5173/ >/dev/null; then exit 0; fi
+            if curl -fsS http://127.0.0.1:4173/ >/dev/null; then exit 0; fi
             sleep 1
           done
-          cat /tmp/vibeu-vite.log
+          cat /tmp/vibeu-preview.log
           exit 1
       - name: Capture visual baselines
         working-directory: app
         run: |
           mkdir -p visual-review
-          cat > /tmp/capture.mjs <<'EOF'
+          cat > capture.mjs <<'EOF'
           import { chromium } from './node_modules/playwright/index.mjs';
-          const browser = await chromium.launch({headless:true});
+
+          const browser = await chromium.launch({ headless: true });
           const shots = [
-            ['desktop-library','http://127.0.0.1:5173/library',1440,1000],
-            ['desktop-studio-empty','http://127.0.0.1:5173/studio',1440,1000],
-            ['desktop-studio-strawberry','http://127.0.0.1:5173/studio?template=strawberry-lace-dream',1440,1000],
-            ['mobile-library','http://127.0.0.1:5173/library',390,844],
-            ['mobile-studio-strawberry','http://127.0.0.1:5173/studio?template=strawberry-lace-dream',390,844]
+            ['desktop-home', 'http://127.0.0.1:4173/', 1440, 1000],
+            ['desktop-library', 'http://127.0.0.1:4173/library', 1440, 1000],
+            ['desktop-studio-empty', 'http://127.0.0.1:4173/studio', 1440, 1000],
+            ['desktop-studio-strawberry', 'http://127.0.0.1:4173/studio?template=strawberry-lace-dream', 1440, 1000],
+            ['mobile-home', 'http://127.0.0.1:4173/', 390, 844],
+            ['mobile-library', 'http://127.0.0.1:4173/library', 390, 844],
+            ['mobile-studio-strawberry', 'http://127.0.0.1:4173/studio?template=strawberry-lace-dream', 390, 844],
           ];
-          for (const [name,url,w,h] of shots) {
-            const page = await browser.newPage({viewport:{width:w,height:h}, deviceScaleFactor:1});
-            await page.goto(url,{waitUntil:'networkidle'});
-            await page.screenshot({path:`visual-review/${name}.png`,fullPage:true});
+
+          for (const [name, url, width, height] of shots) {
+            const page = await browser.newPage({
+              viewport: { width, height },
+              deviceScaleFactor: 1,
+            });
+            page.setDefaultTimeout(12_000);
+            page.setDefaultNavigationTimeout(12_000);
+            await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 12_000 });
+            await page.waitForLoadState('load', { timeout: 8_000 }).catch(() => {});
+            await page.evaluate(async () => {
+              if (document.fonts?.ready) await Promise.race([
+                document.fonts.ready,
+                new Promise((resolve) => setTimeout(resolve, 3_000)),
+              ]);
+            });
+            await page.waitForTimeout(1_200);
+            await page.screenshot({
+              path: `visual-review/${name}.png`,
+              fullPage: true,
+              animations: 'disabled',
+              timeout: 12_000,
+            });
             await page.close();
           }
+
           await browser.close();
           EOF
-          cp /tmp/capture.mjs ./capture.mjs
           node capture.mjs
           rm capture.mjs
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: vibeu-visual-review
           path: app/visual-review/*.png
