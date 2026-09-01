@@ -58,7 +58,7 @@ export function Hero() {
         </motion.div>
 
         <div className="relative mx-auto h-[420px] w-full max-w-md lg:h-[480px]">
-          {SHOWCASE.map((s, index) => (
+          {SHOWCASE.map((s) => (
             <motion.div
               key={s.id.id}
               initial={{ opacity: 0, scale: 0.85, rotate: s.rotate - 6 }}
@@ -76,7 +76,7 @@ export function Hero() {
                   template={s.id}
                   className="aspect-[2/3] w-full"
                   imageClassName="scale-[1.01]"
-                  eager={true}
+                  eager
                 />
               </motion.div>
               <p className="mt-2 text-center font-display text-xs font-semibold text-vibe-ink/70">{s.id.name}</p>
