@@ -11,10 +11,9 @@ export function TemplatePreviewCard({ template, index = 0 }: { template: Templat
 
   return (
     <motion.article
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-40px' }}
-      transition={{ duration: 0.5, delay: (index % 6) * 0.05, ease: [0.22, 1, 0.36, 1] }}
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.45, delay: Math.min(index, 7) * 0.035, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -6 }}
       className="group overflow-hidden rounded-[1.75rem] bg-white shadow-[0_10px_30px_-16px_rgba(80,50,120,0.25)] transition-shadow hover:shadow-vibe-lg"
     >
@@ -23,6 +22,7 @@ export function TemplatePreviewCard({ template, index = 0 }: { template: Templat
           template={template}
           className="h-full w-full"
           imageClassName="transition-transform duration-500 ease-out group-hover:scale-[1.025]"
+          eager={index < 4}
         />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/10 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
         <button

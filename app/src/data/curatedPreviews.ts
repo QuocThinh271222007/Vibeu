@@ -12,27 +12,21 @@ import type { Template, TemplatePreview } from '@/types/vibeu'
 const CURATED_PREVIEWS: Record<string, TemplatePreview> = {
   'gemini-sparkle': {
     type: 'curated',
-    image: 'https://images.pexels.com/photos/37114821/pexels-photo-37114821.jpeg?cs=srgb&dl=pexels-inna-million-2159545286-37114821.jpg&fm=jpg',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Acrylic_nail_art_with_crystal.jpg/960px-Acrylic_nail_art_with_crystal.jpg',
     objectPosition: 'center center',
-    alt: 'Bàn tay với manicure tím lavender và nail art điểm nhấn',
+    alt: 'Manicure lavender trên móng acrylic với chi tiết crystal',
   },
   'xuan-cherry-blossom': {
     type: 'curated',
-    image: 'https://images.pexels.com/photos/34835291/pexels-photo-34835291.jpeg?cs=srgb&dl=pexels-svliiim-34835291.jpg&fm=jpg',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Flower_nail_art.jpg/960px-Flower_nail_art.jpg',
     objectPosition: 'center center',
-    alt: 'Cận cảnh manicure hồng với họa tiết hoa trang trí',
+    alt: 'Manicure hồng với họa tiết hoa trang trí',
   },
   'minimalist-nude': {
     type: 'curated',
-    image: 'https://images.pexels.com/photos/6941115/pexels-photo-6941115.jpeg?cs=srgb&dl=pexels-cottonbro-6941115.jpg&fm=jpg',
-    objectPosition: '58% center',
-    alt: 'Hai bàn tay với manicure nude bóng tối giản',
-  },
-  'scorpio-midnight': {
-    type: 'curated',
-    image: 'https://images.pexels.com/photos/16007289/pexels-photo-16007289.jpeg?cs=srgb&dl=pexels-olena-smirnova-458098066-16007289.jpg&fm=jpg',
-    objectPosition: 'center 30%',
-    alt: 'Bàn tay với manicure màu mận tối trên nền xanh đậm',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/1/11/Nude_nail_polish.jpg',
+    objectPosition: 'center center',
+    alt: 'Manicure nude hồng tự nhiên và tối giản',
   },
 }
 
@@ -41,7 +35,6 @@ export const CURATED_PREVIEW_ORDER = [
   'gemini-sparkle',
   'xuan-cherry-blossom',
   'minimalist-nude',
-  'scorpio-midnight',
 ] as const
 
 export function resolveTemplatePreview(template: Template): TemplatePreview | undefined {

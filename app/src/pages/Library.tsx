@@ -64,11 +64,9 @@ export default function Library() {
       {templates.length === 0 ? (
         <p className="py-20 text-center text-vibe-ink-soft">Không tìm thấy mẫu phù hợp, thử bộ lọc khác nhé.</p>
       ) : (
-        <div className="mt-10 columns-2 gap-5 sm:columns-2 lg:columns-3 xl:columns-4">
+        <div className="mt-10 grid grid-cols-2 gap-5 lg:grid-cols-3 xl:grid-cols-4">
           {templates.map((t, i) => (
-            <div key={t.id} className="mb-5 break-inside-avoid">
-              <TemplatePreviewCard template={t} index={i} />
-            </div>
+            <TemplatePreviewCard key={t.id} template={t} index={i} />
           ))}
         </div>
       )}
