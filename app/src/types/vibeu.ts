@@ -118,14 +118,21 @@ export interface DecalAsset {
   categoryVi: string
   tags: string[]
   path: string
+  /** Lighter-weight image for the library grid thumbnail; falls back to `path` when absent. */
+  thumbnail?: string
   viewBox: [number, number]
   contentBounds: [number, number, number, number]
   defaultScale: number
   /** Whether the app's tint control may recolor this asset (line-art) vs. it being inherently multi-color (florals, fruit, gems). */
   tintable: boolean
   layerType: DecalLayerType
+  /** Free-text illustration style, e.g. 'premium-illustrated' vs the original flat-vector set. */
+  style?: string
   source: string
   license: string
+  /** Set at load time (not stored in the manifest) to distinguish the original flat-vector
+   * library from the richer illustrated premium pack, so the picker can group/badge them. */
+  tier?: 'standard' | 'premium'
 }
 
 export interface StickerCategory {

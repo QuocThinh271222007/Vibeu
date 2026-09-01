@@ -1,0 +1,4648 @@
+{
+  "packId": "vibeu-premium-decal-pack-v1",
+  "generatedBy": "premium sticker-sheet ingestion (this session)",
+  "totalDecals": 144,
+  "categories": [
+    {
+      "id": "coquette-charms",
+      "nameVi": "Nơ & phụ kiện coquette",
+      "count": 24
+    },
+    {
+      "id": "desserts",
+      "nameVi": "Bánh & đồ ngọt",
+      "count": 24
+    },
+    {
+      "id": "cute-animals",
+      "nameVi": "Thú cưng dễ thương",
+      "count": 24
+    },
+    {
+      "id": "vanity-accessories",
+      "nameVi": "Phụ kiện trang điểm",
+      "count": 24
+    },
+    {
+      "id": "celestial-pastel",
+      "nameVi": "Thiên thể pastel",
+      "count": 24
+    },
+    {
+      "id": "florals-fruits",
+      "nameVi": "Hoa & trái cây",
+      "count": 24
+    }
+  ],
+  "decals": [
+    {
+      "id": "cq-bow-pearl-heart",
+      "name": "Bow Pearl Heart",
+      "nameVi": "Bow Pearl Heart",
+      "category": "coquette-charms",
+      "categoryVi": "Nơ & phụ kiện coquette",
+      "tags": [
+        "premium",
+        "coquette-charms",
+        "bow",
+        "pearl",
+        "heart"
+      ],
+      "path": "premium/coquette-charms/bow-pearl-heart.webp",
+      "thumbnail": "premium/coquette-charms/bow-pearl-heart.thumb.webp",
+      "viewBox": [
+        264,
+        215
+      ],
+      "contentBounds": [
+        0.0303,
+        0.0372,
+        0.9697,
+        0.9628
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "cq-bunny-heart-plush",
+      "name": "Bunny Heart Plush",
+      "nameVi": "Bunny Heart Plush",
+      "category": "coquette-charms",
+      "categoryVi": "Nơ & phụ kiện coquette",
+      "tags": [
+        "premium",
+        "coquette-charms",
+        "bunny",
+        "heart",
+        "plush"
+      ],
+      "path": "premium/coquette-charms/bunny-heart-plush.webp",
+      "thumbnail": "premium/coquette-charms/bunny-heart-plush.thumb.webp",
+      "viewBox": [
+        221,
+        234
+      ],
+      "contentBounds": [
+        0.0362,
+        0.0214,
+        0.9276,
+        0.9786
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "cq-strawberry-shortcake-slice",
+      "name": "Strawberry Shortcake Slice",
+      "nameVi": "Strawberry Shortcake Slice",
+      "category": "coquette-charms",
+      "categoryVi": "Nơ & phụ kiện coquette",
+      "tags": [
+        "premium",
+        "coquette-charms",
+        "strawberry",
+        "shortcake",
+        "slice"
+      ],
+      "path": "premium/coquette-charms/strawberry-shortcake-slice.webp",
+      "thumbnail": "premium/coquette-charms/strawberry-shortcake-slice.thumb.webp",
+      "viewBox": [
+        277,
+        219
+      ],
+      "contentBounds": [
+        0.0289,
+        0.0365,
+        0.9422,
+        0.9635
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "cq-heart-perfume-bow",
+      "name": "Heart Perfume Bow",
+      "nameVi": "Heart Perfume Bow",
+      "category": "coquette-charms",
+      "categoryVi": "Nơ & phụ kiện coquette",
+      "tags": [
+        "premium",
+        "coquette-charms",
+        "heart",
+        "perfume",
+        "bow"
+      ],
+      "path": "premium/coquette-charms/heart-perfume-bow.webp",
+      "thumbnail": "premium/coquette-charms/heart-perfume-bow.thumb.webp",
+      "viewBox": [
+        230,
+        233
+      ],
+      "contentBounds": [
+        0.0348,
+        0.0343,
+        0.9304,
+        0.9657
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "cq-cat-bow-white",
+      "name": "Cat Bow White",
+      "nameVi": "Cat Bow White",
+      "category": "coquette-charms",
+      "categoryVi": "Nơ & phụ kiện coquette",
+      "tags": [
+        "premium",
+        "coquette-charms",
+        "cat",
+        "bow",
+        "white"
+      ],
+      "path": "premium/coquette-charms/cat-bow-white.webp",
+      "thumbnail": "premium/coquette-charms/cat-bow-white.thumb.webp",
+      "viewBox": [
+        242,
+        219
+      ],
+      "contentBounds": [
+        0.0331,
+        0.0365,
+        0.9463,
+        0.9635
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "cq-strawberry-milk-carton",
+      "name": "Strawberry Milk Carton",
+      "nameVi": "Strawberry Milk Carton",
+      "category": "coquette-charms",
+      "categoryVi": "Nơ & phụ kiện coquette",
+      "tags": [
+        "premium",
+        "coquette-charms",
+        "strawberry",
+        "milk",
+        "carton"
+      ],
+      "path": "premium/coquette-charms/strawberry-milk-carton.webp",
+      "thumbnail": "premium/coquette-charms/strawberry-milk-carton.thumb.webp",
+      "viewBox": [
+        183,
+        211
+      ],
+      "contentBounds": [
+        0.0437,
+        0.0379,
+        0.9126,
+        0.9621
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "cq-tulip-bouquet-bow",
+      "name": "Tulip Bouquet Bow",
+      "nameVi": "Tulip Bouquet Bow",
+      "category": "coquette-charms",
+      "categoryVi": "Nơ & phụ kiện coquette",
+      "tags": [
+        "premium",
+        "coquette-charms",
+        "tulip",
+        "bouquet",
+        "bow"
+      ],
+      "path": "premium/coquette-charms/tulip-bouquet-bow.webp",
+      "thumbnail": "premium/coquette-charms/tulip-bouquet-bow.thumb.webp",
+      "viewBox": [
+        230,
+        203
+      ],
+      "contentBounds": [
+        0.0348,
+        0.0394,
+        0.9304,
+        0.9606
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "cq-butterfly-bag-charm",
+      "name": "Butterfly Bag Charm",
+      "nameVi": "Butterfly Bag Charm",
+      "category": "coquette-charms",
+      "categoryVi": "Nơ & phụ kiện coquette",
+      "tags": [
+        "premium",
+        "coquette-charms",
+        "butterfly",
+        "bag",
+        "charm"
+      ],
+      "path": "premium/coquette-charms/butterfly-bag-charm.webp",
+      "thumbnail": "premium/coquette-charms/butterfly-bag-charm.thumb.webp",
+      "viewBox": [
+        236,
+        215
+      ],
+      "contentBounds": [
+        0.0339,
+        0.0372,
+        0.9322,
+        0.9628
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "cq-moon-cloud-charm",
+      "name": "Moon Cloud Charm",
+      "nameVi": "Moon Cloud Charm",
+      "category": "coquette-charms",
+      "categoryVi": "Nơ & phụ kiện coquette",
+      "tags": [
+        "premium",
+        "coquette-charms",
+        "moon",
+        "cloud",
+        "charm"
+      ],
+      "path": "premium/coquette-charms/moon-cloud-charm.webp",
+      "thumbnail": "premium/coquette-charms/moon-cloud-charm.thumb.webp",
+      "viewBox": [
+        241,
+        206
+      ],
+      "contentBounds": [
+        0.0332,
+        0.0388,
+        0.9336,
+        0.9612
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "cq-cherry-pudding-cup",
+      "name": "Cherry Pudding Cup",
+      "nameVi": "Cherry Pudding Cup",
+      "category": "coquette-charms",
+      "categoryVi": "Nơ & phụ kiện coquette",
+      "tags": [
+        "premium",
+        "coquette-charms",
+        "cherry",
+        "pudding",
+        "cup"
+      ],
+      "path": "premium/coquette-charms/cherry-pudding-cup.webp",
+      "thumbnail": "premium/coquette-charms/cherry-pudding-cup.thumb.webp",
+      "viewBox": [
+        266,
+        234
+      ],
+      "contentBounds": [
+        0.0301,
+        0.0,
+        0.9662,
+        1.0
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "cq-heart-mirror-compact",
+      "name": "Heart Mirror Compact",
+      "nameVi": "Heart Mirror Compact",
+      "category": "coquette-charms",
+      "categoryVi": "Nơ & phụ kiện coquette",
+      "tags": [
+        "premium",
+        "coquette-charms",
+        "heart",
+        "mirror",
+        "compact"
+      ],
+      "path": "premium/coquette-charms/heart-mirror-compact.webp",
+      "thumbnail": "premium/coquette-charms/heart-mirror-compact.thumb.webp",
+      "viewBox": [
+        222,
+        234
+      ],
+      "contentBounds": [
+        0.036,
+        0.0,
+        0.9279,
+        1.0
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "cq-gift-box-rose",
+      "name": "Gift Box Rose",
+      "nameVi": "Gift Box Rose",
+      "category": "coquette-charms",
+      "categoryVi": "Nơ & phụ kiện coquette",
+      "tags": [
+        "premium",
+        "coquette-charms",
+        "gift",
+        "box",
+        "rose"
+      ],
+      "path": "premium/coquette-charms/gift-box-rose.webp",
+      "thumbnail": "premium/coquette-charms/gift-box-rose.thumb.webp",
+      "viewBox": [
+        237,
+        185
+      ],
+      "contentBounds": [
+        0.0338,
+        0.0432,
+        0.9325,
+        0.9568
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "cq-envelope-flower-love",
+      "name": "Envelope Flower Love",
+      "nameVi": "Envelope Flower Love",
+      "category": "coquette-charms",
+      "categoryVi": "Nơ & phụ kiện coquette",
+      "tags": [
+        "premium",
+        "coquette-charms",
+        "envelope",
+        "flower",
+        "love"
+      ],
+      "path": "premium/coquette-charms/envelope-flower-love.webp",
+      "thumbnail": "premium/coquette-charms/envelope-flower-love.thumb.webp",
+      "viewBox": [
+        251,
+        199
+      ],
+      "contentBounds": [
+        0.0319,
+        0.0402,
+        0.9363,
+        0.9246
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "cq-teddy-bear-heart",
+      "name": "Teddy Bear Heart",
+      "nameVi": "Teddy Bear Heart",
+      "category": "coquette-charms",
+      "categoryVi": "Nơ & phụ kiện coquette",
+      "tags": [
+        "premium",
+        "coquette-charms",
+        "teddy",
+        "bear",
+        "heart"
+      ],
+      "path": "premium/coquette-charms/teddy-bear-heart.webp",
+      "thumbnail": "premium/coquette-charms/teddy-bear-heart.thumb.webp",
+      "viewBox": [
+        227,
+        234
+      ],
+      "contentBounds": [
+        0.0352,
+        0.0,
+        0.9295,
+        1.0
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "cq-flower-cookie-pearl",
+      "name": "Flower Cookie Pearl",
+      "nameVi": "Flower Cookie Pearl",
+      "category": "coquette-charms",
+      "categoryVi": "Nơ & phụ kiện coquette",
+      "tags": [
+        "premium",
+        "coquette-charms",
+        "flower",
+        "cookie",
+        "pearl"
+      ],
+      "path": "premium/coquette-charms/flower-cookie-pearl.webp",
+      "thumbnail": "premium/coquette-charms/flower-cookie-pearl.thumb.webp",
+      "viewBox": [
+        218,
+        195
+      ],
+      "contentBounds": [
+        0.0367,
+        0.041,
+        0.9266,
+        0.959
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "cq-cloud-bow-charm",
+      "name": "Cloud Bow Charm",
+      "nameVi": "Cloud Bow Charm",
+      "category": "coquette-charms",
+      "categoryVi": "Nơ & phụ kiện coquette",
+      "tags": [
+        "premium",
+        "coquette-charms",
+        "cloud",
+        "bow",
+        "charm"
+      ],
+      "path": "premium/coquette-charms/cloud-bow-charm.webp",
+      "thumbnail": "premium/coquette-charms/cloud-bow-charm.thumb.webp",
+      "viewBox": [
+        216,
+        194
+      ],
+      "contentBounds": [
+        0.037,
+        0.0412,
+        0.9259,
+        0.9588
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "cq-strawberry-tart",
+      "name": "Strawberry Tart",
+      "nameVi": "Strawberry Tart",
+      "category": "coquette-charms",
+      "categoryVi": "Nơ & phụ kiện coquette",
+      "tags": [
+        "premium",
+        "coquette-charms",
+        "strawberry",
+        "tart"
+      ],
+      "path": "premium/coquette-charms/strawberry-tart.webp",
+      "thumbnail": "premium/coquette-charms/strawberry-tart.thumb.webp",
+      "viewBox": [
+        250,
+        233
+      ],
+      "contentBounds": [
+        0.032,
+        0.0,
+        0.936,
+        1.0
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "cq-strawberry-milk-bottle-bow",
+      "name": "Strawberry Milk Bottle Bow",
+      "nameVi": "Strawberry Milk Bottle Bow",
+      "category": "coquette-charms",
+      "categoryVi": "Nơ & phụ kiện coquette",
+      "tags": [
+        "premium",
+        "coquette-charms",
+        "strawberry",
+        "milk",
+        "bottle",
+        "bow"
+      ],
+      "path": "premium/coquette-charms/strawberry-milk-bottle-bow.webp",
+      "thumbnail": "premium/coquette-charms/strawberry-milk-bottle-bow.thumb.webp",
+      "viewBox": [
+        196,
+        233
+      ],
+      "contentBounds": [
+        0.0408,
+        0.0,
+        0.9184,
+        1.0
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "cq-paw-print-charm",
+      "name": "Paw Print Charm",
+      "nameVi": "Paw Print Charm",
+      "category": "coquette-charms",
+      "categoryVi": "Nơ & phụ kiện coquette",
+      "tags": [
+        "premium",
+        "coquette-charms",
+        "paw",
+        "print",
+        "charm"
+      ],
+      "path": "premium/coquette-charms/paw-print-charm.webp",
+      "thumbnail": "premium/coquette-charms/paw-print-charm.thumb.webp",
+      "viewBox": [
+        217,
+        233
+      ],
+      "contentBounds": [
+        0.0369,
+        0.0,
+        0.9263,
+        1.0
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "cq-cherry-pair-bow",
+      "name": "Cherry Pair Bow",
+      "nameVi": "Cherry Pair Bow",
+      "category": "coquette-charms",
+      "categoryVi": "Nơ & phụ kiện coquette",
+      "tags": [
+        "premium",
+        "coquette-charms",
+        "cherry",
+        "pair",
+        "bow"
+      ],
+      "path": "premium/coquette-charms/cherry-pair-bow.webp",
+      "thumbnail": "premium/coquette-charms/cherry-pair-bow.thumb.webp",
+      "viewBox": [
+        200,
+        213
+      ],
+      "contentBounds": [
+        0.04,
+        0.0376,
+        0.92,
+        0.9624
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "cq-shell-pearl-bow",
+      "name": "Shell Pearl Bow",
+      "nameVi": "Shell Pearl Bow",
+      "category": "coquette-charms",
+      "categoryVi": "Nơ & phụ kiện coquette",
+      "tags": [
+        "premium",
+        "coquette-charms",
+        "shell",
+        "pearl",
+        "bow"
+      ],
+      "path": "premium/coquette-charms/shell-pearl-bow.webp",
+      "thumbnail": "premium/coquette-charms/shell-pearl-bow.thumb.webp",
+      "viewBox": [
+        244,
+        218
+      ],
+      "contentBounds": [
+        0.0328,
+        0.0,
+        0.9344,
+        0.9633
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "cq-heart-quilted-pearl",
+      "name": "Heart Quilted Pearl",
+      "nameVi": "Heart Quilted Pearl",
+      "category": "coquette-charms",
+      "categoryVi": "Nơ & phụ kiện coquette",
+      "tags": [
+        "premium",
+        "coquette-charms",
+        "heart",
+        "quilted",
+        "pearl"
+      ],
+      "path": "premium/coquette-charms/heart-quilted-pearl.webp",
+      "thumbnail": "premium/coquette-charms/heart-quilted-pearl.thumb.webp",
+      "viewBox": [
+        251,
+        222
+      ],
+      "contentBounds": [
+        0.0319,
+        0.0,
+        0.9363,
+        0.964
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "cq-butterfly-jewel-pink",
+      "name": "Butterfly Jewel Pink",
+      "nameVi": "Butterfly Jewel Pink",
+      "category": "coquette-charms",
+      "categoryVi": "Nơ & phụ kiện coquette",
+      "tags": [
+        "premium",
+        "coquette-charms",
+        "butterfly",
+        "jewel",
+        "pink"
+      ],
+      "path": "premium/coquette-charms/butterfly-jewel-pink.webp",
+      "thumbnail": "premium/coquette-charms/butterfly-jewel-pink.thumb.webp",
+      "viewBox": [
+        265,
+        222
+      ],
+      "contentBounds": [
+        0.0302,
+        0.0,
+        0.9472,
+        0.964
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "cq-strawberry-pudding-cup",
+      "name": "Strawberry Pudding Cup",
+      "nameVi": "Strawberry Pudding Cup",
+      "category": "coquette-charms",
+      "categoryVi": "Nơ & phụ kiện coquette",
+      "tags": [
+        "premium",
+        "coquette-charms",
+        "strawberry",
+        "pudding",
+        "cup"
+      ],
+      "path": "premium/coquette-charms/strawberry-pudding-cup.webp",
+      "thumbnail": "premium/coquette-charms/strawberry-pudding-cup.thumb.webp",
+      "viewBox": [
+        270,
+        215
+      ],
+      "contentBounds": [
+        0.0222,
+        0.0,
+        0.9481,
+        0.9628
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ds-strawberry-shortcake-slice-b",
+      "name": "Strawberry Shortcake Slice B",
+      "nameVi": "Strawberry Shortcake Slice B",
+      "category": "desserts",
+      "categoryVi": "Bánh & đồ ngọt",
+      "tags": [
+        "premium",
+        "desserts",
+        "strawberry",
+        "shortcake",
+        "slice",
+        "b"
+      ],
+      "path": "premium/desserts/strawberry-shortcake-slice-b.webp",
+      "thumbnail": "premium/desserts/strawberry-shortcake-slice-b.thumb.webp",
+      "viewBox": [
+        244,
+        232
+      ],
+      "contentBounds": [
+        0.0328,
+        0.0345,
+        0.9344,
+        0.9655
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ds-bow-cookie-pearl",
+      "name": "Bow Cookie Pearl",
+      "nameVi": "Bow Cookie Pearl",
+      "category": "desserts",
+      "categoryVi": "Bánh & đồ ngọt",
+      "tags": [
+        "premium",
+        "desserts",
+        "bow",
+        "cookie",
+        "pearl"
+      ],
+      "path": "premium/desserts/bow-cookie-pearl.webp",
+      "thumbnail": "premium/desserts/bow-cookie-pearl.thumb.webp",
+      "viewBox": [
+        274,
+        202
+      ],
+      "contentBounds": [
+        0.0292,
+        0.0396,
+        0.9416,
+        0.9604
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ds-strawberry-pudding-heart",
+      "name": "Strawberry Pudding Heart",
+      "nameVi": "Strawberry Pudding Heart",
+      "category": "desserts",
+      "categoryVi": "Bánh & đồ ngọt",
+      "tags": [
+        "premium",
+        "desserts",
+        "strawberry",
+        "pudding",
+        "heart"
+      ],
+      "path": "premium/desserts/strawberry-pudding-heart.webp",
+      "thumbnail": "premium/desserts/strawberry-pudding-heart.thumb.webp",
+      "viewBox": [
+        281,
+        233
+      ],
+      "contentBounds": [
+        0.0285,
+        0.0343,
+        0.9715,
+        0.9657
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ds-strawberry-milkshake",
+      "name": "Strawberry Milkshake",
+      "nameVi": "Strawberry Milkshake",
+      "category": "desserts",
+      "categoryVi": "Bánh & đồ ngọt",
+      "tags": [
+        "premium",
+        "desserts",
+        "strawberry",
+        "milkshake"
+      ],
+      "path": "premium/desserts/strawberry-milkshake.webp",
+      "thumbnail": "premium/desserts/strawberry-milkshake.thumb.webp",
+      "viewBox": [
+        194,
+        233
+      ],
+      "contentBounds": [
+        0.0412,
+        0.0343,
+        0.9175,
+        0.9657
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ds-heart-macaron",
+      "name": "Heart Macaron",
+      "nameVi": "Heart Macaron",
+      "category": "desserts",
+      "categoryVi": "Bánh & đồ ngọt",
+      "tags": [
+        "premium",
+        "desserts",
+        "heart",
+        "macaron"
+      ],
+      "path": "premium/desserts/heart-macaron.webp",
+      "thumbnail": "premium/desserts/heart-macaron.thumb.webp",
+      "viewBox": [
+        261,
+        201
+      ],
+      "contentBounds": [
+        0.0307,
+        0.0398,
+        0.9387,
+        0.9602
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ds-strawberry-tart-b",
+      "name": "Strawberry Tart B",
+      "nameVi": "Strawberry Tart B",
+      "category": "desserts",
+      "categoryVi": "Bánh & đồ ngọt",
+      "tags": [
+        "premium",
+        "desserts",
+        "strawberry",
+        "tart",
+        "b"
+      ],
+      "path": "premium/desserts/strawberry-tart-b.webp",
+      "thumbnail": "premium/desserts/strawberry-tart-b.thumb.webp",
+      "viewBox": [
+        261,
+        206
+      ],
+      "contentBounds": [
+        0.0307,
+        0.0388,
+        0.9617,
+        0.9612
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ds-strawberry-milk-jar-bow",
+      "name": "Strawberry Milk Jar Bow",
+      "nameVi": "Strawberry Milk Jar Bow",
+      "category": "desserts",
+      "categoryVi": "Bánh & đồ ngọt",
+      "tags": [
+        "premium",
+        "desserts",
+        "strawberry",
+        "milk",
+        "jar",
+        "bow"
+      ],
+      "path": "premium/desserts/strawberry-milk-jar-bow.webp",
+      "thumbnail": "premium/desserts/strawberry-milk-jar-bow.thumb.webp",
+      "viewBox": [
+        234,
+        233
+      ],
+      "contentBounds": [
+        0.0342,
+        0.0,
+        0.9316,
+        1.0
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ds-strawberry-swiss-roll",
+      "name": "Strawberry Swiss Roll",
+      "nameVi": "Strawberry Swiss Roll",
+      "category": "desserts",
+      "categoryVi": "Bánh & đồ ngọt",
+      "tags": [
+        "premium",
+        "desserts",
+        "strawberry",
+        "swiss",
+        "roll"
+      ],
+      "path": "premium/desserts/strawberry-swiss-roll.webp",
+      "thumbnail": "premium/desserts/strawberry-swiss-roll.thumb.webp",
+      "viewBox": [
+        255,
+        192
+      ],
+      "contentBounds": [
+        0.0314,
+        0.0417,
+        0.9373,
+        0.9583
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ds-strawberry-parfait",
+      "name": "Strawberry Parfait",
+      "nameVi": "Strawberry Parfait",
+      "category": "desserts",
+      "categoryVi": "Bánh & đồ ngọt",
+      "tags": [
+        "premium",
+        "desserts",
+        "strawberry",
+        "parfait"
+      ],
+      "path": "premium/desserts/strawberry-parfait.webp",
+      "thumbnail": "premium/desserts/strawberry-parfait.thumb.webp",
+      "viewBox": [
+        211,
+        224
+      ],
+      "contentBounds": [
+        0.0379,
+        0.0357,
+        0.9242,
+        0.9643
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ds-chocolate-strawberries-dipped",
+      "name": "Chocolate Strawberries Dipped",
+      "nameVi": "Chocolate Strawberries Dipped",
+      "category": "desserts",
+      "categoryVi": "Bánh & đồ ngọt",
+      "tags": [
+        "premium",
+        "desserts",
+        "chocolate",
+        "strawberries",
+        "dipped"
+      ],
+      "path": "premium/desserts/chocolate-strawberries-dipped.webp",
+      "thumbnail": "premium/desserts/chocolate-strawberries-dipped.thumb.webp",
+      "viewBox": [
+        273,
+        204
+      ],
+      "contentBounds": [
+        0.0293,
+        0.0392,
+        0.9707,
+        0.9608
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ds-heart-cheesecake",
+      "name": "Heart Cheesecake",
+      "nameVi": "Heart Cheesecake",
+      "category": "desserts",
+      "categoryVi": "Bánh & đồ ngọt",
+      "tags": [
+        "premium",
+        "desserts",
+        "heart",
+        "cheesecake"
+      ],
+      "path": "premium/desserts/heart-cheesecake.webp",
+      "thumbnail": "premium/desserts/heart-cheesecake.thumb.webp",
+      "viewBox": [
+        275,
+        180
+      ],
+      "contentBounds": [
+        0.0291,
+        0.0444,
+        0.9709,
+        0.9556
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ds-strawberry-shortcake-slice-c",
+      "name": "Strawberry Shortcake Slice C",
+      "nameVi": "Strawberry Shortcake Slice C",
+      "category": "desserts",
+      "categoryVi": "Bánh & đồ ngọt",
+      "tags": [
+        "premium",
+        "desserts",
+        "strawberry",
+        "shortcake",
+        "slice",
+        "c"
+      ],
+      "path": "premium/desserts/strawberry-shortcake-slice-c.webp",
+      "thumbnail": "premium/desserts/strawberry-shortcake-slice-c.thumb.webp",
+      "viewBox": [
+        240,
+        192
+      ],
+      "contentBounds": [
+        0.0333,
+        0.0417,
+        0.9333,
+        0.9583
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ds-strawberry-cream-soda",
+      "name": "Strawberry Cream Soda",
+      "nameVi": "Strawberry Cream Soda",
+      "category": "desserts",
+      "categoryVi": "Bánh & đồ ngọt",
+      "tags": [
+        "premium",
+        "desserts",
+        "strawberry",
+        "cream",
+        "soda"
+      ],
+      "path": "premium/desserts/strawberry-cream-soda.webp",
+      "thumbnail": "premium/desserts/strawberry-cream-soda.thumb.webp",
+      "viewBox": [
+        187,
+        234
+      ],
+      "contentBounds": [
+        0.0428,
+        0.0,
+        0.9144,
+        1.0
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ds-strawberry-cupcake",
+      "name": "Strawberry Cupcake",
+      "nameVi": "Strawberry Cupcake",
+      "category": "desserts",
+      "categoryVi": "Bánh & đồ ngọt",
+      "tags": [
+        "premium",
+        "desserts",
+        "strawberry",
+        "cupcake"
+      ],
+      "path": "premium/desserts/strawberry-cupcake.webp",
+      "thumbnail": "premium/desserts/strawberry-cupcake.thumb.webp",
+      "viewBox": [
+        211,
+        190
+      ],
+      "contentBounds": [
+        0.0379,
+        0.0421,
+        0.9242,
+        0.9579
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ds-heart-cookies-bow-pair",
+      "name": "Heart Cookies Bow Pair",
+      "nameVi": "Heart Cookies Bow Pair",
+      "category": "desserts",
+      "categoryVi": "Bánh & đồ ngọt",
+      "tags": [
+        "premium",
+        "desserts",
+        "heart",
+        "cookies",
+        "bow",
+        "pair"
+      ],
+      "path": "premium/desserts/heart-cookies-bow-pair.webp",
+      "thumbnail": "premium/desserts/heart-cookies-bow-pair.thumb.webp",
+      "viewBox": [
+        281,
+        178
+      ],
+      "contentBounds": [
+        0.0285,
+        0.0449,
+        0.9715,
+        0.9551
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ds-strawberry-sundae",
+      "name": "Strawberry Sundae",
+      "nameVi": "Strawberry Sundae",
+      "category": "desserts",
+      "categoryVi": "Bánh & đồ ngọt",
+      "tags": [
+        "premium",
+        "desserts",
+        "strawberry",
+        "sundae"
+      ],
+      "path": "premium/desserts/strawberry-sundae.webp",
+      "thumbnail": "premium/desserts/strawberry-sundae.thumb.webp",
+      "viewBox": [
+        228,
+        234
+      ],
+      "contentBounds": [
+        0.0351,
+        0.0,
+        0.9298,
+        1.0
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ds-strawberry-shortcake-round",
+      "name": "Strawberry Shortcake Round",
+      "nameVi": "Strawberry Shortcake Round",
+      "category": "desserts",
+      "categoryVi": "Bánh & đồ ngọt",
+      "tags": [
+        "premium",
+        "desserts",
+        "strawberry",
+        "shortcake",
+        "round"
+      ],
+      "path": "premium/desserts/strawberry-shortcake-round.webp",
+      "thumbnail": "premium/desserts/strawberry-shortcake-round.thumb.webp",
+      "viewBox": [
+        248,
+        233
+      ],
+      "contentBounds": [
+        0.0323,
+        0.0,
+        0.9355,
+        1.0
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ds-strawberry-jelly-heart-bow",
+      "name": "Strawberry Jelly Heart Bow",
+      "nameVi": "Strawberry Jelly Heart Bow",
+      "category": "desserts",
+      "categoryVi": "Bánh & đồ ngọt",
+      "tags": [
+        "premium",
+        "desserts",
+        "strawberry",
+        "jelly",
+        "heart",
+        "bow"
+      ],
+      "path": "premium/desserts/strawberry-jelly-heart-bow.webp",
+      "thumbnail": "premium/desserts/strawberry-jelly-heart-bow.thumb.webp",
+      "viewBox": [
+        268,
+        186
+      ],
+      "contentBounds": [
+        0.0299,
+        0.043,
+        0.9627,
+        0.957
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ds-cherry-heart-drink",
+      "name": "Cherry Heart Drink",
+      "nameVi": "Cherry Heart Drink",
+      "category": "desserts",
+      "categoryVi": "Bánh & đồ ngọt",
+      "tags": [
+        "premium",
+        "desserts",
+        "cherry",
+        "heart",
+        "drink"
+      ],
+      "path": "premium/desserts/cherry-heart-drink.webp",
+      "thumbnail": "premium/desserts/cherry-heart-drink.thumb.webp",
+      "viewBox": [
+        254,
+        233
+      ],
+      "contentBounds": [
+        0.0315,
+        0.0,
+        0.9685,
+        1.0
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ds-strawberry-eclair",
+      "name": "Strawberry Eclair",
+      "nameVi": "Strawberry Eclair",
+      "category": "desserts",
+      "categoryVi": "Bánh & đồ ngọt",
+      "tags": [
+        "premium",
+        "desserts",
+        "strawberry",
+        "eclair"
+      ],
+      "path": "premium/desserts/strawberry-eclair.webp",
+      "thumbnail": "premium/desserts/strawberry-eclair.thumb.webp",
+      "viewBox": [
+        258,
+        175
+      ],
+      "contentBounds": [
+        0.031,
+        0.0457,
+        0.938,
+        0.9543
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ds-heart-lollipop-bow",
+      "name": "Heart Lollipop Bow",
+      "nameVi": "Heart Lollipop Bow",
+      "category": "desserts",
+      "categoryVi": "Bánh & đồ ngọt",
+      "tags": [
+        "premium",
+        "desserts",
+        "heart",
+        "lollipop",
+        "bow"
+      ],
+      "path": "premium/desserts/heart-lollipop-bow.webp",
+      "thumbnail": "premium/desserts/heart-lollipop-bow.thumb.webp",
+      "viewBox": [
+        213,
+        234
+      ],
+      "contentBounds": [
+        0.0376,
+        0.0,
+        0.9249,
+        0.9786
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ds-strawberry-mini-cake",
+      "name": "Strawberry Mini Cake",
+      "nameVi": "Strawberry Mini Cake",
+      "category": "desserts",
+      "categoryVi": "Bánh & đồ ngọt",
+      "tags": [
+        "premium",
+        "desserts",
+        "strawberry",
+        "mini",
+        "cake"
+      ],
+      "path": "premium/desserts/strawberry-mini-cake.webp",
+      "thumbnail": "premium/desserts/strawberry-mini-cake.thumb.webp",
+      "viewBox": [
+        256,
+        234
+      ],
+      "contentBounds": [
+        0.0312,
+        0.0,
+        0.9375,
+        0.9701
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ds-strawberry-milk-carton-b",
+      "name": "Strawberry Milk Carton B",
+      "nameVi": "Strawberry Milk Carton B",
+      "category": "desserts",
+      "categoryVi": "Bánh & đồ ngọt",
+      "tags": [
+        "premium",
+        "desserts",
+        "strawberry",
+        "milk",
+        "carton",
+        "b"
+      ],
+      "path": "premium/desserts/strawberry-milk-carton-b.webp",
+      "thumbnail": "premium/desserts/strawberry-milk-carton-b.thumb.webp",
+      "viewBox": [
+        208,
+        234
+      ],
+      "contentBounds": [
+        0.0385,
+        0.0,
+        0.9231,
+        0.9744
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ds-strawberry-tea-cup",
+      "name": "Strawberry Tea Cup",
+      "nameVi": "Strawberry Tea Cup",
+      "category": "desserts",
+      "categoryVi": "Bánh & đồ ngọt",
+      "tags": [
+        "premium",
+        "desserts",
+        "strawberry",
+        "tea",
+        "cup"
+      ],
+      "path": "premium/desserts/strawberry-tea-cup.webp",
+      "thumbnail": "premium/desserts/strawberry-tea-cup.thumb.webp",
+      "viewBox": [
+        274,
+        212
+      ],
+      "contentBounds": [
+        0.0219,
+        0.0377,
+        0.9489,
+        0.934
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "an-bunny-bow-white",
+      "name": "Bunny Bow White",
+      "nameVi": "Bunny Bow White",
+      "category": "cute-animals",
+      "categoryVi": "Thú cưng dễ thương",
+      "tags": [
+        "premium",
+        "cute-animals",
+        "bunny",
+        "bow",
+        "white"
+      ],
+      "path": "premium/cute-animals/bunny-bow-white.webp",
+      "thumbnail": "premium/cute-animals/bunny-bow-white.thumb.webp",
+      "viewBox": [
+        280,
+        234
+      ],
+      "contentBounds": [
+        0.0214,
+        0.0342,
+        0.9786,
+        0.9658
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "an-bear-heart-pink",
+      "name": "Bear Heart Pink",
+      "nameVi": "Bear Heart Pink",
+      "category": "cute-animals",
+      "categoryVi": "Thú cưng dễ thương",
+      "tags": [
+        "premium",
+        "cute-animals",
+        "bear",
+        "heart",
+        "pink"
+      ],
+      "path": "premium/cute-animals/bear-heart-pink.webp",
+      "thumbnail": "premium/cute-animals/bear-heart-pink.thumb.webp",
+      "viewBox": [
+        241,
+        233
+      ],
+      "contentBounds": [
+        0.0332,
+        0.0343,
+        0.9336,
+        0.9657
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "an-cat-flower-wink",
+      "name": "Cat Flower Wink",
+      "nameVi": "Cat Flower Wink",
+      "category": "cute-animals",
+      "categoryVi": "Thú cưng dễ thương",
+      "tags": [
+        "premium",
+        "cute-animals",
+        "cat",
+        "flower",
+        "wink"
+      ],
+      "path": "premium/cute-animals/cat-flower-wink.webp",
+      "thumbnail": "premium/cute-animals/cat-flower-wink.thumb.webp",
+      "viewBox": [
+        253,
+        234
+      ],
+      "contentBounds": [
+        0.0316,
+        0.0214,
+        0.9407,
+        0.9786
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "an-puppy-bow-brown",
+      "name": "Puppy Bow Brown",
+      "nameVi": "Puppy Bow Brown",
+      "category": "cute-animals",
+      "categoryVi": "Thú cưng dễ thương",
+      "tags": [
+        "premium",
+        "cute-animals",
+        "puppy",
+        "bow",
+        "brown"
+      ],
+      "path": "premium/cute-animals/puppy-bow-brown.webp",
+      "thumbnail": "premium/cute-animals/puppy-bow-brown.thumb.webp",
+      "viewBox": [
+        276,
+        223
+      ],
+      "contentBounds": [
+        0.0,
+        0.0359,
+        0.971,
+        0.9641
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "an-fawn-flower",
+      "name": "Fawn Flower",
+      "nameVi": "Fawn Flower",
+      "category": "cute-animals",
+      "categoryVi": "Thú cưng dễ thương",
+      "tags": [
+        "premium",
+        "cute-animals",
+        "fawn",
+        "flower"
+      ],
+      "path": "premium/cute-animals/fawn-flower.webp",
+      "thumbnail": "premium/cute-animals/fawn-flower.thumb.webp",
+      "viewBox": [
+        236,
+        190
+      ],
+      "contentBounds": [
+        0.0339,
+        0.0421,
+        0.9322,
+        0.9579
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "an-lamb-bow",
+      "name": "Lamb Bow",
+      "nameVi": "Lamb Bow",
+      "category": "cute-animals",
+      "categoryVi": "Thú cưng dễ thương",
+      "tags": [
+        "premium",
+        "cute-animals",
+        "lamb",
+        "bow"
+      ],
+      "path": "premium/cute-animals/lamb-bow.webp",
+      "thumbnail": "premium/cute-animals/lamb-bow.thumb.webp",
+      "viewBox": [
+        273,
+        233
+      ],
+      "contentBounds": [
+        0.0293,
+        0.0,
+        0.9707,
+        1.0
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "an-mouse-heart-pink",
+      "name": "Mouse Heart Pink",
+      "nameVi": "Mouse Heart Pink",
+      "category": "cute-animals",
+      "categoryVi": "Thú cưng dễ thương",
+      "tags": [
+        "premium",
+        "cute-animals",
+        "mouse",
+        "heart",
+        "pink"
+      ],
+      "path": "premium/cute-animals/mouse-heart-pink.webp",
+      "thumbnail": "premium/cute-animals/mouse-heart-pink.thumb.webp",
+      "viewBox": [
+        241,
+        201
+      ],
+      "contentBounds": [
+        0.0332,
+        0.0398,
+        0.9419,
+        0.9602
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "an-chick-sleeping-pink",
+      "name": "Chick Sleeping Pink",
+      "nameVi": "Chick Sleeping Pink",
+      "category": "cute-animals",
+      "categoryVi": "Thú cưng dễ thương",
+      "tags": [
+        "premium",
+        "cute-animals",
+        "chick",
+        "sleeping",
+        "pink"
+      ],
+      "path": "premium/cute-animals/chick-sleeping-pink.webp",
+      "thumbnail": "premium/cute-animals/chick-sleeping-pink.thumb.webp",
+      "viewBox": [
+        259,
+        233
+      ],
+      "contentBounds": [
+        0.0309,
+        0.0,
+        0.9382,
+        1.0
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "an-bunny-bag-charm",
+      "name": "Bunny Bag Charm",
+      "nameVi": "Bunny Bag Charm",
+      "category": "cute-animals",
+      "categoryVi": "Thú cưng dễ thương",
+      "tags": [
+        "premium",
+        "cute-animals",
+        "bunny",
+        "bag",
+        "charm"
+      ],
+      "path": "premium/cute-animals/bunny-bag-charm.webp",
+      "thumbnail": "premium/cute-animals/bunny-bag-charm.thumb.webp",
+      "viewBox": [
+        271,
+        204
+      ],
+      "contentBounds": [
+        0.0295,
+        0.0392,
+        0.9705,
+        0.9608
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "an-paw-print-keychain",
+      "name": "Paw Print Keychain",
+      "nameVi": "Paw Print Keychain",
+      "category": "cute-animals",
+      "categoryVi": "Thú cưng dễ thương",
+      "tags": [
+        "premium",
+        "cute-animals",
+        "paw",
+        "print",
+        "keychain"
+      ],
+      "path": "premium/cute-animals/paw-print-keychain.webp",
+      "thumbnail": "premium/cute-animals/paw-print-keychain.thumb.webp",
+      "viewBox": [
+        260,
+        234
+      ],
+      "contentBounds": [
+        0.0308,
+        0.0,
+        0.9385,
+        1.0
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "an-butterfly-pearl-pastel",
+      "name": "Butterfly Pearl Pastel",
+      "nameVi": "Butterfly Pearl Pastel",
+      "category": "cute-animals",
+      "categoryVi": "Thú cưng dễ thương",
+      "tags": [
+        "premium",
+        "cute-animals",
+        "butterfly",
+        "pearl",
+        "pastel"
+      ],
+      "path": "premium/cute-animals/butterfly-pearl-pastel.webp",
+      "thumbnail": "premium/cute-animals/butterfly-pearl-pastel.thumb.webp",
+      "viewBox": [
+        252,
+        191
+      ],
+      "contentBounds": [
+        0.0317,
+        0.0419,
+        0.9683,
+        0.9581
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "an-heart-bag-pearl",
+      "name": "Heart Bag Pearl",
+      "nameVi": "Heart Bag Pearl",
+      "category": "cute-animals",
+      "categoryVi": "Thú cưng dễ thương",
+      "tags": [
+        "premium",
+        "cute-animals",
+        "heart",
+        "bag",
+        "pearl"
+      ],
+      "path": "premium/cute-animals/heart-bag-pearl.webp",
+      "thumbnail": "premium/cute-animals/heart-bag-pearl.thumb.webp",
+      "viewBox": [
+        244,
+        234
+      ],
+      "contentBounds": [
+        0.0328,
+        0.0,
+        0.9344,
+        1.0
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "an-duck-flower-bow",
+      "name": "Duck Flower Bow",
+      "nameVi": "Duck Flower Bow",
+      "category": "cute-animals",
+      "categoryVi": "Thú cưng dễ thương",
+      "tags": [
+        "premium",
+        "cute-animals",
+        "duck",
+        "flower",
+        "bow"
+      ],
+      "path": "premium/cute-animals/duck-flower-bow.webp",
+      "thumbnail": "premium/cute-animals/duck-flower-bow.thumb.webp",
+      "viewBox": [
+        244,
+        234
+      ],
+      "contentBounds": [
+        0.0328,
+        0.0,
+        0.9672,
+        1.0
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "an-strawberry-cake-cute",
+      "name": "Strawberry Cake Cute",
+      "nameVi": "Strawberry Cake Cute",
+      "category": "cute-animals",
+      "categoryVi": "Thú cưng dễ thương",
+      "tags": [
+        "premium",
+        "cute-animals",
+        "strawberry",
+        "cake",
+        "cute"
+      ],
+      "path": "premium/cute-animals/strawberry-cake-cute.webp",
+      "thumbnail": "premium/cute-animals/strawberry-cake-cute.thumb.webp",
+      "viewBox": [
+        258,
+        234
+      ],
+      "contentBounds": [
+        0.031,
+        0.0,
+        0.938,
+        1.0
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "an-bunny-icecream-cone",
+      "name": "Bunny Icecream Cone",
+      "nameVi": "Bunny Icecream Cone",
+      "category": "cute-animals",
+      "categoryVi": "Thú cưng dễ thương",
+      "tags": [
+        "premium",
+        "cute-animals",
+        "bunny",
+        "icecream",
+        "cone"
+      ],
+      "path": "premium/cute-animals/bunny-icecream-cone.webp",
+      "thumbnail": "premium/cute-animals/bunny-icecream-cone.thumb.webp",
+      "viewBox": [
+        189,
+        218
+      ],
+      "contentBounds": [
+        0.0423,
+        0.0367,
+        0.9153,
+        0.9633
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "an-cat-sleeping-box",
+      "name": "Cat Sleeping Box",
+      "nameVi": "Cat Sleeping Box",
+      "category": "cute-animals",
+      "categoryVi": "Thú cưng dễ thương",
+      "tags": [
+        "premium",
+        "cute-animals",
+        "cat",
+        "sleeping",
+        "box"
+      ],
+      "path": "premium/cute-animals/cat-sleeping-box.webp",
+      "thumbnail": "premium/cute-animals/cat-sleeping-box.thumb.webp",
+      "viewBox": [
+        267,
+        234
+      ],
+      "contentBounds": [
+        0.03,
+        0.0,
+        0.9401,
+        1.0
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "an-strawberry-bag-charm",
+      "name": "Strawberry Bag Charm",
+      "nameVi": "Strawberry Bag Charm",
+      "category": "cute-animals",
+      "categoryVi": "Thú cưng dễ thương",
+      "tags": [
+        "premium",
+        "cute-animals",
+        "strawberry",
+        "bag",
+        "charm"
+      ],
+      "path": "premium/cute-animals/strawberry-bag-charm.webp",
+      "thumbnail": "premium/cute-animals/strawberry-bag-charm.thumb.webp",
+      "viewBox": [
+        258,
+        233
+      ],
+      "contentBounds": [
+        0.031,
+        0.0,
+        0.938,
+        1.0
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "an-chick-cloud-hat",
+      "name": "Chick Cloud Hat",
+      "nameVi": "Chick Cloud Hat",
+      "category": "cute-animals",
+      "categoryVi": "Thú cưng dễ thương",
+      "tags": [
+        "premium",
+        "cute-animals",
+        "chick",
+        "cloud",
+        "hat"
+      ],
+      "path": "premium/cute-animals/chick-cloud-hat.webp",
+      "thumbnail": "premium/cute-animals/chick-cloud-hat.thumb.webp",
+      "viewBox": [
+        265,
+        201
+      ],
+      "contentBounds": [
+        0.0302,
+        0.0398,
+        0.9698,
+        0.9602
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "an-bunny-strawberry-hug",
+      "name": "Bunny Strawberry Hug",
+      "nameVi": "Bunny Strawberry Hug",
+      "category": "cute-animals",
+      "categoryVi": "Thú cưng dễ thương",
+      "tags": [
+        "premium",
+        "cute-animals",
+        "bunny",
+        "strawberry",
+        "hug"
+      ],
+      "path": "premium/cute-animals/bunny-strawberry-hug.webp",
+      "thumbnail": "premium/cute-animals/bunny-strawberry-hug.thumb.webp",
+      "viewBox": [
+        244,
+        233
+      ],
+      "contentBounds": [
+        0.0328,
+        0.0,
+        0.9344,
+        1.0
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "an-bear-donut-pink",
+      "name": "Bear Donut Pink",
+      "nameVi": "Bear Donut Pink",
+      "category": "cute-animals",
+      "categoryVi": "Thú cưng dễ thương",
+      "tags": [
+        "premium",
+        "cute-animals",
+        "bear",
+        "donut",
+        "pink"
+      ],
+      "path": "premium/cute-animals/bear-donut-pink.webp",
+      "thumbnail": "premium/cute-animals/bear-donut-pink.thumb.webp",
+      "viewBox": [
+        244,
+        233
+      ],
+      "contentBounds": [
+        0.0328,
+        0.0,
+        0.9344,
+        1.0
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "an-heart-wings-perfume",
+      "name": "Heart Wings Perfume",
+      "nameVi": "Heart Wings Perfume",
+      "category": "cute-animals",
+      "categoryVi": "Thú cưng dễ thương",
+      "tags": [
+        "premium",
+        "cute-animals",
+        "heart",
+        "wings",
+        "perfume"
+      ],
+      "path": "premium/cute-animals/heart-wings-perfume.webp",
+      "thumbnail": "premium/cute-animals/heart-wings-perfume.thumb.webp",
+      "viewBox": [
+        270,
+        234
+      ],
+      "contentBounds": [
+        0.0296,
+        0.0,
+        0.9704,
+        0.9829
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "an-cat-teacup",
+      "name": "Cat Teacup",
+      "nameVi": "Cat Teacup",
+      "category": "cute-animals",
+      "categoryVi": "Thú cưng dễ thương",
+      "tags": [
+        "premium",
+        "cute-animals",
+        "cat",
+        "teacup"
+      ],
+      "path": "premium/cute-animals/cat-teacup.webp",
+      "thumbnail": "premium/cute-animals/cat-teacup.thumb.webp",
+      "viewBox": [
+        264,
+        234
+      ],
+      "contentBounds": [
+        0.0303,
+        0.0,
+        0.9697,
+        0.9957
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "an-bunny-cupcake-strawberry",
+      "name": "Bunny Cupcake Strawberry",
+      "nameVi": "Bunny Cupcake Strawberry",
+      "category": "cute-animals",
+      "categoryVi": "Thú cưng dễ thương",
+      "tags": [
+        "premium",
+        "cute-animals",
+        "bunny",
+        "cupcake",
+        "strawberry"
+      ],
+      "path": "premium/cute-animals/bunny-cupcake-strawberry.webp",
+      "thumbnail": "premium/cute-animals/bunny-cupcake-strawberry.thumb.webp",
+      "viewBox": [
+        238,
+        234
+      ],
+      "contentBounds": [
+        0.0336,
+        0.0,
+        0.9412,
+        0.9957
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "an-paw-print-wand",
+      "name": "Paw Print Wand",
+      "nameVi": "Paw Print Wand",
+      "category": "cute-animals",
+      "categoryVi": "Thú cưng dễ thương",
+      "tags": [
+        "premium",
+        "cute-animals",
+        "paw",
+        "print",
+        "wand"
+      ],
+      "path": "premium/cute-animals/paw-print-wand.webp",
+      "thumbnail": "premium/cute-animals/paw-print-wand.thumb.webp",
+      "viewBox": [
+        196,
+        224
+      ],
+      "contentBounds": [
+        0.0408,
+        0.0357,
+        0.9184,
+        0.9464
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "va-bow-pink-classic",
+      "name": "Bow Pink Classic",
+      "nameVi": "Bow Pink Classic",
+      "category": "vanity-accessories",
+      "categoryVi": "Phụ kiện trang điểm",
+      "tags": [
+        "premium",
+        "vanity-accessories",
+        "bow",
+        "pink",
+        "classic"
+      ],
+      "path": "premium/vanity-accessories/bow-pink-classic.webp",
+      "thumbnail": "premium/vanity-accessories/bow-pink-classic.thumb.webp",
+      "viewBox": [
+        266,
+        217
+      ],
+      "contentBounds": [
+        0.0301,
+        0.0369,
+        0.9699,
+        0.9631
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "va-heart-jewelry-box",
+      "name": "Heart Jewelry Box",
+      "nameVi": "Heart Jewelry Box",
+      "category": "vanity-accessories",
+      "categoryVi": "Phụ kiện trang điểm",
+      "tags": [
+        "premium",
+        "vanity-accessories",
+        "heart",
+        "jewelry",
+        "box"
+      ],
+      "path": "premium/vanity-accessories/heart-jewelry-box.webp",
+      "thumbnail": "premium/vanity-accessories/heart-jewelry-box.thumb.webp",
+      "viewBox": [
+        270,
+        233
+      ],
+      "contentBounds": [
+        0.0296,
+        0.0343,
+        0.9407,
+        0.9657
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "va-heart-perfume-bow-b",
+      "name": "Heart Perfume Bow B",
+      "nameVi": "Heart Perfume Bow B",
+      "category": "vanity-accessories",
+      "categoryVi": "Phụ kiện trang điểm",
+      "tags": [
+        "premium",
+        "vanity-accessories",
+        "heart",
+        "perfume",
+        "bow",
+        "b"
+      ],
+      "path": "premium/vanity-accessories/heart-perfume-bow-b.webp",
+      "thumbnail": "premium/vanity-accessories/heart-perfume-bow-b.thumb.webp",
+      "viewBox": [
+        232,
+        234
+      ],
+      "contentBounds": [
+        0.0345,
+        0.0299,
+        0.931,
+        0.9701
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "va-tulip-bouquet-bow-b",
+      "name": "Tulip Bouquet Bow B",
+      "nameVi": "Tulip Bouquet Bow B",
+      "category": "vanity-accessories",
+      "categoryVi": "Phụ kiện trang điểm",
+      "tags": [
+        "premium",
+        "vanity-accessories",
+        "tulip",
+        "bouquet",
+        "bow",
+        "b"
+      ],
+      "path": "premium/vanity-accessories/tulip-bouquet-bow-b.webp",
+      "thumbnail": "premium/vanity-accessories/tulip-bouquet-bow-b.thumb.webp",
+      "viewBox": [
+        255,
+        232
+      ],
+      "contentBounds": [
+        0.0314,
+        0.0345,
+        0.9373,
+        0.9655
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "va-heart-locket-compact",
+      "name": "Heart Locket Compact",
+      "nameVi": "Heart Locket Compact",
+      "category": "vanity-accessories",
+      "categoryVi": "Phụ kiện trang điểm",
+      "tags": [
+        "premium",
+        "vanity-accessories",
+        "heart",
+        "locket",
+        "compact"
+      ],
+      "path": "premium/vanity-accessories/heart-locket-compact.webp",
+      "thumbnail": "premium/vanity-accessories/heart-locket-compact.thumb.webp",
+      "viewBox": [
+        251,
+        212
+      ],
+      "contentBounds": [
+        0.0319,
+        0.0377,
+        0.9363,
+        0.9623
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "va-envelope-love-letter",
+      "name": "Envelope Love Letter",
+      "nameVi": "Envelope Love Letter",
+      "category": "vanity-accessories",
+      "categoryVi": "Phụ kiện trang điểm",
+      "tags": [
+        "premium",
+        "vanity-accessories",
+        "envelope",
+        "love",
+        "letter"
+      ],
+      "path": "premium/vanity-accessories/envelope-love-letter.webp",
+      "thumbnail": "premium/vanity-accessories/envelope-love-letter.thumb.webp",
+      "viewBox": [
+        271,
+        201
+      ],
+      "contentBounds": [
+        0.0295,
+        0.0398,
+        0.9705,
+        0.9602
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "va-mini-cake-cherry",
+      "name": "Mini Cake Cherry",
+      "nameVi": "Mini Cake Cherry",
+      "category": "vanity-accessories",
+      "categoryVi": "Phụ kiện trang điểm",
+      "tags": [
+        "premium",
+        "vanity-accessories",
+        "mini",
+        "cake",
+        "cherry"
+      ],
+      "path": "premium/vanity-accessories/mini-cake-cherry.webp",
+      "thumbnail": "premium/vanity-accessories/mini-cake-cherry.thumb.webp",
+      "viewBox": [
+        264,
+        233
+      ],
+      "contentBounds": [
+        0.0303,
+        0.0,
+        0.9621,
+        1.0
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "va-handbag-pearl-bow",
+      "name": "Handbag Pearl Bow",
+      "nameVi": "Handbag Pearl Bow",
+      "category": "vanity-accessories",
+      "categoryVi": "Phụ kiện trang điểm",
+      "tags": [
+        "premium",
+        "vanity-accessories",
+        "handbag",
+        "pearl",
+        "bow"
+      ],
+      "path": "premium/vanity-accessories/handbag-pearl-bow.webp",
+      "thumbnail": "premium/vanity-accessories/handbag-pearl-bow.thumb.webp",
+      "viewBox": [
+        246,
+        233
+      ],
+      "contentBounds": [
+        0.0325,
+        0.0,
+        0.935,
+        1.0
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "va-heart-cushion-quilted",
+      "name": "Heart Cushion Quilted",
+      "nameVi": "Heart Cushion Quilted",
+      "category": "vanity-accessories",
+      "categoryVi": "Phụ kiện trang điểm",
+      "tags": [
+        "premium",
+        "vanity-accessories",
+        "heart",
+        "cushion",
+        "quilted"
+      ],
+      "path": "premium/vanity-accessories/heart-cushion-quilted.webp",
+      "thumbnail": "premium/vanity-accessories/heart-cushion-quilted.thumb.webp",
+      "viewBox": [
+        275,
+        195
+      ],
+      "contentBounds": [
+        0.0291,
+        0.041,
+        0.96,
+        0.959
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "va-keychain-hearts-bow",
+      "name": "Keychain Hearts Bow",
+      "nameVi": "Keychain Hearts Bow",
+      "category": "vanity-accessories",
+      "categoryVi": "Phụ kiện trang điểm",
+      "tags": [
+        "premium",
+        "vanity-accessories",
+        "keychain",
+        "hearts",
+        "bow"
+      ],
+      "path": "premium/vanity-accessories/keychain-hearts-bow.webp",
+      "thumbnail": "premium/vanity-accessories/keychain-hearts-bow.thumb.webp",
+      "viewBox": [
+        211,
+        217
+      ],
+      "contentBounds": [
+        0.0379,
+        0.0369,
+        0.9621,
+        0.9631
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "va-hand-mirror-pearl",
+      "name": "Hand Mirror Pearl",
+      "nameVi": "Hand Mirror Pearl",
+      "category": "vanity-accessories",
+      "categoryVi": "Phụ kiện trang điểm",
+      "tags": [
+        "premium",
+        "vanity-accessories",
+        "hand",
+        "mirror",
+        "pearl"
+      ],
+      "path": "premium/vanity-accessories/hand-mirror-pearl.webp",
+      "thumbnail": "premium/vanity-accessories/hand-mirror-pearl.thumb.webp",
+      "viewBox": [
+        246,
+        234
+      ],
+      "contentBounds": [
+        0.0325,
+        0.0,
+        0.935,
+        1.0
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "va-teacup-heart",
+      "name": "Teacup Heart",
+      "nameVi": "Teacup Heart",
+      "category": "vanity-accessories",
+      "categoryVi": "Phụ kiện trang điểm",
+      "tags": [
+        "premium",
+        "vanity-accessories",
+        "teacup",
+        "heart"
+      ],
+      "path": "premium/vanity-accessories/teacup-heart.webp",
+      "thumbnail": "premium/vanity-accessories/teacup-heart.thumb.webp",
+      "viewBox": [
+        270,
+        169
+      ],
+      "contentBounds": [
+        0.0296,
+        0.0473,
+        0.9407,
+        0.9527
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "va-gift-box-rose-b",
+      "name": "Gift Box Rose B",
+      "nameVi": "Gift Box Rose B",
+      "category": "vanity-accessories",
+      "categoryVi": "Phụ kiện trang điểm",
+      "tags": [
+        "premium",
+        "vanity-accessories",
+        "gift",
+        "box",
+        "rose",
+        "b"
+      ],
+      "path": "premium/vanity-accessories/gift-box-rose-b.webp",
+      "thumbnail": "premium/vanity-accessories/gift-box-rose-b.thumb.webp",
+      "viewBox": [
+        253,
+        187
+      ],
+      "contentBounds": [
+        0.0316,
+        0.0428,
+        0.9684,
+        0.9572
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "va-locket-heart-bow",
+      "name": "Locket Heart Bow",
+      "nameVi": "Locket Heart Bow",
+      "category": "vanity-accessories",
+      "categoryVi": "Phụ kiện trang điểm",
+      "tags": [
+        "premium",
+        "vanity-accessories",
+        "locket",
+        "heart",
+        "bow"
+      ],
+      "path": "premium/vanity-accessories/locket-heart-bow.webp",
+      "thumbnail": "premium/vanity-accessories/locket-heart-bow.thumb.webp",
+      "viewBox": [
+        228,
+        200
+      ],
+      "contentBounds": [
+        0.0351,
+        0.04,
+        0.9605,
+        0.96
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "va-lipstick-heart",
+      "name": "Lipstick Heart",
+      "nameVi": "Lipstick Heart",
+      "category": "vanity-accessories",
+      "categoryVi": "Phụ kiện trang điểm",
+      "tags": [
+        "premium",
+        "vanity-accessories",
+        "lipstick",
+        "heart"
+      ],
+      "path": "premium/vanity-accessories/lipstick-heart.webp",
+      "thumbnail": "premium/vanity-accessories/lipstick-heart.thumb.webp",
+      "viewBox": [
+        192,
+        201
+      ],
+      "contentBounds": [
+        0.0417,
+        0.0398,
+        0.9167,
+        0.9602
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "va-perfume-atomizer-bow",
+      "name": "Perfume Atomizer Bow",
+      "nameVi": "Perfume Atomizer Bow",
+      "category": "vanity-accessories",
+      "categoryVi": "Phụ kiện trang điểm",
+      "tags": [
+        "premium",
+        "vanity-accessories",
+        "perfume",
+        "atomizer",
+        "bow"
+      ],
+      "path": "premium/vanity-accessories/perfume-atomizer-bow.webp",
+      "thumbnail": "premium/vanity-accessories/perfume-atomizer-bow.thumb.webp",
+      "viewBox": [
+        260,
+        234
+      ],
+      "contentBounds": [
+        0.0308,
+        0.0,
+        0.9385,
+        1.0
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "va-hair-clip-rose",
+      "name": "Hair Clip Rose",
+      "nameVi": "Hair Clip Rose",
+      "category": "vanity-accessories",
+      "categoryVi": "Phụ kiện trang điểm",
+      "tags": [
+        "premium",
+        "vanity-accessories",
+        "hair",
+        "clip",
+        "rose"
+      ],
+      "path": "premium/vanity-accessories/hair-clip-rose.webp",
+      "thumbnail": "premium/vanity-accessories/hair-clip-rose.thumb.webp",
+      "viewBox": [
+        260,
+        177
+      ],
+      "contentBounds": [
+        0.0308,
+        0.0452,
+        0.9692,
+        0.9548
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "va-hand-mirror-heart-wand",
+      "name": "Hand Mirror Heart Wand",
+      "nameVi": "Hand Mirror Heart Wand",
+      "category": "vanity-accessories",
+      "categoryVi": "Phụ kiện trang điểm",
+      "tags": [
+        "premium",
+        "vanity-accessories",
+        "hand",
+        "mirror",
+        "heart",
+        "wand"
+      ],
+      "path": "premium/vanity-accessories/hand-mirror-heart-wand.webp",
+      "thumbnail": "premium/vanity-accessories/hand-mirror-heart-wand.thumb.webp",
+      "viewBox": [
+        194,
+        233
+      ],
+      "contentBounds": [
+        0.0412,
+        0.0,
+        0.9227,
+        1.0
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "va-candle-heart",
+      "name": "Candle Heart",
+      "nameVi": "Candle Heart",
+      "category": "vanity-accessories",
+      "categoryVi": "Phụ kiện trang điểm",
+      "tags": [
+        "premium",
+        "vanity-accessories",
+        "candle",
+        "heart"
+      ],
+      "path": "premium/vanity-accessories/candle-heart.webp",
+      "thumbnail": "premium/vanity-accessories/candle-heart.thumb.webp",
+      "viewBox": [
+        215,
+        186
+      ],
+      "contentBounds": [
+        0.0372,
+        0.043,
+        0.9256,
+        0.957
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "va-diary-bow-pen",
+      "name": "Diary Bow Pen",
+      "nameVi": "Diary Bow Pen",
+      "category": "vanity-accessories",
+      "categoryVi": "Phụ kiện trang điểm",
+      "tags": [
+        "premium",
+        "vanity-accessories",
+        "diary",
+        "bow",
+        "pen"
+      ],
+      "path": "premium/vanity-accessories/diary-bow-pen.webp",
+      "thumbnail": "premium/vanity-accessories/diary-bow-pen.thumb.webp",
+      "viewBox": [
+        252,
+        233
+      ],
+      "contentBounds": [
+        0.0317,
+        0.0,
+        0.9365,
+        1.0
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "va-heart-wings-pearl",
+      "name": "Heart Wings Pearl",
+      "nameVi": "Heart Wings Pearl",
+      "category": "vanity-accessories",
+      "categoryVi": "Phụ kiện trang điểm",
+      "tags": [
+        "premium",
+        "vanity-accessories",
+        "heart",
+        "wings",
+        "pearl"
+      ],
+      "path": "premium/vanity-accessories/heart-wings-pearl.webp",
+      "thumbnail": "premium/vanity-accessories/heart-wings-pearl.thumb.webp",
+      "viewBox": [
+        263,
+        202
+      ],
+      "contentBounds": [
+        0.0304,
+        0.0396,
+        0.9696,
+        0.9208
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "va-macarons-plate-strawberry",
+      "name": "Macarons Plate Strawberry",
+      "nameVi": "Macarons Plate Strawberry",
+      "category": "vanity-accessories",
+      "categoryVi": "Phụ kiện trang điểm",
+      "tags": [
+        "premium",
+        "vanity-accessories",
+        "macarons",
+        "plate",
+        "strawberry"
+      ],
+      "path": "premium/vanity-accessories/macarons-plate-strawberry.webp",
+      "thumbnail": "premium/vanity-accessories/macarons-plate-strawberry.thumb.webp",
+      "viewBox": [
+        248,
+        226
+      ],
+      "contentBounds": [
+        0.0323,
+        0.0,
+        0.9677,
+        0.9646
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "va-hair-claw-bow",
+      "name": "Hair Claw Bow",
+      "nameVi": "Hair Claw Bow",
+      "category": "vanity-accessories",
+      "categoryVi": "Phụ kiện trang điểm",
+      "tags": [
+        "premium",
+        "vanity-accessories",
+        "hair",
+        "claw",
+        "bow"
+      ],
+      "path": "premium/vanity-accessories/hair-claw-bow.webp",
+      "thumbnail": "premium/vanity-accessories/hair-claw-bow.thumb.webp",
+      "viewBox": [
+        246,
+        231
+      ],
+      "contentBounds": [
+        0.0325,
+        0.0,
+        0.9634,
+        0.9654
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "va-bow-pearl-loop",
+      "name": "Bow Pearl Loop",
+      "nameVi": "Bow Pearl Loop",
+      "category": "vanity-accessories",
+      "categoryVi": "Phụ kiện trang điểm",
+      "tags": [
+        "premium",
+        "vanity-accessories",
+        "bow",
+        "pearl",
+        "loop"
+      ],
+      "path": "premium/vanity-accessories/bow-pearl-loop.webp",
+      "thumbnail": "premium/vanity-accessories/bow-pearl-loop.thumb.webp",
+      "viewBox": [
+        253,
+        203
+      ],
+      "contentBounds": [
+        0.0316,
+        0.0394,
+        0.9368,
+        0.9212
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ce-moon-star-bow",
+      "name": "Moon Star Bow",
+      "nameVi": "Moon Star Bow",
+      "category": "celestial-pastel",
+      "categoryVi": "Thiên thể pastel",
+      "tags": [
+        "premium",
+        "celestial-pastel",
+        "moon",
+        "star",
+        "bow"
+      ],
+      "path": "premium/celestial-pastel/moon-star-bow.webp",
+      "thumbnail": "premium/celestial-pastel/moon-star-bow.thumb.webp",
+      "viewBox": [
+        266,
+        228
+      ],
+      "contentBounds": [
+        0.0301,
+        0.0351,
+        0.9398,
+        0.9649
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ce-shell-pearl-bow-b",
+      "name": "Shell Pearl Bow B",
+      "nameVi": "Shell Pearl Bow B",
+      "category": "celestial-pastel",
+      "categoryVi": "Thiên thể pastel",
+      "tags": [
+        "premium",
+        "celestial-pastel",
+        "shell",
+        "pearl",
+        "bow",
+        "b"
+      ],
+      "path": "premium/celestial-pastel/shell-pearl-bow-b.webp",
+      "thumbnail": "premium/celestial-pastel/shell-pearl-bow-b.thumb.webp",
+      "viewBox": [
+        263,
+        230
+      ],
+      "contentBounds": [
+        0.0304,
+        0.0348,
+        0.9392,
+        0.9652
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ce-whale-cloud-pastel",
+      "name": "Whale Cloud Pastel",
+      "nameVi": "Whale Cloud Pastel",
+      "category": "celestial-pastel",
+      "categoryVi": "Thiên thể pastel",
+      "tags": [
+        "premium",
+        "celestial-pastel",
+        "whale",
+        "cloud",
+        "pastel"
+      ],
+      "path": "premium/celestial-pastel/whale-cloud-pastel.webp",
+      "thumbnail": "premium/celestial-pastel/whale-cloud-pastel.thumb.webp",
+      "viewBox": [
+        280,
+        231
+      ],
+      "contentBounds": [
+        0.0,
+        0.0346,
+        0.9714,
+        0.9654
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ce-butterfly-jewel-pastel",
+      "name": "Butterfly Jewel Pastel",
+      "nameVi": "Butterfly Jewel Pastel",
+      "category": "celestial-pastel",
+      "categoryVi": "Thiên thể pastel",
+      "tags": [
+        "premium",
+        "celestial-pastel",
+        "butterfly",
+        "jewel",
+        "pastel"
+      ],
+      "path": "premium/celestial-pastel/butterfly-jewel-pastel.webp",
+      "thumbnail": "premium/celestial-pastel/butterfly-jewel-pastel.thumb.webp",
+      "viewBox": [
+        272,
+        216
+      ],
+      "contentBounds": [
+        0.0294,
+        0.037,
+        0.9412,
+        0.963
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ce-cloud-moon-charm",
+      "name": "Cloud Moon Charm",
+      "nameVi": "Cloud Moon Charm",
+      "category": "celestial-pastel",
+      "categoryVi": "Thiên thể pastel",
+      "tags": [
+        "premium",
+        "celestial-pastel",
+        "cloud",
+        "moon",
+        "charm"
+      ],
+      "path": "premium/celestial-pastel/cloud-moon-charm.webp",
+      "thumbnail": "premium/celestial-pastel/cloud-moon-charm.thumb.webp",
+      "viewBox": [
+        274,
+        202
+      ],
+      "contentBounds": [
+        0.0292,
+        0.0396,
+        0.9416,
+        0.9604
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ce-potion-bottle-shell",
+      "name": "Potion Bottle Shell",
+      "nameVi": "Potion Bottle Shell",
+      "category": "celestial-pastel",
+      "categoryVi": "Thiên thể pastel",
+      "tags": [
+        "premium",
+        "celestial-pastel",
+        "potion",
+        "bottle",
+        "shell"
+      ],
+      "path": "premium/celestial-pastel/potion-bottle-shell.webp",
+      "thumbnail": "premium/celestial-pastel/potion-bottle-shell.thumb.webp",
+      "viewBox": [
+        232,
+        213
+      ],
+      "contentBounds": [
+        0.0345,
+        0.0376,
+        0.931,
+        0.9624
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ce-saturn-heart-pastel",
+      "name": "Saturn Heart Pastel",
+      "nameVi": "Saturn Heart Pastel",
+      "category": "celestial-pastel",
+      "categoryVi": "Thiên thể pastel",
+      "tags": [
+        "premium",
+        "celestial-pastel",
+        "saturn",
+        "heart",
+        "pastel"
+      ],
+      "path": "premium/celestial-pastel/saturn-heart-pastel.webp",
+      "thumbnail": "premium/celestial-pastel/saturn-heart-pastel.thumb.webp",
+      "viewBox": [
+        274,
+        206
+      ],
+      "contentBounds": [
+        0.0292,
+        0.0388,
+        0.9416,
+        0.9612
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ce-shell-bow-starfish",
+      "name": "Shell Bow Starfish",
+      "nameVi": "Shell Bow Starfish",
+      "category": "celestial-pastel",
+      "categoryVi": "Thiên thể pastel",
+      "tags": [
+        "premium",
+        "celestial-pastel",
+        "shell",
+        "bow",
+        "starfish"
+      ],
+      "path": "premium/celestial-pastel/shell-bow-starfish.webp",
+      "thumbnail": "premium/celestial-pastel/shell-bow-starfish.thumb.webp",
+      "viewBox": [
+        263,
+        208
+      ],
+      "contentBounds": [
+        0.0304,
+        0.0385,
+        0.9392,
+        0.9615
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ce-jellyfish-pastel",
+      "name": "Jellyfish Pastel",
+      "nameVi": "Jellyfish Pastel",
+      "category": "celestial-pastel",
+      "categoryVi": "Thiên thể pastel",
+      "tags": [
+        "premium",
+        "celestial-pastel",
+        "jellyfish",
+        "pastel"
+      ],
+      "path": "premium/celestial-pastel/jellyfish-pastel.webp",
+      "thumbnail": "premium/celestial-pastel/jellyfish-pastel.thumb.webp",
+      "viewBox": [
+        248,
+        232
+      ],
+      "contentBounds": [
+        0.0323,
+        0.0345,
+        0.9355,
+        0.9655
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ce-shell-pearl-box",
+      "name": "Shell Pearl Box",
+      "nameVi": "Shell Pearl Box",
+      "category": "celestial-pastel",
+      "categoryVi": "Thiên thể pastel",
+      "tags": [
+        "premium",
+        "celestial-pastel",
+        "shell",
+        "pearl",
+        "box"
+      ],
+      "path": "premium/celestial-pastel/shell-pearl-box.webp",
+      "thumbnail": "premium/celestial-pastel/shell-pearl-box.thumb.webp",
+      "viewBox": [
+        254,
+        234
+      ],
+      "contentBounds": [
+        0.0315,
+        0.0,
+        0.937,
+        1.0
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ce-star-wand-wings",
+      "name": "Star Wand Wings",
+      "nameVi": "Star Wand Wings",
+      "category": "celestial-pastel",
+      "categoryVi": "Thiên thể pastel",
+      "tags": [
+        "premium",
+        "celestial-pastel",
+        "star",
+        "wand",
+        "wings"
+      ],
+      "path": "premium/celestial-pastel/star-wand-wings.webp",
+      "thumbnail": "premium/celestial-pastel/star-wand-wings.thumb.webp",
+      "viewBox": [
+        218,
+        234
+      ],
+      "contentBounds": [
+        0.0367,
+        0.0342,
+        0.9358,
+        0.9658
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ce-starfish-pearl-cluster",
+      "name": "Starfish Pearl Cluster",
+      "nameVi": "Starfish Pearl Cluster",
+      "category": "celestial-pastel",
+      "categoryVi": "Thiên thể pastel",
+      "tags": [
+        "premium",
+        "celestial-pastel",
+        "starfish",
+        "pearl",
+        "cluster"
+      ],
+      "path": "premium/celestial-pastel/starfish-pearl-cluster.webp",
+      "thumbnail": "premium/celestial-pastel/starfish-pearl-cluster.thumb.webp",
+      "viewBox": [
+        248,
+        216
+      ],
+      "contentBounds": [
+        0.0323,
+        0.037,
+        0.9355,
+        0.963
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ce-butterfly-heart-charm",
+      "name": "Butterfly Heart Charm",
+      "nameVi": "Butterfly Heart Charm",
+      "category": "celestial-pastel",
+      "categoryVi": "Thiên thể pastel",
+      "tags": [
+        "premium",
+        "celestial-pastel",
+        "butterfly",
+        "heart",
+        "charm"
+      ],
+      "path": "premium/celestial-pastel/butterfly-heart-charm.webp",
+      "thumbnail": "premium/celestial-pastel/butterfly-heart-charm.thumb.webp",
+      "viewBox": [
+        271,
+        227
+      ],
+      "contentBounds": [
+        0.0295,
+        0.0352,
+        0.941,
+        0.9515
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ce-moon-cloud-star",
+      "name": "Moon Cloud Star",
+      "nameVi": "Moon Cloud Star",
+      "category": "celestial-pastel",
+      "categoryVi": "Thiên thể pastel",
+      "tags": [
+        "premium",
+        "celestial-pastel",
+        "moon",
+        "cloud",
+        "star"
+      ],
+      "path": "premium/celestial-pastel/moon-cloud-star.webp",
+      "thumbnail": "premium/celestial-pastel/moon-cloud-star.thumb.webp",
+      "viewBox": [
+        254,
+        223
+      ],
+      "contentBounds": [
+        0.0315,
+        0.0359,
+        0.937,
+        0.9283
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ce-heart-wings-pearl-bow",
+      "name": "Heart Wings Pearl Bow",
+      "nameVi": "Heart Wings Pearl Bow",
+      "category": "celestial-pastel",
+      "categoryVi": "Thiên thể pastel",
+      "tags": [
+        "premium",
+        "celestial-pastel",
+        "heart",
+        "wings",
+        "pearl",
+        "bow"
+      ],
+      "path": "premium/celestial-pastel/heart-wings-pearl-bow.webp",
+      "thumbnail": "premium/celestial-pastel/heart-wings-pearl-bow.thumb.webp",
+      "viewBox": [
+        270,
+        221
+      ],
+      "contentBounds": [
+        0.0296,
+        0.0362,
+        0.9704,
+        0.9412
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ce-handbag-pearl-shell",
+      "name": "Handbag Pearl Shell",
+      "nameVi": "Handbag Pearl Shell",
+      "category": "celestial-pastel",
+      "categoryVi": "Thiên thể pastel",
+      "tags": [
+        "premium",
+        "celestial-pastel",
+        "handbag",
+        "pearl",
+        "shell"
+      ],
+      "path": "premium/celestial-pastel/handbag-pearl-shell.webp",
+      "thumbnail": "premium/celestial-pastel/handbag-pearl-shell.thumb.webp",
+      "viewBox": [
+        242,
+        223
+      ],
+      "contentBounds": [
+        0.0331,
+        0.0359,
+        0.9339,
+        0.9283
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ce-goldfish-pastel",
+      "name": "Goldfish Pastel",
+      "nameVi": "Goldfish Pastel",
+      "category": "celestial-pastel",
+      "categoryVi": "Thiên thể pastel",
+      "tags": [
+        "premium",
+        "celestial-pastel",
+        "goldfish",
+        "pastel"
+      ],
+      "path": "premium/celestial-pastel/goldfish-pastel.webp",
+      "thumbnail": "premium/celestial-pastel/goldfish-pastel.thumb.webp",
+      "viewBox": [
+        264,
+        233
+      ],
+      "contentBounds": [
+        0.0303,
+        0.0,
+        0.9621,
+        0.9785
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ce-saturn-bow-pastel",
+      "name": "Saturn Bow Pastel",
+      "nameVi": "Saturn Bow Pastel",
+      "category": "celestial-pastel",
+      "categoryVi": "Thiên thể pastel",
+      "tags": [
+        "premium",
+        "celestial-pastel",
+        "saturn",
+        "bow",
+        "pastel"
+      ],
+      "path": "premium/celestial-pastel/saturn-bow-pastel.webp",
+      "thumbnail": "premium/celestial-pastel/saturn-bow-pastel.thumb.webp",
+      "viewBox": [
+        255,
+        223
+      ],
+      "contentBounds": [
+        0.0314,
+        0.0,
+        0.9529,
+        0.9641
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ce-heart-wings-pink",
+      "name": "Heart Wings Pink",
+      "nameVi": "Heart Wings Pink",
+      "category": "celestial-pastel",
+      "categoryVi": "Thiên thể pastel",
+      "tags": [
+        "premium",
+        "celestial-pastel",
+        "heart",
+        "wings",
+        "pink"
+      ],
+      "path": "premium/celestial-pastel/heart-wings-pink.webp",
+      "thumbnail": "premium/celestial-pastel/heart-wings-pink.thumb.webp",
+      "viewBox": [
+        267,
+        221
+      ],
+      "contentBounds": [
+        0.03,
+        0.0362,
+        0.97,
+        0.9276
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ce-tulip-bouquet-pastel",
+      "name": "Tulip Bouquet Pastel",
+      "nameVi": "Tulip Bouquet Pastel",
+      "category": "celestial-pastel",
+      "categoryVi": "Thiên thể pastel",
+      "tags": [
+        "premium",
+        "celestial-pastel",
+        "tulip",
+        "bouquet",
+        "pastel"
+      ],
+      "path": "premium/celestial-pastel/tulip-bouquet-pastel.webp",
+      "thumbnail": "premium/celestial-pastel/tulip-bouquet-pastel.thumb.webp",
+      "viewBox": [
+        233,
+        233
+      ],
+      "contentBounds": [
+        0.0343,
+        0.0,
+        0.9313,
+        1.0
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ce-bow-cloud-star",
+      "name": "Bow Cloud Star",
+      "nameVi": "Bow Cloud Star",
+      "category": "celestial-pastel",
+      "categoryVi": "Thiên thể pastel",
+      "tags": [
+        "premium",
+        "celestial-pastel",
+        "bow",
+        "cloud",
+        "star"
+      ],
+      "path": "premium/celestial-pastel/bow-cloud-star.webp",
+      "thumbnail": "premium/celestial-pastel/bow-cloud-star.thumb.webp",
+      "viewBox": [
+        278,
+        225
+      ],
+      "contentBounds": [
+        0.0288,
+        0.0,
+        0.9712,
+        0.9644
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ce-paper-boat-star",
+      "name": "Paper Boat Star",
+      "nameVi": "Paper Boat Star",
+      "category": "celestial-pastel",
+      "categoryVi": "Thiên thể pastel",
+      "tags": [
+        "premium",
+        "celestial-pastel",
+        "paper",
+        "boat",
+        "star"
+      ],
+      "path": "premium/celestial-pastel/paper-boat-star.webp",
+      "thumbnail": "premium/celestial-pastel/paper-boat-star.thumb.webp",
+      "viewBox": [
+        258,
+        217
+      ],
+      "contentBounds": [
+        0.031,
+        0.0,
+        0.9612,
+        0.9631
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ce-heart-cloud-rainbow-bow",
+      "name": "Heart Cloud Rainbow Bow",
+      "nameVi": "Heart Cloud Rainbow Bow",
+      "category": "celestial-pastel",
+      "categoryVi": "Thiên thể pastel",
+      "tags": [
+        "premium",
+        "celestial-pastel",
+        "heart",
+        "cloud",
+        "rainbow",
+        "bow"
+      ],
+      "path": "premium/celestial-pastel/heart-cloud-rainbow-bow.webp",
+      "thumbnail": "premium/celestial-pastel/heart-cloud-rainbow-bow.thumb.webp",
+      "viewBox": [
+        273,
+        211
+      ],
+      "contentBounds": [
+        0.0293,
+        0.0,
+        0.9634,
+        0.9621
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ce-heart-wings-saturn",
+      "name": "Heart Wings Saturn",
+      "nameVi": "Heart Wings Saturn",
+      "category": "celestial-pastel",
+      "categoryVi": "Thiên thể pastel",
+      "tags": [
+        "premium",
+        "celestial-pastel",
+        "heart",
+        "wings",
+        "saturn"
+      ],
+      "path": "premium/celestial-pastel/heart-wings-saturn.webp",
+      "thumbnail": "premium/celestial-pastel/heart-wings-saturn.thumb.webp",
+      "viewBox": [
+        280,
+        215
+      ],
+      "contentBounds": [
+        0.0036,
+        0.0233,
+        0.9679,
+        0.9395
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "fl-tulip-bouquet-veil",
+      "name": "Tulip Bouquet Veil",
+      "nameVi": "Tulip Bouquet Veil",
+      "category": "florals-fruits",
+      "categoryVi": "Hoa & trái cây",
+      "tags": [
+        "premium",
+        "florals-fruits",
+        "tulip",
+        "bouquet",
+        "veil"
+      ],
+      "path": "premium/florals-fruits/tulip-bouquet-veil.webp",
+      "thumbnail": "premium/florals-fruits/tulip-bouquet-veil.thumb.webp",
+      "viewBox": [
+        272,
+        233
+      ],
+      "contentBounds": [
+        0.0294,
+        0.0343,
+        0.9706,
+        0.9657
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "fl-strawberry-cream-flower",
+      "name": "Strawberry Cream Flower",
+      "nameVi": "Strawberry Cream Flower",
+      "category": "florals-fruits",
+      "categoryVi": "Hoa & trái cây",
+      "tags": [
+        "premium",
+        "florals-fruits",
+        "strawberry",
+        "cream",
+        "flower"
+      ],
+      "path": "premium/florals-fruits/strawberry-cream-flower.webp",
+      "thumbnail": "premium/florals-fruits/strawberry-cream-flower.thumb.webp",
+      "viewBox": [
+        251,
+        230
+      ],
+      "contentBounds": [
+        0.0319,
+        0.0348,
+        0.9681,
+        0.9652
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "fl-perfume-flower-bow",
+      "name": "Perfume Flower Bow",
+      "nameVi": "Perfume Flower Bow",
+      "category": "florals-fruits",
+      "categoryVi": "Hoa & trái cây",
+      "tags": [
+        "premium",
+        "florals-fruits",
+        "perfume",
+        "flower",
+        "bow"
+      ],
+      "path": "premium/florals-fruits/perfume-flower-bow.webp",
+      "thumbnail": "premium/florals-fruits/perfume-flower-bow.thumb.webp",
+      "viewBox": [
+        259,
+        234
+      ],
+      "contentBounds": [
+        0.0309,
+        0.0214,
+        0.9382,
+        0.9786
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "fl-peach-basket-bow",
+      "name": "Peach Basket Bow",
+      "nameVi": "Peach Basket Bow",
+      "category": "florals-fruits",
+      "categoryVi": "Hoa & trái cây",
+      "tags": [
+        "premium",
+        "florals-fruits",
+        "peach",
+        "basket",
+        "bow"
+      ],
+      "path": "premium/florals-fruits/peach-basket-bow.webp",
+      "thumbnail": "premium/florals-fruits/peach-basket-bow.thumb.webp",
+      "viewBox": [
+        266,
+        234
+      ],
+      "contentBounds": [
+        0.0301,
+        0.0085,
+        0.9398,
+        0.9915
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "fl-cherry-pair-bow-b",
+      "name": "Cherry Pair Bow B",
+      "nameVi": "Cherry Pair Bow B",
+      "category": "florals-fruits",
+      "categoryVi": "Hoa & trái cây",
+      "tags": [
+        "premium",
+        "florals-fruits",
+        "cherry",
+        "pair",
+        "bow",
+        "b"
+      ],
+      "path": "premium/florals-fruits/cherry-pair-bow-b.webp",
+      "thumbnail": "premium/florals-fruits/cherry-pair-bow-b.thumb.webp",
+      "viewBox": [
+        256,
+        233
+      ],
+      "contentBounds": [
+        0.0312,
+        0.0,
+        0.9375,
+        1.0
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "fl-tulip-jewelry-box",
+      "name": "Tulip Jewelry Box",
+      "nameVi": "Tulip Jewelry Box",
+      "category": "florals-fruits",
+      "categoryVi": "Hoa & trái cây",
+      "tags": [
+        "premium",
+        "florals-fruits",
+        "tulip",
+        "jewelry",
+        "box"
+      ],
+      "path": "premium/florals-fruits/tulip-jewelry-box.webp",
+      "thumbnail": "premium/florals-fruits/tulip-jewelry-box.thumb.webp",
+      "viewBox": [
+        243,
+        188
+      ],
+      "contentBounds": [
+        0.0329,
+        0.0426,
+        0.9671,
+        0.9574
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "fl-flower-cookie-pearl-b",
+      "name": "Flower Cookie Pearl B",
+      "nameVi": "Flower Cookie Pearl B",
+      "category": "florals-fruits",
+      "categoryVi": "Hoa & trái cây",
+      "tags": [
+        "premium",
+        "florals-fruits",
+        "flower",
+        "cookie",
+        "pearl",
+        "b"
+      ],
+      "path": "premium/florals-fruits/flower-cookie-pearl-b.webp",
+      "thumbnail": "premium/florals-fruits/flower-cookie-pearl-b.thumb.webp",
+      "viewBox": [
+        242,
+        179
+      ],
+      "contentBounds": [
+        0.0331,
+        0.0447,
+        0.9339,
+        0.9553
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "fl-strawberry-jam-jar",
+      "name": "Strawberry Jam Jar",
+      "nameVi": "Strawberry Jam Jar",
+      "category": "florals-fruits",
+      "categoryVi": "Hoa & trái cây",
+      "tags": [
+        "premium",
+        "florals-fruits",
+        "strawberry",
+        "jam",
+        "jar"
+      ],
+      "path": "premium/florals-fruits/strawberry-jam-jar.webp",
+      "thumbnail": "premium/florals-fruits/strawberry-jam-jar.thumb.webp",
+      "viewBox": [
+        237,
+        184
+      ],
+      "contentBounds": [
+        0.0338,
+        0.0435,
+        0.9325,
+        0.9565
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "fl-flower-wreath-pink",
+      "name": "Flower Wreath Pink",
+      "nameVi": "Flower Wreath Pink",
+      "category": "florals-fruits",
+      "categoryVi": "Hoa & trái cây",
+      "tags": [
+        "premium",
+        "florals-fruits",
+        "flower",
+        "wreath",
+        "pink"
+      ],
+      "path": "premium/florals-fruits/flower-wreath-pink.webp",
+      "thumbnail": "premium/florals-fruits/flower-wreath-pink.thumb.webp",
+      "viewBox": [
+        275,
+        185
+      ],
+      "contentBounds": [
+        0.0291,
+        0.0432,
+        0.9564,
+        0.9568
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "fl-peach-cream-bowl",
+      "name": "Peach Cream Bowl",
+      "nameVi": "Peach Cream Bowl",
+      "category": "florals-fruits",
+      "categoryVi": "Hoa & trái cây",
+      "tags": [
+        "premium",
+        "florals-fruits",
+        "peach",
+        "cream",
+        "bowl"
+      ],
+      "path": "premium/florals-fruits/peach-cream-bowl.webp",
+      "thumbnail": "premium/florals-fruits/peach-cream-bowl.thumb.webp",
+      "viewBox": [
+        240,
+        186
+      ],
+      "contentBounds": [
+        0.0333,
+        0.043,
+        0.9667,
+        0.957
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "fl-butterfly-pearl-pink",
+      "name": "Butterfly Pearl Pink",
+      "nameVi": "Butterfly Pearl Pink",
+      "category": "florals-fruits",
+      "categoryVi": "Hoa & trái cây",
+      "tags": [
+        "premium",
+        "florals-fruits",
+        "butterfly",
+        "pearl",
+        "pink"
+      ],
+      "path": "premium/florals-fruits/butterfly-pearl-pink.webp",
+      "thumbnail": "premium/florals-fruits/butterfly-pearl-pink.thumb.webp",
+      "viewBox": [
+        252,
+        163
+      ],
+      "contentBounds": [
+        0.0317,
+        0.0491,
+        0.9683,
+        0.9509
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "fl-lily-of-valley-bow",
+      "name": "Lily Of Valley Bow",
+      "nameVi": "Lily Of Valley Bow",
+      "category": "florals-fruits",
+      "categoryVi": "Hoa & trái cây",
+      "tags": [
+        "premium",
+        "florals-fruits",
+        "lily",
+        "of",
+        "valley",
+        "bow"
+      ],
+      "path": "premium/florals-fruits/lily-of-valley-bow.webp",
+      "thumbnail": "premium/florals-fruits/lily-of-valley-bow.thumb.webp",
+      "viewBox": [
+        260,
+        187
+      ],
+      "contentBounds": [
+        0.0308,
+        0.0428,
+        0.9423,
+        0.9572
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "fl-flower-jewelry-box",
+      "name": "Flower Jewelry Box",
+      "nameVi": "Flower Jewelry Box",
+      "category": "florals-fruits",
+      "categoryVi": "Hoa & trái cây",
+      "tags": [
+        "premium",
+        "florals-fruits",
+        "flower",
+        "jewelry",
+        "box"
+      ],
+      "path": "premium/florals-fruits/flower-jewelry-box.webp",
+      "thumbnail": "premium/florals-fruits/flower-jewelry-box.thumb.webp",
+      "viewBox": [
+        265,
+        234
+      ],
+      "contentBounds": [
+        0.0302,
+        0.0,
+        0.9396,
+        1.0
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "fl-strawberry-drink-flower",
+      "name": "Strawberry Drink Flower",
+      "nameVi": "Strawberry Drink Flower",
+      "category": "florals-fruits",
+      "categoryVi": "Hoa & trái cây",
+      "tags": [
+        "premium",
+        "florals-fruits",
+        "strawberry",
+        "drink",
+        "flower"
+      ],
+      "path": "premium/florals-fruits/strawberry-drink-flower.webp",
+      "thumbnail": "premium/florals-fruits/strawberry-drink-flower.thumb.webp",
+      "viewBox": [
+        199,
+        234
+      ],
+      "contentBounds": [
+        0.0402,
+        0.0,
+        0.9196,
+        1.0
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "fl-cherry-blossom-branch",
+      "name": "Cherry Blossom Branch",
+      "nameVi": "Cherry Blossom Branch",
+      "category": "florals-fruits",
+      "categoryVi": "Hoa & trái cây",
+      "tags": [
+        "premium",
+        "florals-fruits",
+        "cherry",
+        "blossom",
+        "branch"
+      ],
+      "path": "premium/florals-fruits/cherry-blossom-branch.webp",
+      "thumbnail": "premium/florals-fruits/cherry-blossom-branch.thumb.webp",
+      "viewBox": [
+        268,
+        179
+      ],
+      "contentBounds": [
+        0.0299,
+        0.0447,
+        0.9701,
+        0.9553
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "fl-peach-keychain-bow",
+      "name": "Peach Keychain Bow",
+      "nameVi": "Peach Keychain Bow",
+      "category": "florals-fruits",
+      "categoryVi": "Hoa & trái cây",
+      "tags": [
+        "premium",
+        "florals-fruits",
+        "peach",
+        "keychain",
+        "bow"
+      ],
+      "path": "premium/florals-fruits/peach-keychain-bow.webp",
+      "thumbnail": "premium/florals-fruits/peach-keychain-bow.thumb.webp",
+      "viewBox": [
+        233,
+        234
+      ],
+      "contentBounds": [
+        0.0343,
+        0.0,
+        0.9313,
+        1.0
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "fl-strawberry-tart-flower",
+      "name": "Strawberry Tart Flower",
+      "nameVi": "Strawberry Tart Flower",
+      "category": "florals-fruits",
+      "categoryVi": "Hoa & trái cây",
+      "tags": [
+        "premium",
+        "florals-fruits",
+        "strawberry",
+        "tart",
+        "flower"
+      ],
+      "path": "premium/florals-fruits/strawberry-tart-flower.webp",
+      "thumbnail": "premium/florals-fruits/strawberry-tart-flower.thumb.webp",
+      "viewBox": [
+        244,
+        185
+      ],
+      "contentBounds": [
+        0.0328,
+        0.0432,
+        0.9344,
+        0.9568
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "fl-flower-bow-white",
+      "name": "Flower Bow White",
+      "nameVi": "Flower Bow White",
+      "category": "florals-fruits",
+      "categoryVi": "Hoa & trái cây",
+      "tags": [
+        "premium",
+        "florals-fruits",
+        "flower",
+        "bow",
+        "white"
+      ],
+      "path": "premium/florals-fruits/flower-bow-white.webp",
+      "thumbnail": "premium/florals-fruits/flower-bow-white.thumb.webp",
+      "viewBox": [
+        270,
+        182
+      ],
+      "contentBounds": [
+        0.0296,
+        0.044,
+        0.9407,
+        0.956
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "fl-strawberry-basket-heart",
+      "name": "Strawberry Basket Heart",
+      "nameVi": "Strawberry Basket Heart",
+      "category": "florals-fruits",
+      "categoryVi": "Hoa & trái cây",
+      "tags": [
+        "premium",
+        "florals-fruits",
+        "strawberry",
+        "basket",
+        "heart"
+      ],
+      "path": "premium/florals-fruits/strawberry-basket-heart.webp",
+      "thumbnail": "premium/florals-fruits/strawberry-basket-heart.thumb.webp",
+      "viewBox": [
+        246,
+        210
+      ],
+      "contentBounds": [
+        0.0325,
+        0.0381,
+        0.9472,
+        0.9619
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "fl-strawberry-heart-cake",
+      "name": "Strawberry Heart Cake",
+      "nameVi": "Strawberry Heart Cake",
+      "category": "florals-fruits",
+      "categoryVi": "Hoa & trái cây",
+      "tags": [
+        "premium",
+        "florals-fruits",
+        "strawberry",
+        "heart",
+        "cake"
+      ],
+      "path": "premium/florals-fruits/strawberry-heart-cake.webp",
+      "thumbnail": "premium/florals-fruits/strawberry-heart-cake.thumb.webp",
+      "viewBox": [
+        250,
+        186
+      ],
+      "contentBounds": [
+        0.032,
+        0.043,
+        0.936,
+        0.957
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "fl-rose-glass-dome",
+      "name": "Rose Glass Dome",
+      "nameVi": "Rose Glass Dome",
+      "category": "florals-fruits",
+      "categoryVi": "Hoa & trái cây",
+      "tags": [
+        "premium",
+        "florals-fruits",
+        "rose",
+        "glass",
+        "dome"
+      ],
+      "path": "premium/florals-fruits/rose-glass-dome.webp",
+      "thumbnail": "premium/florals-fruits/rose-glass-dome.thumb.webp",
+      "viewBox": [
+        213,
+        230
+      ],
+      "contentBounds": [
+        0.0376,
+        0.0,
+        0.9249,
+        0.9652
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "fl-peach-pair-bow",
+      "name": "Peach Pair Bow",
+      "nameVi": "Peach Pair Bow",
+      "category": "florals-fruits",
+      "categoryVi": "Hoa & trái cây",
+      "tags": [
+        "premium",
+        "florals-fruits",
+        "peach",
+        "pair",
+        "bow"
+      ],
+      "path": "premium/florals-fruits/peach-pair-bow.webp",
+      "thumbnail": "premium/florals-fruits/peach-pair-bow.thumb.webp",
+      "viewBox": [
+        253,
+        214
+      ],
+      "contentBounds": [
+        0.0316,
+        0.0374,
+        0.9368,
+        0.9252
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "fl-flower-perfume-bottle",
+      "name": "Flower Perfume Bottle",
+      "nameVi": "Flower Perfume Bottle",
+      "category": "florals-fruits",
+      "categoryVi": "Hoa & trái cây",
+      "tags": [
+        "premium",
+        "florals-fruits",
+        "flower",
+        "perfume",
+        "bottle"
+      ],
+      "path": "premium/florals-fruits/flower-perfume-bottle.webp",
+      "thumbnail": "premium/florals-fruits/flower-perfume-bottle.thumb.webp",
+      "viewBox": [
+        205,
+        214
+      ],
+      "contentBounds": [
+        0.039,
+        0.0374,
+        0.922,
+        0.9393
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "fl-cherry-pair-plate",
+      "name": "Cherry Pair Plate",
+      "nameVi": "Cherry Pair Plate",
+      "category": "florals-fruits",
+      "categoryVi": "Hoa & trái cây",
+      "tags": [
+        "premium",
+        "florals-fruits",
+        "cherry",
+        "pair",
+        "plate"
+      ],
+      "path": "premium/florals-fruits/cherry-pair-plate.webp",
+      "thumbnail": "premium/florals-fruits/cherry-pair-plate.thumb.webp",
+      "viewBox": [
+        254,
+        234
+      ],
+      "contentBounds": [
+        0.0315,
+        0.0,
+        0.937,
+        0.9701
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    }
+  ]
+}

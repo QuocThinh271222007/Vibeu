@@ -24,9 +24,32 @@ function cachedFetch<T>(url: string): () => Promise<T> {
 }
 
 const getColorManifest = cachedFetch<ColorManifest>('/assets/colors/manifest.json')
-const getDecalManifest = cachedFetch<DecalManifest>('/assets/decals/manifest.json')
+const getStandardDecalManifest = cachedFetch<DecalManifest>('/assets/decals/manifest.json')
+const getPremiumDecalManifest = cachedFetch<DecalManifest>('/assets/decals/premium/manifest.json')
 const getHandCozy = cachedFetch<HandData>('/assets/hands/cozy/coordinates.json')
 const getHandMatcha = cachedFetch<HandData>('/assets/hands/matcha/coordinates.json')
+
+/**
+ * Merges the original flat-vector decal library with the richer illustrated premium pack
+ * into one list — same architecture either way (one manifest + a `path` the compositor
+ * decodes to pixels), so new/replacement decal packs never require hard-coding individual
+ * asset ids anywhere else in the app. `tier` is stamped here (not stored in either raw
+ * manifest) purely so the picker UI can group/badge premium items separately per the
+ * "separate quality tier until migration is finished" requirement.
+ */
+async function getDecalManifest(): Promise<DecalManifest> {
+  const [standard, premium] = await Promise.all([
+    getStandardDecalManifest(),
+    getPremiumDecalManifest().catch(() => ({ categories: [], decals: [] }) as DecalManifest),
+  ])
+  return {
+    categories: [...standard.categories, ...premium.categories],
+    decals: [
+      ...standard.decals.map((d) => ({ ...d, tier: 'standard' as const })),
+      ...premium.decals.map((d) => ({ ...d, tier: 'premium' as const })),
+    ],
+  }
+}
 
 export function getHandData(tone: SkinToneId): Promise<HandData> {
   return tone === 'cozy' ? getHandCozy() : getHandMatcha()

@@ -1,17 +1,20 @@
 import { useMemo, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
-import { Search, Upload } from 'lucide-react'
+import { Search, Sparkles, Upload } from 'lucide-react'
 import { Chip } from '@/components/ui/Chip'
 import { useDecals, resolveDecalPath } from '@/data/loaders'
 import { registerUploadedDecal } from '@/lib/decalCache'
 import { useStudioStore } from '@/store/studioStore'
 import type { DecalAsset } from '@/types/vibeu'
 
+type TierFilter = 'all' | 'premium' | 'standard'
+
 export function DecalLibrary({ onAdd }: { onAdd: (decalId: string) => void }) {
   const { decals, categories, loading } = useDecals()
   const customDecals = useStudioStore((s) => s.customDecals)
   const addCustomDecal = useStudioStore((s) => s.addCustomDecal)
   const [category, setCategory] = useState<string>('all')
+  const [tier, setTier] = useState<TierFilter>('all')
   const [query, setQuery] = useState('')
   const [uploadError, setUploadError] = useState<string | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
@@ -21,16 +24,18 @@ export function DecalLibrary({ onAdd }: { onAdd: (decalId: string) => void }) {
     () => (customDecals.length ? [...categories, { id: 'custom', nameVi: 'Tải lên', count: customDecals.length }] : categories),
     [categories, customDecals.length],
   )
+  const hasPremium = useMemo(() => decals.some((d) => d.tier === 'premium'), [decals])
 
   const filtered = useMemo(() => {
     let list = allDecals
+    if (tier !== 'all') list = list.filter((d) => (tier === 'premium' ? d.tier === 'premium' : d.tier !== 'premium'))
     if (category !== 'all') list = list.filter((d) => d.category === category)
     if (query.trim()) {
       const q = query.trim().toLowerCase()
       list = list.filter((d) => d.nameVi.toLowerCase().includes(q) || d.name.toLowerCase().includes(q) || d.tags.some((t) => t.toLowerCase().includes(q)))
     }
     return list
-  }, [allDecals, category, query])
+  }, [allDecals, tier, category, query])
 
   async function handleUpload(files: FileList | null) {
     if (!files || !files.length) return
@@ -58,9 +63,25 @@ export function DecalLibrary({ onAdd }: { onAdd: (decalId: string) => void }) {
         />
       </label>
 
+      {hasPremium && (
+        <div className="flex gap-2">
+          <Chip active={tier === 'all'} onClick={() => setTier('all')}>
+            Tất cả
+          </Chip>
+          <Chip active={tier === 'premium'} onClick={() => setTier('premium')}>
+            <span className="inline-flex items-center gap-1">
+              <Sparkles size={12} /> Premium
+            </span>
+          </Chip>
+          <Chip active={tier === 'standard'} onClick={() => setTier('standard')}>
+            Cơ bản
+          </Chip>
+        </div>
+      )}
+
       <div className="flex gap-2 overflow-x-auto pb-1 no-scrollbar">
         <Chip active={category === 'all'} onClick={() => setCategory('all')}>
-          Tất cả
+          Tất cả danh mục
         </Chip>
         {allCategories.map((c) => (
           <Chip key={c.id} active={category === c.id} onClick={() => setCategory(c.id)}>
@@ -112,9 +133,14 @@ function DecalButton({ decal, onAdd }: { decal: DecalAsset; onAdd: (id: string) 
       whileTap={{ scale: 0.92 }}
       onClick={() => onAdd(decal.id)}
       title={decal.nameVi}
-      className="group flex aspect-square flex-col items-center justify-center gap-1 rounded-2xl border-2 border-vibe-ink/5 bg-white p-1.5 shadow-sm transition-colors hover:border-vibe-pink/40"
+      className="group relative flex aspect-square flex-col items-center justify-center gap-1 rounded-2xl border-2 border-vibe-ink/5 bg-white p-1.5 shadow-sm transition-colors hover:border-vibe-pink/40"
     >
-      <img src={resolveDecalPath(decal.path)} alt={decal.nameVi} className="h-full w-full object-contain" draggable={false} />
+      {decal.tier === 'premium' && (
+        <span className="absolute right-1 top-1 grid h-4 w-4 place-items-center rounded-full bg-vibe-pink-dark text-white">
+          <Sparkles size={9} />
+        </span>
+      )}
+      <img src={resolveDecalPath(decal.thumbnail ?? decal.path)} alt={decal.nameVi} className="h-full w-full object-contain" draggable={false} loading="lazy" />
     </motion.button>
   )
 }
