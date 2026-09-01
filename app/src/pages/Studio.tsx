@@ -75,17 +75,17 @@ export default function Studio() {
   const activeDesign = s.fingers[s.selectedFinger]
 
   return (
-    <div className="flex h-screen flex-col bg-vibe-cream">
+    <div className="flex min-h-screen flex-col bg-vibe-cream lg:h-screen lg:min-h-0">
       <StudioTopBar skinTone={s.skinTone} onSkinTone={s.setSkinTone} onReset={s.reset} />
 
-      <div className="flex flex-1 flex-col overflow-hidden lg:flex-row">
-        <div className="flex flex-1 flex-col items-center gap-4 overflow-y-auto px-4 py-5 sm:px-8">
+      <div className="flex flex-1 flex-col lg:min-h-0 lg:flex-row lg:overflow-hidden">
+        <div className="flex flex-col items-center gap-4 px-4 py-5 sm:px-8 lg:flex-1 lg:overflow-y-auto">
           {s.activeTemplateName && (
             <span className="rounded-full bg-white px-3.5 py-1 text-xs font-semibold text-vibe-pink-dark shadow-sm">
               Đang chỉnh từ mẫu: {s.activeTemplateName}
             </span>
           )}
-          <div className="w-full max-w-sm">
+          <div className="w-full max-w-sm shrink-0">
             <HandCanvas
               skinTone={s.skinTone}
               fingers={s.fingers}
@@ -105,7 +105,7 @@ export default function Studio() {
           </p>
         </div>
 
-        <div className="flex flex-col border-t border-vibe-ink/10 bg-white/80 backdrop-blur lg:w-[420px] lg:border-l lg:border-t-0">
+        <div className="flex flex-col border-t border-vibe-ink/10 bg-white/80 backdrop-blur lg:min-h-0 lg:w-[420px] lg:border-l lg:border-t-0">
           <div className="flex border-b border-vibe-ink/10">
             {TABS.map((t) => (
               <button
@@ -122,7 +122,7 @@ export default function Studio() {
             ))}
           </div>
 
-          <div className="flex-1 overflow-y-auto p-5 vibe-scrollbar">
+          <div className="p-5 vibe-scrollbar lg:flex-1 lg:overflow-y-auto">
             <AnimatePresence mode="wait">
               <motion.div key={s.activeTab} initial={{ opacity: 0, x: 8 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -8 }} transition={{ duration: 0.2 }}>
                 {s.activeTab === 'shape' && (
