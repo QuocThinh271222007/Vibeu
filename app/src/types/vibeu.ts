@@ -166,6 +166,22 @@ export interface FingerDesign {
   stickers: StickerInstance[]
 }
 
+/**
+ * Marketing/library previews deliberately live outside the editable nail renderer.
+ * A curated cover is the visual source of truth for cards/hero surfaces; the live
+ * HandCanvas remains the source of truth for editability inside Studio.
+ *
+ * `image` is optional so legacy templates can safely fall back to a live render
+ * until a curated photo has been supplied. `objectPosition` lets each cover be
+ * art-directed without CSS conditionals in card components.
+ */
+export interface TemplatePreview {
+  type: 'curated' | 'live'
+  image?: string
+  objectPosition?: string
+  alt?: string
+}
+
 export interface Template {
   id: string
   name: string
@@ -173,4 +189,5 @@ export interface Template {
   tags: string[]
   skinTone: SkinToneId
   fingers: Record<FingerId, Partial<FingerDesign>>
+  preview?: TemplatePreview
 }
