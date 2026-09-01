@@ -1,0 +1,14 @@
+{
+  "uniqueStickerDesigns": 144,
+  "originalStickerFiles": 432,
+  "transparentPngs": 144,
+  "colorSvg": 144,
+  "flatSvg": 144,
+  "categories": 12,
+  "allSourceGitBlobHashesMatched": true,
+  "colorPresets": 24,
+  "colorSwatchesPng": 24,
+  "colorSwatchesSvg": 24,
+  "allReferencedFilesExist": true,
+  "notes": "PNG 3D are source-rendered bitmaps; no true 3D meshes or measured normal maps are included."
+}

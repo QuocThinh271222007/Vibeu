@@ -1,0 +1,27 @@
+{
+  "passed": 20,
+  "checks": [
+    "cozy: mapping at 12 viewport/zoom combinations",
+    "cozy: calibration transform inverse",
+    "cozy: painting affects only selected nail",
+    "cozy: uploaded layer is clipped to nail mask",
+    "cozy: lavender produces opaque output",
+    "cozy: butter produces opaque output",
+    "cozy: pink produces opaque output",
+    "cozy: cloud produces opaque output",
+    "cozy: matcha produces opaque output",
+    "cozy: aurora produces opaque output",
+    "matcha: mapping at 12 viewport/zoom combinations",
+    "matcha: calibration transform inverse",
+    "matcha: painting affects only selected nail",
+    "matcha: uploaded layer is clipped to nail mask",
+    "matcha: lavender produces opaque output",
+    "matcha: butter produces opaque output",
+    "matcha: pink produces opaque output",
+    "matcha: cloud produces opaque output",
+    "matcha: matcha produces opaque output",
+    "matcha: aurora produces opaque output"
+  ],
+  "browserInteraction": "Not run: local-file navigation rejected by browser URL policy. Renderer exercised directly using the same production JavaScript with a Canvas implementation.",
+  "normalMaps": "Procedural 2.5D approximations; image-space RGB normals, alpha = nail mask."
+}

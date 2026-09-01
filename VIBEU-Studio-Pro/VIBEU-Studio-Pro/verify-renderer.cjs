@@ -1,0 +1,23 @@
+const fs=require('fs'),path=require('path'),assert=require('assert/strict');
+const {createCanvas,Path2D,loadImage}=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES?process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES+'/@napi-rs/canvas':'@napi-rs/canvas');
+const {Engine,defaultNail,defaultLight,toImagePoint,calibrationPoint}=require('./src/engine.js');
+const {applyPreset}=require('./src/presets.js');
+const sets=require('./src/data.json'),engine=new Engine(createCanvas,Path2D),light=defaultLight();
+const checks=[];const check=(name,fn)=>{fn();checks.push(name)};
+(async()=>{
+ for(const s of sets){engine.prepare(s,await loadImage(s.image));const states=s.nails.map(defaultNail),original=createCanvas(s.width,s.height);engine.render(original,s.id,states,light);fs.writeFileSync(path.join(__dirname,'previews',s.id+'-original.png'),original.toBuffer('image/png'));
+  // Same intrinsic image coordinate must hit the same nail at every display size, scroll origin and zoom.
+  check(s.id+': mapping at 12 viewport/zoom combinations',()=>{for(const width of [220,350,600,1200])for(const left of [-300,0,240]){const rect={left,top:-160,width,height:width*s.height/s.width};s.nails.forEach((n,i)=>{const p=engine.geom(s.id,i).fromUV(.5,.5),screen={x:left+p.x/s.width*rect.width,y:rect.top+p.y/s.height*rect.height};const q=toImagePoint(rect,s.width,s.height,screen.x,screen.y);assert(Math.hypot(q.x-p.x,q.y-p.y)<1e-8);assert.equal(engine.hit(s.id,states,q),i)})}});
+  check(s.id+': calibration transform inverse',()=>{s.nails.forEach(n=>{const p={x:n.center[0]+16,y:n.center[1]-27},c={x:12,y:-8,angle:11,scale:1.06};const q=calibrationPoint(calibrationPoint(p,c,n.center),c,n.center,true);assert(Math.hypot(q.x-p.x,q.y-p.y)<1e-8)})});
+  const base=original.getContext('2d').getImageData(0,0,s.width,s.height).data;states[2].paint.mode='linear';states[2].material.type='catEye';const painted=createCanvas(s.width,s.height);engine.render(painted,s.id,states,light);const pp=painted.getContext('2d').getImageData(0,0,s.width,s.height).data,g=engine.geom(s.id,2);let changed=0,outside=0;
+  for(let y=0;y<s.height;y++)for(let x=0;x<s.width;x++){const k=(y*s.width+x)*4;if(base[k]!==pp[k]||base[k+1]!==pp[k+1]||base[k+2]!==pp[k+2]){changed++;const inside=x>=g.x&&x<g.x+g.w&&y>=g.y&&y<g.y+g.h&&g.alpha[((y-g.y)*g.w+x-g.x)*4+3]>0;if(!inside)outside++}}
+  check(s.id+': painting affects only selected nail',()=>{assert(changed>1000);assert.equal(outside,0)});
+  const fixture=createCanvas(80,120),fc=fixture.getContext('2d');fc.fillStyle='#ff0000';fc.fillRect(0,0,80,120);engine.assetImages.set('fixture',fixture);states[2].layers=[{id:'fixture',kind:'image',asset:'fixture',u:.5,v:.5,size:2,rotation:30,opacity:1,visible:true,blend:'source-over'}];const withImage=engine.renderNail(s.id,2,states[2],light),pixels=withImage.getContext('2d').getImageData(0,0,g.w,g.h).data;
+  check(s.id+': uploaded layer is clipped to nail mask',()=>{let colored=0;for(let k=0;k<g.w*g.h;k++){if(!g.alpha[k*4+3])assert.equal(pixels[k*4+3],0);if(pixels[k*4]>240&&pixels[k*4+1]<10)colored++}assert(colored>1000)});
+  const mapDir=path.join(__dirname,'maps',s.id);fs.mkdirSync(mapDir,{recursive:true});const metadata=[];
+  for(let i=0;i<5;i++){const g=engine.geom(s.id,i);for(const type of ['normal','diffuse','specular','mask']){const c=engine.map(s.id,i,type);fs.writeFileSync(path.join(mapDir,g.id+'-'+type+'.png'),c.toBuffer('image/png'))}metadata.push({id:g.id,name:g.name,bbox:g.bbox,center:g.center,axis:g.axis,path:g.path,uvFrame:{u:g.u,v:g.v,minU:g.minU,maxU:g.maxU,minV:g.minV,maxV:g.maxV}})}
+  fs.writeFileSync(path.join(mapDir,'coordinates.json'),JSON.stringify({width:s.width,height:s.height,nails:metadata},null,2));
+  for(const preset of ['lavender','butter','pink','cloud','matcha','aurora']){const st=s.nails.map(defaultNail);applyPreset(st,preset,defaultNail,s.nails);const c=createCanvas(s.width,s.height);engine.render(c,s.id,st,light);fs.writeFileSync(path.join(__dirname,'previews',s.id+'-'+preset+'.png'),c.toBuffer('image/png'));check(s.id+': '+preset+' produces opaque output',()=>assert.equal(c.getContext('2d').getImageData(0,0,1,1).data[3],255))}
+ }
+ const report={passed:checks.length,checks,browserInteraction:'Not run: local-file navigation rejected by browser URL policy. Renderer exercised directly using the same production JavaScript with a Canvas implementation.',normalMaps:'Procedural 2.5D approximations; image-space RGB normals, alpha = nail mask.'};fs.writeFileSync(path.join(__dirname,'verification.json'),JSON.stringify(report,null,2));console.log(JSON.stringify(report,null,2));
+})().catch(e=>{console.error(e);process.exit(1)});

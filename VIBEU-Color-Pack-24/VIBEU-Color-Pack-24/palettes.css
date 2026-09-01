@@ -1,0 +1,147 @@
+/* VIBEU original color recipes. Finish effects must be rendered by the application. */
+:root {
+  --vibeu-cozy-nude-sage-1: #EAC8BD;
+  --vibeu-cozy-nude-sage-2: #DDB5A9;
+  --vibeu-cozy-nude-sage-3: #66736C;
+  --vibeu-cozy-nude-sage-4: #F4E5DC;
+  --vibeu-cozy-nude-sage-5: #BA9285;
+  --vibeu-matcha-latte-1: #667C59;
+  --vibeu-matcha-latte-2: #879878;
+  --vibeu-matcha-latte-3: #B8C5A0;
+  --vibeu-matcha-latte-4: #E7E4CE;
+  --vibeu-matcha-latte-5: #F8F0DF;
+  --vibeu-lavender-dream-1: #7E70B6;
+  --vibeu-lavender-dream-2: #A697D5;
+  --vibeu-lavender-dream-3: #C9BCEB;
+  --vibeu-lavender-dream-4: #B6C7EA;
+  --vibeu-lavender-dream-5: #ECE4FA;
+  --vibeu-pink-coquette-1: #C77696;
+  --vibeu-pink-coquette-2: #E5AAB8;
+  --vibeu-pink-coquette-3: #F4C7D9;
+  --vibeu-pink-coquette-4: #FFE2EE;
+  --vibeu-pink-coquette-5: #FFF3F7;
+  --vibeu-butter-bloom-1: #D9B74F;
+  --vibeu-butter-bloom-2: #F0D779;
+  --vibeu-butter-bloom-3: #F8E7A0;
+  --vibeu-butter-bloom-4: #FFF4CE;
+  --vibeu-butter-bloom-5: #FFF9EE;
+  --vibeu-cloud-candy-1: #98BDE5;
+  --vibeu-cloud-candy-2: #B8D7EF;
+  --vibeu-cloud-candy-3: #F0CEDC;
+  --vibeu-cloud-candy-4: #F6DBA3;
+  --vibeu-cloud-candy-5: #FFF3EC;
+  --vibeu-peach-sorbet-1: #E99178;
+  --vibeu-peach-sorbet-2: #F4B094;
+  --vibeu-peach-sorbet-3: #FFD2B5;
+  --vibeu-peach-sorbet-4: #FFE5D0;
+  --vibeu-peach-sorbet-5: #FFF2E5;
+  --vibeu-strawberry-milk-1: #CA546F;
+  --vibeu-strawberry-milk-2: #E9829A;
+  --vibeu-strawberry-milk-3: #F3B4C5;
+  --vibeu-strawberry-milk-4: #FFDBE6;
+  --vibeu-strawberry-milk-5: #FFF1F4;
+  --vibeu-mint-jelly-1: #58A997;
+  --vibeu-mint-jelly-2: #8CCABD;
+  --vibeu-mint-jelly-3: #B7E0D4;
+  --vibeu-mint-jelly-4: #DEF2E9;
+  --vibeu-mint-jelly-5: #F3FCF8;
+  --vibeu-ocean-breeze-1: #1E6B91;
+  --vibeu-ocean-breeze-2: #409ABB;
+  --vibeu-ocean-breeze-3: #77C9DB;
+  --vibeu-ocean-breeze-4: #B5E5EC;
+  --vibeu-ocean-breeze-5: #E9F9F7;
+  --vibeu-mermaid-aurora-1: #63BDCD;
+  --vibeu-mermaid-aurora-2: #BBA2E0;
+  --vibeu-mermaid-aurora-3: #EBAAD4;
+  --vibeu-mermaid-aurora-4: #8CD4CF;
+  --vibeu-mermaid-aurora-5: #E9D7F2;
+  --vibeu-opal-pearl-1: #D5C7E8;
+  --vibeu-opal-pearl-2: #F3DBE5;
+  --vibeu-opal-pearl-3: #D9F0EB;
+  --vibeu-opal-pearl-4: #F7EDD7;
+  --vibeu-opal-pearl-5: #FFFCF5;
+  --vibeu-rose-quartz-1: #BA849B;
+  --vibeu-rose-quartz-2: #D5A7BA;
+  --vibeu-rose-quartz-3: #E8C7D3;
+  --vibeu-rose-quartz-4: #F6E1E8;
+  --vibeu-rose-quartz-5: #FFF7F7;
+  --vibeu-cherry-cola-1: #3B1528;
+  --vibeu-cherry-cola-2: #69253C;
+  --vibeu-cherry-cola-3: #96364D;
+  --vibeu-cherry-cola-4: #BD5965;
+  --vibeu-cherry-cola-5: #EAB0AD;
+  --vibeu-espresso-mocha-1: #392923;
+  --vibeu-espresso-mocha-2: #654737;
+  --vibeu-espresso-mocha-3: #98755B;
+  --vibeu-espresso-mocha-4: #C7A98A;
+  --vibeu-espresso-mocha-5: #EBD9C1;
+  --vibeu-terracotta-sunset-1: #904D3D;
+  --vibeu-terracotta-sunset-2: #C46E50;
+  --vibeu-terracotta-sunset-3: #E8986A;
+  --vibeu-terracotta-sunset-4: #F4C49C;
+  --vibeu-terracotta-sunset-5: #F9E3C7;
+  --vibeu-forest-moss-1: #233F35;
+  --vibeu-forest-moss-2: #3F6250;
+  --vibeu-forest-moss-3: #75866A;
+  --vibeu-forest-moss-4: #A6B18A;
+  --vibeu-forest-moss-5: #DCE0C1;
+  --vibeu-midnight-galaxy-1: #161B43;
+  --vibeu-midnight-galaxy-2: #353568;
+  --vibeu-midnight-galaxy-3: #68649F;
+  --vibeu-midnight-galaxy-4: #A89ECF;
+  --vibeu-midnight-galaxy-5: #E0D9F6;
+  --vibeu-gothic-plum-1: #211B2A;
+  --vibeu-gothic-plum-2: #4B2E48;
+  --vibeu-gothic-plum-3: #7C4B6D;
+  --vibeu-gothic-plum-4: #B280A0;
+  --vibeu-gothic-plum-5: #DEC3D7;
+  --vibeu-halloween-glow-1: #37294B;
+  --vibeu-halloween-glow-2: #6A447A;
+  --vibeu-halloween-glow-3: #B86D6C;
+  --vibeu-halloween-glow-4: #EF9B4B;
+  --vibeu-halloween-glow-5: #FFD176;
+  --vibeu-winter-frost-1: #7D9CBF;
+  --vibeu-winter-frost-2: #B2C9E1;
+  --vibeu-winter-frost-3: #D4E4F3;
+  --vibeu-winter-frost-4: #EEF5FB;
+  --vibeu-winter-frost-5: #FFFFFF;
+  --vibeu-christmas-velvet-1: #612D3B;
+  --vibeu-christmas-velvet-2: #AB3F50;
+  --vibeu-christmas-velvet-3: #DDA296;
+  --vibeu-christmas-velvet-4: #284E43;
+  --vibeu-christmas-velvet-5: #C6B071;
+  --vibeu-champagne-glitter-1: #AA8650;
+  --vibeu-champagne-glitter-2: #C7A86D;
+  --vibeu-champagne-glitter-3: #DEC795;
+  --vibeu-champagne-glitter-4: #F1E0BA;
+  --vibeu-champagne-glitter-5: #FFF4DC;
+  --vibeu-silver-chrome-1: #566579;
+  --vibeu-silver-chrome-2: #8F9CAC;
+  --vibeu-silver-chrome-3: #CBD3DD;
+  --vibeu-silver-chrome-4: #F4F6FA;
+  --vibeu-silver-chrome-5: #B7C4D6;
+}
+.vibeu-swatch-cozy-nude-sage { background: url("swatches/svg/cozy-nude-sage.svg") center / cover; }
+.vibeu-swatch-matcha-latte { background: url("swatches/svg/matcha-latte.svg") center / cover; }
+.vibeu-swatch-lavender-dream { background: url("swatches/svg/lavender-dream.svg") center / cover; }
+.vibeu-swatch-pink-coquette { background: url("swatches/svg/pink-coquette.svg") center / cover; }
+.vibeu-swatch-butter-bloom { background: url("swatches/svg/butter-bloom.svg") center / cover; }
+.vibeu-swatch-cloud-candy { background: url("swatches/svg/cloud-candy.svg") center / cover; }
+.vibeu-swatch-peach-sorbet { background: url("swatches/svg/peach-sorbet.svg") center / cover; }
+.vibeu-swatch-strawberry-milk { background: url("swatches/svg/strawberry-milk.svg") center / cover; }
+.vibeu-swatch-mint-jelly { background: url("swatches/svg/mint-jelly.svg") center / cover; }
+.vibeu-swatch-ocean-breeze { background: url("swatches/svg/ocean-breeze.svg") center / cover; }
+.vibeu-swatch-mermaid-aurora { background: url("swatches/svg/mermaid-aurora.svg") center / cover; }
+.vibeu-swatch-opal-pearl { background: url("swatches/svg/opal-pearl.svg") center / cover; }
+.vibeu-swatch-rose-quartz { background: url("swatches/svg/rose-quartz.svg") center / cover; }
+.vibeu-swatch-cherry-cola { background: url("swatches/svg/cherry-cola.svg") center / cover; }
+.vibeu-swatch-espresso-mocha { background: url("swatches/svg/espresso-mocha.svg") center / cover; }
+.vibeu-swatch-terracotta-sunset { background: url("swatches/svg/terracotta-sunset.svg") center / cover; }
+.vibeu-swatch-forest-moss { background: url("swatches/svg/forest-moss.svg") center / cover; }
+.vibeu-swatch-midnight-galaxy { background: url("swatches/svg/midnight-galaxy.svg") center / cover; }
+.vibeu-swatch-gothic-plum { background: url("swatches/svg/gothic-plum.svg") center / cover; }
+.vibeu-swatch-halloween-glow { background: url("swatches/svg/halloween-glow.svg") center / cover; }
+.vibeu-swatch-winter-frost { background: url("swatches/svg/winter-frost.svg") center / cover; }
+.vibeu-swatch-christmas-velvet { background: url("swatches/svg/christmas-velvet.svg") center / cover; }
+.vibeu-swatch-champagne-glitter { background: url("swatches/svg/champagne-glitter.svg") center / cover; }
+.vibeu-swatch-silver-chrome { background: url("swatches/svg/silver-chrome.svg") center / cover; }

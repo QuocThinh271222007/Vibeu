@@ -1,0 +1,5 @@
+{
+  "passed": 11,
+  "checks": "six preset round trips; invalid color, external image, gradient, point and missing image rejected",
+  "method": "Production validator function executed directly; no browser."
+}

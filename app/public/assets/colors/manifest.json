@@ -1,0 +1,1642 @@
+{
+  "schemaVersion": 1,
+  "packId": "vibeu-color-pack-24",
+  "presetCount": 24,
+  "colorSpace": "sRGB",
+  "interpolation": "sRGB channels",
+  "palettesPerPreset": 5,
+  "presets": [
+    {
+      "id": "cozy-nude-sage",
+      "name": "Cozy Nude & Sage",
+      "descriptionVi": "Nude ấm và xanh xám",
+      "palette": [
+        "#EAC8BD",
+        "#DDB5A9",
+        "#66736C",
+        "#F4E5DC",
+        "#BA9285"
+      ],
+      "paint": {
+        "mode": "linear",
+        "color": "#DDB5A9",
+        "stops": [
+          {
+            "at": 0.0,
+            "color": "#EAC8BD"
+          },
+          {
+            "at": 0.25,
+            "color": "#DDB5A9"
+          },
+          {
+            "at": 0.5,
+            "color": "#66736C"
+          },
+          {
+            "at": 0.75,
+            "color": "#F4E5DC"
+          },
+          {
+            "at": 1.0,
+            "color": "#BA9285"
+          }
+        ],
+        "start": [
+          0.5,
+          0.0
+        ],
+        "end": [
+          0.5,
+          1.0
+        ],
+        "opacity": 1
+      },
+      "material": {
+        "type": "gel",
+        "gloss": 0.8,
+        "roughness": 0.22,
+        "glitter": 0.08,
+        "catAngle": 25
+      },
+      "pattern": {
+        "type": "none",
+        "color": "#FFFFFF",
+        "size": 0.18,
+        "opacity": 1
+      },
+      "swatch": {
+        "svg": "swatches/svg/cozy-nude-sage.svg",
+        "png": "swatches/png/cozy-nude-sage.png",
+        "width": 512,
+        "height": 512,
+        "shows": "base-color-gradient-only"
+      },
+      "source": "Original color recipe prepared for VIBEU"
+    },
+    {
+      "id": "matcha-latte",
+      "name": "Matcha Latte",
+      "descriptionVi": "Trà xanh và kem sữa",
+      "palette": [
+        "#667C59",
+        "#879878",
+        "#B8C5A0",
+        "#E7E4CE",
+        "#F8F0DF"
+      ],
+      "paint": {
+        "mode": "linear",
+        "color": "#879878",
+        "stops": [
+          {
+            "at": 0.0,
+            "color": "#667C59"
+          },
+          {
+            "at": 0.25,
+            "color": "#879878"
+          },
+          {
+            "at": 0.5,
+            "color": "#B8C5A0"
+          },
+          {
+            "at": 0.75,
+            "color": "#E7E4CE"
+          },
+          {
+            "at": 1.0,
+            "color": "#F8F0DF"
+          }
+        ],
+        "start": [
+          0.28869086912965025,
+          0.04684610648167503
+        ],
+        "end": [
+          0.7113091308703497,
+          0.953153893518325
+        ],
+        "opacity": 1
+      },
+      "material": {
+        "type": "gel",
+        "gloss": 0.8,
+        "roughness": 0.22,
+        "glitter": 0.08,
+        "catAngle": 25
+      },
+      "pattern": {
+        "type": "none",
+        "color": "#FFFFFF",
+        "size": 0.18,
+        "opacity": 1
+      },
+      "swatch": {
+        "svg": "swatches/svg/matcha-latte.svg",
+        "png": "swatches/png/matcha-latte.png",
+        "width": 512,
+        "height": 512,
+        "shows": "base-color-gradient-only"
+      },
+      "source": "Original color recipe prepared for VIBEU"
+    },
+    {
+      "id": "lavender-dream",
+      "name": "Lavender Dream",
+      "descriptionVi": "Tím lavender ánh lạnh",
+      "palette": [
+        "#7E70B6",
+        "#A697D5",
+        "#C9BCEB",
+        "#B6C7EA",
+        "#ECE4FA"
+      ],
+      "paint": {
+        "mode": "linear",
+        "color": "#A697D5",
+        "stops": [
+          {
+            "at": 0.0,
+            "color": "#7E70B6"
+          },
+          {
+            "at": 0.25,
+            "color": "#A697D5"
+          },
+          {
+            "at": 0.5,
+            "color": "#C9BCEB"
+          },
+          {
+            "at": 0.75,
+            "color": "#B6C7EA"
+          },
+          {
+            "at": 1.0,
+            "color": "#ECE4FA"
+          }
+        ],
+        "start": [
+          0.6710100716628343,
+          0.030153689607045786
+        ],
+        "end": [
+          0.32898992833716567,
+          0.9698463103929542
+        ],
+        "opacity": 1
+      },
+      "material": {
+        "type": "catEye",
+        "gloss": 0.8,
+        "roughness": 0.22,
+        "glitter": 0.48,
+        "catAngle": 25
+      },
+      "pattern": {
+        "type": "none",
+        "color": "#FFFFFF",
+        "size": 0.18,
+        "opacity": 1
+      },
+      "swatch": {
+        "svg": "swatches/svg/lavender-dream.svg",
+        "png": "swatches/png/lavender-dream.png",
+        "width": 512,
+        "height": 512,
+        "shows": "base-color-gradient-only"
+      },
+      "source": "Original color recipe prepared for VIBEU"
+    },
+    {
+      "id": "pink-coquette",
+      "name": "Pink Coquette",
+      "descriptionVi": "Hồng trong và nơ ngọt ngào",
+      "palette": [
+        "#C77696",
+        "#E5AAB8",
+        "#F4C7D9",
+        "#FFE2EE",
+        "#FFF3F7"
+      ],
+      "paint": {
+        "mode": "linear",
+        "color": "#E5AAB8",
+        "stops": [
+          {
+            "at": 0.0,
+            "color": "#C77696"
+          },
+          {
+            "at": 0.25,
+            "color": "#E5AAB8"
+          },
+          {
+            "at": 0.5,
+            "color": "#F4C7D9"
+          },
+          {
+            "at": 0.75,
+            "color": "#FFE2EE"
+          },
+          {
+            "at": 1.0,
+            "color": "#FFF3F7"
+          }
+        ],
+        "start": [
+          0.5,
+          0.0
+        ],
+        "end": [
+          0.5,
+          1.0
+        ],
+        "opacity": 1
+      },
+      "material": {
+        "type": "jelly",
+        "gloss": 0.8,
+        "roughness": 0.22,
+        "glitter": 0.08,
+        "catAngle": 25
+      },
+      "pattern": {
+        "type": "french",
+        "color": "#FFE2EE",
+        "size": 0.18,
+        "opacity": 1
+      },
+      "swatch": {
+        "svg": "swatches/svg/pink-coquette.svg",
+        "png": "swatches/png/pink-coquette.png",
+        "width": 512,
+        "height": 512,
+        "shows": "base-color-gradient-only"
+      },
+      "source": "Original color recipe prepared for VIBEU"
+    },
+    {
+      "id": "butter-bloom",
+      "name": "Butter Bloom",
+      "descriptionVi": "Vàng bơ và hoa trắng",
+      "palette": [
+        "#D9B74F",
+        "#F0D779",
+        "#F8E7A0",
+        "#FFF4CE",
+        "#FFF9EE"
+      ],
+      "paint": {
+        "mode": "linear",
+        "color": "#F0D779",
+        "stops": [
+          {
+            "at": 0.0,
+            "color": "#D9B74F"
+          },
+          {
+            "at": 0.25,
+            "color": "#F0D779"
+          },
+          {
+            "at": 0.5,
+            "color": "#F8E7A0"
+          },
+          {
+            "at": 0.75,
+            "color": "#FFF4CE"
+          },
+          {
+            "at": 1.0,
+            "color": "#FFF9EE"
+          }
+        ],
+        "start": [
+          0.5,
+          0.0
+        ],
+        "end": [
+          0.5,
+          1.0
+        ],
+        "opacity": 1
+      },
+      "material": {
+        "type": "jelly",
+        "gloss": 0.8,
+        "roughness": 0.22,
+        "glitter": 0.08,
+        "catAngle": 25
+      },
+      "pattern": {
+        "type": "none",
+        "color": "#FFFFFF",
+        "size": 0.18,
+        "opacity": 1
+      },
+      "swatch": {
+        "svg": "swatches/svg/butter-bloom.svg",
+        "png": "swatches/png/butter-bloom.png",
+        "width": 512,
+        "height": 512,
+        "shows": "base-color-gradient-only"
+      },
+      "source": "Original color recipe prepared for VIBEU"
+    },
+    {
+      "id": "cloud-candy",
+      "name": "Cloud Candy",
+      "descriptionVi": "Pastel xanh hồng kẹo ngọt",
+      "palette": [
+        "#98BDE5",
+        "#B8D7EF",
+        "#F0CEDC",
+        "#F6DBA3",
+        "#FFF3EC"
+      ],
+      "paint": {
+        "mode": "linear",
+        "color": "#B8D7EF",
+        "stops": [
+          {
+            "at": 0.0,
+            "color": "#98BDE5"
+          },
+          {
+            "at": 0.25,
+            "color": "#B8D7EF"
+          },
+          {
+            "at": 0.5,
+            "color": "#F0CEDC"
+          },
+          {
+            "at": 0.75,
+            "color": "#F6DBA3"
+          },
+          {
+            "at": 1.0,
+            "color": "#FFF3EC"
+          }
+        ],
+        "start": [
+          0.14644660940672627,
+          0.1464466094067262
+        ],
+        "end": [
+          0.8535533905932737,
+          0.8535533905932737
+        ],
+        "opacity": 1
+      },
+      "material": {
+        "type": "gel",
+        "gloss": 0.8,
+        "roughness": 0.22,
+        "glitter": 0.08,
+        "catAngle": 25
+      },
+      "pattern": {
+        "type": "none",
+        "color": "#FFFFFF",
+        "size": 0.18,
+        "opacity": 1
+      },
+      "swatch": {
+        "svg": "swatches/svg/cloud-candy.svg",
+        "png": "swatches/png/cloud-candy.png",
+        "width": 512,
+        "height": 512,
+        "shows": "base-color-gradient-only"
+      },
+      "source": "Original color recipe prepared for VIBEU"
+    },
+    {
+      "id": "peach-sorbet",
+      "name": "Peach Sorbet",
+      "descriptionVi": "Đào và cam dịu",
+      "palette": [
+        "#E99178",
+        "#F4B094",
+        "#FFD2B5",
+        "#FFE5D0",
+        "#FFF2E5"
+      ],
+      "paint": {
+        "mode": "radial",
+        "color": "#F4B094",
+        "stops": [
+          {
+            "at": 0.0,
+            "color": "#E99178"
+          },
+          {
+            "at": 0.25,
+            "color": "#F4B094"
+          },
+          {
+            "at": 0.5,
+            "color": "#FFD2B5"
+          },
+          {
+            "at": 0.75,
+            "color": "#FFE5D0"
+          },
+          {
+            "at": 1.0,
+            "color": "#FFF2E5"
+          }
+        ],
+        "start": [
+          0.5,
+          0.4
+        ],
+        "end": [
+          1,
+          0.9
+        ],
+        "opacity": 1
+      },
+      "material": {
+        "type": "jelly",
+        "gloss": 0.8,
+        "roughness": 0.22,
+        "glitter": 0.08,
+        "catAngle": 25
+      },
+      "pattern": {
+        "type": "none",
+        "color": "#FFFFFF",
+        "size": 0.18,
+        "opacity": 1
+      },
+      "swatch": {
+        "svg": "swatches/svg/peach-sorbet.svg",
+        "png": "swatches/png/peach-sorbet.png",
+        "width": 512,
+        "height": 512,
+        "shows": "base-color-gradient-only"
+      },
+      "source": "Original color recipe prepared for VIBEU"
+    },
+    {
+      "id": "strawberry-milk",
+      "name": "Strawberry Milk",
+      "descriptionVi": "Dâu sữa hồng đỏ",
+      "palette": [
+        "#CA546F",
+        "#E9829A",
+        "#F3B4C5",
+        "#FFDBE6",
+        "#FFF1F4"
+      ],
+      "paint": {
+        "mode": "linear",
+        "color": "#E9829A",
+        "stops": [
+          {
+            "at": 0.0,
+            "color": "#CA546F"
+          },
+          {
+            "at": 0.25,
+            "color": "#E9829A"
+          },
+          {
+            "at": 0.5,
+            "color": "#F3B4C5"
+          },
+          {
+            "at": 0.75,
+            "color": "#FFDBE6"
+          },
+          {
+            "at": 1.0,
+            "color": "#FFF1F4"
+          }
+        ],
+        "start": [
+          0.5,
+          0.0
+        ],
+        "end": [
+          0.5,
+          1.0
+        ],
+        "opacity": 1
+      },
+      "material": {
+        "type": "jelly",
+        "gloss": 0.8,
+        "roughness": 0.22,
+        "glitter": 0.08,
+        "catAngle": 25
+      },
+      "pattern": {
+        "type": "none",
+        "color": "#FFFFFF",
+        "size": 0.18,
+        "opacity": 1
+      },
+      "swatch": {
+        "svg": "swatches/svg/strawberry-milk.svg",
+        "png": "swatches/png/strawberry-milk.png",
+        "width": 512,
+        "height": 512,
+        "shows": "base-color-gradient-only"
+      },
+      "source": "Original color recipe prepared for VIBEU"
+    },
+    {
+      "id": "mint-jelly",
+      "name": "Mint Jelly",
+      "descriptionVi": "Bạc hà trong mát",
+      "palette": [
+        "#58A997",
+        "#8CCABD",
+        "#B7E0D4",
+        "#DEF2E9",
+        "#F3FCF8"
+      ],
+      "paint": {
+        "mode": "radial",
+        "color": "#8CCABD",
+        "stops": [
+          {
+            "at": 0.0,
+            "color": "#58A997"
+          },
+          {
+            "at": 0.25,
+            "color": "#8CCABD"
+          },
+          {
+            "at": 0.5,
+            "color": "#B7E0D4"
+          },
+          {
+            "at": 0.75,
+            "color": "#DEF2E9"
+          },
+          {
+            "at": 1.0,
+            "color": "#F3FCF8"
+          }
+        ],
+        "start": [
+          0.5,
+          0.4
+        ],
+        "end": [
+          1,
+          0.9
+        ],
+        "opacity": 1
+      },
+      "material": {
+        "type": "jelly",
+        "gloss": 0.8,
+        "roughness": 0.22,
+        "glitter": 0.08,
+        "catAngle": 25
+      },
+      "pattern": {
+        "type": "none",
+        "color": "#FFFFFF",
+        "size": 0.18,
+        "opacity": 1
+      },
+      "swatch": {
+        "svg": "swatches/svg/mint-jelly.svg",
+        "png": "swatches/png/mint-jelly.png",
+        "width": 512,
+        "height": 512,
+        "shows": "base-color-gradient-only"
+      },
+      "source": "Original color recipe prepared for VIBEU"
+    },
+    {
+      "id": "ocean-breeze",
+      "name": "Ocean Breeze",
+      "descriptionVi": "Xanh biển chuyển sắc",
+      "palette": [
+        "#1E6B91",
+        "#409ABB",
+        "#77C9DB",
+        "#B5E5EC",
+        "#E9F9F7"
+      ],
+      "paint": {
+        "mode": "linear",
+        "color": "#409ABB",
+        "stops": [
+          {
+            "at": 0.0,
+            "color": "#1E6B91"
+          },
+          {
+            "at": 0.25,
+            "color": "#409ABB"
+          },
+          {
+            "at": 0.5,
+            "color": "#77C9DB"
+          },
+          {
+            "at": 0.75,
+            "color": "#B5E5EC"
+          },
+          {
+            "at": 1.0,
+            "color": "#E9F9F7"
+          }
+        ],
+        "start": [
+          0.37059047744873963,
+          0.017037086855465844
+        ],
+        "end": [
+          0.6294095225512604,
+          0.9829629131445341
+        ],
+        "opacity": 1
+      },
+      "material": {
+        "type": "gel",
+        "gloss": 0.8,
+        "roughness": 0.22,
+        "glitter": 0.08,
+        "catAngle": 25
+      },
+      "pattern": {
+        "type": "none",
+        "color": "#FFFFFF",
+        "size": 0.18,
+        "opacity": 1
+      },
+      "swatch": {
+        "svg": "swatches/svg/ocean-breeze.svg",
+        "png": "swatches/png/ocean-breeze.png",
+        "width": 512,
+        "height": 512,
+        "shows": "base-color-gradient-only"
+      },
+      "source": "Original color recipe prepared for VIBEU"
+    },
+    {
+      "id": "mermaid-aurora",
+      "name": "Mermaid Aurora",
+      "descriptionVi": "Ánh xanh tím nàng tiên cá",
+      "palette": [
+        "#63BDCD",
+        "#BBA2E0",
+        "#EBAAD4",
+        "#8CD4CF",
+        "#E9D7F2"
+      ],
+      "paint": {
+        "mode": "aurora",
+        "color": "#BBA2E0",
+        "stops": [
+          {
+            "at": 0.0,
+            "color": "#63BDCD"
+          },
+          {
+            "at": 0.25,
+            "color": "#BBA2E0"
+          },
+          {
+            "at": 0.5,
+            "color": "#EBAAD4"
+          },
+          {
+            "at": 0.75,
+            "color": "#8CD4CF"
+          },
+          {
+            "at": 1.0,
+            "color": "#E9D7F2"
+          }
+        ],
+        "start": [
+          0.5,
+          0.0
+        ],
+        "end": [
+          0.5,
+          1.0
+        ],
+        "opacity": 1
+      },
+      "material": {
+        "type": "holo",
+        "gloss": 0.8,
+        "roughness": 0.22,
+        "glitter": 0.48,
+        "catAngle": 25
+      },
+      "pattern": {
+        "type": "none",
+        "color": "#FFFFFF",
+        "size": 0.18,
+        "opacity": 1
+      },
+      "swatch": {
+        "svg": "swatches/svg/mermaid-aurora.svg",
+        "png": "swatches/png/mermaid-aurora.png",
+        "width": 512,
+        "height": 512,
+        "shows": "base-color-gradient-only"
+      },
+      "source": "Original color recipe prepared for VIBEU"
+    },
+    {
+      "id": "opal-pearl",
+      "name": "Opal Pearl",
+      "descriptionVi": "Trắng ngọc trai ánh pastel",
+      "palette": [
+        "#D5C7E8",
+        "#F3DBE5",
+        "#D9F0EB",
+        "#F7EDD7",
+        "#FFFCF5"
+      ],
+      "paint": {
+        "mode": "aurora",
+        "color": "#F3DBE5",
+        "stops": [
+          {
+            "at": 0.0,
+            "color": "#D5C7E8"
+          },
+          {
+            "at": 0.25,
+            "color": "#F3DBE5"
+          },
+          {
+            "at": 0.5,
+            "color": "#D9F0EB"
+          },
+          {
+            "at": 0.75,
+            "color": "#F7EDD7"
+          },
+          {
+            "at": 1.0,
+            "color": "#FFFCF5"
+          }
+        ],
+        "start": [
+          0.5,
+          0.0
+        ],
+        "end": [
+          0.5,
+          1.0
+        ],
+        "opacity": 1
+      },
+      "material": {
+        "type": "holo",
+        "gloss": 0.8,
+        "roughness": 0.22,
+        "glitter": 0.48,
+        "catAngle": 25
+      },
+      "pattern": {
+        "type": "none",
+        "color": "#FFFFFF",
+        "size": 0.18,
+        "opacity": 1
+      },
+      "swatch": {
+        "svg": "swatches/svg/opal-pearl.svg",
+        "png": "swatches/png/opal-pearl.png",
+        "width": 512,
+        "height": 512,
+        "shows": "base-color-gradient-only"
+      },
+      "source": "Original color recipe prepared for VIBEU"
+    },
+    {
+      "id": "rose-quartz",
+      "name": "Rose Quartz",
+      "descriptionVi": "Hồng thạch anh",
+      "palette": [
+        "#BA849B",
+        "#D5A7BA",
+        "#E8C7D3",
+        "#F6E1E8",
+        "#FFF7F7"
+      ],
+      "paint": {
+        "mode": "radial",
+        "color": "#D5A7BA",
+        "stops": [
+          {
+            "at": 0.0,
+            "color": "#BA849B"
+          },
+          {
+            "at": 0.25,
+            "color": "#D5A7BA"
+          },
+          {
+            "at": 0.5,
+            "color": "#E8C7D3"
+          },
+          {
+            "at": 0.75,
+            "color": "#F6E1E8"
+          },
+          {
+            "at": 1.0,
+            "color": "#FFF7F7"
+          }
+        ],
+        "start": [
+          0.5,
+          0.4
+        ],
+        "end": [
+          1,
+          0.9
+        ],
+        "opacity": 1
+      },
+      "material": {
+        "type": "gel",
+        "gloss": 0.8,
+        "roughness": 0.22,
+        "glitter": 0.08,
+        "catAngle": 25
+      },
+      "pattern": {
+        "type": "none",
+        "color": "#FFFFFF",
+        "size": 0.18,
+        "opacity": 1
+      },
+      "swatch": {
+        "svg": "swatches/svg/rose-quartz.svg",
+        "png": "swatches/png/rose-quartz.png",
+        "width": 512,
+        "height": 512,
+        "shows": "base-color-gradient-only"
+      },
+      "source": "Original color recipe prepared for VIBEU"
+    },
+    {
+      "id": "cherry-cola",
+      "name": "Cherry Cola",
+      "descriptionVi": "Đỏ cherry và nâu trầm",
+      "palette": [
+        "#3B1528",
+        "#69253C",
+        "#96364D",
+        "#BD5965",
+        "#EAB0AD"
+      ],
+      "paint": {
+        "mode": "linear",
+        "color": "#69253C",
+        "stops": [
+          {
+            "at": 0.0,
+            "color": "#3B1528"
+          },
+          {
+            "at": 0.25,
+            "color": "#69253C"
+          },
+          {
+            "at": 0.5,
+            "color": "#96364D"
+          },
+          {
+            "at": 0.75,
+            "color": "#BD5965"
+          },
+          {
+            "at": 1.0,
+            "color": "#EAB0AD"
+          }
+        ],
+        "start": [
+          0.7113091308703497,
+          0.04684610648167503
+        ],
+        "end": [
+          0.28869086912965025,
+          0.953153893518325
+        ],
+        "opacity": 1
+      },
+      "material": {
+        "type": "gel",
+        "gloss": 0.8,
+        "roughness": 0.22,
+        "glitter": 0.08,
+        "catAngle": 25
+      },
+      "pattern": {
+        "type": "none",
+        "color": "#FFFFFF",
+        "size": 0.18,
+        "opacity": 1
+      },
+      "swatch": {
+        "svg": "swatches/svg/cherry-cola.svg",
+        "png": "swatches/png/cherry-cola.png",
+        "width": 512,
+        "height": 512,
+        "shows": "base-color-gradient-only"
+      },
+      "source": "Original color recipe prepared for VIBEU"
+    },
+    {
+      "id": "espresso-mocha",
+      "name": "Espresso Mocha",
+      "descriptionVi": "Cà phê và cacao",
+      "palette": [
+        "#392923",
+        "#654737",
+        "#98755B",
+        "#C7A98A",
+        "#EBD9C1"
+      ],
+      "paint": {
+        "mode": "linear",
+        "color": "#654737",
+        "stops": [
+          {
+            "at": 0.0,
+            "color": "#392923"
+          },
+          {
+            "at": 0.25,
+            "color": "#654737"
+          },
+          {
+            "at": 0.5,
+            "color": "#98755B"
+          },
+          {
+            "at": 0.75,
+            "color": "#C7A98A"
+          },
+          {
+            "at": 1.0,
+            "color": "#EBD9C1"
+          }
+        ],
+        "start": [
+          0.5,
+          0.0
+        ],
+        "end": [
+          0.5,
+          1.0
+        ],
+        "opacity": 1
+      },
+      "material": {
+        "type": "matte",
+        "gloss": 0.08,
+        "roughness": 0.8,
+        "glitter": 0.08,
+        "catAngle": 25
+      },
+      "pattern": {
+        "type": "none",
+        "color": "#FFFFFF",
+        "size": 0.18,
+        "opacity": 1
+      },
+      "swatch": {
+        "svg": "swatches/svg/espresso-mocha.svg",
+        "png": "swatches/png/espresso-mocha.png",
+        "width": 512,
+        "height": 512,
+        "shows": "base-color-gradient-only"
+      },
+      "source": "Original color recipe prepared for VIBEU"
+    },
+    {
+      "id": "terracotta-sunset",
+      "name": "Terracotta Sunset",
+      "descriptionVi": "Cam đất lúc hoàng hôn",
+      "palette": [
+        "#904D3D",
+        "#C46E50",
+        "#E8986A",
+        "#F4C49C",
+        "#F9E3C7"
+      ],
+      "paint": {
+        "mode": "linear",
+        "color": "#C46E50",
+        "stops": [
+          {
+            "at": 0.0,
+            "color": "#904D3D"
+          },
+          {
+            "at": 0.25,
+            "color": "#C46E50"
+          },
+          {
+            "at": 0.5,
+            "color": "#E8986A"
+          },
+          {
+            "at": 0.75,
+            "color": "#F4C49C"
+          },
+          {
+            "at": 1.0,
+            "color": "#F9E3C7"
+          }
+        ],
+        "start": [
+          0.14644660940672627,
+          0.1464466094067262
+        ],
+        "end": [
+          0.8535533905932737,
+          0.8535533905932737
+        ],
+        "opacity": 1
+      },
+      "material": {
+        "type": "matte",
+        "gloss": 0.08,
+        "roughness": 0.8,
+        "glitter": 0.08,
+        "catAngle": 25
+      },
+      "pattern": {
+        "type": "none",
+        "color": "#FFFFFF",
+        "size": 0.18,
+        "opacity": 1
+      },
+      "swatch": {
+        "svg": "swatches/svg/terracotta-sunset.svg",
+        "png": "swatches/png/terracotta-sunset.png",
+        "width": 512,
+        "height": 512,
+        "shows": "base-color-gradient-only"
+      },
+      "source": "Original color recipe prepared for VIBEU"
+    },
+    {
+      "id": "forest-moss",
+      "name": "Forest Moss",
+      "descriptionVi": "Xanh rêu sâu và olive",
+      "palette": [
+        "#233F35",
+        "#3F6250",
+        "#75866A",
+        "#A6B18A",
+        "#DCE0C1"
+      ],
+      "paint": {
+        "mode": "linear",
+        "color": "#3F6250",
+        "stops": [
+          {
+            "at": 0.0,
+            "color": "#233F35"
+          },
+          {
+            "at": 0.25,
+            "color": "#3F6250"
+          },
+          {
+            "at": 0.5,
+            "color": "#75866A"
+          },
+          {
+            "at": 0.75,
+            "color": "#A6B18A"
+          },
+          {
+            "at": 1.0,
+            "color": "#DCE0C1"
+          }
+        ],
+        "start": [
+          0.75,
+          0.06698729810778065
+        ],
+        "end": [
+          0.25,
+          0.9330127018922194
+        ],
+        "opacity": 1
+      },
+      "material": {
+        "type": "matte",
+        "gloss": 0.08,
+        "roughness": 0.8,
+        "glitter": 0.08,
+        "catAngle": 25
+      },
+      "pattern": {
+        "type": "none",
+        "color": "#FFFFFF",
+        "size": 0.18,
+        "opacity": 1
+      },
+      "swatch": {
+        "svg": "swatches/svg/forest-moss.svg",
+        "png": "swatches/png/forest-moss.png",
+        "width": 512,
+        "height": 512,
+        "shows": "base-color-gradient-only"
+      },
+      "source": "Original color recipe prepared for VIBEU"
+    },
+    {
+      "id": "midnight-galaxy",
+      "name": "Midnight Galaxy",
+      "descriptionVi": "Xanh đêm và tím ngân hà",
+      "palette": [
+        "#161B43",
+        "#353568",
+        "#68649F",
+        "#A89ECF",
+        "#E0D9F6"
+      ],
+      "paint": {
+        "mode": "linear",
+        "color": "#353568",
+        "stops": [
+          {
+            "at": 0.0,
+            "color": "#161B43"
+          },
+          {
+            "at": 0.25,
+            "color": "#353568"
+          },
+          {
+            "at": 0.5,
+            "color": "#68649F"
+          },
+          {
+            "at": 0.75,
+            "color": "#A89ECF"
+          },
+          {
+            "at": 1.0,
+            "color": "#E0D9F6"
+          }
+        ],
+        "start": [
+          0.21321178182447698,
+          0.0904239778555041
+        ],
+        "end": [
+          0.786788218175523,
+          0.909576022144496
+        ],
+        "opacity": 1
+      },
+      "material": {
+        "type": "catEye",
+        "gloss": 0.8,
+        "roughness": 0.22,
+        "glitter": 0.48,
+        "catAngle": 25
+      },
+      "pattern": {
+        "type": "none",
+        "color": "#FFFFFF",
+        "size": 0.18,
+        "opacity": 1
+      },
+      "swatch": {
+        "svg": "swatches/svg/midnight-galaxy.svg",
+        "png": "swatches/png/midnight-galaxy.png",
+        "width": 512,
+        "height": 512,
+        "shows": "base-color-gradient-only"
+      },
+      "source": "Original color recipe prepared for VIBEU"
+    },
+    {
+      "id": "gothic-plum",
+      "name": "Gothic Plum",
+      "descriptionVi": "Tím mận và đen khói",
+      "palette": [
+        "#211B2A",
+        "#4B2E48",
+        "#7C4B6D",
+        "#B280A0",
+        "#DEC3D7"
+      ],
+      "paint": {
+        "mode": "radial",
+        "color": "#4B2E48",
+        "stops": [
+          {
+            "at": 0.0,
+            "color": "#211B2A"
+          },
+          {
+            "at": 0.25,
+            "color": "#4B2E48"
+          },
+          {
+            "at": 0.5,
+            "color": "#7C4B6D"
+          },
+          {
+            "at": 0.75,
+            "color": "#B280A0"
+          },
+          {
+            "at": 1.0,
+            "color": "#DEC3D7"
+          }
+        ],
+        "start": [
+          0.5,
+          0.4
+        ],
+        "end": [
+          1,
+          0.9
+        ],
+        "opacity": 1
+      },
+      "material": {
+        "type": "gel",
+        "gloss": 0.8,
+        "roughness": 0.22,
+        "glitter": 0.08,
+        "catAngle": 25
+      },
+      "pattern": {
+        "type": "none",
+        "color": "#FFFFFF",
+        "size": 0.18,
+        "opacity": 1
+      },
+      "swatch": {
+        "svg": "swatches/svg/gothic-plum.svg",
+        "png": "swatches/png/gothic-plum.png",
+        "width": 512,
+        "height": 512,
+        "shows": "base-color-gradient-only"
+      },
+      "source": "Original color recipe prepared for VIBEU"
+    },
+    {
+      "id": "halloween-glow",
+      "name": "Halloween Glow",
+      "descriptionVi": "Cam bí ngô và tím huyền bí",
+      "palette": [
+        "#37294B",
+        "#6A447A",
+        "#B86D6C",
+        "#EF9B4B",
+        "#FFD176"
+      ],
+      "paint": {
+        "mode": "linear",
+        "color": "#6A447A",
+        "stops": [
+          {
+            "at": 0.0,
+            "color": "#37294B"
+          },
+          {
+            "at": 0.25,
+            "color": "#6A447A"
+          },
+          {
+            "at": 0.5,
+            "color": "#B86D6C"
+          },
+          {
+            "at": 0.75,
+            "color": "#EF9B4B"
+          },
+          {
+            "at": 1.0,
+            "color": "#FFD176"
+          }
+        ],
+        "start": [
+          0.04684610648167503,
+          0.28869086912965025
+        ],
+        "end": [
+          0.953153893518325,
+          0.7113091308703497
+        ],
+        "opacity": 1
+      },
+      "material": {
+        "type": "glitter",
+        "gloss": 0.8,
+        "roughness": 0.22,
+        "glitter": 0.48,
+        "catAngle": 25
+      },
+      "pattern": {
+        "type": "none",
+        "color": "#FFFFFF",
+        "size": 0.18,
+        "opacity": 1
+      },
+      "swatch": {
+        "svg": "swatches/svg/halloween-glow.svg",
+        "png": "swatches/png/halloween-glow.png",
+        "width": 512,
+        "height": 512,
+        "shows": "base-color-gradient-only"
+      },
+      "source": "Original color recipe prepared for VIBEU"
+    },
+    {
+      "id": "winter-frost",
+      "name": "Winter Frost",
+      "descriptionVi": "Băng xanh và trắng tuyết",
+      "palette": [
+        "#7D9CBF",
+        "#B2C9E1",
+        "#D4E4F3",
+        "#EEF5FB",
+        "#FFFFFF"
+      ],
+      "paint": {
+        "mode": "linear",
+        "color": "#B2C9E1",
+        "stops": [
+          {
+            "at": 0.0,
+            "color": "#7D9CBF"
+          },
+          {
+            "at": 0.25,
+            "color": "#B2C9E1"
+          },
+          {
+            "at": 0.5,
+            "color": "#D4E4F3"
+          },
+          {
+            "at": 0.75,
+            "color": "#EEF5FB"
+          },
+          {
+            "at": 1.0,
+            "color": "#FFFFFF"
+          }
+        ],
+        "start": [
+          0.6294095225512604,
+          0.017037086855465844
+        ],
+        "end": [
+          0.37059047744873963,
+          0.9829629131445341
+        ],
+        "opacity": 1
+      },
+      "material": {
+        "type": "glitter",
+        "gloss": 0.8,
+        "roughness": 0.22,
+        "glitter": 0.48,
+        "catAngle": 25
+      },
+      "pattern": {
+        "type": "none",
+        "color": "#FFFFFF",
+        "size": 0.18,
+        "opacity": 1
+      },
+      "swatch": {
+        "svg": "swatches/svg/winter-frost.svg",
+        "png": "swatches/png/winter-frost.png",
+        "width": 512,
+        "height": 512,
+        "shows": "base-color-gradient-only"
+      },
+      "source": "Original color recipe prepared for VIBEU"
+    },
+    {
+      "id": "christmas-velvet",
+      "name": "Christmas Velvet",
+      "descriptionVi": "Nhung đỏ và xanh thông",
+      "palette": [
+        "#612D3B",
+        "#AB3F50",
+        "#DDA296",
+        "#284E43",
+        "#C6B071"
+      ],
+      "paint": {
+        "mode": "linear",
+        "color": "#AB3F50",
+        "stops": [
+          {
+            "at": 0.0,
+            "color": "#612D3B"
+          },
+          {
+            "at": 0.25,
+            "color": "#AB3F50"
+          },
+          {
+            "at": 0.5,
+            "color": "#DDA296"
+          },
+          {
+            "at": 0.75,
+            "color": "#284E43"
+          },
+          {
+            "at": 1.0,
+            "color": "#C6B071"
+          }
+        ],
+        "start": [
+          0.5,
+          0.0
+        ],
+        "end": [
+          0.5,
+          1.0
+        ],
+        "opacity": 1
+      },
+      "material": {
+        "type": "catEye",
+        "gloss": 0.8,
+        "roughness": 0.22,
+        "glitter": 0.48,
+        "catAngle": 25
+      },
+      "pattern": {
+        "type": "none",
+        "color": "#FFFFFF",
+        "size": 0.18,
+        "opacity": 1
+      },
+      "swatch": {
+        "svg": "swatches/svg/christmas-velvet.svg",
+        "png": "swatches/png/christmas-velvet.png",
+        "width": 512,
+        "height": 512,
+        "shows": "base-color-gradient-only"
+      },
+      "source": "Original color recipe prepared for VIBEU"
+    },
+    {
+      "id": "champagne-glitter",
+      "name": "Champagne Glitter",
+      "descriptionVi": "Vàng champagne dịu",
+      "palette": [
+        "#AA8650",
+        "#C7A86D",
+        "#DEC795",
+        "#F1E0BA",
+        "#FFF4DC"
+      ],
+      "paint": {
+        "mode": "linear",
+        "color": "#C7A86D",
+        "stops": [
+          {
+            "at": 0.0,
+            "color": "#AA8650"
+          },
+          {
+            "at": 0.25,
+            "color": "#C7A86D"
+          },
+          {
+            "at": 0.5,
+            "color": "#DEC795"
+          },
+          {
+            "at": 0.75,
+            "color": "#F1E0BA"
+          },
+          {
+            "at": 1.0,
+            "color": "#FFF4DC"
+          }
+        ],
+        "start": [
+          0.25,
+          0.06698729810778065
+        ],
+        "end": [
+          0.75,
+          0.9330127018922194
+        ],
+        "opacity": 1
+      },
+      "material": {
+        "type": "glitter",
+        "gloss": 0.8,
+        "roughness": 0.22,
+        "glitter": 0.48,
+        "catAngle": 25
+      },
+      "pattern": {
+        "type": "none",
+        "color": "#FFFFFF",
+        "size": 0.18,
+        "opacity": 1
+      },
+      "swatch": {
+        "svg": "swatches/svg/champagne-glitter.svg",
+        "png": "swatches/png/champagne-glitter.png",
+        "width": 512,
+        "height": 512,
+        "shows": "base-color-gradient-only"
+      },
+      "source": "Original color recipe prepared for VIBEU"
+    },
+    {
+      "id": "silver-chrome",
+      "name": "Silver Chrome",
+      "descriptionVi": "Bạc lạnh và xám ánh kim",
+      "palette": [
+        "#566579",
+        "#8F9CAC",
+        "#CBD3DD",
+        "#F4F6FA",
+        "#B7C4D6"
+      ],
+      "paint": {
+        "mode": "linear",
+        "color": "#8F9CAC",
+        "stops": [
+          {
+            "at": 0.0,
+            "color": "#566579"
+          },
+          {
+            "at": 0.25,
+            "color": "#8F9CAC"
+          },
+          {
+            "at": 0.5,
+            "color": "#CBD3DD"
+          },
+          {
+            "at": 0.75,
+            "color": "#F4F6FA"
+          },
+          {
+            "at": 1.0,
+            "color": "#B7C4D6"
+          }
+        ],
+        "start": [
+          0.0,
+          0.49999999999999994
+        ],
+        "end": [
+          1.0,
+          0.5
+        ],
+        "opacity": 1
+      },
+      "material": {
+        "type": "chrome",
+        "gloss": 0.8,
+        "roughness": 0.22,
+        "glitter": 0.08,
+        "catAngle": 25
+      },
+      "pattern": {
+        "type": "none",
+        "color": "#FFFFFF",
+        "size": 0.18,
+        "opacity": 1
+      },
+      "swatch": {
+        "svg": "swatches/svg/silver-chrome.svg",
+        "png": "swatches/png/silver-chrome.png",
+        "width": 512,
+        "height": 512,
+        "shows": "base-color-gradient-only"
+      },
+      "source": "Original color recipe prepared for VIBEU"
+    }
+  ]
+}

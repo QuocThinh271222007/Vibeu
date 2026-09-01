@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+@theme {
+  /* === VIBEU brand tokens (Ý tưởng.docx §3.6.1) === */
+  --color-vibe-blue: #90b8eb;
+  --color-vibe-blue-dark: #5f8dcb;
+  --color-vibe-yellow: #ffd879;
+  --color-vibe-yellow-dark: #f0b93f;
+  --color-vibe-pink: #ff92f9;
+  --color-vibe-pink-dark: #e564dd;
+  --color-vibe-cream: #fff7da;
+  --color-vibe-white: #ffffff;
+  --color-vibe-ink: #2c2740;
+  --color-vibe-ink-soft: #5b5470;
+
+  --font-display: "Fredoka", "Inter", ui-rounded, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  --shadow-vibe: 0 12px 32px -12px rgba(144, 90, 200, 0.28);
+  --shadow-vibe-lg: 0 24px 60px -20px rgba(144, 90, 200, 0.35);
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-wiggle: wiggle 0.5s ease-in-out;
+  --animate-pop: pop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  --animate-shimmer: shimmer 2.4s linear infinite;
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(var(--tw-rotate, 0)); }
+    50% { transform: translateY(-14px) rotate(var(--tw-rotate, 0)); }
+  }
+  @keyframes wiggle {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-4deg); }
+    75% { transform: rotate(4deg); }
+  }
+  @keyframes pop {
+    0% { transform: scale(0.85); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    font-family: var(--font-body);
+    background-color: var(--color-vibe-cream);
+    color: var(--color-vibe-ink);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4, .font-display {
+    font-family: var(--font-display);
+  }
+  ::selection {
+    background: var(--color-vibe-pink);
+    color: white;
+  }
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+  .vibe-gradient-text {
+    background: linear-gradient(90deg, var(--color-vibe-blue-dark), var(--color-vibe-pink-dark) 55%, var(--color-vibe-yellow-dark));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .vibe-scrollbar::-webkit-scrollbar { width: 8px; height: 8px; }
+  .vibe-scrollbar::-webkit-scrollbar-track { background: transparent; }
+  .vibe-scrollbar::-webkit-scrollbar-thumb {
+    background: color-mix(in srgb, var(--color-vibe-blue) 55%, white);
+    border-radius: 999px;
+  }
+}
