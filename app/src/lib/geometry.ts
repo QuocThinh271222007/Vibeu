@@ -13,7 +13,7 @@ export function localToImage(nail: NailCoord, uv: UV): [number, number] {
   return [x, y]
 }
 
-/** Convert an image-space [x,y] point to the nail's normalized local (u,v) space. */
+/** Convert an image-space [x,y] point to the nail's normalized (u,v) space. */
 export function imageToLocal(nail: NailCoord, pt: [number, number]): UV {
   const { uvFrame, center } = nail
   const rx = pt[0] - center[0]
@@ -44,12 +44,10 @@ export interface AffineMatrix {
 }
 
 /**
- * Anisotropically scales the nail along its local V axis (cuticle -> tip) by
- * `scale`, pivoting at the cuticle point (u=0.5, v=0), so length changes grow
- * the tip outward realistically. Returns the raw affine components — used both
- * for the live SVG transform (as a matrix() string, see `lengthScaleMatrix`)
- * and for the canvas export path (via `ctx.transform(a,b,c,d,e,f)`), so both
- * render paths apply the exact same length transform.
+ * Anisotropically scales the nail along its local V axis. The compositor is
+ * currently locked to the photographed nail silhouette (see LENGTH_SCALE),
+ * but the matrix helper remains the canonical implementation for a future
+ * geometry-aware extension pass.
  */
 export function lengthScaleMatrixValues(nail: NailCoord, scale: number): AffineMatrix {
   const [vx, vy] = nail.uvFrame.v
@@ -70,48 +68,29 @@ export function lengthScaleMatrix(nail: NailCoord, scale: number): string {
   return `matrix(${a} ${b} ${c} ${d} ${e} ${f})`
 }
 
+/**
+ * Photographic compositor invariant: never distort the baked paint away from
+ * the real nail bed unless we also have pixels/geometry for the newly exposed
+ * or extended silhouette. The previous S/L transforms revealed parts of the
+ * unpainted source nail and produced obvious grey wedges. Length is therefore
+ * preserved in the recipe/state but the live photo remains registration-safe.
+ */
 export const LENGTH_SCALE: Record<'S' | 'M' | 'L', number> = {
-  S: 0.86,
+  S: 1,
   M: 1,
-  L: 1.16,
+  L: 1,
 }
 
 /**
- * Generic tip-trim polygons in nail-local unit space, intersected with the
- * real photographic nail mask to approximate a form/shape without needing
- * per-shape photography. Returns null for 'oval' (uses the real mask as-is).
+ * Photographic compositor invariant: a 2D trim cannot truthfully turn the
+ * photographed nail into square/coffin/almond. Trimming the paint layer only
+ * exposes the original nail underneath and reads as a broken mask. Keep the
+ * full real nail silhouette for every shape; the selected shape still remains
+ * part of the design recipe and can be rendered later by a geometry-aware
+ * extension/segmentation stage.
  */
-export function shapeTrimUv(shape: NailShape): UV[] | null {
-  switch (shape) {
-    case 'oval':
-      return null
-    case 'square':
-      return [
-        [-0.2, -0.25],
-        [1.2, -0.25],
-        [1.2, 0.84],
-        [-0.2, 0.84],
-      ]
-    case 'coffin':
-      return [
-        [-0.2, -0.25],
-        [1.2, -0.25],
-        [1.2, 0.64],
-        [0.82, 0.9],
-        [0.18, 0.9],
-        [-0.2, 0.64],
-      ]
-    case 'almond':
-      return [
-        [-0.2, -0.25],
-        [1.2, -0.25],
-        [1.2, 0.52],
-        [0.5, 1.18],
-        [-0.2, 0.52],
-      ]
-    default:
-      return null
-  }
+export function shapeTrimUv(_shape: NailShape): UV[] | null {
+  return null
 }
 
 export function trimPolygonToImagePoints(nail: NailCoord, uvPoly: UV[]): string {
