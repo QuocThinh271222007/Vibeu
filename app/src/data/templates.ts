@@ -274,12 +274,67 @@ export const TEMPLATES: Template[] = [
       objectPosition: 'center center',
       alt: 'Mẫu nail hồng jelly với dâu tây, viền ren trắng và charm ngọc trai',
     },
+    // Deterministic per-finger variation (never randomized) so the set reads as a hand-applied
+    // manicure rather than the same sticker stamped five times: every finger gets the lace hem
+    // near the tip first (z=0, bottom layer), the strawberry motif above it, and pearls/bow —
+    // where present — as the top-most raised accents.
     fingers: {
-      thumb: finger({ presetId: 'pink-coquette', effect: 'jelly', shape: 'almond', length: 'L', charms: [charm({ stickerId: 'strawberry', scale: 0.72, uv: [0.5, 0.43] })] }),
-      index: finger({ presetId: 'pink-coquette', effect: 'jelly', shape: 'almond', length: 'L', charms: [charm({ stickerId: 'strawberry', scale: 0.68, uv: [0.5, 0.43] })] }),
-      middle: finger({ presetId: 'pink-coquette', effect: 'jelly', shape: 'almond', length: 'L', charms: [charm({ stickerId: 'strawberry', scale: 0.67, uv: [0.5, 0.43] })] }),
-      ring: finger({ presetId: 'pink-coquette', effect: 'jelly', shape: 'almond', length: 'L', charms: [charm({ stickerId: 'strawberry', scale: 0.65, uv: [0.5, 0.43] })] }),
-      little: finger({ presetId: 'pink-coquette', effect: 'jelly', shape: 'almond', length: 'L', charms: [charm({ stickerId: 'strawberry', scale: 0.6, uv: [0.5, 0.43] })] }),
+      thumb: finger({
+        presetId: 'pink-coquette',
+        effect: 'jelly',
+        shape: 'almond',
+        length: 'L',
+        charms: [
+          charm({ stickerId: 'lace-edge-white', scale: 1.5, uv: [0.5, 0.8], z: 0 }),
+          charm({ stickerId: 'strawberry-glossy', scale: 0.78, uv: [0.5, 0.4], z: 1 }),
+          charm({ stickerId: 'pearl-dome', scale: 0.2, uv: [0.72, 0.34], z: 2 }),
+        ],
+      }),
+      index: finger({
+        presetId: 'pink-coquette',
+        effect: 'jelly',
+        shape: 'almond',
+        length: 'L',
+        charms: [
+          charm({ stickerId: 'lace-edge-white', scale: 1.4, uv: [0.5, 0.78], z: 0 }),
+          charm({ stickerId: 'strawberry-glossy', scale: 0.6, uv: [0.4, 0.38], rotation: -6, z: 1 }),
+          charm({ stickerId: 'pearl-dome', scale: 0.22, uv: [0.7, 0.5], z: 2 }),
+        ],
+      }),
+      middle: finger({
+        presetId: 'pink-coquette',
+        effect: 'jelly',
+        shape: 'almond',
+        length: 'L',
+        charms: [
+          charm({ stickerId: 'lace-edge-white', scale: 1.45, uv: [0.5, 0.79], z: 0 }),
+          charm({ stickerId: 'strawberry-glossy', scale: 0.62, uv: [0.5, 0.38], z: 1 }),
+          charm({ stickerId: 'pearl-dome', scale: 0.2, uv: [0.3, 0.58], z: 2 }),
+          charm({ stickerId: 'pearl-dome', scale: 0.15, uv: [0.64, 0.65], z: 3 }),
+        ],
+      }),
+      ring: finger({
+        presetId: 'pink-coquette',
+        effect: 'jelly',
+        shape: 'almond',
+        length: 'L',
+        charms: [
+          charm({ stickerId: 'lace-edge-white', scale: 1.35, uv: [0.5, 0.77], z: 0 }),
+          charm({ stickerId: 'strawberry-glossy', scale: 0.48, uv: [0.42, 0.36], rotation: 4, z: 1 }),
+          charm({ stickerId: 'coquette-bow-raised', scale: 0.85, uv: [0.68, 0.24], rotation: 0, z: 2 }),
+        ],
+      }),
+      little: finger({
+        presetId: 'pink-coquette',
+        effect: 'jelly',
+        shape: 'almond',
+        length: 'L',
+        charms: [
+          charm({ stickerId: 'lace-edge-white', scale: 1.25, uv: [0.5, 0.76], z: 0 }),
+          charm({ stickerId: 'strawberry-glossy', scale: 0.44, uv: [0.5, 0.38], z: 1 }),
+          charm({ stickerId: 'pearl-dome', scale: 0.19, uv: [0.66, 0.52], z: 2 }),
+        ],
+      }),
     },
   },
 ]

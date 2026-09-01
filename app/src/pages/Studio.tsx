@@ -11,6 +11,7 @@ import { ShapeLengthTab } from '@/components/studio/ShapeLengthTab'
 import { PaintTab } from '@/components/studio/PaintTab'
 import { DecalLibrary } from '@/components/studio/DecalLibrary'
 import { LayersPanel } from '@/components/studio/LayersPanel'
+import { StudioReferenceBadge } from '@/components/studio/StudioReferenceBadge'
 import { ResultView } from '@/components/studio/ResultView'
 import { Button } from '@/components/ui/Button'
 import { findTemplate } from '@/data/templates'
@@ -81,9 +82,12 @@ export default function Studio() {
       <div className="flex flex-1 flex-col lg:min-h-0 lg:flex-row lg:overflow-hidden">
         <div className="flex flex-col items-center gap-4 px-4 py-5 sm:px-8 lg:flex-1 lg:overflow-y-auto">
           {s.activeTemplateName && (
-            <span className="rounded-full bg-white px-3.5 py-1 text-xs font-semibold text-vibe-pink-dark shadow-sm">
-              Đang chỉnh từ mẫu: {s.activeTemplateName}
-            </span>
+            <div className="flex flex-wrap items-center justify-center gap-2">
+              <span className="rounded-full bg-white px-3.5 py-1 text-xs font-semibold text-vibe-pink-dark shadow-sm">
+                Đang chỉnh từ mẫu: {s.activeTemplateName}
+              </span>
+              <StudioReferenceBadge templateId={s.activeTemplateId} />
+            </div>
           )}
           <div className="w-full max-w-sm shrink-0">
             <HandCanvas

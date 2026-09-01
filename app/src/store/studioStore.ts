@@ -48,6 +48,9 @@ interface StudioState extends DesignSnapshot {
   selectedStickerInstance: string | null
   view: StudioView
   activeTemplateName: string | null
+  /** Id of the loaded template, if any — used only to look up its curated reference photo
+   * (see StudioReferenceBadge). Cleared on reset; not set when loading a saved design. */
+  activeTemplateId: string | null
   /** User-uploaded decal assets, registered at runtime so they can be placed like any library decal. */
   customDecals: DecalAsset[]
   past: DesignSnapshot[]
@@ -111,6 +114,7 @@ export const useStudioStore = create<StudioState>((set, get) => ({
   selectedStickerInstance: null,
   view: 'design',
   activeTemplateName: null,
+  activeTemplateId: null,
   customDecals: [],
   past: [],
   future: [],
@@ -260,7 +264,7 @@ export const useStudioStore = create<StudioState>((set, get) => ({
 
   selectSticker: (instanceId) => set({ selectedStickerInstance: instanceId }),
 
-  reset: () => withHistory(set, () => ({ fingers: defaultFingers(), selectedStickerInstance: null, view: 'design', activeTemplateName: null })),
+  reset: () => withHistory(set, () => ({ fingers: defaultFingers(), selectedStickerInstance: null, view: 'design', activeTemplateName: null, activeTemplateId: null })),
 
   loadTemplate: (template) =>
     withHistory(set, (s) => {
@@ -281,6 +285,7 @@ export const useStudioStore = create<StudioState>((set, get) => ({
         view: 'design',
         selectedStickerInstance: null,
         activeTemplateName: template.name,
+        activeTemplateId: template.id,
         selectedFinger: s.selectedFinger,
       }
     }),
@@ -336,6 +341,7 @@ export const useStudioStore = create<StudioState>((set, get) => ({
       selectedStickerInstance: null,
       view: 'design',
       activeTemplateName: found.name,
+      activeTemplateId: null,
     }))
   },
 
