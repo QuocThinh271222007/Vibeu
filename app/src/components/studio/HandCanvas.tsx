@@ -6,11 +6,13 @@ import {
   LENGTH_SCALE,
   localToImage,
   imageToLocal,
+  nailGrowMatrix,
   nailWidthPx,
   rotatePointDeg,
   shapeTrimUv,
   trimPolygonToImagePoints,
 } from '@/lib/geometry'
+import { maskGrowPxFor } from '@/lib/nailEdgeTuning'
 import {
   buildMaterialConfig,
   buildPaintConfig,
@@ -128,6 +130,20 @@ export function HandCanvas({
   const presetsById = useMemo(() => Object.fromEntries(presets.map((p) => [p.id, p])), [presets])
   const [liveDrag, setLiveDrag] = useState<LiveDragOverride | null>(null)
 
+  // Clicking anywhere outside this HandCanvas entirely (e.g. the tool panel beside it)
+  // also deselects the sticker — the in-canvas paths handle clicks that land on the nail
+  // itself, but a click that never reaches this component at all needs its own listener.
+  useEffect(() => {
+    if (!interactive || !selectedStickerInstance) return
+    function handleOutsidePointerDown(e: PointerEvent) {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        onSelectSticker?.(null)
+      }
+    }
+    document.addEventListener('pointerdown', handleOutsidePointerDown)
+    return () => document.removeEventListener('pointerdown', handleOutsidePointerDown)
+  }, [interactive, selectedStickerInstance, onSelectSticker])
+
   const ready = hand && !handLoading && !presetsLoading && prepared
 
   if (!ready) {
@@ -185,6 +201,7 @@ export function HandCanvas({
             stickersById={stickersById}
             prepared={prepared!.get(nail.id)}
             iid={iid}
+            skinTone={skinTone}
             liveDrag={liveDrag && liveDrag.finger === nail.id ? liveDrag : null}
           />
         ))}
@@ -199,6 +216,11 @@ export function HandCanvas({
               onPointerDown={(e) => {
                 e.stopPropagation()
                 onSelectFinger?.(nail.id)
+                // Tapping empty nail area (not the sticker/gizmo itself, which is drawn on
+                // top and would have already stopped this event) also deselects — otherwise
+                // a sticker's gizmo handles stay stuck on screen after the user taps away,
+                // covering the design they're trying to look at.
+                onSelectSticker?.(null)
               }}
             />
           ))}
@@ -363,6 +385,7 @@ function NailPaint({
   stickersById,
   prepared,
   iid,
+  skinTone,
   liveDrag,
 }: {
   nail: NailCoord
@@ -371,6 +394,7 @@ function NailPaint({
   stickersById: Record<string, DecalAsset>
   prepared: PreparedNail | undefined
   iid: string
+  skinTone: SkinToneId
   liveDrag: LiveDragOverride | null
 }) {
   const seed = useMemo(() => FINGER_ORDER.indexOf(nail.id), [nail.id])
@@ -440,12 +464,16 @@ function NailPaint({
   const uid = `${iid}-${nail.id}`
   const trimUv = shapeTrimUv(design.shape)
   const lengthMatrix = lengthScaleMatrix(nail, LENGTH_SCALE[design.length])
+  // Must match the growPx nailLighting.ts used to bake this nail's raster (nailEdgeTuning.ts
+  // is the single source of truth for both) — otherwise the extra painted pixels from
+  // that growth would just be clipped away here, back down to the original traced path.
+  const growTransform = nailGrowMatrix(nail, maskGrowPxFor(skinTone, nail.id))
 
   return (
     <g pointerEvents="none">
       <defs>
         <clipPath id={`clip-real-${uid}`}>
-          <path d={nail.path} />
+          <path d={nail.path} transform={growTransform} />
         </clipPath>
         {trimUv && (
           <clipPath id={`clip-trim-${uid}`}>
@@ -589,10 +617,11 @@ function StickerGizmo({
   const hs = size / 2
   // Handles are sized in image-space units but the canvas renders far smaller than
   // its 1024px-wide viewBox (e.g. ~340px in the studio), so a "visually right" handle
-  // must be oversized here to still clear a ~44px touch target on screen.
-  const handleR = 50
-  const scaleHandleHalf = 34
-  const smallBtnR = 42
+  // must be oversized here to still clear a touch target on screen — trimmed down from
+  // the original sizing (which users found too large/obscuring) while staying tappable.
+  const handleR = 38
+  const scaleHandleHalf = 26
+  const smallBtnR = 32
 
   const startDrag = (m: GizmoMode) => (e: React.PointerEvent) => {
     e.stopPropagation()

@@ -1,7 +1,8 @@
 import { getHandData, handBaseUrl, resolveDecalPath } from '@/data/loaders'
 import { getResolvedDecalAsset } from '@/lib/decalCache'
-import { LENGTH_SCALE, lengthScaleMatrixValues, localToImage, nailWidthPx, shapeTrimUv } from '@/lib/geometry'
+import { LENGTH_SCALE, lengthScaleMatrixValues, localToImage, nailGrowMatrixValues, nailWidthPx, shapeTrimUv } from '@/lib/geometry'
 import { buildMaterialConfig, buildPaintConfig, composeNail, DEFAULT_LIGHT, hexToRgb01, type DecalLayer } from '@/lib/nailFill'
+import { maskGrowPxFor } from '@/lib/nailEdgeTuning'
 import { getPreparedHand } from '@/lib/nailLighting'
 import { FINGER_ORDER, type ColorPreset, type DecalAsset, type FingerDesign, type FingerId, type NailCoord, type SkinToneId } from '@/types/vibeu'
 
@@ -81,7 +82,19 @@ export async function exportDesignPng(
     const nailCanvas = composeNail(prepared, paintCfg, materialCfg, decalLayers, DEFAULT_LIGHT, seed)
 
     ctx.save()
-    ctx.clip(new Path2D(nail.path))
+    // Must match the growPx nailLighting.ts used to bake this nail's raster
+    // (nailEdgeTuning.ts is the single source of truth) — otherwise the exported PNG
+    // would clip away pixels the live preview shows. Path2D.addPath+DOMMatrix transforms
+    // the path's own points rather than the canvas's transform state, so it doesn't
+    // affect the drawImage placement below.
+    const growMatrix = nailGrowMatrixValues(nail, maskGrowPxFor(skinTone, nail.id))
+    let clipPath = new Path2D(nail.path)
+    if (growMatrix) {
+      const grown = new Path2D()
+      grown.addPath(clipPath, new DOMMatrix([growMatrix.a, growMatrix.b, growMatrix.c, growMatrix.d, growMatrix.e, growMatrix.f]))
+      clipPath = grown
+    }
+    ctx.clip(clipPath)
     const trimUv = shapeTrimUv(design.shape)
     if (trimUv) {
       const trimPath = new Path2D()

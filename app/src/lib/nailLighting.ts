@@ -1,5 +1,6 @@
 import { imageToLocal } from '@/lib/geometry'
 import { getHandData, handBaseUrl } from '@/data/loaders'
+import { maskGrowPxFor } from '@/lib/nailEdgeTuning'
 import type { FingerId, NailCoord, SkinToneId } from '@/types/vibeu'
 
 /**
@@ -75,7 +76,7 @@ function chamferDistanceInside(alpha: Uint8ClampedArray, w: number, h: number): 
 
 const EDGE_RADIUS_PX = 1.6
 
-export function prepareNail(nail: NailCoord, fullImage: ImageData): PreparedNail {
+export function prepareNail(nail: NailCoord, fullImage: ImageData, tone?: SkinToneId): PreparedNail {
   const x = Math.round(nail.bbox[0])
   const y = Math.round(nail.bbox[1])
   const w = Math.round(nail.bbox[2])
@@ -155,13 +156,14 @@ export function prepareNail(nail: NailCoord, fullImage: ImageData): PreparedNail
       source[k * 4 + 1] = g
       source[k * 4 + 2] = b
       source[k * 4 + 3] = a
-      if (a < 128) {
-        rowOf[k] = -1
-        continue
-      }
-      lums.push((r * 0.2126 + g * 0.7152 + b * 0.0722) / 255)
+      // `row` is purely a function of v (cuticle->tip position), independent of alpha, so
+      // it's always assigned — growth-band pixels just outside the traced path (see
+      // MASK_GROW_PX) still need a row to look up later. Only the per-row u-extent
+      // stats (lo/hi) and luminance sample are restricted to genuinely-traced pixels.
       const row = Math.min(rows - 1, Math.max(0, Math.round(clamp01(v) * (rows - 1))))
       rowOf[k] = row
+      if (a < 128) continue
+      lums.push((r * 0.2126 + g * 0.7152 + b * 0.0722) / 255)
       if (u < lo[row]) lo[row] = u
       if (u > hi[row]) hi[row] = u
     }
@@ -172,12 +174,32 @@ export function prepareNail(nail: NailCoord, fullImage: ImageData): PreparedNail
   const [ux, uy] = nail.uvFrame.u
   const [vx, vy] = nail.uvFrame.v
 
+  // Two-sided signed distance to the TRACED path boundary: positive inside (as before),
+  // negative outside. `growPx` (see nailEdgeTuning.ts) shifts the coverage ramp outward
+  // by this many pixels for specific finger/tone combinations where the traced path sits
+  // measurably inside the real photographed nail's own edge — confirmed empirically:
+  // shrinking the inward blend feather to near-zero left the same visible sliver of real,
+  // unpainted nail in the same place, which rules out blending and means the path itself
+  // needs to reach further. This only helps if HandCanvas's live clip-path and
+  // exportImage's canvas clip grow by the same amount — see nailEdgeTuning.ts.
+  const growPx = maskGrowPxFor(tone, nail.id)
+  const insideDist = chamferDistanceInside(alpha, w, h)
+  const invertedAlpha = new Uint8ClampedArray(w * h)
+  for (let k = 0; k < w * h; k++) invertedAlpha[k] = alpha[k] < 128 ? 255 : 0
+  const outsideDist = chamferDistanceInside(invertedAlpha, w, h)
+  const signedDist = new Float32Array(w * h)
+  for (let k = 0; k < w * h; k++) signedDist[k] = alpha[k] >= 128 ? insideDist[k] : -outsideDist[k]
+
   for (let k = 0; k < w * h; k++) {
-    if (alpha[k] < 128) continue
+    // Skip only pixels that will end up with ~0 coverage even after growth — everything
+    // else (the original mask plus the grown band around it) needs real normal/curve/
+    // light data, not the zero-initialized default, or it would render as a flat black gap.
+    if (signedDist[k] < 0.65 - growPx - 1.5) continue
     const u = uv[k * 2]
     const v = uv[k * 2 + 1]
     const row = rowOf[k]
-    const rel = clamp01((u - lo[row]) / (hi[row] - lo[row] || 1))
+    const rowValid = lo[row] <= hi[row]
+    const rel = rowValid ? clamp01((u - lo[row]) / (hi[row] - lo[row] || 1)) : 0.5
     const c = rel - 0.5
     curve[k] = c
     const nx = c * 1.56
@@ -206,23 +228,23 @@ export function prepareNail(nail: NailCoord, fullImage: ImageData): PreparedNail
     source[k * 4 + 2] = Math.round(255 * Math.min(1, 0.9 * detail))
   }
 
-  const dist = chamferDistanceInside(alpha, w, h)
   const edge = new Float32Array(w * h)
   const featherPx = Math.max(4.5, Math.min(w, h) * 0.035)
+  // Same ramp width as the original inward-only feather, just both bounds shifted
+  // outward by growPx — when growPx is 0 this reduces exactly to the original
+  // `smoothstep(0.65, featherPx, dist)` behaviour (dist === signedDist for inside pixels,
+  // and outside pixels were already forced to 0 either way).
+  const rampLo = 0.65 - growPx
+  const rampHi = featherPx - growPx
   for (let k = 0; k < w * h; k++) {
-    if (alpha[k] < 128) {
-      alpha[k] = 0
-      source[k * 4 + 3] = 0
-      continue
-    }
-    // The authored SVG paths intentionally err slightly outside the nail bed.
-    // A soft inward coverage ramp hides those registration errors at cuticle
-    // and side walls, blending the digital polish back into the real photo
-    // instead of drawing a hard dark outline on skin.
-    const coverage = smoothstep(0.65, featherPx, dist[k])
+    // The authored SVG paths intentionally err slightly inside/outside the real nail
+    // bed. A soft coverage ramp (optionally grown outward per nailEdgeTuning.ts) hides
+    // that registration error by fading paint back to the real photo instead of a hard
+    // cutoff, instead of drawing a hard outline or leaving a visible unpainted rim.
+    const coverage = smoothstep(rampLo, rampHi, signedDist[k])
     alpha[k] = Math.round(255 * coverage)
     source[k * 4 + 3] = alpha[k]
-    edge[k] = clamp01(dist[k] / EDGE_RADIUS_PX)
+    edge[k] = clamp01(signedDist[k] / EDGE_RADIUS_PX)
   }
 
   return { id: nail.id, x, y, w, h, alpha, uv, normal, curve, edge, light, spec, source, photoAmbient, photoTint }
@@ -262,7 +284,7 @@ export function getPreparedHand(tone: SkinToneId): Promise<Map<FingerId, Prepare
     cached = getHandData(tone).then((hand) =>
       loadImagePixels(tone, hand.width, hand.height).then((pixels) => {
         const map = new Map<FingerId, PreparedNail>()
-        for (const nail of hand.nails) map.set(nail.id, prepareNail(nail, pixels))
+        for (const nail of hand.nails) map.set(nail.id, prepareNail(nail, pixels, tone))
         return map
       }),
     )
