@@ -115,6 +115,32 @@ export function colorSwatchUrl(path: string) {
   return `/assets/colors/${path}`
 }
 
+interface MaterialManifest {
+  materials: Record<string, string> // effect id -> asset path relative to /assets/materials/
+}
+
+let materialManifestPromise: Promise<MaterialManifest | null> | null = null
+
+/**
+ * Real material-preview photography/renders are asset-ready (Defect A) but not guaranteed
+ * to exist yet — resolves null (never throws) when public/assets/materials/manifest.json
+ * is absent, so callers can fall back to the deterministic canvas swatch without an error.
+ */
+function getMaterialManifest(): Promise<MaterialManifest | null> {
+  if (!materialManifestPromise) {
+    materialManifestPromise = fetch('/assets/materials/manifest.json')
+      .then((r) => (r.ok ? (r.json() as Promise<MaterialManifest>) : null))
+      .catch(() => null)
+  }
+  return materialManifestPromise
+}
+
+export async function getMaterialPreviewUrl(effectId: string): Promise<string | null> {
+  const manifest = await getMaterialManifest()
+  const rel = manifest?.materials?.[effectId]
+  return rel ? `/assets/materials/${rel}` : null
+}
+
 export function handBaseUrl(tone: SkinToneId) {
   return `/assets/hands/${tone}/base.jpg`
 }

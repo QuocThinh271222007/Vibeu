@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { Check, Palette } from 'lucide-react'
 import { useColorPresets, colorSwatchUrl } from '@/data/loaders'
 import { GradientEditor } from '@/components/studio/GradientEditor'
+import { MaterialPreview } from '@/components/studio/MaterialPreview'
 import type { CustomGradient, EffectId, FingerDesign } from '@/types/vibeu'
 import { EFFECT_LABEL_VI } from '@/types/vibeu'
 
@@ -29,18 +30,26 @@ export function PaintTab({
     <div className="space-y-7">
       <div>
         <p className="mb-3 text-sm font-semibold text-vibe-ink">Hiệu ứng màu sơn</p>
-        <div className="grid grid-cols-4 gap-2">
-          {EFFECTS.map((e) => (
-            <button
-              key={e}
-              onClick={() => onEffect(e)}
-              className={`rounded-2xl border-2 py-2.5 text-[11px] font-semibold transition-colors ${
-                design.effect === e ? 'border-vibe-blue-dark bg-vibe-blue/15 text-vibe-ink' : 'border-vibe-ink/10 bg-white text-vibe-ink-soft hover:border-vibe-blue/30'
-              }`}
-            >
-              {EFFECT_LABEL_VI[e]}
-            </button>
-          ))}
+        <div className="grid grid-cols-3 gap-2.5 sm:grid-cols-4">
+          {EFFECTS.map((e) => {
+            const active = design.effect === e
+            return (
+              <button
+                key={e}
+                onClick={() => onEffect(e)}
+                aria-pressed={active}
+                className={`group flex flex-col items-center gap-1.5 rounded-2xl border-2 p-1.5 pb-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vibe-blue-dark focus-visible:ring-offset-2 ${
+                  active ? 'border-vibe-blue-dark bg-vibe-blue/15' : 'border-vibe-ink/10 bg-white hover:border-vibe-blue/30'
+                }`}
+              >
+                <MaterialPreview
+                  effect={e}
+                  className={`aspect-square w-full ring-1 ring-inset transition-shadow ${active ? 'ring-vibe-blue-dark/40' : 'ring-black/5 group-hover:ring-vibe-blue/30'}`}
+                />
+                <span className={`text-[11px] font-semibold ${active ? 'text-vibe-ink' : 'text-vibe-ink-soft'}`}>{EFFECT_LABEL_VI[e]}</span>
+              </button>
+            )
+          })}
         </div>
       </div>
 
