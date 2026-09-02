@@ -49,6 +49,15 @@ export function LayersPanel({ finger }: { finger: FingerId }) {
             >
               {asset && <img src={resolveDecalPath(asset.path)} alt="" className="h-7 w-7 shrink-0 rounded bg-vibe-cream object-contain p-0.5" />}
               <span className="min-w-0 flex-1 truncate text-xs font-medium text-vibe-ink">{asset?.nameVi ?? st.stickerId}</span>
+              {asset && (
+                <span
+                  className={`shrink-0 rounded-full px-1.5 py-0.5 text-[9px] font-bold leading-none text-white ${
+                    asset.layerType === 'raised' ? 'bg-vibe-blue-dark/90' : 'bg-vibe-ink/30'
+                  }`}
+                >
+                  {asset.layerType === 'raised' ? 'Charm' : 'Sticker'}
+                </span>
+              )}
 
               <LayerIconButton
                 label={st.visible === false ? 'Hiện lớp' : 'Ẩn lớp'}

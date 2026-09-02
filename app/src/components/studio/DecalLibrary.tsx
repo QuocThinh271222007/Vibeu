@@ -9,6 +9,14 @@ import { useStudioStore } from '@/store/studioStore'
 import type { DecalAsset } from '@/types/vibeu'
 
 type TierFilter = 'all' | 'premium' | 'standard'
+type KindFilter = 'all' | 'sticker' | 'charm'
+
+/** `layerType: 'raised'` IS the charm/object distinction (dome-shaded, unclipped overlay —
+ * see composeCharmLayer in nailFill.ts); 'decal'/'foil' are flat surface stickers. This is
+ * just a friendlier name for the UI, not a second source of truth. */
+function assetKind(d: DecalAsset): KindFilter {
+  return d.layerType === 'raised' ? 'charm' : 'sticker'
+}
 
 export function DecalLibrary({ onAdd }: { onAdd: (decalId: string) => void }) {
   const { decals, categories, loading } = useDecals()
@@ -16,6 +24,7 @@ export function DecalLibrary({ onAdd }: { onAdd: (decalId: string) => void }) {
   const addCustomDecal = useStudioStore((s) => s.addCustomDecal)
   const [category, setCategory] = useState<string>('all')
   const [tier, setTier] = useState<TierFilter>('all')
+  const [kind, setKind] = useState<KindFilter>('all')
   const [query, setQuery] = useState('')
   const [uploadError, setUploadError] = useState<string | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
@@ -26,9 +35,11 @@ export function DecalLibrary({ onAdd }: { onAdd: (decalId: string) => void }) {
     [categories, customDecals.length],
   )
   const hasPremium = useMemo(() => decals.some((d) => d.tier === 'premium'), [decals])
+  const hasCharms = useMemo(() => allDecals.some((d) => assetKind(d) === 'charm'), [allDecals])
 
   const filtered = useMemo(() => {
     let list = allDecals
+    if (kind !== 'all') list = list.filter((d) => assetKind(d) === kind)
     if (tier !== 'all') list = list.filter((d) => (tier === 'premium' ? d.tier === 'premium' : d.tier !== 'premium'))
     if (category !== 'all') list = list.filter((d) => d.category === category)
     if (query.trim()) {
@@ -36,7 +47,7 @@ export function DecalLibrary({ onAdd }: { onAdd: (decalId: string) => void }) {
       list = list.filter((d) => d.nameVi.toLowerCase().includes(q) || d.name.toLowerCase().includes(q) || d.tags.some((t) => t.toLowerCase().includes(q)))
     }
     return list
-  }, [allDecals, tier, category, query])
+  }, [allDecals, kind, tier, category, query])
 
   async function handleUpload(files: FileList | null) {
     if (!files || !files.length) return
@@ -63,6 +74,27 @@ export function DecalLibrary({ onAdd }: { onAdd: (decalId: string) => void }) {
           className="w-full bg-transparent text-sm outline-none placeholder:text-vibe-ink-soft/60"
         />
       </label>
+
+      {hasCharms && (
+        <div className="space-y-1.5">
+          <div className="flex gap-2">
+            <Chip active={kind === 'all'} onClick={() => setKind('all')}>
+              Tất cả
+            </Chip>
+            <Chip active={kind === 'sticker'} onClick={() => setKind('sticker')}>
+              Sticker
+            </Chip>
+            <Chip active={kind === 'charm'} onClick={() => setKind('charm')}>
+              Charm
+            </Chip>
+          </div>
+          {kind !== 'all' && (
+            <p className="text-[11px] text-vibe-ink-soft">
+              {kind === 'sticker' ? 'Sticker: dán phẳng trên móng.' : 'Charm: phụ kiện nổi 2.5D, có thể đặt trên móng hoặc quanh ngón.'}
+            </p>
+          )}
+        </div>
+      )}
 
       {hasPremium && (
         <div className="flex gap-2">
@@ -140,6 +172,9 @@ function DecalButton({ decal, onAdd }: { decal: DecalAsset; onAdd: (id: string) 
         <span className="absolute right-1 top-1 grid h-4 w-4 place-items-center rounded-full bg-vibe-pink-dark text-white">
           <Sparkles size={9} />
         </span>
+      )}
+      {decal.layerType === 'raised' && (
+        <span className="absolute left-1 top-1 rounded-full bg-vibe-blue-dark/90 px-1.5 py-0.5 text-[8px] font-bold leading-none text-white">Charm</span>
       )}
       <img src={resolveDecalPath(decal.thumbnail ?? decal.path)} alt={decal.nameVi} className="h-full w-full object-contain" draggable={false} loading="lazy" />
     </motion.button>
