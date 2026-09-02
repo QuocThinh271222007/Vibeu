@@ -22,11 +22,44 @@ export interface LightState {
   elevation: number
   strength: number
   ambient: number
+  /** 0..1 — how much of the per-nail photo-derived ambient estimate (g.photoAmbient) is
+   * allowed to influence pigment lightness, on top of the directional lighting above.
+   * 0 = fully neutral/calibrated (every hand photo renders the same preset at the same
+   * brightness); 1 = the full raw photo signal, still hard-capped at ±PHOTO_LIGHT_MAX_DEVIATION
+   * so it can modulate shading but can never crush a pastel toward grey. Previously declared
+   * but never read by composeNail — see normalizePhotoAmbient below. */
   photo: number
+  /** -0.2..0.25 user exposure adjustment (Studio's "Ánh sáng" panel), applied uniformly to
+   * the finished composite as a final multiply — never touches material/lighting internals. */
+  exposure: number
 }
 
-/** A soft, slightly top-left key light — matches the natural light in the stock hand photos. */
-export const DEFAULT_LIGHT: LightState = { angle: -45, elevation: 62, strength: 0.5, ambient: 0.88, photo: 0.7 }
+/** A soft, slightly top-left key light — matches the natural light in the stock hand photos.
+ * `photo: 0.4` is the calibrated default established for DEFECT F: enough raw photo ambient
+ * to still read as "this nail is lit by its actual photo," capped well short of the ±22% swing
+ * that was making the same preset look muddier on one hand photo than the other. */
+export const DEFAULT_LIGHT: LightState = { angle: -45, elevation: 62, strength: 0.5, ambient: 0.88, photo: 0.12, exposure: 0 }
+
+/** Even at LightState.photo = 1 (full raw influence), the photo's per-nail ambient estimate
+ * may never shift pigment lightness by more than this fraction — the hard guarantee behind
+ * "photo lighting should modulate shape gently, not determine base colour." */
+const PHOTO_LIGHT_MAX_DEVIATION = 0.06
+
+/**
+ * Normalizes the raw, per-nail photo-ambient estimate (g.photoAmbient, ~0.78-1.22 — see
+ * nailLighting.ts) into a controlled lighting term: `light.photo` scales how much of that
+ * raw deviation from neutral (1.0) is allowed through, and the result is hard-clamped to
+ * ±PHOTO_LIGHT_MAX_DEVIATION regardless of influence. This is the fix for DEFECT F —
+ * previously g.photoAmbient multiplied straight into pigment shade unconstrained, so the
+ * same preset could look noticeably darker/muddier on a hand photo whose sampled skin
+ * happened to be darker, even though nothing about the AUTHORED polish colour changed.
+ */
+function normalizePhotoAmbient(rawPhotoAmbient: number, influence: number): number {
+  const rawDeviation = rawPhotoAmbient - 1
+  const scaled = rawDeviation * clamp(influence, 0, 1)
+  const capped = clamp(scaled, -PHOTO_LIGHT_MAX_DEVIATION, PHOTO_LIGHT_MAX_DEVIATION)
+  return 1 + capped
+}
 
 export function buildPaintConfig(preset: ColorPreset, customColor: string | null, customGradient?: CustomGradient | null): PaintConfig {
   if (customColor) {
@@ -354,6 +387,13 @@ export function composeNail(
   const L = norm3([Math.cos(az) * Math.cos(el), Math.sin(az) * Math.cos(el), Math.sin(el)])
   const H = norm3([L[0], L[1], L[2] + 1])
 
+  // Computed ONCE per nail (not per pixel) — see normalizePhotoAmbient's doc comment.
+  // Every previous direct use of g.photoAmbient below is replaced with this controlled
+  // value, so a pastel/aurora preset can't come out visibly darker or muddier purely
+  // because the hand photo it's rendered against happens to sample a darker/lighter
+  // patch of skin around that nail.
+  const photoAmbient = normalizePhotoAmbient(g.photoAmbient, light.photo)
+
   const solidColor = paint.mode === 'solid' ? hexToRgb01(paint.stops[0]?.color ?? '#cccccc') : null
   const sample = solidColor ? null : stopSampler(paint.stops)
   const [a0, a1] = paint.start
@@ -407,7 +447,7 @@ export function composeNail(
     }
 
     const diffuse = Math.max(0, fn[0] * L[0] + fn[1] * L[1] + fn[2] * L[2])
-    const shade = g.light[k] * g.photoAmbient * (light.ambient + light.strength * (diffuse - 0.75) * 0.5)
+    const shade = g.light[k] * photoAmbient * (light.ambient + light.strength * (diffuse - 0.75) * 0.5)
     color = [clamp(color[0] * shade), clamp(color[1] * shade), clamp(color[2] * shade)]
 
     if (isGlitter) {
@@ -496,7 +536,7 @@ export function composeNail(
         // normal turns sharply) shouldn't read as a hard dark/light band across one decal.
         const curveMag = Math.min(1, Math.abs(g.curve[k]) * 2)
         const diffuseTerm = light.strength * (diffuse - 0.75) * 0.5 * 0.6 * (1 - curveMag * 0.5)
-        const localExposure = clamp(g.light[k] * g.photoAmbient * (light.ambient + diffuseTerm), 0.62, 1.18)
+        const localExposure = clamp(g.light[k] * photoAmbient * (light.ambient + diffuseTerm), 0.62, 1.18)
         dr = clamp(dr * localExposure)
         dg = clamp(dg * localExposure)
         db = clamp(db * localExposure)
@@ -535,7 +575,7 @@ export function composeNail(
     const specN = Math.max(0, fnx * H[0] + fny * H[1] + fnz * H[2])
     const clearcoatSpec = Math.pow(specN, clearcoatExponent) * profile.clearcoat * F
 
-    const env = sampleEnvironment(fny, g.photoTint, g.photoAmbient)
+    const env = sampleEnvironment(fny, g.photoTint, photoAmbient)
     const envReflect = profile.environmentReflection * F
 
     let color: [number, number, number] = [work[k * 3], work[k * 3 + 1], work[k * 3 + 2]]
@@ -679,6 +719,13 @@ export function composeNail(
     }
   }
 
+  // User exposure control (Studio's "Ánh sáng" panel) — a single uniform multiply on the
+  // FINISHED composite (paint + decals + clear coat + raised charms all already blended),
+  // never fed back into any lighting/material formula above. Kept last and separate from
+  // photoAmbient's normalization: exposure is an explicit user preference layered on top
+  // of an already-calibrated render, not part of fixing DEFECT F's cross-hand consistency.
+  const exposureMul = 1 + clamp(light.exposure, -0.2, 0.25)
+
   const canvas = document.createElement('canvas')
   canvas.width = g.w
   canvas.height = g.h
@@ -687,9 +734,9 @@ export function composeNail(
   const out = im.data
   for (let k = 0; k < n; k++) {
     const off = k * 4
-    out[off] = clamp(work[k * 3]) * 255
-    out[off + 1] = clamp(work[k * 3 + 1]) * 255
-    out[off + 2] = clamp(work[k * 3 + 2]) * 255
+    out[off] = clamp(work[k * 3] * exposureMul) * 255
+    out[off + 1] = clamp(work[k * 3 + 1] * exposureMul) * 255
+    out[off + 2] = clamp(work[k * 3 + 2] * exposureMul) * 255
     out[off + 3] = workAlpha[k]
   }
   ctx.putImageData(im, 0, 0)

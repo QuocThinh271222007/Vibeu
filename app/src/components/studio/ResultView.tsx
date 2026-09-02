@@ -7,6 +7,7 @@ import { useColorPresets, useDecals } from '@/data/loaders'
 import { useStudioStore } from '@/store/studioStore'
 import { buildShareUrl, buildSpecRows, generateShareId } from '@/lib/recipe'
 import { downloadBlob, exportDesignPng } from '@/lib/exportImage'
+import { DEFAULT_LIGHT } from '@/lib/nailFill'
 import { useQrCode } from '@/lib/useQrCode'
 import type { FingerDesign, FingerId, SkinToneId } from '@/types/vibeu'
 import { useNavigate } from 'react-router-dom'
@@ -23,6 +24,9 @@ export function ResultView({
   const { presets } = useColorPresets()
   const { decals } = useDecals()
   const customDecals = useStudioStore((s) => s.customDecals)
+  const lightExposure = useStudioStore((s) => s.lightExposure)
+  const lightStrength = useStudioStore((s) => s.lightStrength)
+  const lightAngleDeg = useStudioStore((s) => s.lightAngleDeg)
   const navigate = useNavigate()
   const [toast, setToast] = useState<string | null>(null)
   const [posted, setPosted] = useState(false)
@@ -55,7 +59,10 @@ export function ResultView({
   async function exportPng() {
     setExporting(true)
     try {
-      const blob = await exportDesignPng(skinTone, fingers, presetsById, stickersById)
+      // Matches Studio's user lighting exactly ("Ánh sáng" panel) so the exported PNG
+      // reflects the same adjustments the user was looking at when they exported.
+      const light = { ...DEFAULT_LIGHT, exposure: lightExposure, strength: lightStrength, angle: lightAngleDeg }
+      const blob = await exportDesignPng(skinTone, fingers, presetsById, stickersById, light)
       downloadBlob(blob, `vibeu-nail-design-${Date.now()}.png`)
     } catch {
       flashToast('Xuất ảnh thất bại, thử lại nhé.')

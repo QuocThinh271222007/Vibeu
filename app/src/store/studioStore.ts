@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { deleteDesign, listSavedDesigns, loadDesign, saveDesign, type SavedDesignMeta } from '@/lib/persistence'
+import { DEFAULT_LIGHT } from '@/lib/nailFill'
 import { FINGER_ORDER, type CustomGradient, type DecalAsset, type FingerDesign, type FingerId, type SkinToneId, type StickerInstance, type Template } from '@/types/vibeu'
 
 const DEFAULT_PRESET_ID = 'cloud-candy'
@@ -59,6 +60,13 @@ interface StudioState extends DesignSnapshot {
   /** QA-only overlay (mask outline, pointer/uv readout, decal bounds, normal/roughness/Fresnel
    * views) — off by default, never part of the design/history so toggling it can't be undone. */
   debugMode: boolean
+  /** Studio's "Ánh sáng" panel — a viewing/lighting preference, not part of the nail design
+   * recipe itself (a template or saved design never specifies "how it was photographed"), so
+   * — like debugMode — this is deliberately outside past/future undo history. Defaults match
+   * DEFAULT_LIGHT in nailFill.ts exactly; `resetLighting` restores those calibrated values. */
+  lightExposure: number
+  lightStrength: number
+  lightAngleDeg: number
 
   setSkinTone: (tone: SkinToneId) => void
   selectFinger: (finger: FingerId) => void
@@ -85,6 +93,10 @@ interface StudioState extends DesignSnapshot {
   undo: () => void
   redo: () => void
   toggleDebugMode: () => void
+  setLightExposure: (v: number) => void
+  setLightStrength: (v: number) => void
+  setLightAngleDeg: (v: number) => void
+  resetLighting: () => void
   refreshSavedDesigns: () => void
   saveCurrentDesign: (name: string) => void
   loadSavedDesign: (id: string) => void
@@ -120,6 +132,9 @@ export const useStudioStore = create<StudioState>((set, get) => ({
   future: [],
   savedDesigns: listSavedDesigns(),
   debugMode: false,
+  lightExposure: DEFAULT_LIGHT.exposure,
+  lightStrength: DEFAULT_LIGHT.strength,
+  lightAngleDeg: DEFAULT_LIGHT.angle,
 
   setSkinTone: (tone) => withHistory(set, () => ({ skinTone: tone })),
   selectFinger: (finger) => set({ selectedFinger: finger, selectedStickerInstance: null }),
@@ -322,6 +337,12 @@ export const useStudioStore = create<StudioState>((set, get) => ({
     }),
 
   toggleDebugMode: () => set((s) => ({ debugMode: !s.debugMode })),
+
+  setLightExposure: (v) => set({ lightExposure: Math.min(0.25, Math.max(-0.2, v)) }),
+  setLightStrength: (v) => set({ lightStrength: Math.min(1, Math.max(0, v)) }),
+  setLightAngleDeg: (v) => set({ lightAngleDeg: v }),
+  resetLighting: () =>
+    set({ lightExposure: DEFAULT_LIGHT.exposure, lightStrength: DEFAULT_LIGHT.strength, lightAngleDeg: DEFAULT_LIGHT.angle }),
 
   refreshSavedDesigns: () => set({ savedDesigns: listSavedDesigns() }),
 

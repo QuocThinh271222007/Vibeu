@@ -1,7 +1,7 @@
 import { getHandData, handBaseUrl, resolveDecalPath } from '@/data/loaders'
 import { getResolvedDecalAsset } from '@/lib/decalCache'
 import { LENGTH_SCALE, lengthScaleMatrixValues, localToImage, nailGrowMatrixValues, nailWidthPx, shapeTrimUv } from '@/lib/geometry'
-import { buildMaterialConfig, buildPaintConfig, composeNail, DEFAULT_LIGHT, hexToRgb01, type DecalLayer } from '@/lib/nailFill'
+import { buildMaterialConfig, buildPaintConfig, composeNail, DEFAULT_LIGHT, hexToRgb01, type DecalLayer, type LightState } from '@/lib/nailFill'
 import { maskGrowPxFor } from '@/lib/nailEdgeTuning'
 import { getPreparedHand } from '@/lib/nailLighting'
 import { FINGER_ORDER, type ColorPreset, type DecalAsset, type FingerDesign, type FingerId, type NailCoord, type SkinToneId } from '@/types/vibeu'
@@ -60,6 +60,7 @@ export async function exportDesignPng(
   fingers: Record<FingerId, FingerDesign>,
   presetsById: Record<string, ColorPreset>,
   stickersById: Record<string, DecalAsset>,
+  light: LightState = DEFAULT_LIGHT,
 ): Promise<Blob> {
   const [hand, preparedMap, baseImg] = await Promise.all([getHandData(skinTone), getPreparedHand(skinTone), loadImage(handBaseUrl(skinTone))])
 
@@ -79,7 +80,7 @@ export async function exportDesignPng(
     const materialCfg = buildMaterialConfig(preset, design.effect)
     const decalLayers = await buildDecalLayersForExport(nail, design, stickersById)
     const seed = FINGER_ORDER.indexOf(nail.id)
-    const nailCanvas = composeNail(prepared, paintCfg, materialCfg, decalLayers, DEFAULT_LIGHT, seed)
+    const nailCanvas = composeNail(prepared, paintCfg, materialCfg, decalLayers, light, seed)
 
     ctx.save()
     // Must match the growPx nailLighting.ts used to bake this nail's raster

@@ -22,6 +22,7 @@ import {
   renderDebugView,
   type DebugViewMode,
   type DecalLayer,
+  type LightState,
 } from '@/lib/nailFill'
 import { getPreparedHand, type PreparedNail } from '@/lib/nailLighting'
 import { getResolvedDecalAsset, type ResolvedDecalAsset } from '@/lib/decalCache'
@@ -118,6 +119,16 @@ export function HandCanvas({
   const stickersById = useDecalsById(customDecals)
   const prepared = usePreparedHand(skinTone)
   const debugMode = useStudioStore((s) => s.debugMode)
+  // User lighting ("Ánh sáng" panel) only applies to the interactive Studio canvas —
+  // Home/Library preview instances of HandCanvas stay on DEFAULT_LIGHT regardless of what
+  // the user last set in Studio, since those are marketing surfaces, not the editable design.
+  const lightExposure = useStudioStore((s) => s.lightExposure)
+  const lightStrength = useStudioStore((s) => s.lightStrength)
+  const lightAngleDeg = useStudioStore((s) => s.lightAngleDeg)
+  const light: LightState = useMemo(
+    () => (interactive ? { ...DEFAULT_LIGHT, exposure: lightExposure, strength: lightStrength, angle: lightAngleDeg } : DEFAULT_LIGHT),
+    [interactive, lightExposure, lightStrength, lightAngleDeg],
+  )
   const svgRef = useRef<SVGSVGElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const [debugPointer, setDebugPointer] = useState<{ img: [number, number]; nailId: FingerId | null; uv: [number, number] | null } | null>(null)
@@ -202,6 +213,7 @@ export function HandCanvas({
             prepared={prepared!.get(nail.id)}
             iid={iid}
             skinTone={skinTone}
+            light={light}
             liveDrag={liveDrag && liveDrag.finger === nail.id ? liveDrag : null}
           />
         ))}
@@ -386,6 +398,7 @@ function NailPaint({
   prepared,
   iid,
   skinTone,
+  light,
   liveDrag,
 }: {
   nail: NailCoord
@@ -395,6 +408,7 @@ function NailPaint({
   prepared: PreparedNail | undefined
   iid: string
   skinTone: SkinToneId
+  light: LightState
   liveDrag: LiveDragOverride | null
 }) {
   const seed = useMemo(() => FINGER_ORDER.indexOf(nail.id), [nail.id])
@@ -457,8 +471,8 @@ function NailPaint({
 
   const dataUrl = useMemo(() => {
     if (!prepared || !paintCfg || !materialCfg) return null
-    return composeNail(prepared, paintCfg, materialCfg, decalLayers, DEFAULT_LIGHT, seed).toDataURL()
-  }, [prepared, paintCfg, materialCfg, decalLayers, seed])
+    return composeNail(prepared, paintCfg, materialCfg, decalLayers, light, seed).toDataURL()
+  }, [prepared, paintCfg, materialCfg, decalLayers, light, seed])
 
   if (!preset || !prepared || !dataUrl) return null
   const uid = `${iid}-${nail.id}`
