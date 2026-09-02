@@ -15,6 +15,7 @@ import { maskGrowPxFor } from '@/lib/nailEdgeTuning'
 import {
   buildMaterialConfig,
   buildPaintConfig,
+  composeCharmLayer,
   composeNail,
   DEFAULT_LIGHT,
   hexToRgb01,
@@ -216,6 +217,16 @@ export function HandCanvas({
             liveDrag={liveDrag && liveDrag.finger === nail.id ? liveDrag : null}
           />
         ))}
+        <CharmLayer hand={hand} fingers={fingers} stickersById={stickersById} light={light} liveDrag={liveDrag} />
+        {liveDrag && (
+          <TransientStickerPreview
+            nail={hand.nails.find((n) => n.id === liveDrag.finger)!}
+            instanceId={liveDrag.instanceId}
+            patch={liveDrag.patch}
+            design={fingers[liveDrag.finger]}
+            stickersById={stickersById}
+          />
+        )}
         {interactive &&
           hand.nails.map((nail) => (
             <path
@@ -417,7 +428,12 @@ function NailPaint({
   )
   const materialCfg = useMemo(() => (preset ? buildMaterialConfig(preset, design.effect) : null), [preset, design.effect])
 
-  const sortedStickers = useMemo(() => [...design.stickers].sort((a, b) => a.z - b.z), [design.stickers])
+  // Raised charms are excluded here — they render in the hand-level, unclipped CharmLayer
+  // instead (see below), never baked into this per-nail canvas.
+  const sortedStickers = useMemo(
+    () => [...design.stickers].filter((st) => stickersById[st.stickerId]?.layerType !== 'raised').sort((a, b) => a.z - b.z),
+    [design.stickers, stickersById],
+  )
   const stickerUrls = useMemo(() => {
     const urls: string[] = []
     for (const st of sortedStickers) {
@@ -504,11 +520,87 @@ function NailPaint({
           <g transform={lengthMatrix}>
             <image href={dataUrl} x={prepared.x} y={prepared.y} width={prepared.w} height={prepared.h} preserveAspectRatio="none" />
           </g>
-          {liveDrag && (
-            <TransientStickerPreview nail={nail} instanceId={liveDrag.instanceId} patch={liveDrag.patch} design={design} stickersById={stickersById} />
-          )}
         </g>
       </g>
+    </g>
+  )
+}
+
+/**
+ * Every `raised` charm across the WHOLE hand, composited on one shared, unclipped
+ * overlay canvas (see composeCharmLayer) — a charm is a small object accessory, not paint
+ * on the nail surface, so unlike flat/foil decals (baked per-nail inside NailPaint above,
+ * clipped to that nail's own silhouette) it must be free to overflow the nail edge or sit
+ * partly on finger skin instead of being hard-clipped at a per-nail canvas's own bounds.
+ */
+function CharmLayer({
+  hand,
+  fingers,
+  stickersById,
+  light,
+  liveDrag,
+}: {
+  hand: NonNullable<ReturnType<typeof useHandData>['hand']>
+  fingers: Record<FingerId, FingerDesign>
+  stickersById: Record<string, DecalAsset>
+  light: LightState
+  liveDrag: LiveDragOverride | null
+}) {
+  const charmInstances = useMemo(() => {
+    const list: { nail: NailCoord; st: StickerInstance }[] = []
+    for (const nail of hand.nails) {
+      for (const st of fingers[nail.id].stickers) {
+        if (st.visible === false) continue
+        const asset = stickersById[st.stickerId]
+        if (!asset || asset.layerType !== 'raised') continue
+        if (liveDrag && liveDrag.finger === nail.id && liveDrag.instanceId === st.instanceId) continue // shown as a transient preview instead
+        list.push({ nail, st })
+      }
+    }
+    return list
+  }, [hand, fingers, stickersById, liveDrag])
+
+  const urls = useMemo(() => charmInstances.map(({ st }) => resolveDecalPath(stickersById[st.stickerId].path)), [charmInstances, stickersById])
+  const resolvedAssets = useResolvedDecalAssets(urls)
+
+  const charmLayers = useMemo<DecalLayer[]>(() => {
+    const layers: DecalLayer[] = []
+    for (const { nail, st } of charmInstances) {
+      const sticker = stickersById[st.stickerId]
+      const url = resolveDecalPath(sticker.path)
+      const resolved = resolvedAssets.get(url)
+      if (!resolved) continue
+      const [cx, cy] = localToImage(nail, st.uv)
+      const widthPx = nailWidthPx(nail) * sticker.defaultScale * st.scale
+      const [, , cbw, cbh] = resolved.contentBounds
+      const contentAspect = (cbh * resolved.pixels.height) / (cbw * resolved.pixels.width || 1)
+      layers.push({
+        pixels: resolved.pixels,
+        contentBounds: resolved.contentBounds,
+        centerX: cx,
+        centerY: cy,
+        widthPx,
+        heightPx: widthPx * contentAspect,
+        rotationDeg: st.rotation,
+        flipX: st.flipX ?? false,
+        opacity: st.opacity ?? 1,
+        tint: sticker.tintable && st.tint ? hexToRgb01(st.tint) : null,
+        curvature: 0,
+        layerType: 'raised',
+      })
+    }
+    return layers
+  }, [charmInstances, stickersById, resolvedAssets])
+
+  const dataUrl = useMemo(
+    () => (charmLayers.length ? composeCharmLayer(charmLayers, light, hand.width, hand.height).toDataURL() : null),
+    [charmLayers, light, hand.width, hand.height],
+  )
+
+  if (!dataUrl) return null
+  return (
+    <g pointerEvents="none">
+      <image href={dataUrl} x={0} y={0} width={hand.width} height={hand.height} />
     </g>
   )
 }
@@ -680,7 +772,15 @@ function StickerGizmo({
     if (mode === 'move') {
       const [ox, oy] = dragInfo.current.moveOffset
       const uv = imageToLocal(nail, [px + ox, py + oy])
-      const clamped: [number, number] = [Math.min(1.2, Math.max(-0.2, uv[0])), Math.min(1.25, Math.max(-0.2, uv[1]))]
+      // A charm is a small object accessory, not paint on the nail surface — it may be
+      // placed on the nail edge, near the cuticle, or on the finger itself, so its
+      // placement range is much wider than a flat sticker's (which stays close to the
+      // nail so it always renders as "on the nail surface", per the sticker/charm
+      // rendering split — see CharmLayer/composeCharmLayer in nailFill.ts).
+      const isCharm = sticker?.layerType === 'raised'
+      const clamped: [number, number] = isCharm
+        ? [Math.min(2.5, Math.max(-1.5, uv[0])), Math.min(3, Math.max(-1.5, uv[1]))]
+        : [Math.min(1.2, Math.max(-0.2, uv[0])), Math.min(1.25, Math.max(-0.2, uv[1]))]
       patch = { uv: clamped }
     } else if (mode === 'rotate') {
       const angle = (Math.atan2(py - cy, px - cx) * 180) / Math.PI

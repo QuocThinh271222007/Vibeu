@@ -605,125 +605,17 @@ export function composeNail(
     work[k * 3 + 2] = color[2]
   }
 
-  // Pass D — raised charms (pearls, domed gems, padded bows): independent dome-shaded
-  // objects sitting ON TOP of the finished clear coat, not embedded in it — they do NOT
-  // receive Pass C's clearcoat/Fresnel/environment treatment (a solid charm physically
-  // blocks whatever gloss was underneath it, exactly like a real applied embellishment).
-  // The dome normal is an analytic ellipsoid fit to the decal's own placement box, masked
-  // by that decal's true alpha silhouette (so a bow's two loops+knot are lit as one
-  // coherent puffy shape, not a plain circle) — not curvature-warped, since a rigid charm
-  // keeps its own form regardless of the nail's curvature underneath it.
-  for (const decal of decals) {
-    if (decal.layerType !== 'raised') continue
-    const rad = (-decal.rotationDeg * Math.PI) / 180
-    const cos = Math.cos(rad)
-    const sin = Math.sin(rad)
-    const [cbx, cby, cbw, cbh] = decal.contentBounds
-    const halfDiag = Math.hypot(decal.widthPx, decal.heightPx) / 2 + 4
-    const minX = Math.max(0, Math.floor(decal.centerX - g.x - halfDiag))
-    const maxX = Math.min(g.w, Math.ceil(decal.centerX - g.x + halfDiag))
-    const minY = Math.max(0, Math.floor(decal.centerY - g.y - halfDiag))
-    const maxY = Math.min(g.h, Math.ceil(decal.centerY - g.y + halfDiag))
-
-    // Feathered (not hard-cutoff) box edge — a decal like the padded bow, whose loops
-    // reach close to its own placement-box edge, would otherwise show a visible straight
-    // clip line exactly where the box boundary crosses still-opaque artwork.
-    const sampleShapeAlpha = (nx: number, ny: number): number => {
-      if (nx < -0.5 || nx > 0.5 || ny < -0.5 || ny > 0.5) return 0
-      const srcX = (cbx + (nx + 0.5) * cbw) * decal.pixels.width
-      const srcY = (cby + (ny + 0.5) * cbh) * decal.pixels.height
-      const raw = sampleBilinear(decal.pixels, srcX, srcY)[3] / 255
-      const edgeFalloff = 1 - smoothstep01(0.42, 0.5, Math.max(Math.abs(nx), Math.abs(ny)))
-      return raw * edgeFalloff
-    }
-
-    for (let yy = minY; yy < maxY; yy++) {
-      for (let xx = minX; xx < maxX; xx++) {
-        const k = yy * g.w + xx
-        if (!g.alpha[k]) continue
-        const ix = g.x + xx
-        const iy = g.y + yy
-        const rx = ix - decal.centerX
-        const ry = iy - decal.centerY
-        const lx = rx * cos - ry * sin
-        const ly = rx * sin + ry * cos
-        let nx = lx / decal.widthPx
-        const ny = ly / decal.heightPx
-        if (decal.flipX) nx = -nx
-        if (nx < -0.5 || nx > 0.5 || ny < -0.5 || ny > 0.5) continue
-
-        const shapeAlpha = sampleShapeAlpha(nx, ny)
-
-        // Soft isotropic contact shadow in the ring just outside the true silhouette —
-        // sampling the same shape function at a shrunk coordinate tests membership in a
-        // ~14%-dilated copy of it, so the ring falls exactly around the real shape.
-        const dilatedAlpha = sampleShapeAlpha(nx / 1.14, ny / 1.14)
-        const shadowRing = clamp(dilatedAlpha - shapeAlpha) * 0.4
-        if (shadowRing > 0.001) {
-          work[k * 3] *= 1 - shadowRing
-          work[k * 3 + 1] *= 1 - shadowRing
-          work[k * 3 + 2] *= 1 - shadowRing
-        }
-
-        const alpha01 = shapeAlpha * decal.opacity
-        if (alpha01 <= 0.001) continue
-
-        const srcX = (cbx + (nx + 0.5) * cbw) * decal.pixels.width
-        const srcY = (cby + (ny + 0.5) * cbh) * decal.pixels.height
-        const [r, gg, b] = sampleBilinear(decal.pixels, srcX, srcY)
-        let dr = r / 255
-        let dg = gg / 255
-        let db = b / 255
-        if (decal.tint) {
-          const lum = dr * 0.2126 + dg * 0.7152 + db * 0.0722
-          dr = decal.tint[0] * lum
-          dg = decal.tint[1] * lum
-          db = decal.tint[2] * lum
-        }
-
-        const dnx = clamp(nx * 2, -1, 1)
-        const dny = clamp(ny * 2, -1, 1)
-        const dnz = Math.sqrt(Math.max(0.06, 1 - dnx * dnx - dny * dny))
-        const domeN = norm3([dnx, dny, dnz])
-        const diffuse = Math.max(0, domeN[0] * L[0] + domeN[1] * L[1] + domeN[2] * L[2])
-        const spec = Math.pow(Math.max(0, domeN[0] * H[0] + domeN[1] * H[1] + domeN[2] * H[2]), 46)
-
-        // A touch of the nail's own photo-derived ambient tint, so the same charm reads
-        // consistently warm/cool with the rest of this hand photo's lighting — dampened to
-        // ~22% strength; the raw photoTint ratio is tuned for pigment mixing in Pass A and
-        // is far too strong applied directly to a near-white pearl (it reads as orange).
-        const tintAmount = 0.22
-        const ambientTint: [number, number, number] = [
-          1 + (g.photoTint[0] - 1) * tintAmount,
-          1 + (g.photoTint[1] - 1) * tintAmount,
-          1 + (g.photoTint[2] - 1) * tintAmount,
-        ]
-        // Blend the dome-shaded result with the artwork's own flat colour (30%) rather than
-        // fully replacing it — a single ellipsoid normal spans the whole placement box, so a
-        // multi-lobe shape (a bow's two loops + knot) needs some of its own painted shading
-        // (the darker gap between overlapping loops) to survive, or the dome sweep flattens
-        // the silhouette into one smooth blob with no visible lobes.
-        const domeShade = 0.5 + 0.5 * diffuse
-        let lit: [number, number, number] = [
-          dr * (domeShade * 0.7 + 0.3),
-          dg * (domeShade * 0.7 + 0.3),
-          db * (domeShade * 0.7 + 0.3),
-        ]
-        lit = [clamp(lit[0] * ambientTint[0]), clamp(lit[1] * ambientTint[1]), clamp(lit[2] * ambientTint[2])]
-        lit = [clamp(lit[0] + spec * 0.65), clamp(lit[1] + spec * 0.65), clamp(lit[2] + spec * 0.65)]
-
-        work[k * 3] = work[k * 3] * (1 - alpha01) + lit[0] * alpha01
-        work[k * 3 + 1] = work[k * 3 + 1] * (1 - alpha01) + lit[1] * alpha01
-        work[k * 3 + 2] = work[k * 3 + 2] * (1 - alpha01) + lit[2] * alpha01
-      }
-    }
-  }
+  // Raised charms are NOT rendered here — see composeCharmLayer below. They render in a
+  // dedicated hand-wide, unclipped overlay layer instead of being baked into this
+  // tightly-cropped per-nail canvas, so a charm can overflow the nail edge or sit partly
+  // on finger skin instead of being hard-clipped at this canvas's own bounds.
 
   // User exposure control (Studio's "Ánh sáng" panel) — a single uniform multiply on the
-  // FINISHED composite (paint + decals + clear coat + raised charms all already blended),
-  // never fed back into any lighting/material formula above. Kept last and separate from
-  // photoAmbient's normalization: exposure is an explicit user preference layered on top
-  // of an already-calibrated render, not part of fixing DEFECT F's cross-hand consistency.
+  // FINISHED composite (paint + decals + clear coat, raised charms render separately —
+  // see composeCharmLayer), never fed back into any lighting/material formula above. Kept
+  // last and separate from photoAmbient's normalization: exposure is an explicit user
+  // preference layered on top of an already-calibrated render, not part of fixing
+  // DEFECT F's cross-hand consistency.
   const exposureMul = 1 + clamp(light.exposure, -0.2, 0.25)
 
   const canvas = document.createElement('canvas')
@@ -740,6 +632,130 @@ export function composeNail(
     out[off + 3] = workAlpha[k]
   }
   ctx.putImageData(im, 0, 0)
+  return canvas
+}
+
+/**
+ * Renders every `raised` charm across the WHOLE hand photo onto one shared,
+ * unclipped, hand-sized canvas — a charm is a small object accessory, not paint on the
+ * nail surface, so it must not be hard-clipped at a per-nail canvas's own bounds (the old
+ * behavior, when this was baked into composeNail's Pass D): it needs to be able to
+ * overflow the nail edge or land partly on finger skin. `centerX`/`centerY` on each
+ * DecalLayer are already absolute image-space coordinates (from localToImage), so no nail
+ * geometry is needed here at all — this only ever positions/shades independent objects.
+ *
+ * Each charm (plus its own soft contact-shadow ring) is rasterized to a small temporary
+ * canvas first, then composited onto the shared canvas via `drawImage` — real alpha
+ * "source-over" blending, so overlapping charms (or a charm's shadow falling on skin)
+ * blend correctly with whatever is beneath them without this function needing to know
+ * what that is (nail polish, another charm, or bare skin).
+ */
+export function composeCharmLayer(charms: DecalLayer[], light: LightState, width: number, height: number): HTMLCanvasElement {
+  const canvas = document.createElement('canvas')
+  canvas.width = width
+  canvas.height = height
+  if (charms.length === 0) return canvas
+  const ctx = canvas.getContext('2d')!
+
+  const az = (light.angle * Math.PI) / 180
+  const el = (light.elevation * Math.PI) / 180
+  const L = norm3([Math.cos(az) * Math.cos(el), Math.sin(az) * Math.cos(el), Math.sin(el)])
+  const H = norm3([L[0], L[1], L[2] + 1])
+
+  for (const decal of charms) {
+    const rad = (-decal.rotationDeg * Math.PI) / 180
+    const cos = Math.cos(rad)
+    const sin = Math.sin(rad)
+    const [cbx, cby, cbw, cbh] = decal.contentBounds
+    const halfDiag = Math.hypot(decal.widthPx, decal.heightPx) / 2 + 6
+    const minX = Math.max(0, Math.floor(decal.centerX - halfDiag))
+    const maxX = Math.min(width, Math.ceil(decal.centerX + halfDiag))
+    const minY = Math.max(0, Math.floor(decal.centerY - halfDiag))
+    const maxY = Math.min(height, Math.ceil(decal.centerY + halfDiag))
+    const bw = maxX - minX
+    const bh = maxY - minY
+    if (bw <= 0 || bh <= 0) continue
+
+    // Feathered (not hard-cutoff) box edge — see the equivalent comment this was copied
+    // from in composeNail's old Pass D.
+    const sampleShapeAlpha = (nx: number, ny: number): number => {
+      if (nx < -0.5 || nx > 0.5 || ny < -0.5 || ny > 0.5) return 0
+      const srcX = (cbx + (nx + 0.5) * cbw) * decal.pixels.width
+      const srcY = (cby + (ny + 0.5) * cbh) * decal.pixels.height
+      const raw = sampleBilinear(decal.pixels, srcX, srcY)[3] / 255
+      const edgeFalloff = 1 - smoothstep01(0.42, 0.5, Math.max(Math.abs(nx), Math.abs(ny)))
+      return raw * edgeFalloff
+    }
+
+    const tempCanvas = document.createElement('canvas')
+    tempCanvas.width = bw
+    tempCanvas.height = bh
+    const tempCtx = tempCanvas.getContext('2d')!
+    const im = tempCtx.createImageData(bw, bh)
+
+    for (let yy = 0; yy < bh; yy++) {
+      for (let xx = 0; xx < bw; xx++) {
+        const ix = minX + xx
+        const iy = minY + yy
+        const rx = ix - decal.centerX
+        const ry = iy - decal.centerY
+        const lx = rx * cos - ry * sin
+        const ly = rx * sin + ry * cos
+        let nx = lx / decal.widthPx
+        const ny = ly / decal.heightPx
+        if (decal.flipX) nx = -nx
+        if (nx < -0.5 || nx > 0.5 || ny < -0.5 || ny > 0.5) continue
+
+        const shapeAlpha = sampleShapeAlpha(nx, ny)
+        // Soft isotropic contact shadow in the ring just outside the true silhouette —
+        // sampling the same shape function at a shrunk coordinate tests membership in a
+        // ~14%-dilated copy of it, so the ring falls exactly around the real shape.
+        const dilatedAlpha = sampleShapeAlpha(nx / 1.14, ny / 1.14)
+        const shadowRing = clamp(dilatedAlpha - shapeAlpha) * 0.4
+        const alpha01 = shapeAlpha * decal.opacity
+        const k = (yy * bw + xx) * 4
+
+        if (alpha01 > 0.001) {
+          const srcX = (cbx + (nx + 0.5) * cbw) * decal.pixels.width
+          const srcY = (cby + (ny + 0.5) * cbh) * decal.pixels.height
+          const [r, gg, b] = sampleBilinear(decal.pixels, srcX, srcY)
+          let dr = r / 255
+          let dg = gg / 255
+          let db = b / 255
+          if (decal.tint) {
+            const lum = dr * 0.2126 + dg * 0.7152 + db * 0.0722
+            dr = decal.tint[0] * lum
+            dg = decal.tint[1] * lum
+            db = decal.tint[2] * lum
+          }
+
+          const dnx = clamp(nx * 2, -1, 1)
+          const dny = clamp(ny * 2, -1, 1)
+          const dnz = Math.sqrt(Math.max(0.06, 1 - dnx * dnx - dny * dny))
+          const domeN = norm3([dnx, dny, dnz])
+          const diffuse = Math.max(0, domeN[0] * L[0] + domeN[1] * L[1] + domeN[2] * L[2])
+          const spec = Math.pow(Math.max(0, domeN[0] * H[0] + domeN[1] * H[1] + domeN[2] * H[2]), 46)
+
+          // Blend the dome-shaded result with the artwork's own flat colour (30%) rather
+          // than fully replacing it — a single ellipsoid normal spans the whole placement
+          // box, so a multi-lobe shape (a bow's two loops + knot) needs some of its own
+          // painted shading to survive, or the dome sweep flattens it into one smooth blob.
+          const domeShade = 0.5 + 0.5 * diffuse
+          let lit: [number, number, number] = [dr * (domeShade * 0.7 + 0.3), dg * (domeShade * 0.7 + 0.3), db * (domeShade * 0.7 + 0.3)]
+          lit = [clamp(lit[0] + spec * 0.65), clamp(lit[1] + spec * 0.65), clamp(lit[2] + spec * 0.65)]
+
+          im.data[k] = Math.round(lit[0] * 255)
+          im.data[k + 1] = Math.round(lit[1] * 255)
+          im.data[k + 2] = Math.round(lit[2] * 255)
+          im.data[k + 3] = Math.round(clamp(alpha01) * 255)
+        } else if (shadowRing > 0.001) {
+          im.data[k + 3] = Math.round(clamp(shadowRing) * 255)
+        }
+      }
+    }
+    tempCtx.putImageData(im, 0, 0)
+    ctx.drawImage(tempCanvas, minX, minY)
+  }
   return canvas
 }
 

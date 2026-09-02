@@ -1,10 +1,10 @@
 import { getHandData, handBaseUrl, resolveDecalPath } from '@/data/loaders'
 import { getResolvedDecalAsset } from '@/lib/decalCache'
 import { LENGTH_SCALE, lengthScaleMatrixValues, localToImage, nailWidthPx, shapeTrimUv } from '@/lib/geometry'
-import { buildMaterialConfig, buildPaintConfig, composeNail, DEFAULT_LIGHT, hexToRgb01, type DecalLayer, type LightState } from '@/lib/nailFill'
+import { buildMaterialConfig, buildPaintConfig, composeCharmLayer, composeNail, DEFAULT_LIGHT, hexToRgb01, type DecalLayer, type LightState } from '@/lib/nailFill'
 import { maskGrowPxFor } from '@/lib/nailEdgeTuning'
 import { getPreparedHand } from '@/lib/nailLighting'
-import { FINGER_ORDER, type ColorPreset, type DecalAsset, type FingerDesign, type FingerId, type NailCoord, type SkinToneId } from '@/types/vibeu'
+import { FINGER_ORDER, type ColorPreset, type DecalAsset, type FingerDesign, type FingerId, type HandData, type NailCoord, type SkinToneId } from '@/types/vibeu'
 
 function loadImage(src: string): Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {
@@ -15,6 +15,8 @@ function loadImage(src: string): Promise<HTMLImageElement> {
   })
 }
 
+/** Flat/foil decals only (baked per-nail, clipped to that nail's own silhouette) — raised
+ * charms are excluded here and built separately by buildCharmLayersForExport instead. */
 async function buildDecalLayersForExport(
   nail: NailCoord,
   design: FingerDesign,
@@ -25,7 +27,7 @@ async function buildDecalLayersForExport(
   for (const st of sorted) {
     if (st.visible === false) continue
     const asset = stickersById[st.stickerId]
-    if (!asset) continue
+    if (!asset || asset.layerType === 'raised') continue
     const resolved = await getResolvedDecalAsset(resolveDecalPath(asset.path))
     const [cx, cy] = localToImage(nail, st.uv)
     const widthPx = nailWidthPx(nail) * asset.defaultScale * st.scale
@@ -43,8 +45,44 @@ async function buildDecalLayersForExport(
       opacity: st.opacity ?? 1,
       tint: asset.tintable && st.tint ? hexToRgb01(st.tint) : null,
       curvature: 0.55,
-      layerType: asset.layerType === 'raised' ? 'raised' : asset.layerType,
+      layerType: asset.layerType,
     })
+  }
+  return layers
+}
+
+/** Every raised charm across the WHOLE hand, in absolute image-space coordinates — see
+ * CharmLayer/composeCharmLayer for why these render as one hand-wide unclipped layer
+ * instead of being baked into (and hard-clipped by) each nail's own canvas. */
+async function buildCharmLayersForExport(hand: HandData, fingers: Record<FingerId, FingerDesign>, stickersById: Record<string, DecalAsset>): Promise<DecalLayer[]> {
+  const layers: DecalLayer[] = []
+  for (const nail of hand.nails) {
+    const design = fingers[nail.id]
+    const sorted = [...design.stickers].sort((a, b) => a.z - b.z)
+    for (const st of sorted) {
+      if (st.visible === false) continue
+      const asset = stickersById[st.stickerId]
+      if (!asset || asset.layerType !== 'raised') continue
+      const resolved = await getResolvedDecalAsset(resolveDecalPath(asset.path))
+      const [cx, cy] = localToImage(nail, st.uv)
+      const widthPx = nailWidthPx(nail) * asset.defaultScale * st.scale
+      const [, , cbw, cbh] = resolved.contentBounds
+      const contentAspect = (cbh * resolved.pixels.height) / (cbw * resolved.pixels.width || 1)
+      layers.push({
+        pixels: resolved.pixels,
+        contentBounds: resolved.contentBounds,
+        centerX: cx,
+        centerY: cy,
+        widthPx,
+        heightPx: widthPx * contentAspect,
+        rotationDeg: st.rotation,
+        flipX: st.flipX ?? false,
+        opacity: st.opacity ?? 1,
+        tint: asset.tintable && st.tint ? hexToRgb01(st.tint) : null,
+        curvature: 0,
+        layerType: 'raised',
+      })
+    }
   }
   return layers
 }
@@ -128,6 +166,14 @@ export async function exportDesignPng(
     layerCtx.drawImage(mask, 0, 0)
 
     ctx.drawImage(layer, 0, 0)
+  }
+
+  // Charms render last, in one hand-wide unclipped pass on top of every nail's polish —
+  // same reasoning as CharmLayer in the live Studio preview (HandCanvas.tsx).
+  const charmLayers = await buildCharmLayersForExport(hand, fingers, stickersById)
+  if (charmLayers.length) {
+    const charmCanvas = composeCharmLayer(charmLayers, light, hand.width, hand.height)
+    ctx.drawImage(charmCanvas, 0, 0)
   }
 
   return new Promise((resolve, reject) => {
