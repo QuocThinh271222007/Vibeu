@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "packId": "vibeu-color-pack-24",
-  "presetCount": 24,
+  "presetCount": 35,
   "colorSpace": "sRGB",
   "interpolation": "sRGB channels",
   "palettesPerPreset": 5,
@@ -1632,6 +1632,754 @@
       "swatch": {
         "svg": "swatches/svg/silver-chrome.svg",
         "png": "swatches/png/silver-chrome.png",
+        "width": 512,
+        "height": 512,
+        "shows": "base-color-gradient-only"
+      },
+      "source": "Original color recipe prepared for VIBEU"
+    },
+    {
+      "id": "electric-red",
+      "name": "Electric Red",
+      "descriptionVi": "Đỏ rực điện, nổi bật và cá tính",
+      "palette": [
+        "#FF1E38",
+        "#FF4757",
+        "#E8102B",
+        "#FF6B7A",
+        "#C4001F"
+      ],
+      "paint": {
+        "mode": "linear",
+        "color": "#FF4757",
+        "stops": [
+          {
+            "at": 0.0,
+            "color": "#FF1E38"
+          },
+          {
+            "at": 0.25,
+            "color": "#FF4757"
+          },
+          {
+            "at": 0.5,
+            "color": "#E8102B"
+          },
+          {
+            "at": 0.75,
+            "color": "#FF6B7A"
+          },
+          {
+            "at": 1.0,
+            "color": "#C4001F"
+          }
+        ],
+        "start": [
+          0.5,
+          0.0
+        ],
+        "end": [
+          0.5,
+          1.0
+        ],
+        "opacity": 1
+      },
+      "material": {
+        "type": "gel",
+        "gloss": 0.88,
+        "roughness": 0.16,
+        "glitter": 0.06,
+        "catAngle": 25
+      },
+      "pattern": {
+        "type": "none",
+        "color": "#FFFFFF",
+        "size": 0.18,
+        "opacity": 1
+      },
+      "swatch": {
+        "svg": "swatches/svg/electric-red.svg",
+        "png": "swatches/png/electric-red.png",
+        "width": 512,
+        "height": 512,
+        "shows": "base-color-gradient-only"
+      },
+      "source": "Original color recipe prepared for VIBEU"
+    },
+    {
+      "id": "neon-lime",
+      "name": "Neon Lime",
+      "descriptionVi": "Xanh chanh neon rực rỡ",
+      "palette": [
+        "#C6FF3D",
+        "#A6E22E",
+        "#E8FF7A",
+        "#8FD400",
+        "#D4FF9E"
+      ],
+      "paint": {
+        "mode": "linear",
+        "color": "#A6E22E",
+        "stops": [
+          {
+            "at": 0.0,
+            "color": "#C6FF3D"
+          },
+          {
+            "at": 0.25,
+            "color": "#A6E22E"
+          },
+          {
+            "at": 0.5,
+            "color": "#E8FF7A"
+          },
+          {
+            "at": 0.75,
+            "color": "#8FD400"
+          },
+          {
+            "at": 1.0,
+            "color": "#D4FF9E"
+          }
+        ],
+        "start": [
+          0.5,
+          0.0
+        ],
+        "end": [
+          0.5,
+          1.0
+        ],
+        "opacity": 1
+      },
+      "material": {
+        "type": "gel",
+        "gloss": 0.86,
+        "roughness": 0.18,
+        "glitter": 0.06,
+        "catAngle": 25
+      },
+      "pattern": {
+        "type": "none",
+        "color": "#FFFFFF",
+        "size": 0.18,
+        "opacity": 1
+      },
+      "swatch": {
+        "svg": "swatches/svg/neon-lime.svg",
+        "png": "swatches/png/neon-lime.png",
+        "width": 512,
+        "height": 512,
+        "shows": "base-color-gradient-only"
+      },
+      "source": "Original color recipe prepared for VIBEU"
+    },
+    {
+      "id": "hot-magenta",
+      "name": "Hot Magenta",
+      "descriptionVi": "Hồng cánh sen rực, táo bạo",
+      "palette": [
+        "#FF2FB0",
+        "#FF5CC8",
+        "#E0009A",
+        "#FF8ADA",
+        "#C4007D"
+      ],
+      "paint": {
+        "mode": "linear",
+        "color": "#FF5CC8",
+        "stops": [
+          {
+            "at": 0.0,
+            "color": "#FF2FB0"
+          },
+          {
+            "at": 0.25,
+            "color": "#FF5CC8"
+          },
+          {
+            "at": 0.5,
+            "color": "#E0009A"
+          },
+          {
+            "at": 0.75,
+            "color": "#FF8ADA"
+          },
+          {
+            "at": 1.0,
+            "color": "#C4007D"
+          }
+        ],
+        "start": [
+          0.5,
+          0.0
+        ],
+        "end": [
+          0.5,
+          1.0
+        ],
+        "opacity": 1
+      },
+      "material": {
+        "type": "gel",
+        "gloss": 0.88,
+        "roughness": 0.16,
+        "glitter": 0.08,
+        "catAngle": 25
+      },
+      "pattern": {
+        "type": "none",
+        "color": "#FFFFFF",
+        "size": 0.18,
+        "opacity": 1
+      },
+      "swatch": {
+        "svg": "swatches/svg/hot-magenta.svg",
+        "png": "swatches/png/hot-magenta.png",
+        "width": 512,
+        "height": 512,
+        "shows": "base-color-gradient-only"
+      },
+      "source": "Original color recipe prepared for VIBEU"
+    },
+    {
+      "id": "royal-cobalt",
+      "name": "Royal Cobalt",
+      "descriptionVi": "Xanh coban hoàng gia, sâu và sang",
+      "palette": [
+        "#0033CC",
+        "#1D4FE0",
+        "#001F80",
+        "#3D66F0",
+        "#000F4D"
+      ],
+      "paint": {
+        "mode": "linear",
+        "color": "#1D4FE0",
+        "stops": [
+          {
+            "at": 0.0,
+            "color": "#0033CC"
+          },
+          {
+            "at": 0.25,
+            "color": "#1D4FE0"
+          },
+          {
+            "at": 0.5,
+            "color": "#001F80"
+          },
+          {
+            "at": 0.75,
+            "color": "#3D66F0"
+          },
+          {
+            "at": 1.0,
+            "color": "#000F4D"
+          }
+        ],
+        "start": [
+          0.5,
+          0.0
+        ],
+        "end": [
+          0.5,
+          1.0
+        ],
+        "opacity": 1
+      },
+      "material": {
+        "type": "gel",
+        "gloss": 0.86,
+        "roughness": 0.18,
+        "glitter": 0.06,
+        "catAngle": 25
+      },
+      "pattern": {
+        "type": "none",
+        "color": "#FFFFFF",
+        "size": 0.18,
+        "opacity": 1
+      },
+      "swatch": {
+        "svg": "swatches/svg/royal-cobalt.svg",
+        "png": "swatches/png/royal-cobalt.png",
+        "width": 512,
+        "height": 512,
+        "shows": "base-color-gradient-only"
+      },
+      "source": "Original color recipe prepared for VIBEU"
+    },
+    {
+      "id": "sunshine-yellow",
+      "name": "Sunshine Yellow",
+      "descriptionVi": "Vàng nắng rực rỡ, tươi vui",
+      "palette": [
+        "#FFD500",
+        "#FFE347",
+        "#F2B800",
+        "#FFF08A",
+        "#D69E00"
+      ],
+      "paint": {
+        "mode": "linear",
+        "color": "#FFE347",
+        "stops": [
+          {
+            "at": 0.0,
+            "color": "#FFD500"
+          },
+          {
+            "at": 0.25,
+            "color": "#FFE347"
+          },
+          {
+            "at": 0.5,
+            "color": "#F2B800"
+          },
+          {
+            "at": 0.75,
+            "color": "#FFF08A"
+          },
+          {
+            "at": 1.0,
+            "color": "#D69E00"
+          }
+        ],
+        "start": [
+          0.5,
+          0.0
+        ],
+        "end": [
+          0.5,
+          1.0
+        ],
+        "opacity": 1
+      },
+      "material": {
+        "type": "gel",
+        "gloss": 0.86,
+        "roughness": 0.18,
+        "glitter": 0.08,
+        "catAngle": 25
+      },
+      "pattern": {
+        "type": "none",
+        "color": "#FFFFFF",
+        "size": 0.18,
+        "opacity": 1
+      },
+      "swatch": {
+        "svg": "swatches/svg/sunshine-yellow.svg",
+        "png": "swatches/png/sunshine-yellow.png",
+        "width": 512,
+        "height": 512,
+        "shows": "base-color-gradient-only"
+      },
+      "source": "Original color recipe prepared for VIBEU"
+    },
+    {
+      "id": "tropical-teal",
+      "name": "Tropical Teal",
+      "descriptionVi": "Xanh ngọc nhiệt đới, mát mắt",
+      "palette": [
+        "#00D9C0",
+        "#00F5D4",
+        "#00A896",
+        "#5CFFE8",
+        "#007566"
+      ],
+      "paint": {
+        "mode": "linear",
+        "color": "#00F5D4",
+        "stops": [
+          {
+            "at": 0.0,
+            "color": "#00D9C0"
+          },
+          {
+            "at": 0.25,
+            "color": "#00F5D4"
+          },
+          {
+            "at": 0.5,
+            "color": "#00A896"
+          },
+          {
+            "at": 0.75,
+            "color": "#5CFFE8"
+          },
+          {
+            "at": 1.0,
+            "color": "#007566"
+          }
+        ],
+        "start": [
+          0.5,
+          0.0
+        ],
+        "end": [
+          0.5,
+          1.0
+        ],
+        "opacity": 1
+      },
+      "material": {
+        "type": "gel",
+        "gloss": 0.86,
+        "roughness": 0.18,
+        "glitter": 0.06,
+        "catAngle": 25
+      },
+      "pattern": {
+        "type": "none",
+        "color": "#FFFFFF",
+        "size": 0.18,
+        "opacity": 1
+      },
+      "swatch": {
+        "svg": "swatches/svg/tropical-teal.svg",
+        "png": "swatches/png/tropical-teal.png",
+        "width": 512,
+        "height": 512,
+        "shows": "base-color-gradient-only"
+      },
+      "source": "Original color recipe prepared for VIBEU"
+    },
+    {
+      "id": "violet-blaze",
+      "name": "Violet Blaze",
+      "descriptionVi": "Tím rực cháy, huyền bí và nổi bật",
+      "palette": [
+        "#8A2BE2",
+        "#A855F7",
+        "#6B0FC7",
+        "#C084FC",
+        "#4A0A8F"
+      ],
+      "paint": {
+        "mode": "linear",
+        "color": "#A855F7",
+        "stops": [
+          {
+            "at": 0.0,
+            "color": "#8A2BE2"
+          },
+          {
+            "at": 0.25,
+            "color": "#A855F7"
+          },
+          {
+            "at": 0.5,
+            "color": "#6B0FC7"
+          },
+          {
+            "at": 0.75,
+            "color": "#C084FC"
+          },
+          {
+            "at": 1.0,
+            "color": "#4A0A8F"
+          }
+        ],
+        "start": [
+          0.5,
+          0.0
+        ],
+        "end": [
+          0.5,
+          1.0
+        ],
+        "opacity": 1
+      },
+      "material": {
+        "type": "gel",
+        "gloss": 0.86,
+        "roughness": 0.18,
+        "glitter": 0.06,
+        "catAngle": 25
+      },
+      "pattern": {
+        "type": "none",
+        "color": "#FFFFFF",
+        "size": 0.18,
+        "opacity": 1
+      },
+      "swatch": {
+        "svg": "swatches/svg/violet-blaze.svg",
+        "png": "swatches/png/violet-blaze.png",
+        "width": 512,
+        "height": 512,
+        "shows": "base-color-gradient-only"
+      },
+      "source": "Original color recipe prepared for VIBEU"
+    },
+    {
+      "id": "citrus-orange",
+      "name": "Citrus Orange",
+      "descriptionVi": "Cam chanh sả, năng động rực lửa",
+      "palette": [
+        "#FF6B00",
+        "#FF8A3D",
+        "#E85D00",
+        "#FFAB6B",
+        "#C24C00"
+      ],
+      "paint": {
+        "mode": "linear",
+        "color": "#FF8A3D",
+        "stops": [
+          {
+            "at": 0.0,
+            "color": "#FF6B00"
+          },
+          {
+            "at": 0.25,
+            "color": "#FF8A3D"
+          },
+          {
+            "at": 0.5,
+            "color": "#E85D00"
+          },
+          {
+            "at": 0.75,
+            "color": "#FFAB6B"
+          },
+          {
+            "at": 1.0,
+            "color": "#C24C00"
+          }
+        ],
+        "start": [
+          0.5,
+          0.0
+        ],
+        "end": [
+          0.5,
+          1.0
+        ],
+        "opacity": 1
+      },
+      "material": {
+        "type": "gel",
+        "gloss": 0.86,
+        "roughness": 0.18,
+        "glitter": 0.06,
+        "catAngle": 25
+      },
+      "pattern": {
+        "type": "none",
+        "color": "#FFFFFF",
+        "size": 0.18,
+        "opacity": 1
+      },
+      "swatch": {
+        "svg": "swatches/svg/citrus-orange.svg",
+        "png": "swatches/png/citrus-orange.png",
+        "width": 512,
+        "height": 512,
+        "shows": "base-color-gradient-only"
+      },
+      "source": "Original color recipe prepared for VIBEU"
+    },
+    {
+      "id": "diamond-dust-glitter",
+      "name": "Diamond Dust Glitter",
+      "descriptionVi": "Kim tuyến ánh kim cương, lấp lánh trắng bạc",
+      "palette": [
+        "#F5F8FF",
+        "#E3ECFF",
+        "#FFFFFF",
+        "#D0DFFF",
+        "#C7D6F2"
+      ],
+      "paint": {
+        "mode": "linear",
+        "color": "#E3ECFF",
+        "stops": [
+          {
+            "at": 0.0,
+            "color": "#F5F8FF"
+          },
+          {
+            "at": 0.25,
+            "color": "#E3ECFF"
+          },
+          {
+            "at": 0.5,
+            "color": "#FFFFFF"
+          },
+          {
+            "at": 0.75,
+            "color": "#D0DFFF"
+          },
+          {
+            "at": 1.0,
+            "color": "#C7D6F2"
+          }
+        ],
+        "start": [
+          0.5,
+          0.0
+        ],
+        "end": [
+          0.5,
+          1.0
+        ],
+        "opacity": 1
+      },
+      "material": {
+        "type": "glitter",
+        "gloss": 0.82,
+        "roughness": 0.3,
+        "glitter": 0.85,
+        "catAngle": 25
+      },
+      "pattern": {
+        "type": "none",
+        "color": "#FFFFFF",
+        "size": 0.18,
+        "opacity": 1
+      },
+      "swatch": {
+        "svg": "swatches/svg/diamond-dust-glitter.svg",
+        "png": "swatches/png/diamond-dust-glitter.png",
+        "width": 512,
+        "height": 512,
+        "shows": "base-color-gradient-only"
+      },
+      "source": "Original color recipe prepared for VIBEU"
+    },
+    {
+      "id": "ruby-glitter-rush",
+      "name": "Ruby Glitter Rush",
+      "descriptionVi": "Kim tuyến đỏ ruby rực lửa",
+      "palette": [
+        "#B4002E",
+        "#E8103F",
+        "#8C0021",
+        "#FF3D60",
+        "#6B0018"
+      ],
+      "paint": {
+        "mode": "linear",
+        "color": "#E8103F",
+        "stops": [
+          {
+            "at": 0.0,
+            "color": "#B4002E"
+          },
+          {
+            "at": 0.25,
+            "color": "#E8103F"
+          },
+          {
+            "at": 0.5,
+            "color": "#8C0021"
+          },
+          {
+            "at": 0.75,
+            "color": "#FF3D60"
+          },
+          {
+            "at": 1.0,
+            "color": "#6B0018"
+          }
+        ],
+        "start": [
+          0.5,
+          0.0
+        ],
+        "end": [
+          0.5,
+          1.0
+        ],
+        "opacity": 1
+      },
+      "material": {
+        "type": "glitter",
+        "gloss": 0.82,
+        "roughness": 0.3,
+        "glitter": 0.8,
+        "catAngle": 25
+      },
+      "pattern": {
+        "type": "none",
+        "color": "#FFFFFF",
+        "size": 0.18,
+        "opacity": 1
+      },
+      "swatch": {
+        "svg": "swatches/svg/ruby-glitter-rush.svg",
+        "png": "swatches/png/ruby-glitter-rush.png",
+        "width": 512,
+        "height": 512,
+        "shows": "base-color-gradient-only"
+      },
+      "source": "Original color recipe prepared for VIBEU"
+    },
+    {
+      "id": "sapphire-glitter-night",
+      "name": "Sapphire Glitter Night",
+      "descriptionVi": "Kim tuyến xanh sapphire lấp lánh đêm sao",
+      "palette": [
+        "#0A1A6B",
+        "#1E3AA8",
+        "#050F42",
+        "#3D5CD6",
+        "#000728"
+      ],
+      "paint": {
+        "mode": "linear",
+        "color": "#1E3AA8",
+        "stops": [
+          {
+            "at": 0.0,
+            "color": "#0A1A6B"
+          },
+          {
+            "at": 0.25,
+            "color": "#1E3AA8"
+          },
+          {
+            "at": 0.5,
+            "color": "#050F42"
+          },
+          {
+            "at": 0.75,
+            "color": "#3D5CD6"
+          },
+          {
+            "at": 1.0,
+            "color": "#000728"
+          }
+        ],
+        "start": [
+          0.5,
+          0.0
+        ],
+        "end": [
+          0.5,
+          1.0
+        ],
+        "opacity": 1
+      },
+      "material": {
+        "type": "glitter",
+        "gloss": 0.82,
+        "roughness": 0.3,
+        "glitter": 0.8,
+        "catAngle": 25
+      },
+      "pattern": {
+        "type": "none",
+        "color": "#FFFFFF",
+        "size": 0.18,
+        "opacity": 1
+      },
+      "swatch": {
+        "svg": "swatches/svg/sapphire-glitter-night.svg",
+        "png": "swatches/png/sapphire-glitter-night.png",
         "width": 512,
         "height": 512,
         "shows": "base-color-gradient-only"
