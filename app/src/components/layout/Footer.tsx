@@ -52,7 +52,7 @@ export function Footer() {
       <div className="pointer-events-none absolute -top-12 left-1/2 h-40 w-[140%] -translate-x-1/2 rounded-[100%] bg-[linear-gradient(90deg,#90B8EB33,#FF92F933,#FFD87933)] blur-2xl" />
       <div className="relative mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 lg:grid-cols-[1.3fr_1fr_1fr] lg:px-8">
         <div>
-          <Logo />
+          <Logo full />
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-vibe-ink-soft">
             Studio sáng tạo số giúp bạn tự thiết kế bộ nail mang đậm cá tính riêng — từ form, màu gel thạch đến charm 3D — rồi mang thẳng ra tiệm bằng mã QR, hoàn toàn miễn phí.
           </p>
