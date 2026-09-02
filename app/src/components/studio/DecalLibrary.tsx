@@ -2,6 +2,7 @@ import { useMemo, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Search, Sparkles, Upload } from 'lucide-react'
 import { Chip } from '@/components/ui/Chip'
+import { ScrollableRow } from '@/components/ui/ScrollableRow'
 import { useDecals, resolveDecalPath } from '@/data/loaders'
 import { registerUploadedDecal } from '@/lib/decalCache'
 import { useStudioStore } from '@/store/studioStore'
@@ -79,7 +80,7 @@ export function DecalLibrary({ onAdd }: { onAdd: (decalId: string) => void }) {
         </div>
       )}
 
-      <div className="flex gap-2 overflow-x-auto pb-1 no-scrollbar">
+      <ScrollableRow className="flex gap-2 pb-1">
         <Chip active={category === 'all'} onClick={() => setCategory('all')}>
           Tất cả danh mục
         </Chip>
@@ -88,7 +89,7 @@ export function DecalLibrary({ onAdd }: { onAdd: (decalId: string) => void }) {
             {c.nameVi}
           </Chip>
         ))}
-      </div>
+      </ScrollableRow>
 
       <div>
         <input

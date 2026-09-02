@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { Search } from 'lucide-react'
 import { Chip } from '@/components/ui/Chip'
+import { ScrollableRow } from '@/components/ui/ScrollableRow'
 import { TemplatePreviewCard } from '@/components/studio/TemplatePreviewCard'
 import { curatedPreviewRank } from '@/data/curatedPreviews'
 import { TEMPLATES } from '@/data/templates'
@@ -53,13 +54,13 @@ export default function Library() {
         </label>
       </div>
 
-      <div className="mt-6 flex gap-2 overflow-x-auto pb-2 no-scrollbar sm:flex-wrap sm:justify-center sm:overflow-visible">
+      <ScrollableRow className="mt-6 flex gap-2 pb-2 sm:flex-wrap sm:justify-center sm:overflow-visible">
         {FILTERS.map((f) => (
           <Chip key={f.id} active={filter === f.id} onClick={() => setFilter(f.id)}>
             {f.label}
           </Chip>
         ))}
-      </div>
+      </ScrollableRow>
 
       {templates.length === 0 ? (
         <p className="py-20 text-center text-vibe-ink-soft">Không tìm thấy mẫu phù hợp, thử bộ lọc khác nhé.</p>
