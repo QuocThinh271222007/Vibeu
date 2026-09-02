@@ -5,9 +5,15 @@ import { Logo } from '@/components/ui/Logo'
 import { useStudioStore } from '@/store/studioStore'
 import type { SkinToneId } from '@/types/vibeu'
 
+// Labels previously had it backwards: 'cozy' is actually the fairer/lighter-toned hand
+// photo and 'matcha' the deeper/warmer-toned one, but they were labeled "Ấm" (warm) and
+// "Sáng" (light) respectively — the opposite of what each photo actually shows (user
+// report: "da ấm và da sáng đang ngược nhau"). Internal ids (cozy/matcha) are left alone
+// since they're referenced throughout templates.ts/loaders.ts/asset paths — only the
+// user-facing label + swatch color are corrected here to match the real photos.
 const SKIN_TONES: { id: SkinToneId; label: string; swatch: string }[] = [
-  { id: 'cozy', label: 'Ấm', swatch: '#E3B79A' },
-  { id: 'matcha', label: 'Sáng', swatch: '#F0CBA8' },
+  { id: 'cozy', label: 'Sáng', swatch: '#F0C9B4' },
+  { id: 'matcha', label: 'Ấm', swatch: '#C68A65' },
 ]
 
 export function StudioTopBar({
