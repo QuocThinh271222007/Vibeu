@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Check, Palette } from 'lucide-react'
 import { useColorPresets, colorSwatchUrl } from '@/data/loaders'
+import { ColorWheel } from '@/components/studio/ColorWheel'
 import { GradientEditor } from '@/components/studio/GradientEditor'
 import { MaterialPreview } from '@/components/studio/MaterialPreview'
 import type { CustomGradient, EffectId, FingerDesign } from '@/types/vibeu'
@@ -105,18 +106,18 @@ export function PaintTab({
       )}
 
       <div>
-        <p className="mb-3 flex items-center gap-1.5 text-sm font-semibold text-vibe-ink">
-          <Palette size={15} /> Tùy chỉnh riêng
-        </p>
-        <div className="flex items-center gap-3">
-          <label className="relative h-11 w-11 shrink-0 cursor-pointer overflow-hidden rounded-full border-2 border-vibe-ink/10 shadow-sm">
-            <input
-              type="color"
-              value={design.customColor ?? '#FF92F9'}
-              onChange={(e) => onCustomColor(e.target.value)}
-              className="absolute -left-2 -top-2 h-16 w-16 cursor-pointer"
-            />
-          </label>
+        <div className="mb-3 flex items-center justify-between">
+          <p className="flex items-center gap-1.5 text-sm font-semibold text-vibe-ink">
+            <Palette size={15} /> Tùy chỉnh riêng
+          </p>
+          {design.customColor && (
+            <button onClick={() => onCustomColor(null)} className="text-xs font-semibold text-vibe-pink-dark underline-offset-2 hover:underline">
+              Xoá
+            </button>
+          )}
+        </div>
+        <div className="flex flex-col items-center gap-2">
+          <ColorWheel value={design.customColor ?? '#FF92F9'} onChange={onCustomColor} />
           <div className="text-xs text-vibe-ink-soft">
             {design.customColor ? (
               <>
@@ -126,11 +127,6 @@ export function PaintTab({
               'Chọn để ghi đè màu preset cho ngón này'
             )}
           </div>
-          {design.customColor && (
-            <button onClick={() => onCustomColor(null)} className="ml-auto text-xs font-semibold text-vibe-pink-dark underline-offset-2 hover:underline">
-              Xoá
-            </button>
-          )}
         </div>
       </div>
     </div>
