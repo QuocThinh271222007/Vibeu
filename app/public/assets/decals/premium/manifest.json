@@ -1,7 +1,7 @@
 {
   "packId": "vibeu-premium-decal-pack-v1",
   "generatedBy": "premium sticker-sheet ingestion (this session)",
-  "totalDecals": 144,
+  "totalDecals": 298,
   "categories": [
     {
       "id": "coquette-charms",
@@ -32,6 +32,31 @@
       "id": "florals-fruits",
       "nameVi": "Hoa & trái cây",
       "count": 24
+    },
+    {
+      "id": "christmas-winter",
+      "nameVi": "Giáng sinh & mùa đông",
+      "count": 38
+    },
+    {
+      "id": "gothic-halloween",
+      "nameVi": "Halloween & gothic ngọt ngào",
+      "count": 27
+    },
+    {
+      "id": "valentine-love",
+      "nameVi": "Valentine & tình yêu",
+      "count": 27
+    },
+    {
+      "id": "tet-lunar-new-year",
+      "nameVi": "Tết & năm mới",
+      "count": 32
+    },
+    {
+      "id": "mid-autumn",
+      "nameVi": "Trung thu",
+      "count": 30
     }
   ],
   "decals": [
@@ -4636,6 +4661,4898 @@
         0.0,
         0.937,
         0.9701
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "xm-bow-heart-charm",
+      "name": "Bow Heart Charm",
+      "nameVi": "Bow Heart Charm",
+      "category": "christmas-winter",
+      "categoryVi": "Giáng sinh & mùa đông",
+      "tags": [
+        "premium",
+        "christmas-winter",
+        "bow",
+        "heart",
+        "charm"
+      ],
+      "path": "premium/christmas-winter/bow-heart-charm.webp",
+      "thumbnail": "premium/christmas-winter/bow-heart-charm.thumb.webp",
+      "viewBox": [
+        212,
+        186
+      ],
+      "contentBounds": [
+        0.0283,
+        0.0269,
+        0.9434,
+        0.9409
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "xm-snowflake-pink",
+      "name": "Snowflake Pink",
+      "nameVi": "Snowflake Pink",
+      "category": "christmas-winter",
+      "categoryVi": "Giáng sinh & mùa đông",
+      "tags": [
+        "premium",
+        "christmas-winter",
+        "snowflake",
+        "pink"
+      ],
+      "path": "premium/christmas-winter/snowflake-pink.webp",
+      "thumbnail": "premium/christmas-winter/snowflake-pink.thumb.webp",
+      "viewBox": [
+        174,
+        188
+      ],
+      "contentBounds": [
+        0.0345,
+        0.0319,
+        0.931,
+        0.9362
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "xm-snowman-scarf",
+      "name": "Snowman Scarf",
+      "nameVi": "Snowman Scarf",
+      "category": "christmas-winter",
+      "categoryVi": "Giáng sinh & mùa đông",
+      "tags": [
+        "premium",
+        "christmas-winter",
+        "snowman",
+        "scarf"
+      ],
+      "path": "premium/christmas-winter/snowman-scarf.webp",
+      "thumbnail": "premium/christmas-winter/snowman-scarf.thumb.webp",
+      "viewBox": [
+        171,
+        245
+      ],
+      "contentBounds": [
+        0.0351,
+        0.0245,
+        0.9298,
+        0.951
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "xm-heart-ornament-pearl",
+      "name": "Heart Ornament Pearl",
+      "nameVi": "Heart Ornament Pearl",
+      "category": "christmas-winter",
+      "categoryVi": "Giáng sinh & mùa đông",
+      "tags": [
+        "premium",
+        "christmas-winter",
+        "heart",
+        "ornament",
+        "pearl"
+      ],
+      "path": "premium/christmas-winter/heart-ornament-pearl.webp",
+      "thumbnail": "premium/christmas-winter/heart-ornament-pearl.thumb.webp",
+      "viewBox": [
+        161,
+        220
+      ],
+      "contentBounds": [
+        0.0373,
+        0.0273,
+        0.9255,
+        0.9455
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "xm-gift-box-mint-bow",
+      "name": "Gift Box Mint Bow",
+      "nameVi": "Gift Box Mint Bow",
+      "category": "christmas-winter",
+      "categoryVi": "Giáng sinh & mùa đông",
+      "tags": [
+        "premium",
+        "christmas-winter",
+        "gift",
+        "box",
+        "mint",
+        "bow"
+      ],
+      "path": "premium/christmas-winter/gift-box-mint-bow.webp",
+      "thumbnail": "premium/christmas-winter/gift-box-mint-bow.thumb.webp",
+      "viewBox": [
+        166,
+        194
+      ],
+      "contentBounds": [
+        0.0361,
+        0.0309,
+        0.9277,
+        0.9381
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "xm-cocoa-mug-snowflake",
+      "name": "Cocoa Mug Snowflake",
+      "nameVi": "Cocoa Mug Snowflake",
+      "category": "christmas-winter",
+      "categoryVi": "Giáng sinh & mùa đông",
+      "tags": [
+        "premium",
+        "christmas-winter",
+        "cocoa",
+        "mug",
+        "snowflake"
+      ],
+      "path": "premium/christmas-winter/cocoa-mug-snowflake.webp",
+      "thumbnail": "premium/christmas-winter/cocoa-mug-snowflake.thumb.webp",
+      "viewBox": [
+        192,
+        217
+      ],
+      "contentBounds": [
+        0.0312,
+        0.0276,
+        0.9375,
+        0.9447
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "xm-gingerbread-man",
+      "name": "Gingerbread Man",
+      "nameVi": "Gingerbread Man",
+      "category": "christmas-winter",
+      "categoryVi": "Giáng sinh & mùa đông",
+      "tags": [
+        "premium",
+        "christmas-winter",
+        "gingerbread",
+        "man"
+      ],
+      "path": "premium/christmas-winter/gingerbread-man.webp",
+      "thumbnail": "premium/christmas-winter/gingerbread-man.thumb.webp",
+      "viewBox": [
+        172,
+        215
+      ],
+      "contentBounds": [
+        0.0349,
+        0.0279,
+        0.9302,
+        0.9442
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "xm-star-cookie-bow",
+      "name": "Star Cookie Bow",
+      "nameVi": "Star Cookie Bow",
+      "category": "christmas-winter",
+      "categoryVi": "Giáng sinh & mùa đông",
+      "tags": [
+        "premium",
+        "christmas-winter",
+        "star",
+        "cookie",
+        "bow"
+      ],
+      "path": "premium/christmas-winter/star-cookie-bow.webp",
+      "thumbnail": "premium/christmas-winter/star-cookie-bow.thumb.webp",
+      "viewBox": [
+        149,
+        168
+      ],
+      "contentBounds": [
+        0.0403,
+        0.0357,
+        0.9195,
+        0.9286
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "xm-stocking-holly",
+      "name": "Stocking Holly",
+      "nameVi": "Stocking Holly",
+      "category": "christmas-winter",
+      "categoryVi": "Giáng sinh & mùa đông",
+      "tags": [
+        "premium",
+        "christmas-winter",
+        "stocking",
+        "holly"
+      ],
+      "path": "premium/christmas-winter/stocking-holly.webp",
+      "thumbnail": "premium/christmas-winter/stocking-holly.thumb.webp",
+      "viewBox": [
+        184,
+        271
+      ],
+      "contentBounds": [
+        0.0326,
+        0.0221,
+        0.9348,
+        0.9557
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "xm-candy-cane-holly",
+      "name": "Candy Cane Holly",
+      "nameVi": "Candy Cane Holly",
+      "category": "christmas-winter",
+      "categoryVi": "Giáng sinh & mùa đông",
+      "tags": [
+        "premium",
+        "christmas-winter",
+        "candy",
+        "cane",
+        "holly"
+      ],
+      "path": "premium/christmas-winter/candy-cane-holly.webp",
+      "thumbnail": "premium/christmas-winter/candy-cane-holly.thumb.webp",
+      "viewBox": [
+        152,
+        272
+      ],
+      "contentBounds": [
+        0.0395,
+        0.0221,
+        0.9211,
+        0.9559
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "xm-gift-box-stripe-bow",
+      "name": "Gift Box Stripe Bow",
+      "nameVi": "Gift Box Stripe Bow",
+      "category": "christmas-winter",
+      "categoryVi": "Giáng sinh & mùa đông",
+      "tags": [
+        "premium",
+        "christmas-winter",
+        "gift",
+        "box",
+        "stripe",
+        "bow"
+      ],
+      "path": "premium/christmas-winter/gift-box-stripe-bow.webp",
+      "thumbnail": "premium/christmas-winter/gift-box-stripe-bow.thumb.webp",
+      "viewBox": [
+        216,
+        229
+      ],
+      "contentBounds": [
+        0.0278,
+        0.0262,
+        0.9444,
+        0.9476
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "xm-snow-globe-house",
+      "name": "Snow Globe House",
+      "nameVi": "Snow Globe House",
+      "category": "christmas-winter",
+      "categoryVi": "Giáng sinh & mùa đông",
+      "tags": [
+        "premium",
+        "christmas-winter",
+        "snow",
+        "globe",
+        "house"
+      ],
+      "path": "premium/christmas-winter/snow-globe-house.webp",
+      "thumbnail": "premium/christmas-winter/snow-globe-house.thumb.webp",
+      "viewBox": [
+        204,
+        269
+      ],
+      "contentBounds": [
+        0.0294,
+        0.0223,
+        0.9412,
+        0.9554
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "xm-bunny-scarf-pink",
+      "name": "Bunny Scarf Pink",
+      "nameVi": "Bunny Scarf Pink",
+      "category": "christmas-winter",
+      "categoryVi": "Giáng sinh & mùa đông",
+      "tags": [
+        "premium",
+        "christmas-winter",
+        "bunny",
+        "scarf",
+        "pink"
+      ],
+      "path": "premium/christmas-winter/bunny-scarf-pink.webp",
+      "thumbnail": "premium/christmas-winter/bunny-scarf-pink.thumb.webp",
+      "viewBox": [
+        220,
+        296
+      ],
+      "contentBounds": [
+        0.0273,
+        0.0203,
+        0.9455,
+        0.9595
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "xm-holly-berries",
+      "name": "Holly Berries",
+      "nameVi": "Holly Berries",
+      "category": "christmas-winter",
+      "categoryVi": "Giáng sinh & mùa đông",
+      "tags": [
+        "premium",
+        "christmas-winter",
+        "holly",
+        "berries"
+      ],
+      "path": "premium/christmas-winter/holly-berries.webp",
+      "thumbnail": "premium/christmas-winter/holly-berries.thumb.webp",
+      "viewBox": [
+        135,
+        131
+      ],
+      "contentBounds": [
+        0.0444,
+        0.0458,
+        0.9111,
+        0.9084
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "xm-ice-skate-pink",
+      "name": "Ice Skate Pink",
+      "nameVi": "Ice Skate Pink",
+      "category": "christmas-winter",
+      "categoryVi": "Giáng sinh & mùa đông",
+      "tags": [
+        "premium",
+        "christmas-winter",
+        "ice",
+        "skate",
+        "pink"
+      ],
+      "path": "premium/christmas-winter/ice-skate-pink.webp",
+      "thumbnail": "premium/christmas-winter/ice-skate-pink.thumb.webp",
+      "viewBox": [
+        203,
+        203
+      ],
+      "contentBounds": [
+        0.0296,
+        0.0296,
+        0.9409,
+        0.9409
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "xm-envelope-holly-heart",
+      "name": "Envelope Holly Heart",
+      "nameVi": "Envelope Holly Heart",
+      "category": "christmas-winter",
+      "categoryVi": "Giáng sinh & mùa đông",
+      "tags": [
+        "premium",
+        "christmas-winter",
+        "envelope",
+        "holly",
+        "heart"
+      ],
+      "path": "premium/christmas-winter/envelope-holly-heart.webp",
+      "thumbnail": "premium/christmas-winter/envelope-holly-heart.thumb.webp",
+      "viewBox": [
+        146,
+        189
+      ],
+      "contentBounds": [
+        0.0411,
+        0.0317,
+        0.9178,
+        0.9365
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "xm-merry-script",
+      "name": "Merry Script",
+      "nameVi": "Merry Script",
+      "category": "christmas-winter",
+      "categoryVi": "Giáng sinh & mùa đông",
+      "tags": [
+        "premium",
+        "christmas-winter",
+        "merry",
+        "script"
+      ],
+      "path": "premium/christmas-winter/merry-script.webp",
+      "thumbnail": "premium/christmas-winter/merry-script.thumb.webp",
+      "viewBox": [
+        296,
+        172
+      ],
+      "contentBounds": [
+        0.0203,
+        0.0349,
+        0.9595,
+        0.9302
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "xm-candle-holly-bow",
+      "name": "Candle Holly Bow",
+      "nameVi": "Candle Holly Bow",
+      "category": "christmas-winter",
+      "categoryVi": "Giáng sinh & mùa đông",
+      "tags": [
+        "premium",
+        "christmas-winter",
+        "candle",
+        "holly",
+        "bow"
+      ],
+      "path": "premium/christmas-winter/candle-holly-bow.webp",
+      "thumbnail": "premium/christmas-winter/candle-holly-bow.thumb.webp",
+      "viewBox": [
+        168,
+        198
+      ],
+      "contentBounds": [
+        0.0357,
+        0.0303,
+        0.9286,
+        0.9394
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "xm-mittens-snowflake",
+      "name": "Mittens Snowflake",
+      "nameVi": "Mittens Snowflake",
+      "category": "christmas-winter",
+      "categoryVi": "Giáng sinh & mùa đông",
+      "tags": [
+        "premium",
+        "christmas-winter",
+        "mittens",
+        "snowflake"
+      ],
+      "path": "premium/christmas-winter/mittens-snowflake.webp",
+      "thumbnail": "premium/christmas-winter/mittens-snowflake.thumb.webp",
+      "viewBox": [
+        204,
+        294
+      ],
+      "contentBounds": [
+        0.0294,
+        0.0204,
+        0.9412,
+        0.9592
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "xm-bear-scarf-white",
+      "name": "Bear Scarf White",
+      "nameVi": "Bear Scarf White",
+      "category": "christmas-winter",
+      "categoryVi": "Giáng sinh & mùa đông",
+      "tags": [
+        "premium",
+        "christmas-winter",
+        "bear",
+        "scarf",
+        "white"
+      ],
+      "path": "premium/christmas-winter/bear-scarf-white.webp",
+      "thumbnail": "premium/christmas-winter/bear-scarf-white.thumb.webp",
+      "viewBox": [
+        199,
+        252
+      ],
+      "contentBounds": [
+        0.0302,
+        0.0238,
+        0.9397,
+        0.9524
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "xm-gingerbread-house-cake",
+      "name": "Gingerbread House Cake",
+      "nameVi": "Gingerbread House Cake",
+      "category": "christmas-winter",
+      "categoryVi": "Giáng sinh & mùa đông",
+      "tags": [
+        "premium",
+        "christmas-winter",
+        "gingerbread",
+        "house",
+        "cake"
+      ],
+      "path": "premium/christmas-winter/gingerbread-house-cake.webp",
+      "thumbnail": "premium/christmas-winter/gingerbread-house-cake.thumb.webp",
+      "viewBox": [
+        260,
+        316
+      ],
+      "contentBounds": [
+        0.0231,
+        0.019,
+        0.9538,
+        0.962
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "xm-star-pink-glossy",
+      "name": "Star Pink Glossy",
+      "nameVi": "Star Pink Glossy",
+      "category": "christmas-winter",
+      "categoryVi": "Giáng sinh & mùa đông",
+      "tags": [
+        "premium",
+        "christmas-winter",
+        "star",
+        "pink",
+        "glossy"
+      ],
+      "path": "premium/christmas-winter/star-pink-glossy.webp",
+      "thumbnail": "premium/christmas-winter/star-pink-glossy.thumb.webp",
+      "viewBox": [
+        104,
+        106
+      ],
+      "contentBounds": [
+        0.0577,
+        0.0566,
+        0.8846,
+        0.8868
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "xm-ornament-snowflake-bow",
+      "name": "Ornament Snowflake Bow",
+      "nameVi": "Ornament Snowflake Bow",
+      "category": "christmas-winter",
+      "categoryVi": "Giáng sinh & mùa đông",
+      "tags": [
+        "premium",
+        "christmas-winter",
+        "ornament",
+        "snowflake",
+        "bow"
+      ],
+      "path": "premium/christmas-winter/ornament-snowflake-bow.webp",
+      "thumbnail": "premium/christmas-winter/ornament-snowflake-bow.thumb.webp",
+      "viewBox": [
+        181,
+        236
+      ],
+      "contentBounds": [
+        0.0331,
+        0.0254,
+        0.9337,
+        0.9492
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "xm-moon-cloud-bow",
+      "name": "Moon Cloud Bow",
+      "nameVi": "Moon Cloud Bow",
+      "category": "christmas-winter",
+      "categoryVi": "Giáng sinh & mùa đông",
+      "tags": [
+        "premium",
+        "christmas-winter",
+        "moon",
+        "cloud",
+        "bow"
+      ],
+      "path": "premium/christmas-winter/moon-cloud-bow.webp",
+      "thumbnail": "premium/christmas-winter/moon-cloud-bow.thumb.webp",
+      "viewBox": [
+        237,
+        228
+      ],
+      "contentBounds": [
+        0.0253,
+        0.0263,
+        0.9494,
+        0.9474
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "xm-star-gold-soft",
+      "name": "Star Gold Soft",
+      "nameVi": "Star Gold Soft",
+      "category": "christmas-winter",
+      "categoryVi": "Giáng sinh & mùa đông",
+      "tags": [
+        "premium",
+        "christmas-winter",
+        "star",
+        "gold",
+        "soft"
+      ],
+      "path": "premium/christmas-winter/star-gold-soft.webp",
+      "thumbnail": "premium/christmas-winter/star-gold-soft.thumb.webp",
+      "viewBox": [
+        87,
+        91
+      ],
+      "contentBounds": [
+        0.069,
+        0.0659,
+        0.8621,
+        0.8681
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "xm-mistletoe-bow",
+      "name": "Mistletoe Bow",
+      "nameVi": "Mistletoe Bow",
+      "category": "christmas-winter",
+      "categoryVi": "Giáng sinh & mùa đông",
+      "tags": [
+        "premium",
+        "christmas-winter",
+        "mistletoe",
+        "bow"
+      ],
+      "path": "premium/christmas-winter/mistletoe-bow.webp",
+      "thumbnail": "premium/christmas-winter/mistletoe-bow.thumb.webp",
+      "viewBox": [
+        161,
+        215
+      ],
+      "contentBounds": [
+        0.0373,
+        0.0279,
+        0.9255,
+        0.9442
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "xm-noel-plaque",
+      "name": "Noel Plaque",
+      "nameVi": "Noel Plaque",
+      "category": "christmas-winter",
+      "categoryVi": "Giáng sinh & mùa đông",
+      "tags": [
+        "premium",
+        "christmas-winter",
+        "noel",
+        "plaque"
+      ],
+      "path": "premium/christmas-winter/noel-plaque.webp",
+      "thumbnail": "premium/christmas-winter/noel-plaque.thumb.webp",
+      "viewBox": [
+        238,
+        172
+      ],
+      "contentBounds": [
+        0.0252,
+        0.0349,
+        0.9496,
+        0.9302
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "xm-star-pearl-bow",
+      "name": "Star Pearl Bow",
+      "nameVi": "Star Pearl Bow",
+      "category": "christmas-winter",
+      "categoryVi": "Giáng sinh & mùa đông",
+      "tags": [
+        "premium",
+        "christmas-winter",
+        "star",
+        "pearl",
+        "bow"
+      ],
+      "path": "premium/christmas-winter/star-pearl-bow.webp",
+      "thumbnail": "premium/christmas-winter/star-pearl-bow.thumb.webp",
+      "viewBox": [
+        160,
+        185
+      ],
+      "contentBounds": [
+        0.0375,
+        0.0324,
+        0.925,
+        0.9351
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "xm-wreath-bow",
+      "name": "Wreath Bow",
+      "nameVi": "Wreath Bow",
+      "category": "christmas-winter",
+      "categoryVi": "Giáng sinh & mùa đông",
+      "tags": [
+        "premium",
+        "christmas-winter",
+        "wreath",
+        "bow"
+      ],
+      "path": "premium/christmas-winter/wreath-bow.webp",
+      "thumbnail": "premium/christmas-winter/wreath-bow.thumb.webp",
+      "viewBox": [
+        223,
+        226
+      ],
+      "contentBounds": [
+        0.0269,
+        0.0265,
+        0.9462,
+        0.9469
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "xm-cat-blanket-sleeping",
+      "name": "Cat Blanket Sleeping",
+      "nameVi": "Cat Blanket Sleeping",
+      "category": "christmas-winter",
+      "categoryVi": "Giáng sinh & mùa đông",
+      "tags": [
+        "premium",
+        "christmas-winter",
+        "cat",
+        "blanket",
+        "sleeping"
+      ],
+      "path": "premium/christmas-winter/cat-blanket-sleeping.webp",
+      "thumbnail": "premium/christmas-winter/cat-blanket-sleeping.thumb.webp",
+      "viewBox": [
+        257,
+        204
+      ],
+      "contentBounds": [
+        0.0233,
+        0.0294,
+        0.965,
+        0.9412
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "xm-snowflake-blue",
+      "name": "Snowflake Blue",
+      "nameVi": "Snowflake Blue",
+      "category": "christmas-winter",
+      "categoryVi": "Giáng sinh & mùa đông",
+      "tags": [
+        "premium",
+        "christmas-winter",
+        "snowflake",
+        "blue"
+      ],
+      "path": "premium/christmas-winter/snowflake-blue.webp",
+      "thumbnail": "premium/christmas-winter/snowflake-blue.thumb.webp",
+      "viewBox": [
+        152,
+        172
+      ],
+      "contentBounds": [
+        0.0395,
+        0.0349,
+        0.9211,
+        0.9302
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "xm-winter-plaque",
+      "name": "Winter Plaque",
+      "nameVi": "Winter Plaque",
+      "category": "christmas-winter",
+      "categoryVi": "Giáng sinh & mùa đông",
+      "tags": [
+        "premium",
+        "christmas-winter",
+        "winter",
+        "plaque"
+      ],
+      "path": "premium/christmas-winter/winter-plaque.webp",
+      "thumbnail": "premium/christmas-winter/winter-plaque.thumb.webp",
+      "viewBox": [
+        291,
+        184
+      ],
+      "contentBounds": [
+        0.0206,
+        0.0326,
+        0.9588,
+        0.9348
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "xm-star-gold-glossy",
+      "name": "Star Gold Glossy",
+      "nameVi": "Star Gold Glossy",
+      "category": "christmas-winter",
+      "categoryVi": "Giáng sinh & mùa đông",
+      "tags": [
+        "premium",
+        "christmas-winter",
+        "star",
+        "gold",
+        "glossy"
+      ],
+      "path": "premium/christmas-winter/star-gold-glossy.webp",
+      "thumbnail": "premium/christmas-winter/star-gold-glossy.thumb.webp",
+      "viewBox": [
+        97,
+        99
+      ],
+      "contentBounds": [
+        0.0619,
+        0.0606,
+        0.8763,
+        0.8788
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "xm-lantern-holly",
+      "name": "Lantern Holly",
+      "nameVi": "Lantern Holly",
+      "category": "christmas-winter",
+      "categoryVi": "Giáng sinh & mùa đông",
+      "tags": [
+        "premium",
+        "christmas-winter",
+        "lantern",
+        "holly"
+      ],
+      "path": "premium/christmas-winter/lantern-holly.webp",
+      "thumbnail": "premium/christmas-winter/lantern-holly.thumb.webp",
+      "viewBox": [
+        188,
+        265
+      ],
+      "contentBounds": [
+        0.0319,
+        0.0226,
+        0.9362,
+        0.9547
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "xm-sleigh-bear-gifts",
+      "name": "Sleigh Bear Gifts",
+      "nameVi": "Sleigh Bear Gifts",
+      "category": "christmas-winter",
+      "categoryVi": "Giáng sinh & mùa đông",
+      "tags": [
+        "premium",
+        "christmas-winter",
+        "sleigh",
+        "bear",
+        "gifts"
+      ],
+      "path": "premium/christmas-winter/sleigh-bear-gifts.webp",
+      "thumbnail": "premium/christmas-winter/sleigh-bear-gifts.thumb.webp",
+      "viewBox": [
+        278,
+        228
+      ],
+      "contentBounds": [
+        0.0216,
+        0.0263,
+        0.9568,
+        0.9474
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "xm-cocoa-tree-bow",
+      "name": "Cocoa Tree Bow",
+      "nameVi": "Cocoa Tree Bow",
+      "category": "christmas-winter",
+      "categoryVi": "Giáng sinh & mùa đông",
+      "tags": [
+        "premium",
+        "christmas-winter",
+        "cocoa",
+        "tree",
+        "bow"
+      ],
+      "path": "premium/christmas-winter/cocoa-tree-bow.webp",
+      "thumbnail": "premium/christmas-winter/cocoa-tree-bow.thumb.webp",
+      "viewBox": [
+        194,
+        222
+      ],
+      "contentBounds": [
+        0.0309,
+        0.027,
+        0.9381,
+        0.9459
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "xm-gingerbread-house",
+      "name": "Gingerbread House",
+      "nameVi": "Gingerbread House",
+      "category": "christmas-winter",
+      "categoryVi": "Giáng sinh & mùa đông",
+      "tags": [
+        "premium",
+        "christmas-winter",
+        "gingerbread",
+        "house"
+      ],
+      "path": "premium/christmas-winter/gingerbread-house.webp",
+      "thumbnail": "premium/christmas-winter/gingerbread-house.thumb.webp",
+      "viewBox": [
+        219,
+        215
+      ],
+      "contentBounds": [
+        0.0274,
+        0.0279,
+        0.9452,
+        0.9442
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "xm-cozy-plaque",
+      "name": "Cozy Plaque",
+      "nameVi": "Cozy Plaque",
+      "category": "christmas-winter",
+      "categoryVi": "Giáng sinh & mùa đông",
+      "tags": [
+        "premium",
+        "christmas-winter",
+        "cozy",
+        "plaque"
+      ],
+      "path": "premium/christmas-winter/cozy-plaque.webp",
+      "thumbnail": "premium/christmas-winter/cozy-plaque.thumb.webp",
+      "viewBox": [
+        218,
+        186
+      ],
+      "contentBounds": [
+        0.0275,
+        0.0323,
+        0.945,
+        0.9355
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gh-cat-black-bow",
+      "name": "Cat Black Bow",
+      "nameVi": "Cat Black Bow",
+      "category": "gothic-halloween",
+      "categoryVi": "Halloween & gothic ngọt ngào",
+      "tags": [
+        "premium",
+        "gothic-halloween",
+        "cat",
+        "black",
+        "bow"
+      ],
+      "path": "premium/gothic-halloween/cat-black-bow.webp",
+      "thumbnail": "premium/gothic-halloween/cat-black-bow.thumb.webp",
+      "viewBox": [
+        212,
+        278
+      ],
+      "contentBounds": [
+        0.0283,
+        0.0216,
+        0.9434,
+        0.9568
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gh-witch-hat-bow",
+      "name": "Witch Hat Bow",
+      "nameVi": "Witch Hat Bow",
+      "category": "gothic-halloween",
+      "categoryVi": "Halloween & gothic ngọt ngào",
+      "tags": [
+        "premium",
+        "gothic-halloween",
+        "witch",
+        "hat",
+        "bow"
+      ],
+      "path": "premium/gothic-halloween/witch-hat-bow.webp",
+      "thumbnail": "premium/gothic-halloween/witch-hat-bow.thumb.webp",
+      "viewBox": [
+        287,
+        271
+      ],
+      "contentBounds": [
+        0.0209,
+        0.0221,
+        0.9582,
+        0.9557
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gh-potion-bottle-purple",
+      "name": "Potion Bottle Purple",
+      "nameVi": "Potion Bottle Purple",
+      "category": "gothic-halloween",
+      "categoryVi": "Halloween & gothic ngọt ngào",
+      "tags": [
+        "premium",
+        "gothic-halloween",
+        "potion",
+        "bottle",
+        "purple"
+      ],
+      "path": "premium/gothic-halloween/potion-bottle-purple.webp",
+      "thumbnail": "premium/gothic-halloween/potion-bottle-purple.thumb.webp",
+      "viewBox": [
+        188,
+        242
+      ],
+      "contentBounds": [
+        0.0319,
+        0.0248,
+        0.9362,
+        0.9504
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gh-moon-bow-cloud",
+      "name": "Moon Bow Cloud",
+      "nameVi": "Moon Bow Cloud",
+      "category": "gothic-halloween",
+      "categoryVi": "Halloween & gothic ngọt ngào",
+      "tags": [
+        "premium",
+        "gothic-halloween",
+        "moon",
+        "bow",
+        "cloud"
+      ],
+      "path": "premium/gothic-halloween/moon-bow-cloud.webp",
+      "thumbnail": "premium/gothic-halloween/moon-bow-cloud.thumb.webp",
+      "viewBox": [
+        232,
+        273
+      ],
+      "contentBounds": [
+        0.0259,
+        0.022,
+        0.9483,
+        0.956
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gh-bat-pink-bow",
+      "name": "Bat Pink Bow",
+      "nameVi": "Bat Pink Bow",
+      "category": "gothic-halloween",
+      "categoryVi": "Halloween & gothic ngọt ngào",
+      "tags": [
+        "premium",
+        "gothic-halloween",
+        "bat",
+        "pink",
+        "bow"
+      ],
+      "path": "premium/gothic-halloween/bat-pink-bow.webp",
+      "thumbnail": "premium/gothic-halloween/bat-pink-bow.thumb.webp",
+      "viewBox": [
+        378,
+        197
+      ],
+      "contentBounds": [
+        0.0159,
+        0.0305,
+        0.9683,
+        0.9391
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gh-heart-spiderweb-bow",
+      "name": "Heart Spiderweb Bow",
+      "nameVi": "Heart Spiderweb Bow",
+      "category": "gothic-halloween",
+      "categoryVi": "Halloween & gothic ngọt ngào",
+      "tags": [
+        "premium",
+        "gothic-halloween",
+        "heart",
+        "spiderweb",
+        "bow"
+      ],
+      "path": "premium/gothic-halloween/heart-spiderweb-bow.webp",
+      "thumbnail": "premium/gothic-halloween/heart-spiderweb-bow.thumb.webp",
+      "viewBox": [
+        244,
+        210
+      ],
+      "contentBounds": [
+        0.0246,
+        0.0286,
+        0.9508,
+        0.9429
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gh-pumpkin-basket-bow",
+      "name": "Pumpkin Basket Bow",
+      "nameVi": "Pumpkin Basket Bow",
+      "category": "gothic-halloween",
+      "categoryVi": "Halloween & gothic ngọt ngào",
+      "tags": [
+        "premium",
+        "gothic-halloween",
+        "pumpkin",
+        "basket",
+        "bow"
+      ],
+      "path": "premium/gothic-halloween/pumpkin-basket-bow.webp",
+      "thumbnail": "premium/gothic-halloween/pumpkin-basket-bow.thumb.webp",
+      "viewBox": [
+        253,
+        273
+      ],
+      "contentBounds": [
+        0.0237,
+        0.022,
+        0.9526,
+        0.956
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gh-boo-plaque",
+      "name": "Boo Plaque",
+      "nameVi": "Boo Plaque",
+      "category": "gothic-halloween",
+      "categoryVi": "Halloween & gothic ngọt ngào",
+      "tags": [
+        "premium",
+        "gothic-halloween",
+        "boo",
+        "plaque"
+      ],
+      "path": "premium/gothic-halloween/boo-plaque.webp",
+      "thumbnail": "premium/gothic-halloween/boo-plaque.thumb.webp",
+      "viewBox": [
+        304,
+        170
+      ],
+      "contentBounds": [
+        0.0197,
+        0.0353,
+        0.9605,
+        0.9294
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gh-heart-drip-pink",
+      "name": "Heart Drip Pink",
+      "nameVi": "Heart Drip Pink",
+      "category": "gothic-halloween",
+      "categoryVi": "Halloween & gothic ngọt ngào",
+      "tags": [
+        "premium",
+        "gothic-halloween",
+        "heart",
+        "drip",
+        "pink"
+      ],
+      "path": "premium/gothic-halloween/heart-drip-pink.webp",
+      "thumbnail": "premium/gothic-halloween/heart-drip-pink.thumb.webp",
+      "viewBox": [
+        143,
+        154
+      ],
+      "contentBounds": [
+        0.042,
+        0.039,
+        0.9161,
+        0.9221
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gh-star-silver",
+      "name": "Star Silver",
+      "nameVi": "Star Silver",
+      "category": "gothic-halloween",
+      "categoryVi": "Halloween & gothic ngọt ngào",
+      "tags": [
+        "premium",
+        "gothic-halloween",
+        "star",
+        "silver"
+      ],
+      "path": "premium/gothic-halloween/star-silver.webp",
+      "thumbnail": "premium/gothic-halloween/star-silver.thumb.webp",
+      "viewBox": [
+        137,
+        137
+      ],
+      "contentBounds": [
+        0.0438,
+        0.0438,
+        0.9124,
+        0.9124
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gh-candy-heart-bow",
+      "name": "Candy Heart Bow",
+      "nameVi": "Candy Heart Bow",
+      "category": "gothic-halloween",
+      "categoryVi": "Halloween & gothic ngọt ngào",
+      "tags": [
+        "premium",
+        "gothic-halloween",
+        "candy",
+        "heart",
+        "bow"
+      ],
+      "path": "premium/gothic-halloween/candy-heart-bow.webp",
+      "thumbnail": "premium/gothic-halloween/candy-heart-bow.thumb.webp",
+      "viewBox": [
+        188,
+        119
+      ],
+      "contentBounds": [
+        0.0319,
+        0.0504,
+        0.9362,
+        0.8992
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gh-candle-heart-holder",
+      "name": "Candle Heart Holder",
+      "nameVi": "Candle Heart Holder",
+      "category": "gothic-halloween",
+      "categoryVi": "Halloween & gothic ngọt ngào",
+      "tags": [
+        "premium",
+        "gothic-halloween",
+        "candle",
+        "heart",
+        "holder"
+      ],
+      "path": "premium/gothic-halloween/candle-heart-holder.webp",
+      "thumbnail": "premium/gothic-halloween/candle-heart-holder.thumb.webp",
+      "viewBox": [
+        147,
+        324
+      ],
+      "contentBounds": [
+        0.0408,
+        0.0185,
+        0.9184,
+        0.963
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gh-spellbook",
+      "name": "Spellbook",
+      "nameVi": "Spellbook",
+      "category": "gothic-halloween",
+      "categoryVi": "Halloween & gothic ngọt ngào",
+      "tags": [
+        "premium",
+        "gothic-halloween",
+        "spellbook"
+      ],
+      "path": "premium/gothic-halloween/spellbook.webp",
+      "thumbnail": "premium/gothic-halloween/spellbook.thumb.webp",
+      "viewBox": [
+        236,
+        265
+      ],
+      "contentBounds": [
+        0.0254,
+        0.0226,
+        0.9492,
+        0.9547
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gh-haunted-house",
+      "name": "Haunted House",
+      "nameVi": "Haunted House",
+      "category": "gothic-halloween",
+      "categoryVi": "Halloween & gothic ngọt ngào",
+      "tags": [
+        "premium",
+        "gothic-halloween",
+        "haunted",
+        "house"
+      ],
+      "path": "premium/gothic-halloween/haunted-house.webp",
+      "thumbnail": "premium/gothic-halloween/haunted-house.thumb.webp",
+      "viewBox": [
+        290,
+        288
+      ],
+      "contentBounds": [
+        0.0207,
+        0.0208,
+        0.9586,
+        0.9583
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gh-bow-pink-classic",
+      "name": "Bow Pink Classic",
+      "nameVi": "Bow Pink Classic",
+      "category": "gothic-halloween",
+      "categoryVi": "Halloween & gothic ngọt ngào",
+      "tags": [
+        "premium",
+        "gothic-halloween",
+        "bow",
+        "pink",
+        "classic"
+      ],
+      "path": "premium/gothic-halloween/bow-pink-classic.webp",
+      "thumbnail": "premium/gothic-halloween/bow-pink-classic.thumb.webp",
+      "viewBox": [
+        191,
+        201
+      ],
+      "contentBounds": [
+        0.0314,
+        0.0299,
+        0.9372,
+        0.9403
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gh-ghost-cupcakes",
+      "name": "Ghost Cupcakes",
+      "nameVi": "Ghost Cupcakes",
+      "category": "gothic-halloween",
+      "categoryVi": "Halloween & gothic ngọt ngào",
+      "tags": [
+        "premium",
+        "gothic-halloween",
+        "ghost",
+        "cupcakes"
+      ],
+      "path": "premium/gothic-halloween/ghost-cupcakes.webp",
+      "thumbnail": "premium/gothic-halloween/ghost-cupcakes.thumb.webp",
+      "viewBox": [
+        277,
+        247
+      ],
+      "contentBounds": [
+        0.0217,
+        0.0243,
+        0.9567,
+        0.9514
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gh-potion-bottle-lavender",
+      "name": "Potion Bottle Lavender",
+      "nameVi": "Potion Bottle Lavender",
+      "category": "gothic-halloween",
+      "categoryVi": "Halloween & gothic ngọt ngào",
+      "tags": [
+        "premium",
+        "gothic-halloween",
+        "potion",
+        "bottle",
+        "lavender"
+      ],
+      "path": "premium/gothic-halloween/potion-bottle-lavender.webp",
+      "thumbnail": "premium/gothic-halloween/potion-bottle-lavender.thumb.webp",
+      "viewBox": [
+        213,
+        262
+      ],
+      "contentBounds": [
+        0.0282,
+        0.0229,
+        0.9437,
+        0.9542
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gh-lollipop-swirl",
+      "name": "Lollipop Swirl",
+      "nameVi": "Lollipop Swirl",
+      "category": "gothic-halloween",
+      "categoryVi": "Halloween & gothic ngọt ngào",
+      "tags": [
+        "premium",
+        "gothic-halloween",
+        "lollipop",
+        "swirl"
+      ],
+      "path": "premium/gothic-halloween/lollipop-swirl.webp",
+      "thumbnail": "premium/gothic-halloween/lollipop-swirl.thumb.webp",
+      "viewBox": [
+        167,
+        265
+      ],
+      "contentBounds": [
+        0.0359,
+        0.0226,
+        0.9281,
+        0.9547
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gh-skull-frame-rose",
+      "name": "Skull Frame Rose",
+      "nameVi": "Skull Frame Rose",
+      "category": "gothic-halloween",
+      "categoryVi": "Halloween & gothic ngọt ngào",
+      "tags": [
+        "premium",
+        "gothic-halloween",
+        "skull",
+        "frame",
+        "rose"
+      ],
+      "path": "premium/gothic-halloween/skull-frame-rose.webp",
+      "thumbnail": "premium/gothic-halloween/skull-frame-rose.thumb.webp",
+      "viewBox": [
+        218,
+        256
+      ],
+      "contentBounds": [
+        0.0275,
+        0.0234,
+        0.945,
+        0.9531
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gh-ghost-cat-bow",
+      "name": "Ghost Cat Bow",
+      "nameVi": "Ghost Cat Bow",
+      "category": "gothic-halloween",
+      "categoryVi": "Halloween & gothic ngọt ngào",
+      "tags": [
+        "premium",
+        "gothic-halloween",
+        "ghost",
+        "cat",
+        "bow"
+      ],
+      "path": "premium/gothic-halloween/ghost-cat-bow.webp",
+      "thumbnail": "premium/gothic-halloween/ghost-cat-bow.thumb.webp",
+      "viewBox": [
+        276,
+        248
+      ],
+      "contentBounds": [
+        0.0217,
+        0.0242,
+        0.9565,
+        0.9516
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gh-key-teacup-cat",
+      "name": "Key Teacup Cat",
+      "nameVi": "Key Teacup Cat",
+      "category": "gothic-halloween",
+      "categoryVi": "Halloween & gothic ngọt ngào",
+      "tags": [
+        "premium",
+        "gothic-halloween",
+        "key",
+        "teacup",
+        "cat"
+      ],
+      "path": "premium/gothic-halloween/key-teacup-cat.webp",
+      "thumbnail": "premium/gothic-halloween/key-teacup-cat.thumb.webp",
+      "viewBox": [
+        224,
+        451
+      ],
+      "contentBounds": [
+        0.0268,
+        0.0133,
+        0.9464,
+        0.9734
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gh-night-plaque",
+      "name": "Night Plaque",
+      "nameVi": "Night Plaque",
+      "category": "gothic-halloween",
+      "categoryVi": "Halloween & gothic ngọt ngào",
+      "tags": [
+        "premium",
+        "gothic-halloween",
+        "night",
+        "plaque"
+      ],
+      "path": "premium/gothic-halloween/night-plaque.webp",
+      "thumbnail": "premium/gothic-halloween/night-plaque.thumb.webp",
+      "viewBox": [
+        248,
+        206
+      ],
+      "contentBounds": [
+        0.0242,
+        0.0291,
+        0.9516,
+        0.9417
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gh-pumpkin-hat-bow",
+      "name": "Pumpkin Hat Bow",
+      "nameVi": "Pumpkin Hat Bow",
+      "category": "gothic-halloween",
+      "categoryVi": "Halloween & gothic ngọt ngào",
+      "tags": [
+        "premium",
+        "gothic-halloween",
+        "pumpkin",
+        "hat",
+        "bow"
+      ],
+      "path": "premium/gothic-halloween/pumpkin-hat-bow.webp",
+      "thumbnail": "premium/gothic-halloween/pumpkin-hat-bow.thumb.webp",
+      "viewBox": [
+        212,
+        385
+      ],
+      "contentBounds": [
+        0.0283,
+        0.0156,
+        0.9434,
+        0.9688
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gh-heart-bow-black",
+      "name": "Heart Bow Black",
+      "nameVi": "Heart Bow Black",
+      "category": "gothic-halloween",
+      "categoryVi": "Halloween & gothic ngọt ngào",
+      "tags": [
+        "premium",
+        "gothic-halloween",
+        "heart",
+        "bow",
+        "black"
+      ],
+      "path": "premium/gothic-halloween/heart-bow-black.webp",
+      "thumbnail": "premium/gothic-halloween/heart-bow-black.thumb.webp",
+      "viewBox": [
+        190,
+        174
+      ],
+      "contentBounds": [
+        0.0316,
+        0.0345,
+        0.9368,
+        0.931
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gh-envelope-bat-heart",
+      "name": "Envelope Bat Heart",
+      "nameVi": "Envelope Bat Heart",
+      "category": "gothic-halloween",
+      "categoryVi": "Halloween & gothic ngọt ngào",
+      "tags": [
+        "premium",
+        "gothic-halloween",
+        "envelope",
+        "bat",
+        "heart"
+      ],
+      "path": "premium/gothic-halloween/envelope-bat-heart.webp",
+      "thumbnail": "premium/gothic-halloween/envelope-bat-heart.thumb.webp",
+      "viewBox": [
+        204,
+        186
+      ],
+      "contentBounds": [
+        0.0294,
+        0.0323,
+        0.9412,
+        0.9355
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gh-macaron-bat",
+      "name": "Macaron Bat",
+      "nameVi": "Macaron Bat",
+      "category": "gothic-halloween",
+      "categoryVi": "Halloween & gothic ngọt ngào",
+      "tags": [
+        "premium",
+        "gothic-halloween",
+        "macaron",
+        "bat"
+      ],
+      "path": "premium/gothic-halloween/macaron-bat.webp",
+      "thumbnail": "premium/gothic-halloween/macaron-bat.thumb.webp",
+      "viewBox": [
+        197,
+        183
+      ],
+      "contentBounds": [
+        0.0305,
+        0.0328,
+        0.9391,
+        0.9344
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gh-magic-plaque",
+      "name": "Magic Plaque",
+      "nameVi": "Magic Plaque",
+      "category": "gothic-halloween",
+      "categoryVi": "Halloween & gothic ngọt ngào",
+      "tags": [
+        "premium",
+        "gothic-halloween",
+        "magic",
+        "plaque"
+      ],
+      "path": "premium/gothic-halloween/magic-plaque.webp",
+      "thumbnail": "premium/gothic-halloween/magic-plaque.thumb.webp",
+      "viewBox": [
+        246,
+        179
+      ],
+      "contentBounds": [
+        0.0244,
+        0.0335,
+        0.9512,
+        0.933
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "vl-cake-heart-strawberry",
+      "name": "Cake Heart Strawberry",
+      "nameVi": "Cake Heart Strawberry",
+      "category": "valentine-love",
+      "categoryVi": "Valentine & tình yêu",
+      "tags": [
+        "premium",
+        "valentine-love",
+        "cake",
+        "heart",
+        "strawberry"
+      ],
+      "path": "premium/valentine-love/cake-heart-strawberry.webp",
+      "thumbnail": "premium/valentine-love/cake-heart-strawberry.thumb.webp",
+      "viewBox": [
+        269,
+        258
+      ],
+      "contentBounds": [
+        0.0223,
+        0.0233,
+        0.9554,
+        0.9535
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "vl-bow-pearl-heart-2",
+      "name": "Bow Pearl Heart 2",
+      "nameVi": "Bow Pearl Heart 2",
+      "category": "valentine-love",
+      "categoryVi": "Valentine & tình yêu",
+      "tags": [
+        "premium",
+        "valentine-love",
+        "bow",
+        "pearl",
+        "heart",
+        "2"
+      ],
+      "path": "premium/valentine-love/bow-pearl-heart-2.webp",
+      "thumbnail": "premium/valentine-love/bow-pearl-heart-2.thumb.webp",
+      "viewBox": [
+        236,
+        213
+      ],
+      "contentBounds": [
+        0.0254,
+        0.0282,
+        0.9492,
+        0.9437
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "vl-tulip-bouquet-pink",
+      "name": "Tulip Bouquet Pink",
+      "nameVi": "Tulip Bouquet Pink",
+      "category": "valentine-love",
+      "categoryVi": "Valentine & tình yêu",
+      "tags": [
+        "premium",
+        "valentine-love",
+        "tulip",
+        "bouquet",
+        "pink"
+      ],
+      "path": "premium/valentine-love/tulip-bouquet-pink.webp",
+      "thumbnail": "premium/valentine-love/tulip-bouquet-pink.thumb.webp",
+      "viewBox": [
+        211,
+        281
+      ],
+      "contentBounds": [
+        0.0284,
+        0.0214,
+        0.9431,
+        0.9573
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "vl-heart-pearl-bow",
+      "name": "Heart Pearl Bow",
+      "nameVi": "Heart Pearl Bow",
+      "category": "valentine-love",
+      "categoryVi": "Valentine & tình yêu",
+      "tags": [
+        "premium",
+        "valentine-love",
+        "heart",
+        "pearl",
+        "bow"
+      ],
+      "path": "premium/valentine-love/heart-pearl-bow.webp",
+      "thumbnail": "premium/valentine-love/heart-pearl-bow.thumb.webp",
+      "viewBox": [
+        197,
+        241
+      ],
+      "contentBounds": [
+        0.0305,
+        0.0249,
+        0.9391,
+        0.9502
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "vl-envelope-heart-rose",
+      "name": "Envelope Heart Rose",
+      "nameVi": "Envelope Heart Rose",
+      "category": "valentine-love",
+      "categoryVi": "Valentine & tình yêu",
+      "tags": [
+        "premium",
+        "valentine-love",
+        "envelope",
+        "heart",
+        "rose"
+      ],
+      "path": "premium/valentine-love/envelope-heart-rose.webp",
+      "thumbnail": "premium/valentine-love/envelope-heart-rose.thumb.webp",
+      "viewBox": [
+        227,
+        200
+      ],
+      "contentBounds": [
+        0.0264,
+        0.03,
+        0.9471,
+        0.94
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "vl-heart-chocolate-box",
+      "name": "Heart Chocolate Box",
+      "nameVi": "Heart Chocolate Box",
+      "category": "valentine-love",
+      "categoryVi": "Valentine & tình yêu",
+      "tags": [
+        "premium",
+        "valentine-love",
+        "heart",
+        "chocolate",
+        "box"
+      ],
+      "path": "premium/valentine-love/heart-chocolate-box.webp",
+      "thumbnail": "premium/valentine-love/heart-chocolate-box.thumb.webp",
+      "viewBox": [
+        251,
+        227
+      ],
+      "contentBounds": [
+        0.0199,
+        0.0264,
+        0.9562,
+        0.9471
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "vl-love-script",
+      "name": "Love Script",
+      "nameVi": "Love Script",
+      "category": "valentine-love",
+      "categoryVi": "Valentine & tình yêu",
+      "tags": [
+        "premium",
+        "valentine-love",
+        "love",
+        "script"
+      ],
+      "path": "premium/valentine-love/love-script.webp",
+      "thumbnail": "premium/valentine-love/love-script.thumb.webp",
+      "viewBox": [
+        289,
+        180
+      ],
+      "contentBounds": [
+        0.0208,
+        0.0333,
+        0.9585,
+        0.9333
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "vl-necklace-heart-pearl",
+      "name": "Necklace Heart Pearl",
+      "nameVi": "Necklace Heart Pearl",
+      "category": "valentine-love",
+      "categoryVi": "Valentine & tình yêu",
+      "tags": [
+        "premium",
+        "valentine-love",
+        "necklace",
+        "heart",
+        "pearl"
+      ],
+      "path": "premium/valentine-love/necklace-heart-pearl.webp",
+      "thumbnail": "premium/valentine-love/necklace-heart-pearl.thumb.webp",
+      "viewBox": [
+        180,
+        247
+      ],
+      "contentBounds": [
+        0.0333,
+        0.0243,
+        0.9333,
+        0.9514
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "vl-cherry-pair-bow-3",
+      "name": "Cherry Pair Bow 3",
+      "nameVi": "Cherry Pair Bow 3",
+      "category": "valentine-love",
+      "categoryVi": "Valentine & tình yêu",
+      "tags": [
+        "premium",
+        "valentine-love",
+        "cherry",
+        "pair",
+        "bow",
+        "3"
+      ],
+      "path": "premium/valentine-love/cherry-pair-bow-3.webp",
+      "thumbnail": "premium/valentine-love/cherry-pair-bow-3.thumb.webp",
+      "viewBox": [
+        197,
+        214
+      ],
+      "contentBounds": [
+        0.0305,
+        0.028,
+        0.9594,
+        0.9439
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "vl-heart-cookie-bow",
+      "name": "Heart Cookie Bow",
+      "nameVi": "Heart Cookie Bow",
+      "category": "valentine-love",
+      "categoryVi": "Valentine & tình yêu",
+      "tags": [
+        "premium",
+        "valentine-love",
+        "heart",
+        "cookie",
+        "bow"
+      ],
+      "path": "premium/valentine-love/heart-cookie-bow.webp",
+      "thumbnail": "premium/valentine-love/heart-cookie-bow.thumb.webp",
+      "viewBox": [
+        205,
+        191
+      ],
+      "contentBounds": [
+        0.0293,
+        0.0314,
+        0.9415,
+        0.9372
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "vl-bow-arrow-cupid",
+      "name": "Bow Arrow Cupid",
+      "nameVi": "Bow Arrow Cupid",
+      "category": "valentine-love",
+      "categoryVi": "Valentine & tình yêu",
+      "tags": [
+        "premium",
+        "valentine-love",
+        "bow",
+        "arrow",
+        "cupid"
+      ],
+      "path": "premium/valentine-love/bow-arrow-cupid.webp",
+      "thumbnail": "premium/valentine-love/bow-arrow-cupid.thumb.webp",
+      "viewBox": [
+        240,
+        241
+      ],
+      "contentBounds": [
+        0.025,
+        0.0249,
+        0.95,
+        0.9502
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "vl-bear-heart-hug",
+      "name": "Bear Heart Hug",
+      "nameVi": "Bear Heart Hug",
+      "category": "valentine-love",
+      "categoryVi": "Valentine & tình yêu",
+      "tags": [
+        "premium",
+        "valentine-love",
+        "bear",
+        "heart",
+        "hug"
+      ],
+      "path": "premium/valentine-love/bear-heart-hug.webp",
+      "thumbnail": "premium/valentine-love/bear-heart-hug.thumb.webp",
+      "viewBox": [
+        222,
+        245
+      ],
+      "contentBounds": [
+        0.027,
+        0.0245,
+        0.9459,
+        0.951
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "vl-envelope-love-letter-2",
+      "name": "Envelope Love Letter 2",
+      "nameVi": "Envelope Love Letter 2",
+      "category": "valentine-love",
+      "categoryVi": "Valentine & tình yêu",
+      "tags": [
+        "premium",
+        "valentine-love",
+        "envelope",
+        "love",
+        "letter",
+        "2"
+      ],
+      "path": "premium/valentine-love/envelope-love-letter-2.webp",
+      "thumbnail": "premium/valentine-love/envelope-love-letter-2.thumb.webp",
+      "viewBox": [
+        232,
+        240
+      ],
+      "contentBounds": [
+        0.0259,
+        0.025,
+        0.9483,
+        0.95
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "vl-chocolate-hearts-pair",
+      "name": "Chocolate Hearts Pair",
+      "nameVi": "Chocolate Hearts Pair",
+      "category": "valentine-love",
+      "categoryVi": "Valentine & tình yêu",
+      "tags": [
+        "premium",
+        "valentine-love",
+        "chocolate",
+        "hearts",
+        "pair"
+      ],
+      "path": "premium/valentine-love/chocolate-hearts-pair.webp",
+      "thumbnail": "premium/valentine-love/chocolate-hearts-pair.thumb.webp",
+      "viewBox": [
+        213,
+        179
+      ],
+      "contentBounds": [
+        0.0282,
+        0.0335,
+        0.9437,
+        0.933
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "vl-strawberries-cream-heart",
+      "name": "Strawberries Cream Heart",
+      "nameVi": "Strawberries Cream Heart",
+      "category": "valentine-love",
+      "categoryVi": "Valentine & tình yêu",
+      "tags": [
+        "premium",
+        "valentine-love",
+        "strawberries",
+        "cream",
+        "heart"
+      ],
+      "path": "premium/valentine-love/strawberries-cream-heart.webp",
+      "thumbnail": "premium/valentine-love/strawberries-cream-heart.thumb.webp",
+      "viewBox": [
+        234,
+        201
+      ],
+      "contentBounds": [
+        0.0256,
+        0.0299,
+        0.9487,
+        0.9403
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "vl-be-mine-plaque",
+      "name": "Be Mine Plaque",
+      "nameVi": "Be Mine Plaque",
+      "category": "valentine-love",
+      "categoryVi": "Valentine & tình yêu",
+      "tags": [
+        "premium",
+        "valentine-love",
+        "be",
+        "mine",
+        "plaque"
+      ],
+      "path": "premium/valentine-love/be-mine-plaque.webp",
+      "thumbnail": "premium/valentine-love/be-mine-plaque.thumb.webp",
+      "viewBox": [
+        247,
+        183
+      ],
+      "contentBounds": [
+        0.0243,
+        0.0328,
+        0.9514,
+        0.9344
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "vl-latte-heart-cup",
+      "name": "Latte Heart Cup",
+      "nameVi": "Latte Heart Cup",
+      "category": "valentine-love",
+      "categoryVi": "Valentine & tình yêu",
+      "tags": [
+        "premium",
+        "valentine-love",
+        "latte",
+        "heart",
+        "cup"
+      ],
+      "path": "premium/valentine-love/latte-heart-cup.webp",
+      "thumbnail": "premium/valentine-love/latte-heart-cup.thumb.webp",
+      "viewBox": [
+        247,
+        209
+      ],
+      "contentBounds": [
+        0.0243,
+        0.0287,
+        0.9514,
+        0.9426
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "vl-strawberry-chocolate-dip",
+      "name": "Strawberry Chocolate Dip",
+      "nameVi": "Strawberry Chocolate Dip",
+      "category": "valentine-love",
+      "categoryVi": "Valentine & tình yêu",
+      "tags": [
+        "premium",
+        "valentine-love",
+        "strawberry",
+        "chocolate",
+        "dip"
+      ],
+      "path": "premium/valentine-love/strawberry-chocolate-dip.webp",
+      "thumbnail": "premium/valentine-love/strawberry-chocolate-dip.thumb.webp",
+      "viewBox": [
+        158,
+        219
+      ],
+      "contentBounds": [
+        0.038,
+        0.0274,
+        0.9241,
+        0.9452
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "vl-butterfly-pink-jewel",
+      "name": "Butterfly Pink Jewel",
+      "nameVi": "Butterfly Pink Jewel",
+      "category": "valentine-love",
+      "categoryVi": "Valentine & tình yêu",
+      "tags": [
+        "premium",
+        "valentine-love",
+        "butterfly",
+        "pink",
+        "jewel"
+      ],
+      "path": "premium/valentine-love/butterfly-pink-jewel.webp",
+      "thumbnail": "premium/valentine-love/butterfly-pink-jewel.thumb.webp",
+      "viewBox": [
+        229,
+        219
+      ],
+      "contentBounds": [
+        0.0262,
+        0.0274,
+        0.9476,
+        0.9452
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "vl-heart-box-bow-pink",
+      "name": "Heart Box Bow Pink",
+      "nameVi": "Heart Box Bow Pink",
+      "category": "valentine-love",
+      "categoryVi": "Valentine & tình yêu",
+      "tags": [
+        "premium",
+        "valentine-love",
+        "heart",
+        "box",
+        "bow",
+        "pink"
+      ],
+      "path": "premium/valentine-love/heart-box-bow-pink.webp",
+      "thumbnail": "premium/valentine-love/heart-box-bow-pink.thumb.webp",
+      "viewBox": [
+        222,
+        198
+      ],
+      "contentBounds": [
+        0.027,
+        0.0303,
+        0.9459,
+        0.9394
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "vl-heart-lollipop-bow-2",
+      "name": "Heart Lollipop Bow 2",
+      "nameVi": "Heart Lollipop Bow 2",
+      "category": "valentine-love",
+      "categoryVi": "Valentine & tình yêu",
+      "tags": [
+        "premium",
+        "valentine-love",
+        "heart",
+        "lollipop",
+        "bow",
+        "2"
+      ],
+      "path": "premium/valentine-love/heart-lollipop-bow-2.webp",
+      "thumbnail": "premium/valentine-love/heart-lollipop-bow-2.thumb.webp",
+      "viewBox": [
+        177,
+        226
+      ],
+      "contentBounds": [
+        0.0339,
+        0.0265,
+        0.9322,
+        0.9469
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "vl-date-note",
+      "name": "Date Note",
+      "nameVi": "Date Note",
+      "category": "valentine-love",
+      "categoryVi": "Valentine & tình yêu",
+      "tags": [
+        "premium",
+        "valentine-love",
+        "date",
+        "note"
+      ],
+      "path": "premium/valentine-love/date-note.webp",
+      "thumbnail": "premium/valentine-love/date-note.thumb.webp",
+      "viewBox": [
+        185,
+        201
+      ],
+      "contentBounds": [
+        0.0324,
+        0.0299,
+        0.9351,
+        0.9403
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "vl-love-notes-book",
+      "name": "Love Notes Book",
+      "nameVi": "Love Notes Book",
+      "category": "valentine-love",
+      "categoryVi": "Valentine & tình yêu",
+      "tags": [
+        "premium",
+        "valentine-love",
+        "love",
+        "notes",
+        "book"
+      ],
+      "path": "premium/valentine-love/love-notes-book.webp",
+      "thumbnail": "premium/valentine-love/love-notes-book.thumb.webp",
+      "viewBox": [
+        247,
+        233
+      ],
+      "contentBounds": [
+        0.0243,
+        0.0258,
+        0.9514,
+        0.9485
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "vl-cupcake-heart-strawberry",
+      "name": "Cupcake Heart Strawberry",
+      "nameVi": "Cupcake Heart Strawberry",
+      "category": "valentine-love",
+      "categoryVi": "Valentine & tình yêu",
+      "tags": [
+        "premium",
+        "valentine-love",
+        "cupcake",
+        "heart",
+        "strawberry"
+      ],
+      "path": "premium/valentine-love/cupcake-heart-strawberry.webp",
+      "thumbnail": "premium/valentine-love/cupcake-heart-strawberry.thumb.webp",
+      "viewBox": [
+        195,
+        229
+      ],
+      "contentBounds": [
+        0.0308,
+        0.0262,
+        0.9385,
+        0.9476
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "vl-key-heart-bow",
+      "name": "Key Heart Bow",
+      "nameVi": "Key Heart Bow",
+      "category": "valentine-love",
+      "categoryVi": "Valentine & tình yêu",
+      "tags": [
+        "premium",
+        "valentine-love",
+        "key",
+        "heart",
+        "bow"
+      ],
+      "path": "premium/valentine-love/key-heart-bow.webp",
+      "thumbnail": "premium/valentine-love/key-heart-bow.thumb.webp",
+      "viewBox": [
+        193,
+        232
+      ],
+      "contentBounds": [
+        0.0311,
+        0.0259,
+        0.9378,
+        0.9483
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "vl-heart-wings-pearl-2",
+      "name": "Heart Wings Pearl 2",
+      "nameVi": "Heart Wings Pearl 2",
+      "category": "valentine-love",
+      "categoryVi": "Valentine & tình yêu",
+      "tags": [
+        "premium",
+        "valentine-love",
+        "heart",
+        "wings",
+        "pearl",
+        "2"
+      ],
+      "path": "premium/valentine-love/heart-wings-pearl-2.webp",
+      "thumbnail": "premium/valentine-love/heart-wings-pearl-2.thumb.webp",
+      "viewBox": [
+        273,
+        192
+      ],
+      "contentBounds": [
+        0.022,
+        0.0312,
+        0.956,
+        0.9375
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "vl-stamp-rose-heart",
+      "name": "Stamp Rose Heart",
+      "nameVi": "Stamp Rose Heart",
+      "category": "valentine-love",
+      "categoryVi": "Valentine & tình yêu",
+      "tags": [
+        "premium",
+        "valentine-love",
+        "stamp",
+        "rose",
+        "heart"
+      ],
+      "path": "premium/valentine-love/stamp-rose-heart.webp",
+      "thumbnail": "premium/valentine-love/stamp-rose-heart.thumb.webp",
+      "viewBox": [
+        189,
+        166
+      ],
+      "contentBounds": [
+        0.0317,
+        0.0361,
+        0.9365,
+        0.9277
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "tet-peach-blossom-branch",
+      "name": "Peach Blossom Branch",
+      "nameVi": "Peach Blossom Branch",
+      "category": "tet-lunar-new-year",
+      "categoryVi": "Tết & năm mới",
+      "tags": [
+        "premium",
+        "tet-lunar-new-year",
+        "peach",
+        "blossom",
+        "branch"
+      ],
+      "path": "premium/tet-lunar-new-year/peach-blossom-branch.webp",
+      "thumbnail": "premium/tet-lunar-new-year/peach-blossom-branch.thumb.webp",
+      "viewBox": [
+        229,
+        246
+      ],
+      "contentBounds": [
+        0.0262,
+        0.0244,
+        0.9476,
+        0.9512
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "tet-lantern-red",
+      "name": "Lantern Red",
+      "nameVi": "Lantern Red",
+      "category": "tet-lunar-new-year",
+      "categoryVi": "Tết & năm mới",
+      "tags": [
+        "premium",
+        "tet-lunar-new-year",
+        "lantern",
+        "red"
+      ],
+      "path": "premium/tet-lunar-new-year/lantern-red.webp",
+      "thumbnail": "premium/tet-lunar-new-year/lantern-red.thumb.webp",
+      "viewBox": [
+        168,
+        278
+      ],
+      "contentBounds": [
+        0.0357,
+        0.0216,
+        0.9286,
+        0.9568
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "tet-tet-plaque",
+      "name": "Tet Plaque",
+      "nameVi": "Tet Plaque",
+      "category": "tet-lunar-new-year",
+      "categoryVi": "Tết & năm mới",
+      "tags": [
+        "premium",
+        "tet-lunar-new-year",
+        "tet",
+        "plaque"
+      ],
+      "path": "premium/tet-lunar-new-year/tet-plaque.webp",
+      "thumbnail": "premium/tet-lunar-new-year/tet-plaque.thumb.webp",
+      "viewBox": [
+        247,
+        184
+      ],
+      "contentBounds": [
+        0.0243,
+        0.0326,
+        0.9514,
+        0.9348
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "tet-lion-dance-head",
+      "name": "Lion Dance Head",
+      "nameVi": "Lion Dance Head",
+      "category": "tet-lunar-new-year",
+      "categoryVi": "Tết & năm mới",
+      "tags": [
+        "premium",
+        "tet-lunar-new-year",
+        "lion",
+        "dance",
+        "head"
+      ],
+      "path": "premium/tet-lunar-new-year/lion-dance-head.webp",
+      "thumbnail": "premium/tet-lunar-new-year/lion-dance-head.thumb.webp",
+      "viewBox": [
+        236,
+        250
+      ],
+      "contentBounds": [
+        0.0254,
+        0.024,
+        0.9492,
+        0.952
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "tet-red-envelopes",
+      "name": "Red Envelopes",
+      "nameVi": "Red Envelopes",
+      "category": "tet-lunar-new-year",
+      "categoryVi": "Tết & năm mới",
+      "tags": [
+        "premium",
+        "tet-lunar-new-year",
+        "red",
+        "envelopes"
+      ],
+      "path": "premium/tet-lunar-new-year/red-envelopes.webp",
+      "thumbnail": "premium/tet-lunar-new-year/red-envelopes.thumb.webp",
+      "viewBox": [
+        183,
+        218
+      ],
+      "contentBounds": [
+        0.0328,
+        0.0275,
+        0.9344,
+        0.945
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "tet-apricot-blossom",
+      "name": "Apricot Blossom",
+      "nameVi": "Apricot Blossom",
+      "category": "tet-lunar-new-year",
+      "categoryVi": "Tết & năm mới",
+      "tags": [
+        "premium",
+        "tet-lunar-new-year",
+        "apricot",
+        "blossom"
+      ],
+      "path": "premium/tet-lunar-new-year/apricot-blossom.webp",
+      "thumbnail": "premium/tet-lunar-new-year/apricot-blossom.thumb.webp",
+      "viewBox": [
+        214,
+        263
+      ],
+      "contentBounds": [
+        0.028,
+        0.0228,
+        0.9439,
+        0.9544
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "tet-banh-chung",
+      "name": "Banh Chung",
+      "nameVi": "Banh Chung",
+      "category": "tet-lunar-new-year",
+      "categoryVi": "Tết & năm mới",
+      "tags": [
+        "premium",
+        "tet-lunar-new-year",
+        "banh",
+        "chung"
+      ],
+      "path": "premium/tet-lunar-new-year/banh-chung.webp",
+      "thumbnail": "premium/tet-lunar-new-year/banh-chung.thumb.webp",
+      "viewBox": [
+        254,
+        197
+      ],
+      "contentBounds": [
+        0.0236,
+        0.0305,
+        0.9528,
+        0.9391
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "tet-gold-ingot-blossom",
+      "name": "Gold Ingot Blossom",
+      "nameVi": "Gold Ingot Blossom",
+      "category": "tet-lunar-new-year",
+      "categoryVi": "Tết & năm mới",
+      "tags": [
+        "premium",
+        "tet-lunar-new-year",
+        "gold",
+        "ingot",
+        "blossom"
+      ],
+      "path": "premium/tet-lunar-new-year/gold-ingot-blossom.webp",
+      "thumbnail": "premium/tet-lunar-new-year/gold-ingot-blossom.thumb.webp",
+      "viewBox": [
+        198,
+        148
+      ],
+      "contentBounds": [
+        0.0303,
+        0.0405,
+        0.9394,
+        0.9189
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "tet-cat-ao-dai",
+      "name": "Cat Ao Dai",
+      "nameVi": "Cat Ao Dai",
+      "category": "tet-lunar-new-year",
+      "categoryVi": "Tết & năm mới",
+      "tags": [
+        "premium",
+        "tet-lunar-new-year",
+        "cat",
+        "ao",
+        "dai"
+      ],
+      "path": "premium/tet-lunar-new-year/cat-ao-dai.webp",
+      "thumbnail": "premium/tet-lunar-new-year/cat-ao-dai.thumb.webp",
+      "viewBox": [
+        194,
+        249
+      ],
+      "contentBounds": [
+        0.0309,
+        0.0241,
+        0.9381,
+        0.9518
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "tet-firecrackers-red",
+      "name": "Firecrackers Red",
+      "nameVi": "Firecrackers Red",
+      "category": "tet-lunar-new-year",
+      "categoryVi": "Tết & năm mới",
+      "tags": [
+        "premium",
+        "tet-lunar-new-year",
+        "firecrackers",
+        "red"
+      ],
+      "path": "premium/tet-lunar-new-year/firecrackers-red.webp",
+      "thumbnail": "premium/tet-lunar-new-year/firecrackers-red.thumb.webp",
+      "viewBox": [
+        160,
+        285
+      ],
+      "contentBounds": [
+        0.0375,
+        0.0211,
+        0.925,
+        0.9579
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "tet-kumquat-tree",
+      "name": "Kumquat Tree",
+      "nameVi": "Kumquat Tree",
+      "category": "tet-lunar-new-year",
+      "categoryVi": "Tết & năm mới",
+      "tags": [
+        "premium",
+        "tet-lunar-new-year",
+        "kumquat",
+        "tree"
+      ],
+      "path": "premium/tet-lunar-new-year/kumquat-tree.webp",
+      "thumbnail": "premium/tet-lunar-new-year/kumquat-tree.thumb.webp",
+      "viewBox": [
+        257,
+        293
+      ],
+      "contentBounds": [
+        0.0233,
+        0.0205,
+        0.9533,
+        0.959
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "tet-loc-plaque",
+      "name": "Loc Plaque",
+      "nameVi": "Loc Plaque",
+      "category": "tet-lunar-new-year",
+      "categoryVi": "Tết & năm mới",
+      "tags": [
+        "premium",
+        "tet-lunar-new-year",
+        "loc",
+        "plaque"
+      ],
+      "path": "premium/tet-lunar-new-year/loc-plaque.webp",
+      "thumbnail": "premium/tet-lunar-new-year/loc-plaque.thumb.webp",
+      "viewBox": [
+        244,
+        173
+      ],
+      "contentBounds": [
+        0.0246,
+        0.0347,
+        0.9508,
+        0.9306
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "tet-cloud-pink-swirl",
+      "name": "Cloud Pink Swirl",
+      "nameVi": "Cloud Pink Swirl",
+      "category": "tet-lunar-new-year",
+      "categoryVi": "Tết & năm mới",
+      "tags": [
+        "premium",
+        "tet-lunar-new-year",
+        "cloud",
+        "pink",
+        "swirl"
+      ],
+      "path": "premium/tet-lunar-new-year/cloud-pink-swirl.webp",
+      "thumbnail": "premium/tet-lunar-new-year/cloud-pink-swirl.thumb.webp",
+      "viewBox": [
+        217,
+        139
+      ],
+      "contentBounds": [
+        0.0276,
+        0.0432,
+        0.9447,
+        0.9137
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "tet-koi-fish-blossom",
+      "name": "Koi Fish Blossom",
+      "nameVi": "Koi Fish Blossom",
+      "category": "tet-lunar-new-year",
+      "categoryVi": "Tết & năm mới",
+      "tags": [
+        "premium",
+        "tet-lunar-new-year",
+        "koi",
+        "fish",
+        "blossom"
+      ],
+      "path": "premium/tet-lunar-new-year/koi-fish-blossom.webp",
+      "thumbnail": "premium/tet-lunar-new-year/koi-fish-blossom.thumb.webp",
+      "viewBox": [
+        209,
+        259
+      ],
+      "contentBounds": [
+        0.0287,
+        0.0232,
+        0.9426,
+        0.9537
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "tet-mooncake-slice",
+      "name": "Mooncake Slice",
+      "nameVi": "Mooncake Slice",
+      "category": "tet-lunar-new-year",
+      "categoryVi": "Tết & năm mới",
+      "tags": [
+        "premium",
+        "tet-lunar-new-year",
+        "mooncake",
+        "slice"
+      ],
+      "path": "premium/tet-lunar-new-year/mooncake-slice.webp",
+      "thumbnail": "premium/tet-lunar-new-year/mooncake-slice.thumb.webp",
+      "viewBox": [
+        231,
+        196
+      ],
+      "contentBounds": [
+        0.026,
+        0.0306,
+        0.9481,
+        0.9388
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "tet-xuan-plaque",
+      "name": "Xuan Plaque",
+      "nameVi": "Xuan Plaque",
+      "category": "tet-lunar-new-year",
+      "categoryVi": "Tết & năm mới",
+      "tags": [
+        "premium",
+        "tet-lunar-new-year",
+        "xuan",
+        "plaque"
+      ],
+      "path": "premium/tet-lunar-new-year/xuan-plaque.webp",
+      "thumbnail": "premium/tet-lunar-new-year/xuan-plaque.thumb.webp",
+      "viewBox": [
+        251,
+        155
+      ],
+      "contentBounds": [
+        0.0239,
+        0.0387,
+        0.9522,
+        0.9226
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "tet-peach-fruit-pair",
+      "name": "Peach Fruit Pair",
+      "nameVi": "Peach Fruit Pair",
+      "category": "tet-lunar-new-year",
+      "categoryVi": "Tết & năm mới",
+      "tags": [
+        "premium",
+        "tet-lunar-new-year",
+        "peach",
+        "fruit",
+        "pair"
+      ],
+      "path": "premium/tet-lunar-new-year/peach-fruit-pair.webp",
+      "thumbnail": "premium/tet-lunar-new-year/peach-fruit-pair.thumb.webp",
+      "viewBox": [
+        214,
+        163
+      ],
+      "contentBounds": [
+        0.028,
+        0.0368,
+        0.9439,
+        0.9264
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "tet-scroll-blessing",
+      "name": "Scroll Blessing",
+      "nameVi": "Scroll Blessing",
+      "category": "tet-lunar-new-year",
+      "categoryVi": "Tết & năm mới",
+      "tags": [
+        "premium",
+        "tet-lunar-new-year",
+        "scroll",
+        "blessing"
+      ],
+      "path": "premium/tet-lunar-new-year/scroll-blessing.webp",
+      "thumbnail": "premium/tet-lunar-new-year/scroll-blessing.thumb.webp",
+      "viewBox": [
+        184,
+        234
+      ],
+      "contentBounds": [
+        0.0326,
+        0.0256,
+        0.9348,
+        0.9487
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "tet-fu-charm-red",
+      "name": "Fu Charm Red",
+      "nameVi": "Fu Charm Red",
+      "category": "tet-lunar-new-year",
+      "categoryVi": "Tết & năm mới",
+      "tags": [
+        "premium",
+        "tet-lunar-new-year",
+        "fu",
+        "charm",
+        "red"
+      ],
+      "path": "premium/tet-lunar-new-year/fu-charm-red.webp",
+      "thumbnail": "premium/tet-lunar-new-year/fu-charm-red.thumb.webp",
+      "viewBox": [
+        220,
+        410
+      ],
+      "contentBounds": [
+        0.0273,
+        0.0146,
+        0.9455,
+        0.9707
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "tet-bow-heart-pink-gold",
+      "name": "Bow Heart Pink Gold",
+      "nameVi": "Bow Heart Pink Gold",
+      "category": "tet-lunar-new-year",
+      "categoryVi": "Tết & năm mới",
+      "tags": [
+        "premium",
+        "tet-lunar-new-year",
+        "bow",
+        "heart",
+        "pink",
+        "gold"
+      ],
+      "path": "premium/tet-lunar-new-year/bow-heart-pink-gold.webp",
+      "thumbnail": "premium/tet-lunar-new-year/bow-heart-pink-gold.thumb.webp",
+      "viewBox": [
+        218,
+        189
+      ],
+      "contentBounds": [
+        0.0275,
+        0.0317,
+        0.945,
+        0.9365
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "tet-tet-tray-food",
+      "name": "Tet Tray Food",
+      "nameVi": "Tet Tray Food",
+      "category": "tet-lunar-new-year",
+      "categoryVi": "Tết & năm mới",
+      "tags": [
+        "premium",
+        "tet-lunar-new-year",
+        "tet",
+        "tray",
+        "food"
+      ],
+      "path": "premium/tet-lunar-new-year/tet-tray-food.webp",
+      "thumbnail": "premium/tet-lunar-new-year/tet-tray-food.thumb.webp",
+      "viewBox": [
+        254,
+        221
+      ],
+      "contentBounds": [
+        0.0236,
+        0.0271,
+        0.9528,
+        0.9457
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "tet-peach-blossom-branch-2",
+      "name": "Peach Blossom Branch 2",
+      "nameVi": "Peach Blossom Branch 2",
+      "category": "tet-lunar-new-year",
+      "categoryVi": "Tết & năm mới",
+      "tags": [
+        "premium",
+        "tet-lunar-new-year",
+        "peach",
+        "blossom",
+        "branch",
+        "2"
+      ],
+      "path": "premium/tet-lunar-new-year/peach-blossom-branch-2.webp",
+      "thumbnail": "premium/tet-lunar-new-year/peach-blossom-branch-2.thumb.webp",
+      "viewBox": [
+        210,
+        240
+      ],
+      "contentBounds": [
+        0.0286,
+        0.025,
+        0.9429,
+        0.95
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "tet-lucky-heart",
+      "name": "Lucky Heart",
+      "nameVi": "Lucky Heart",
+      "category": "tet-lunar-new-year",
+      "categoryVi": "Tết & năm mới",
+      "tags": [
+        "premium",
+        "tet-lunar-new-year",
+        "lucky",
+        "heart"
+      ],
+      "path": "premium/tet-lunar-new-year/lucky-heart.webp",
+      "thumbnail": "premium/tet-lunar-new-year/lucky-heart.thumb.webp",
+      "viewBox": [
+        205,
+        159
+      ],
+      "contentBounds": [
+        0.0293,
+        0.0377,
+        0.9415,
+        0.9245
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "tet-cloud-gold-swirl",
+      "name": "Cloud Gold Swirl",
+      "nameVi": "Cloud Gold Swirl",
+      "category": "tet-lunar-new-year",
+      "categoryVi": "Tết & năm mới",
+      "tags": [
+        "premium",
+        "tet-lunar-new-year",
+        "cloud",
+        "gold",
+        "swirl"
+      ],
+      "path": "premium/tet-lunar-new-year/cloud-gold-swirl.webp",
+      "thumbnail": "premium/tet-lunar-new-year/cloud-gold-swirl.thumb.webp",
+      "viewBox": [
+        239,
+        153
+      ],
+      "contentBounds": [
+        0.0251,
+        0.0392,
+        0.9498,
+        0.9216
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "tet-lanterns-branch",
+      "name": "Lanterns Branch",
+      "nameVi": "Lanterns Branch",
+      "category": "tet-lunar-new-year",
+      "categoryVi": "Tết & năm mới",
+      "tags": [
+        "premium",
+        "tet-lunar-new-year",
+        "lanterns",
+        "branch"
+      ],
+      "path": "premium/tet-lunar-new-year/lanterns-branch.webp",
+      "thumbnail": "premium/tet-lunar-new-year/lanterns-branch.thumb.webp",
+      "viewBox": [
+        189,
+        228
+      ],
+      "contentBounds": [
+        0.0317,
+        0.0263,
+        0.9365,
+        0.9474
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "tet-lotus-pink-pearl",
+      "name": "Lotus Pink Pearl",
+      "nameVi": "Lotus Pink Pearl",
+      "category": "tet-lunar-new-year",
+      "categoryVi": "Tết & năm mới",
+      "tags": [
+        "premium",
+        "tet-lunar-new-year",
+        "lotus",
+        "pink",
+        "pearl"
+      ],
+      "path": "premium/tet-lunar-new-year/lotus-pink-pearl.webp",
+      "thumbnail": "premium/tet-lunar-new-year/lotus-pink-pearl.thumb.webp",
+      "viewBox": [
+        216,
+        157
+      ],
+      "contentBounds": [
+        0.0278,
+        0.0382,
+        0.9444,
+        0.9236
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "tet-calligraphy-tet",
+      "name": "Calligraphy Tet",
+      "nameVi": "Calligraphy Tet",
+      "category": "tet-lunar-new-year",
+      "categoryVi": "Tết & năm mới",
+      "tags": [
+        "premium",
+        "tet-lunar-new-year",
+        "calligraphy",
+        "tet"
+      ],
+      "path": "premium/tet-lunar-new-year/calligraphy-tet.webp",
+      "thumbnail": "premium/tet-lunar-new-year/calligraphy-tet.thumb.webp",
+      "viewBox": [
+        197,
+        191
+      ],
+      "contentBounds": [
+        0.0305,
+        0.0314,
+        0.9391,
+        0.9372
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "tet-food-box-red",
+      "name": "Food Box Red",
+      "nameVi": "Food Box Red",
+      "category": "tet-lunar-new-year",
+      "categoryVi": "Tết & năm mới",
+      "tags": [
+        "premium",
+        "tet-lunar-new-year",
+        "food",
+        "box",
+        "red"
+      ],
+      "path": "premium/tet-lunar-new-year/food-box-red.webp",
+      "thumbnail": "premium/tet-lunar-new-year/food-box-red.thumb.webp",
+      "viewBox": [
+        241,
+        199
+      ],
+      "contentBounds": [
+        0.0249,
+        0.0302,
+        0.9502,
+        0.9397
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "tet-happy-tet-plaque",
+      "name": "Happy Tet Plaque",
+      "nameVi": "Happy Tet Plaque",
+      "category": "tet-lunar-new-year",
+      "categoryVi": "Tết & năm mới",
+      "tags": [
+        "premium",
+        "tet-lunar-new-year",
+        "happy",
+        "tet",
+        "plaque"
+      ],
+      "path": "premium/tet-lunar-new-year/happy-tet-plaque.webp",
+      "thumbnail": "premium/tet-lunar-new-year/happy-tet-plaque.thumb.webp",
+      "viewBox": [
+        233,
+        177
+      ],
+      "contentBounds": [
+        0.0258,
+        0.0339,
+        0.9485,
+        0.9322
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "tet-red-envelope-blossom",
+      "name": "Red Envelope Blossom",
+      "nameVi": "Red Envelope Blossom",
+      "category": "tet-lunar-new-year",
+      "categoryVi": "Tết & năm mới",
+      "tags": [
+        "premium",
+        "tet-lunar-new-year",
+        "red",
+        "envelope",
+        "blossom"
+      ],
+      "path": "premium/tet-lunar-new-year/red-envelope-blossom.webp",
+      "thumbnail": "premium/tet-lunar-new-year/red-envelope-blossom.thumb.webp",
+      "viewBox": [
+        178,
+        182
+      ],
+      "contentBounds": [
+        0.0337,
+        0.033,
+        0.9326,
+        0.9341
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "tet-cloud-green-tassel",
+      "name": "Cloud Green Tassel",
+      "nameVi": "Cloud Green Tassel",
+      "category": "tet-lunar-new-year",
+      "categoryVi": "Tết & năm mới",
+      "tags": [
+        "premium",
+        "tet-lunar-new-year",
+        "cloud",
+        "green",
+        "tassel"
+      ],
+      "path": "premium/tet-lunar-new-year/cloud-green-tassel.webp",
+      "thumbnail": "premium/tet-lunar-new-year/cloud-green-tassel.thumb.webp",
+      "viewBox": [
+        217,
+        174
+      ],
+      "contentBounds": [
+        0.0276,
+        0.0345,
+        0.9447,
+        0.931
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "tet-teacup-blossom-steam",
+      "name": "Teacup Blossom Steam",
+      "nameVi": "Teacup Blossom Steam",
+      "category": "tet-lunar-new-year",
+      "categoryVi": "Tết & năm mới",
+      "tags": [
+        "premium",
+        "tet-lunar-new-year",
+        "teacup",
+        "blossom",
+        "steam"
+      ],
+      "path": "premium/tet-lunar-new-year/teacup-blossom-steam.webp",
+      "thumbnail": "premium/tet-lunar-new-year/teacup-blossom-steam.thumb.webp",
+      "viewBox": [
+        194,
+        161
+      ],
+      "contentBounds": [
+        0.0309,
+        0.0373,
+        0.9381,
+        0.9255
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ma-bunny-mooncake",
+      "name": "Bunny Mooncake",
+      "nameVi": "Bunny Mooncake",
+      "category": "mid-autumn",
+      "categoryVi": "Trung thu",
+      "tags": [
+        "premium",
+        "mid-autumn",
+        "bunny",
+        "mooncake"
+      ],
+      "path": "premium/mid-autumn/bunny-mooncake.webp",
+      "thumbnail": "premium/mid-autumn/bunny-mooncake.thumb.webp",
+      "viewBox": [
+        237,
+        292
+      ],
+      "contentBounds": [
+        0.0253,
+        0.0205,
+        0.9494,
+        0.9589
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ma-lotus-lantern-pink",
+      "name": "Lotus Lantern Pink",
+      "nameVi": "Lotus Lantern Pink",
+      "category": "mid-autumn",
+      "categoryVi": "Trung thu",
+      "tags": [
+        "premium",
+        "mid-autumn",
+        "lotus",
+        "lantern",
+        "pink"
+      ],
+      "path": "premium/mid-autumn/lotus-lantern-pink.webp",
+      "thumbnail": "premium/mid-autumn/lotus-lantern-pink.thumb.webp",
+      "viewBox": [
+        167,
+        290
+      ],
+      "contentBounds": [
+        0.0359,
+        0.0207,
+        0.9281,
+        0.9586
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ma-full-moon-cloud-bow",
+      "name": "Full Moon Cloud Bow",
+      "nameVi": "Full Moon Cloud Bow",
+      "category": "mid-autumn",
+      "categoryVi": "Trung thu",
+      "tags": [
+        "premium",
+        "mid-autumn",
+        "full",
+        "moon",
+        "cloud",
+        "bow"
+      ],
+      "path": "premium/mid-autumn/full-moon-cloud-bow.webp",
+      "thumbnail": "premium/mid-autumn/full-moon-cloud-bow.thumb.webp",
+      "viewBox": [
+        263,
+        248
+      ],
+      "contentBounds": [
+        0.0228,
+        0.0242,
+        0.9544,
+        0.9516
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ma-lantern-branch-blossom",
+      "name": "Lantern Branch Blossom",
+      "nameVi": "Lantern Branch Blossom",
+      "category": "mid-autumn",
+      "categoryVi": "Trung thu",
+      "tags": [
+        "premium",
+        "mid-autumn",
+        "lantern",
+        "branch",
+        "blossom"
+      ],
+      "path": "premium/mid-autumn/lantern-branch-blossom.webp",
+      "thumbnail": "premium/mid-autumn/lantern-branch-blossom.thumb.webp",
+      "viewBox": [
+        216,
+        334
+      ],
+      "contentBounds": [
+        0.0278,
+        0.018,
+        0.9444,
+        0.9641
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ma-mooncake-slice-plate",
+      "name": "Mooncake Slice Plate",
+      "nameVi": "Mooncake Slice Plate",
+      "category": "mid-autumn",
+      "categoryVi": "Trung thu",
+      "tags": [
+        "premium",
+        "mid-autumn",
+        "mooncake",
+        "slice",
+        "plate"
+      ],
+      "path": "premium/mid-autumn/mooncake-slice-plate.webp",
+      "thumbnail": "premium/mid-autumn/mooncake-slice-plate.thumb.webp",
+      "viewBox": [
+        235,
+        184
+      ],
+      "contentBounds": [
+        0.0255,
+        0.0326,
+        0.9489,
+        0.9348
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ma-bunny-moon-sleeping",
+      "name": "Bunny Moon Sleeping",
+      "nameVi": "Bunny Moon Sleeping",
+      "category": "mid-autumn",
+      "categoryVi": "Trung thu",
+      "tags": [
+        "premium",
+        "mid-autumn",
+        "bunny",
+        "moon",
+        "sleeping"
+      ],
+      "path": "premium/mid-autumn/bunny-moon-sleeping.webp",
+      "thumbnail": "premium/mid-autumn/bunny-moon-sleeping.thumb.webp",
+      "viewBox": [
+        289,
+        264
+      ],
+      "contentBounds": [
+        0.0208,
+        0.0227,
+        0.9585,
+        0.9545
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ma-moon-plaque",
+      "name": "Moon Plaque",
+      "nameVi": "Moon Plaque",
+      "category": "mid-autumn",
+      "categoryVi": "Trung thu",
+      "tags": [
+        "premium",
+        "mid-autumn",
+        "moon",
+        "plaque"
+      ],
+      "path": "premium/mid-autumn/moon-plaque.webp",
+      "thumbnail": "premium/mid-autumn/moon-plaque.thumb.webp",
+      "viewBox": [
+        259,
+        167
+      ],
+      "contentBounds": [
+        0.0232,
+        0.0359,
+        0.9537,
+        0.9281
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ma-lanterns-cloud-pair",
+      "name": "Lanterns Cloud Pair",
+      "nameVi": "Lanterns Cloud Pair",
+      "category": "mid-autumn",
+      "categoryVi": "Trung thu",
+      "tags": [
+        "premium",
+        "mid-autumn",
+        "lanterns",
+        "cloud",
+        "pair"
+      ],
+      "path": "premium/mid-autumn/lanterns-cloud-pair.webp",
+      "thumbnail": "premium/mid-autumn/lanterns-cloud-pair.thumb.webp",
+      "viewBox": [
+        291,
+        204
+      ],
+      "contentBounds": [
+        0.0206,
+        0.0294,
+        0.9588,
+        0.9412
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ma-lantern-plaque-purple",
+      "name": "Lantern Plaque Purple",
+      "nameVi": "Lantern Plaque Purple",
+      "category": "mid-autumn",
+      "categoryVi": "Trung thu",
+      "tags": [
+        "premium",
+        "mid-autumn",
+        "lantern",
+        "plaque",
+        "purple"
+      ],
+      "path": "premium/mid-autumn/lantern-plaque-purple.webp",
+      "thumbnail": "premium/mid-autumn/lantern-plaque-purple.thumb.webp",
+      "viewBox": [
+        291,
+        213
+      ],
+      "contentBounds": [
+        0.0206,
+        0.0282,
+        0.9588,
+        0.9437
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ma-lantern-round-pink",
+      "name": "Lantern Round Pink",
+      "nameVi": "Lantern Round Pink",
+      "category": "mid-autumn",
+      "categoryVi": "Trung thu",
+      "tags": [
+        "premium",
+        "mid-autumn",
+        "lantern",
+        "round",
+        "pink"
+      ],
+      "path": "premium/mid-autumn/lantern-round-pink.webp",
+      "thumbnail": "premium/mid-autumn/lantern-round-pink.thumb.webp",
+      "viewBox": [
+        174,
+        294
+      ],
+      "contentBounds": [
+        0.0345,
+        0.0204,
+        0.931,
+        0.9592
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ma-fan-blossom",
+      "name": "Fan Blossom",
+      "nameVi": "Fan Blossom",
+      "category": "mid-autumn",
+      "categoryVi": "Trung thu",
+      "tags": [
+        "premium",
+        "mid-autumn",
+        "fan",
+        "blossom"
+      ],
+      "path": "premium/mid-autumn/fan-blossom.webp",
+      "thumbnail": "premium/mid-autumn/fan-blossom.thumb.webp",
+      "viewBox": [
+        259,
+        258
+      ],
+      "contentBounds": [
+        0.0232,
+        0.0233,
+        0.9537,
+        0.9535
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ma-cloud-star-pastel",
+      "name": "Cloud Star Pastel",
+      "nameVi": "Cloud Star Pastel",
+      "category": "mid-autumn",
+      "categoryVi": "Trung thu",
+      "tags": [
+        "premium",
+        "mid-autumn",
+        "cloud",
+        "star",
+        "pastel"
+      ],
+      "path": "premium/mid-autumn/cloud-star-pastel.webp",
+      "thumbnail": "premium/mid-autumn/cloud-star-pastel.thumb.webp",
+      "viewBox": [
+        229,
+        163
+      ],
+      "contentBounds": [
+        0.0262,
+        0.0368,
+        0.9476,
+        0.9264
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ma-lantern-pink-tassel",
+      "name": "Lantern Pink Tassel",
+      "nameVi": "Lantern Pink Tassel",
+      "category": "mid-autumn",
+      "categoryVi": "Trung thu",
+      "tags": [
+        "premium",
+        "mid-autumn",
+        "lantern",
+        "pink",
+        "tassel"
+      ],
+      "path": "premium/mid-autumn/lantern-pink-tassel.webp",
+      "thumbnail": "premium/mid-autumn/lantern-pink-tassel.thumb.webp",
+      "viewBox": [
+        156,
+        276
+      ],
+      "contentBounds": [
+        0.0385,
+        0.0217,
+        0.9231,
+        0.9565
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ma-mooncake-rabbit-stamp",
+      "name": "Mooncake Rabbit Stamp",
+      "nameVi": "Mooncake Rabbit Stamp",
+      "category": "mid-autumn",
+      "categoryVi": "Trung thu",
+      "tags": [
+        "premium",
+        "mid-autumn",
+        "mooncake",
+        "rabbit",
+        "stamp"
+      ],
+      "path": "premium/mid-autumn/mooncake-rabbit-stamp.webp",
+      "thumbnail": "premium/mid-autumn/mooncake-rabbit-stamp.thumb.webp",
+      "viewBox": [
+        173,
+        172
+      ],
+      "contentBounds": [
+        0.0347,
+        0.0349,
+        0.9306,
+        0.9302
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ma-cherry-blossom-branch-2",
+      "name": "Cherry Blossom Branch 2",
+      "nameVi": "Cherry Blossom Branch 2",
+      "category": "mid-autumn",
+      "categoryVi": "Trung thu",
+      "tags": [
+        "premium",
+        "mid-autumn",
+        "cherry",
+        "blossom",
+        "branch",
+        "2"
+      ],
+      "path": "premium/mid-autumn/cherry-blossom-branch-2.webp",
+      "thumbnail": "premium/mid-autumn/cherry-blossom-branch-2.thumb.webp",
+      "viewBox": [
+        220,
+        237
+      ],
+      "contentBounds": [
+        0.0273,
+        0.0253,
+        0.9455,
+        0.9494
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ma-bunny-mooncake-tray",
+      "name": "Bunny Mooncake Tray",
+      "nameVi": "Bunny Mooncake Tray",
+      "category": "mid-autumn",
+      "categoryVi": "Trung thu",
+      "tags": [
+        "premium",
+        "mid-autumn",
+        "bunny",
+        "mooncake",
+        "tray"
+      ],
+      "path": "premium/mid-autumn/bunny-mooncake-tray.webp",
+      "thumbnail": "premium/mid-autumn/bunny-mooncake-tray.thumb.webp",
+      "viewBox": [
+        243,
+        205
+      ],
+      "contentBounds": [
+        0.0247,
+        0.0293,
+        0.9506,
+        0.9415
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ma-persimmon-leaf",
+      "name": "Persimmon Leaf",
+      "nameVi": "Persimmon Leaf",
+      "category": "mid-autumn",
+      "categoryVi": "Trung thu",
+      "tags": [
+        "premium",
+        "mid-autumn",
+        "persimmon",
+        "leaf"
+      ],
+      "path": "premium/mid-autumn/persimmon-leaf.webp",
+      "thumbnail": "premium/mid-autumn/persimmon-leaf.thumb.webp",
+      "viewBox": [
+        205,
+        192
+      ],
+      "contentBounds": [
+        0.0293,
+        0.0312,
+        0.9415,
+        0.9375
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ma-bunny-cupcake",
+      "name": "Bunny Cupcake",
+      "nameVi": "Bunny Cupcake",
+      "category": "mid-autumn",
+      "categoryVi": "Trung thu",
+      "tags": [
+        "premium",
+        "mid-autumn",
+        "bunny",
+        "cupcake"
+      ],
+      "path": "premium/mid-autumn/bunny-cupcake.webp",
+      "thumbnail": "premium/mid-autumn/bunny-cupcake.thumb.webp",
+      "viewBox": [
+        199,
+        247
+      ],
+      "contentBounds": [
+        0.0302,
+        0.0243,
+        0.9397,
+        0.9514
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ma-harvest-plaque",
+      "name": "Harvest Plaque",
+      "nameVi": "Harvest Plaque",
+      "category": "mid-autumn",
+      "categoryVi": "Trung thu",
+      "tags": [
+        "premium",
+        "mid-autumn",
+        "harvest",
+        "plaque"
+      ],
+      "path": "premium/mid-autumn/harvest-plaque.webp",
+      "thumbnail": "premium/mid-autumn/harvest-plaque.thumb.webp",
+      "viewBox": [
+        312,
+        195
+      ],
+      "contentBounds": [
+        0.0192,
+        0.0308,
+        0.9615,
+        0.9385
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ma-moon-tassel-star",
+      "name": "Moon Tassel Star",
+      "nameVi": "Moon Tassel Star",
+      "category": "mid-autumn",
+      "categoryVi": "Trung thu",
+      "tags": [
+        "premium",
+        "mid-autumn",
+        "moon",
+        "tassel",
+        "star"
+      ],
+      "path": "premium/mid-autumn/moon-tassel-star.webp",
+      "thumbnail": "premium/mid-autumn/moon-tassel-star.thumb.webp",
+      "viewBox": [
+        134,
+        340
+      ],
+      "contentBounds": [
+        0.0448,
+        0.0176,
+        0.9104,
+        0.9647
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ma-lotus-candle-pink",
+      "name": "Lotus Candle Pink",
+      "nameVi": "Lotus Candle Pink",
+      "category": "mid-autumn",
+      "categoryVi": "Trung thu",
+      "tags": [
+        "premium",
+        "mid-autumn",
+        "lotus",
+        "candle",
+        "pink"
+      ],
+      "path": "premium/mid-autumn/lotus-candle-pink.webp",
+      "thumbnail": "premium/mid-autumn/lotus-candle-pink.thumb.webp",
+      "viewBox": [
+        234,
+        202
+      ],
+      "contentBounds": [
+        0.0256,
+        0.0297,
+        0.9487,
+        0.9406
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ma-lantern-floating-pink",
+      "name": "Lantern Floating Pink",
+      "nameVi": "Lantern Floating Pink",
+      "category": "mid-autumn",
+      "categoryVi": "Trung thu",
+      "tags": [
+        "premium",
+        "mid-autumn",
+        "lantern",
+        "floating",
+        "pink"
+      ],
+      "path": "premium/mid-autumn/lantern-floating-pink.webp",
+      "thumbnail": "premium/mid-autumn/lantern-floating-pink.thumb.webp",
+      "viewBox": [
+        200,
+        211
+      ],
+      "contentBounds": [
+        0.03,
+        0.0284,
+        0.94,
+        0.9431
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ma-bunny-heart-cloud",
+      "name": "Bunny Heart Cloud",
+      "nameVi": "Bunny Heart Cloud",
+      "category": "mid-autumn",
+      "categoryVi": "Trung thu",
+      "tags": [
+        "premium",
+        "mid-autumn",
+        "bunny",
+        "heart",
+        "cloud"
+      ],
+      "path": "premium/mid-autumn/bunny-heart-cloud.webp",
+      "thumbnail": "premium/mid-autumn/bunny-heart-cloud.thumb.webp",
+      "viewBox": [
+        211,
+        221
+      ],
+      "contentBounds": [
+        0.0284,
+        0.0271,
+        0.9431,
+        0.9457
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ma-candy-stick-pastel",
+      "name": "Candy Stick Pastel",
+      "nameVi": "Candy Stick Pastel",
+      "category": "mid-autumn",
+      "categoryVi": "Trung thu",
+      "tags": [
+        "premium",
+        "mid-autumn",
+        "candy",
+        "stick",
+        "pastel"
+      ],
+      "path": "premium/mid-autumn/candy-stick-pastel.webp",
+      "thumbnail": "premium/mid-autumn/candy-stick-pastel.thumb.webp",
+      "viewBox": [
+        121,
+        181
+      ],
+      "contentBounds": [
+        0.0496,
+        0.0331,
+        0.9008,
+        0.9337
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ma-bunny-cloud-sleeping-2",
+      "name": "Bunny Cloud Sleeping 2",
+      "nameVi": "Bunny Cloud Sleeping 2",
+      "category": "mid-autumn",
+      "categoryVi": "Trung thu",
+      "tags": [
+        "premium",
+        "mid-autumn",
+        "bunny",
+        "cloud",
+        "sleeping",
+        "2"
+      ],
+      "path": "premium/mid-autumn/bunny-cloud-sleeping-2.webp",
+      "thumbnail": "premium/mid-autumn/bunny-cloud-sleeping-2.thumb.webp",
+      "viewBox": [
+        245,
+        219
+      ],
+      "contentBounds": [
+        0.0245,
+        0.0274,
+        0.951,
+        0.9452
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ma-autumn-plaque",
+      "name": "Autumn Plaque",
+      "nameVi": "Autumn Plaque",
+      "category": "mid-autumn",
+      "categoryVi": "Trung thu",
+      "tags": [
+        "premium",
+        "mid-autumn",
+        "autumn",
+        "plaque"
+      ],
+      "path": "premium/mid-autumn/autumn-plaque.webp",
+      "thumbnail": "premium/mid-autumn/autumn-plaque.thumb.webp",
+      "viewBox": [
+        286,
+        242
+      ],
+      "contentBounds": [
+        0.021,
+        0.0248,
+        0.958,
+        0.9504
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ma-bunny-latte-cinnamon",
+      "name": "Bunny Latte Cinnamon",
+      "nameVi": "Bunny Latte Cinnamon",
+      "category": "mid-autumn",
+      "categoryVi": "Trung thu",
+      "tags": [
+        "premium",
+        "mid-autumn",
+        "bunny",
+        "latte",
+        "cinnamon"
+      ],
+      "path": "premium/mid-autumn/bunny-latte-cinnamon.webp",
+      "thumbnail": "premium/mid-autumn/bunny-latte-cinnamon.thumb.webp",
+      "viewBox": [
+        232,
+        276
+      ],
+      "contentBounds": [
+        0.0259,
+        0.0217,
+        0.9483,
+        0.9565
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ma-mooncake-basket",
+      "name": "Mooncake Basket",
+      "nameVi": "Mooncake Basket",
+      "category": "mid-autumn",
+      "categoryVi": "Trung thu",
+      "tags": [
+        "premium",
+        "mid-autumn",
+        "mooncake",
+        "basket"
+      ],
+      "path": "premium/mid-autumn/mooncake-basket.webp",
+      "thumbnail": "premium/mid-autumn/mooncake-basket.thumb.webp",
+      "viewBox": [
+        259,
+        220
+      ],
+      "contentBounds": [
+        0.0232,
+        0.0273,
+        0.9537,
+        0.9455
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ma-tag-moon-star",
+      "name": "Tag Moon Star",
+      "nameVi": "Tag Moon Star",
+      "category": "mid-autumn",
+      "categoryVi": "Trung thu",
+      "tags": [
+        "premium",
+        "mid-autumn",
+        "tag",
+        "moon",
+        "star"
+      ],
+      "path": "premium/mid-autumn/tag-moon-star.webp",
+      "thumbnail": "premium/mid-autumn/tag-moon-star.thumb.webp",
+      "viewBox": [
+        122,
+        212
+      ],
+      "contentBounds": [
+        0.0492,
+        0.0283,
+        0.9016,
+        0.9434
+      ],
+      "defaultScale": 0.6,
+      "tintable": false,
+      "layerType": "decal",
+      "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "ma-star-flower-bow",
+      "name": "Star Flower Bow",
+      "nameVi": "Star Flower Bow",
+      "category": "mid-autumn",
+      "categoryVi": "Trung thu",
+      "tags": [
+        "premium",
+        "mid-autumn",
+        "star",
+        "flower",
+        "bow"
+      ],
+      "path": "premium/mid-autumn/star-flower-bow.webp",
+      "thumbnail": "premium/mid-autumn/star-flower-bow.thumb.webp",
+      "viewBox": [
+        186,
+        199
+      ],
+      "contentBounds": [
+        0.0323,
+        0.0302,
+        0.9355,
+        0.9397
       ],
       "defaultScale": 0.6,
       "tintable": false,
