@@ -43,6 +43,21 @@ function cssGradient(stops: PaintStop[]): string {
   return `linear-gradient(to right, ${parts.join(', ')})`
 }
 
+/** Angle (0-360, 0 = pointing right, increasing clockwise in image space) -> a
+ * start/end pair on the unit square's inscribed circle around its center, so the
+ * gradient always spans the full nail regardless of rotation. */
+function angleToStartEnd(angleDeg: number): { start: [number, number]; end: [number, number] } {
+  const rad = (angleDeg * Math.PI) / 180
+  const dx = Math.cos(rad) * 0.5
+  const dy = Math.sin(rad) * 0.5
+  return { start: [0.5 - dx, 0.5 - dy], end: [0.5 + dx, 0.5 + dy] }
+}
+
+function startEndToAngle(start: [number, number], end: [number, number]): number {
+  const deg = (Math.atan2(end[1] - start[1], end[0] - start[0]) * 180) / Math.PI
+  return deg < 0 ? deg + 360 : deg
+}
+
 export function GradientEditor({
   gradient,
   fallback,
@@ -189,17 +204,34 @@ export function GradientEditor({
       </div>
 
       {active.mode === 'linear' && (
-        <div className="flex gap-1.5">
-          {DIRECTIONS.map((d) => (
-            <button
-              key={d.label}
-              onClick={() => commit({ start: d.start, end: d.end })}
-              className="rounded-full border-2 border-vibe-ink/10 px-2.5 py-1 text-[11px] font-semibold text-vibe-ink-soft hover:border-vibe-pink/40"
-            >
-              {d.label}
-            </button>
-          ))}
-        </div>
+        <>
+          <div className="flex gap-1.5">
+            {DIRECTIONS.map((d) => (
+              <button
+                key={d.label}
+                onClick={() => commit({ start: d.start, end: d.end })}
+                className="rounded-full border-2 border-vibe-ink/10 px-2.5 py-1 text-[11px] font-semibold text-vibe-ink-soft hover:border-vibe-pink/40"
+              >
+                {d.label}
+              </button>
+            ))}
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-[11px] font-semibold text-vibe-ink-soft">Xoay góc</span>
+            <input
+              type="range"
+              min={0}
+              max={359}
+              step={1}
+              value={Math.round(startEndToAngle(active.start, active.end))}
+              onChange={(e) => commit(angleToStartEnd(Number(e.target.value)))}
+              className="h-2 flex-1 accent-vibe-pink-dark"
+            />
+            <span className="w-9 shrink-0 text-right text-[11px] tabular-nums text-vibe-ink-soft">
+              {Math.round(startEndToAngle(active.start, active.end))}°
+            </span>
+          </div>
+        </>
       )}
     </div>
   )
