@@ -38,6 +38,18 @@ export default function BlogPost() {
 
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
         <CoverMedia post={post} className="mt-6 aspect-[21/9] overflow-hidden rounded-[2rem] shadow-vibe" />
+        {post.cover?.credit && (
+          <p className="mt-1.5 text-right text-[11px] text-vibe-ink-soft/60">
+            Ảnh:{' '}
+            {post.cover.sourceUrl ? (
+              <a href={post.cover.sourceUrl} target="_blank" rel="noreferrer" className="underline hover:text-vibe-ink-soft">
+                {post.cover.credit}
+              </a>
+            ) : (
+              post.cover.credit
+            )}
+          </p>
+        )}
 
         <span className="mt-6 inline-block text-xs font-semibold uppercase tracking-wide text-vibe-pink-dark">
           {BLOG_CATEGORY_LABEL[post.category]}

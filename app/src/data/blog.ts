@@ -38,6 +38,12 @@ export const BLOG_POSTS: BlogPost[] = [
     category: 'trend',
     excerpt: 'Chrome, bướm và trái tim đang phủ sóng khắp TikTok — làm sao để phối cho sang chứ không sến? VIBEU gợi ý 5 công thức dễ áp dụng.',
     accentColor: '#B6C7EA',
+    cover: {
+      src: '/assets/blog/y2k-nail-2026/cover.jpg',
+      alt: 'Móng tay hiệu ứng holographic ánh tím xanh với họa tiết ngôi sao',
+      credit: 'Courtney Rhodes (Wikimedia Commons, CC BY 2.0)',
+      sourceUrl: 'https://commons.wikimedia.org/wiki/File:Hologram_nail_art.jpg',
+    },
     date: '2026-08-18',
     readMinutes: 4,
     content: [
@@ -53,6 +59,12 @@ export const BLOG_POSTS: BlogPost[] = [
     category: 'tips',
     excerpt: 'Không phải form móng nào cũng hợp với mọi bàn tay. Đây là cách chọn nhanh chỉ trong 30 giây.',
     accentColor: '#FFD879',
+    cover: {
+      src: '/assets/blog/chon-form-mong-hop-dang-tay/cover.jpg',
+      alt: 'Bàn tay với móng French tip cho thấy rõ form móng tự nhiên',
+      credit: 'Kamali mohan kumar (Wikimedia Commons, CC BY-SA 4.0)',
+      sourceUrl: 'https://commons.wikimedia.org/wiki/File:French_tip_nail_art.jpg',
+    },
     date: '2026-08-10',
     readMinutes: 5,
     content: [
@@ -68,6 +80,12 @@ export const BLOG_POSTS: BlogPost[] = [
     category: 'care',
     excerpt: 'Sơn gel đẹp nhưng gỡ sai cách rất dễ làm móng mỏng, giòn. Đây là quy trình dưỡng phục hồi VIBEU khuyên dùng.',
     accentColor: '#8CCABD',
+    cover: {
+      src: '/assets/blog/duong-mong-sau-khi-go-gel/cover.jpg',
+      alt: 'Chăm sóc móng tay với kỹ thuật viên đang làm móng French',
+      credit: "Fing'rs (Wikimedia Commons, CC BY 2.0)",
+      sourceUrl: 'https://commons.wikimedia.org/wiki/File:Natural_French_manicure.jpg',
+    },
     date: '2026-07-29',
     readMinutes: 4,
     content: [
@@ -83,6 +101,12 @@ export const BLOG_POSTS: BlogPost[] = [
     category: 'trend',
     excerpt: 'Từ Bạch Dương cá tính đến Song Ngư mộng mơ — mỗi cung hoàng đạo đều có một bộ nail đại diện trong thư viện mẫu VIBEU.',
     accentColor: '#A697D5',
+    cover: {
+      src: '/assets/blog/12-cung-hoang-dao-nail/cover.jpg',
+      alt: 'Móng tay họa tiết dải ngân hà xanh tím lấp lánh',
+      credit: 'Lelê Breveglieri (Wikimedia Commons, CC BY 2.0)',
+      sourceUrl: 'https://commons.wikimedia.org/wiki/File:Galaxies_nail_art.jpg',
+    },
     date: '2026-07-15',
     readMinutes: 3,
     content: [
@@ -98,6 +122,12 @@ export const BLOG_POSTS: BlogPost[] = [
     category: 'tips',
     excerpt: 'Ánh sáng, góc chụp và phông nền — chỉ 3 yếu tố này thôi cũng đủ nâng tầm bức ảnh nail của bạn.',
     accentColor: '#F4B094',
+    cover: {
+      src: '/assets/blog/meo-chup-anh-nail-dep/cover.jpg',
+      alt: 'Cận cảnh móng tay được chụp với ánh sáng và bố cục rõ nét',
+      credit: 'Geórgia Moro (Wikimedia Commons, CC BY 2.0)',
+      sourceUrl: 'https://commons.wikimedia.org/wiki/File:Complex_nail_art.jpg',
+    },
     date: '2026-07-02',
     readMinutes: 3,
     content: [
@@ -113,6 +143,12 @@ export const BLOG_POSTS: BlogPost[] = [
     category: 'tips',
     excerpt: 'Không biết diễn tả ý tưởng cho thợ nail? Đây là cách VIBEU giúp bạn xuất công thức chuẩn xác chỉ bằng vài cú click.',
     accentColor: '#90B8EB',
+    cover: {
+      src: '/assets/blog/quy-trinh-dung-nail-studio/cover.jpg',
+      alt: 'Kỹ thuật viên đang thực hiện làm móng tay cho khách tại tiệm',
+      credit: 'Minette Lontsie (Wikimedia Commons, CC BY-SA 4.0)',
+      sourceUrl: 'https://commons.wikimedia.org/wiki/File:Esth%C3%A9ticienne_faisant_une_Manucure.jpg',
+    },
     date: '2026-06-20',
     readMinutes: 4,
     content: [
