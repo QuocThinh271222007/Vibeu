@@ -25,7 +25,9 @@ export const MASK_GROW_PX: Partial<Record<SkinToneId, Partial<Record<FingerId, n
   // very small remainder at 7px (bumped to 9), and index/middle/ring — previously
   // untouched — turned out to have their own small gap too ("chưa khớp lắm, vẫn còn
   // thiếu một chút").
-  cozy: { thumb: 12, index: 4, middle: 4, ring: 4, little: 9 },
+  // Round 3: thumb STILL showed a leftover rim at 12px (visible along the right edge
+  // and lower curve at 400%+ zoom) — bumped further to 20.
+  cozy: { thumb: 15, index: 4, middle: 4, ring: 4, little: 9 },
   matcha: { thumb: 3, index: 3, middle: 3, ring: 3, little: 3 },
 }
 

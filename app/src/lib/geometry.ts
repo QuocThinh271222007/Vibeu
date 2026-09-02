@@ -102,34 +102,6 @@ export function presetUvToImage(nail: NailCoord, uv: UV): [number, number] {
   return localToImage(nail, uv)
 }
 
-/**
- * Affine matrix that uniformly scales `nail.path` around the nail's own center by
- * roughly `growPx` image-space pixels outward. Used only to grow the visible clip region
- * to match the matching outward growth already baked into the painted raster by
- * nailLighting.ts's `prepareNail` (see nailEdgeTuning.ts) — without this, the clip stays
- * at the original traced boundary and the newly-painted pixels are clipped away for
- * nothing. A uniform center-scale isn't a true offset-outline (a real Minkowski dilation
- * of the bezier path), but for a few pixels of correction on an already-rounded nail
- * shape it's visually indistinguishable and far simpler/safer than reconstructing the
- * path geometry. Returns `null` for `growPx <= 0` (no growth needed).
- */
-export function nailGrowMatrixValues(nail: NailCoord, growPx: number): AffineMatrix | null {
-  if (growPx <= 0) return null
-  const [, , bw, bh] = nail.bbox
-  const avgHalfExtent = (bw + bh) / 4 || 1
-  const scale = 1 + growPx / avgHalfExtent
-  const [cx, cy] = nail.center
-  const e = cx - scale * cx
-  const f = cy - scale * cy
-  return { a: scale, b: 0, c: 0, d: scale, e, f }
-}
-
-/** SVG matrix() string form of {@link nailGrowMatrixValues}, for the live DOM clipPath. */
-export function nailGrowMatrix(nail: NailCoord, growPx: number): string | undefined {
-  const m = nailGrowMatrixValues(nail, growPx)
-  return m ? `matrix(${m.a} ${m.b} ${m.c} ${m.d} ${m.e} ${m.f})` : undefined
-}
-
 export function distancePx(a: [number, number], b: [number, number]): number {
   return Math.hypot(a[0] - b[0], a[1] - b[1])
 }

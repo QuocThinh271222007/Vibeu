@@ -1,6 +1,6 @@
 import { getHandData, handBaseUrl, resolveDecalPath } from '@/data/loaders'
 import { getResolvedDecalAsset } from '@/lib/decalCache'
-import { LENGTH_SCALE, lengthScaleMatrixValues, localToImage, nailGrowMatrixValues, nailWidthPx, shapeTrimUv } from '@/lib/geometry'
+import { LENGTH_SCALE, lengthScaleMatrixValues, localToImage, nailWidthPx, shapeTrimUv } from '@/lib/geometry'
 import { buildMaterialConfig, buildPaintConfig, composeNail, DEFAULT_LIGHT, hexToRgb01, type DecalLayer, type LightState } from '@/lib/nailFill'
 import { maskGrowPxFor } from '@/lib/nailEdgeTuning'
 import { getPreparedHand } from '@/lib/nailLighting'
@@ -82,20 +82,21 @@ export async function exportDesignPng(
     const seed = FINGER_ORDER.indexOf(nail.id)
     const nailCanvas = composeNail(prepared, paintCfg, materialCfg, decalLayers, light, seed)
 
-    ctx.save()
-    // Must match the growPx nailLighting.ts used to bake this nail's raster
-    // (nailEdgeTuning.ts is the single source of truth) — otherwise the exported PNG
-    // would clip away pixels the live preview shows. Path2D.addPath+DOMMatrix transforms
-    // the path's own points rather than the canvas's transform state, so it doesn't
-    // affect the drawImage placement below.
-    const growMatrix = nailGrowMatrixValues(nail, maskGrowPxFor(skinTone, nail.id))
-    let clipPath = new Path2D(nail.path)
-    if (growMatrix) {
-      const grown = new Path2D()
-      grown.addPath(clipPath, new DOMMatrix([growMatrix.a, growMatrix.b, growMatrix.c, growMatrix.d, growMatrix.e, growMatrix.f]))
-      clipPath = grown
-    }
-    ctx.clip(clipPath)
+    // Composite this nail's content on a full-size scratch layer first, then mask it with
+    // a RASTER clip (fill + stroke-dilated outline, unioned by alpha) before compositing
+    // onto the real canvas. A stroke-based dilation grows the silhouette outward by a true
+    // isotropic pixel distance along the path's own local normal, unlike a centroid-scaled
+    // matrix transform (which over/under-grows anisotropically on a rotated or elongated
+    // nail — confirmed visually on the thumb, which sits at a real angle in the photo).
+    // growPx must match nailLighting.ts's buffer padding (nailEdgeTuning.ts is the single
+    // source of truth) — otherwise the exported PNG would clip away pixels the live
+    // preview shows.
+    const growPx = maskGrowPxFor(skinTone, nail.id)
+    const layer = document.createElement('canvas')
+    layer.width = canvas.width
+    layer.height = canvas.height
+    const layerCtx = layer.getContext('2d')!
+    layerCtx.save()
     const trimUv = shapeTrimUv(design.shape)
     if (trimUv) {
       const trimPath = new Path2D()
@@ -105,12 +106,28 @@ export async function exportDesignPng(
         else trimPath.lineTo(x, y)
       })
       trimPath.closePath()
-      ctx.clip(trimPath)
+      layerCtx.clip(trimPath)
     }
     const m = lengthScaleMatrixValues(nail, LENGTH_SCALE[design.length])
-    ctx.transform(m.a, m.b, m.c, m.d, m.e, m.f)
-    ctx.drawImage(nailCanvas, prepared.x, prepared.y)
-    ctx.restore()
+    layerCtx.transform(m.a, m.b, m.c, m.d, m.e, m.f)
+    layerCtx.drawImage(nailCanvas, prepared.x, prepared.y)
+    layerCtx.restore()
+
+    const mask = document.createElement('canvas')
+    mask.width = canvas.width
+    mask.height = canvas.height
+    const maskCtx = mask.getContext('2d')!
+    const maskPath = new Path2D(nail.path)
+    maskCtx.fill(maskPath)
+    if (growPx > 0) {
+      maskCtx.lineWidth = growPx * 2
+      maskCtx.lineJoin = 'round'
+      maskCtx.stroke(maskPath)
+    }
+    layerCtx.globalCompositeOperation = 'destination-in'
+    layerCtx.drawImage(mask, 0, 0)
+
+    ctx.drawImage(layer, 0, 0)
   }
 
   return new Promise((resolve, reject) => {

@@ -6,7 +6,6 @@ import {
   LENGTH_SCALE,
   localToImage,
   imageToLocal,
-  nailGrowMatrix,
   nailWidthPx,
   rotatePointDeg,
   shapeTrimUv,
@@ -478,16 +477,21 @@ function NailPaint({
   const uid = `${iid}-${nail.id}`
   const trimUv = shapeTrimUv(design.shape)
   const lengthMatrix = lengthScaleMatrix(nail, LENGTH_SCALE[design.length])
-  // Must match the growPx nailLighting.ts used to bake this nail's raster (nailEdgeTuning.ts
-  // is the single source of truth for both) — otherwise the extra painted pixels from
-  // that growth would just be clipped away here, back down to the original traced path.
-  const growTransform = nailGrowMatrix(nail, maskGrowPxFor(skinTone, nail.id))
+  // Must match the growPx nailLighting.ts used to pad/grow its raster buffer
+  // (nailEdgeTuning.ts is the single source of truth for both) — otherwise the extra
+  // painted pixels from that growth would just be clipped away here, back down to the
+  // original traced path. The stroke below dilates the silhouette by a true isotropic
+  // pixel distance along the path's own local normal — a centroid-scaled transform was
+  // tried first but over/under-grows anisotropically on a rotated or elongated nail
+  // (visible on the thumb, which sits at a real angle in the photo).
+  const growPx = maskGrowPxFor(skinTone, nail.id)
 
   return (
     <g pointerEvents="none">
       <defs>
         <clipPath id={`clip-real-${uid}`}>
-          <path d={nail.path} transform={growTransform} />
+          <path d={nail.path} />
+          {growPx > 0 && <path d={nail.path} fill="none" stroke="white" strokeWidth={growPx * 2} strokeLinejoin="round" />}
         </clipPath>
         {trimUv && (
           <clipPath id={`clip-trim-${uid}`}>

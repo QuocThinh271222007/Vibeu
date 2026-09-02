@@ -77,10 +77,22 @@ function chamferDistanceInside(alpha: Uint8ClampedArray, w: number, h: number): 
 const EDGE_RADIUS_PX = 1.6
 
 export function prepareNail(nail: NailCoord, fullImage: ImageData, tone?: SkinToneId): PreparedNail {
-  const x = Math.round(nail.bbox[0])
-  const y = Math.round(nail.bbox[1])
-  const w = Math.round(nail.bbox[2])
-  const h = Math.round(nail.bbox[3])
+  // MASK_GROW_PX (nailEdgeTuning.ts) shifts the coverage ramp outward past the traced
+  // path's own boundary. Without padding, the working buffer below is sized to the exact
+  // traced bbox, so growth on any side where the path already sits close to that bbox edge
+  // has nowhere to go and gets hard-clipped by the array bound — visible as a flat, unnatural
+  // cut through the paint rather than a smooth outward extension. Padding the buffer by the
+  // grow amount (plus slack) gives the chamfer distance field and photo sampling real room.
+  const growPx = maskGrowPxFor(tone, nail.id)
+  const bufPad = growPx > 0 ? Math.ceil(growPx) + 4 : 0
+  const rawX = Math.round(nail.bbox[0])
+  const rawY = Math.round(nail.bbox[1])
+  const rawX1 = rawX + Math.round(nail.bbox[2])
+  const rawY1 = rawY + Math.round(nail.bbox[3])
+  const x = Math.max(0, rawX - bufPad)
+  const y = Math.max(0, rawY - bufPad)
+  const w = Math.min(fullImage.width, rawX1 + bufPad) - x
+  const h = Math.min(fullImage.height, rawY1 + bufPad) - y
 
   const maskCanvas = document.createElement('canvas')
   maskCanvas.width = w
@@ -182,7 +194,6 @@ export function prepareNail(nail: NailCoord, fullImage: ImageData, tone?: SkinTo
   // unpainted nail in the same place, which rules out blending and means the path itself
   // needs to reach further. This only helps if HandCanvas's live clip-path and
   // exportImage's canvas clip grow by the same amount — see nailEdgeTuning.ts.
-  const growPx = maskGrowPxFor(tone, nail.id)
   const insideDist = chamferDistanceInside(alpha, w, h)
   const invertedAlpha = new Uint8ClampedArray(w * h)
   for (let k = 0; k < w * h; k++) invertedAlpha[k] = alpha[k] < 128 ? 255 : 0
