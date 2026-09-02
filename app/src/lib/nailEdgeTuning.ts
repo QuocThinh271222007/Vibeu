@@ -20,7 +20,12 @@ import type { FingerId, SkinToneId } from '@/types/vibeu'
  *      live preview exactly.
  */
 export const MASK_GROW_PX: Partial<Record<SkinToneId, Partial<Record<FingerId, number>>>> = {
-  cozy: { thumb: 7, little: 7 },
+  // Round 2 of tuning per direct user feedback after reviewing the live site: thumb
+  // still showed a visible leftover rim at 7px (bumped to 12), little's was down to a
+  // very small remainder at 7px (bumped to 9), and index/middle/ring — previously
+  // untouched — turned out to have their own small gap too ("chưa khớp lắm, vẫn còn
+  // thiếu một chút").
+  cozy: { thumb: 12, index: 4, middle: 4, ring: 4, little: 9 },
   matcha: { thumb: 3, index: 3, middle: 3, ring: 3, little: 3 },
 }
 

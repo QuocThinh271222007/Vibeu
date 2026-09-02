@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { Plus, Trash2 } from 'lucide-react'
+import { ArrowLeftRight, Plus, Trash2 } from 'lucide-react'
 import type { CustomGradient, PaintMode, PaintStop } from '@/types/vibeu'
 
 const DIRECTIONS: { label: string; start: [number, number]; end: [number, number] }[] = [
@@ -80,6 +80,14 @@ export function GradientEditor({
     const stops = active.stops.filter((_, i) => i !== index)
     commit({ stops })
     setSelected(0)
+  }
+
+  /** Mirrors the gradient by flipping each stop's position (a stop at `at` moves to
+   * `1 - at`); sorting afterwards naturally puts the colors in reversed order without
+   * needing to touch which colors are assigned to which stop. */
+  const reverseStops = () => {
+    const stops = active.stops.map((s) => ({ ...s, at: 1 - s.at }))
+    commit({ stops })
   }
 
   const barPointerToAt = (clientX: number) => {
@@ -164,6 +172,9 @@ export function GradientEditor({
           Điểm {selected + 1}/{active.stops.length} · {Math.round((active.stops[selected]?.at ?? 0) * 100)}%
         </span>
         <div className="ml-auto flex gap-1.5">
+          <button onClick={reverseStops} title="Đảo ngược gradient" className="grid h-7 w-7 place-items-center rounded-full border-2 border-vibe-ink/10 text-vibe-ink-soft hover:border-vibe-pink/40">
+            <ArrowLeftRight size={14} />
+          </button>
           <button onClick={() => addStop()} className="grid h-7 w-7 place-items-center rounded-full border-2 border-vibe-ink/10 text-vibe-ink-soft hover:border-vibe-pink/40">
             <Plus size={14} />
           </button>
