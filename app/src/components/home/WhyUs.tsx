@@ -29,7 +29,7 @@ export function WhyUs() {
   return (
     <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
       <SectionHeading eyebrow="Vì sao chọn chúng tôi" title="Sáng tạo theo cách của riêng bạn" />
-      <div className="mt-10 grid gap-6 sm:grid-cols-3">
+      <div className="mt-10 grid gap-8 sm:grid-cols-3">
         {CARDS.map((c, i) => (
           <motion.div
             key={c.title}
@@ -38,13 +38,13 @@ export function WhyUs() {
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.5, delay: i * 0.1 }}
             whileHover={{ y: -6 }}
-            className={`rounded-[1.75rem] p-7 shadow-[0_10px_30px_-18px_rgba(80,50,120,0.3)] ${c.bg}`}
+            className={`rounded-[2rem] p-10 shadow-[0_10px_30px_-18px_rgba(80,50,120,0.3)] ${c.bg}`}
           >
-            <span className={`grid h-12 w-12 place-items-center rounded-2xl bg-white/70 ${c.iconColor}`}>
-              <c.icon size={24} strokeWidth={2} />
+            <span className={`grid h-16 w-16 place-items-center rounded-2xl bg-white/70 ${c.iconColor}`}>
+              <c.icon size={32} strokeWidth={2} />
             </span>
-            <h3 className="mt-4 font-display text-lg font-semibold text-vibe-ink">{c.title}</h3>
-            <p className="mt-2 text-sm leading-relaxed text-vibe-ink-soft">{c.desc}</p>
+            <h3 className="mt-5 font-display text-2xl font-semibold text-vibe-ink">{c.title}</h3>
+            <p className="mt-3 text-base leading-relaxed text-vibe-ink-soft">{c.desc}</p>
           </motion.div>
         ))}
       </div>
