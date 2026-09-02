@@ -1,7 +1,7 @@
 {
   "packId": "vibeu-premium-decal-pack-v1",
   "generatedBy": "premium sticker-sheet ingestion (this session)",
-  "totalDecals": 298,
+  "totalDecals": 396,
   "categories": [
     {
       "id": "coquette-charms",
@@ -57,6 +57,11 @@
       "id": "mid-autumn",
       "nameVi": "Trung thu",
       "count": 30
+    },
+    {
+      "id": "gem-charms",
+      "nameVi": "Charm đá quý",
+      "count": 98
     }
   ],
   "decals": [
@@ -76,14 +81,14 @@
       "path": "premium/coquette-charms/bow-pearl-heart.webp",
       "thumbnail": "premium/coquette-charms/bow-pearl-heart.thumb.webp",
       "viewBox": [
-        264,
-        215
+        208,
+        175
       ],
       "contentBounds": [
-        0.0303,
-        0.0372,
-        0.9697,
-        0.9628
+        0.0385,
+        0.0457,
+        0.9231,
+        0.9086
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -108,14 +113,14 @@
       "path": "premium/coquette-charms/bunny-heart-plush.webp",
       "thumbnail": "premium/coquette-charms/bunny-heart-plush.thumb.webp",
       "viewBox": [
-        221,
-        234
+        214,
+        195
       ],
       "contentBounds": [
-        0.0362,
-        0.0214,
-        0.9276,
-        0.9786
+        0.0374,
+        0.0308,
+        0.9252,
+        0.9282
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -140,14 +145,14 @@
       "path": "premium/coquette-charms/strawberry-shortcake-slice.webp",
       "thumbnail": "premium/coquette-charms/strawberry-shortcake-slice.thumb.webp",
       "viewBox": [
-        277,
-        219
+        271,
+        179
       ],
       "contentBounds": [
-        0.0289,
-        0.0365,
-        0.9422,
-        0.9635
+        0.0295,
+        0.0447,
+        0.941,
+        0.9106
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -172,14 +177,14 @@
       "path": "premium/coquette-charms/heart-perfume-bow.webp",
       "thumbnail": "premium/coquette-charms/heart-perfume-bow.thumb.webp",
       "viewBox": [
-        230,
-        233
+        229,
+        194
       ],
       "contentBounds": [
-        0.0348,
-        0.0343,
-        0.9304,
-        0.9657
+        0.0349,
+        0.0412,
+        0.9301,
+        0.9175
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -205,13 +210,13 @@
       "thumbnail": "premium/coquette-charms/cat-bow-white.thumb.webp",
       "viewBox": [
         242,
-        219
+        180
       ],
       "contentBounds": [
         0.0331,
-        0.0365,
-        0.9463,
-        0.9635
+        0.0444,
+        0.9421,
+        0.9111
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -236,14 +241,14 @@
       "path": "premium/coquette-charms/strawberry-milk-carton.webp",
       "thumbnail": "premium/coquette-charms/strawberry-milk-carton.thumb.webp",
       "viewBox": [
-        183,
-        211
+        178,
+        171
       ],
       "contentBounds": [
-        0.0437,
-        0.0379,
-        0.9126,
-        0.9621
+        0.0449,
+        0.0468,
+        0.9101,
+        0.9064
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -268,14 +273,14 @@
       "path": "premium/coquette-charms/tulip-bouquet-bow.webp",
       "thumbnail": "premium/coquette-charms/tulip-bouquet-bow.thumb.webp",
       "viewBox": [
-        230,
-        203
+        228,
+        163
       ],
       "contentBounds": [
-        0.0348,
-        0.0394,
-        0.9304,
-        0.9606
+        0.0351,
+        0.0491,
+        0.9298,
+        0.9018
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -300,14 +305,14 @@
       "path": "premium/coquette-charms/butterfly-bag-charm.webp",
       "thumbnail": "premium/coquette-charms/butterfly-bag-charm.thumb.webp",
       "viewBox": [
-        236,
-        215
+        235,
+        176
       ],
       "contentBounds": [
-        0.0339,
-        0.0372,
-        0.9322,
-        0.9628
+        0.034,
+        0.0455,
+        0.9319,
+        0.9091
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -332,14 +337,14 @@
       "path": "premium/coquette-charms/moon-cloud-charm.webp",
       "thumbnail": "premium/coquette-charms/moon-cloud-charm.thumb.webp",
       "viewBox": [
-        241,
-        206
+        240,
+        167
       ],
       "contentBounds": [
-        0.0332,
-        0.0388,
-        0.9336,
-        0.9612
+        0.0333,
+        0.0479,
+        0.9333,
+        0.9042
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -364,14 +369,14 @@
       "path": "premium/coquette-charms/cherry-pudding-cup.webp",
       "thumbnail": "premium/coquette-charms/cherry-pudding-cup.thumb.webp",
       "viewBox": [
-        266,
-        234
+        265,
+        162
       ],
       "contentBounds": [
-        0.0301,
-        0.0,
-        0.9662,
-        1.0
+        0.0302,
+        0.0494,
+        0.966,
+        0.9012
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -396,14 +401,14 @@
       "path": "premium/coquette-charms/heart-mirror-compact.webp",
       "thumbnail": "premium/coquette-charms/heart-mirror-compact.thumb.webp",
       "viewBox": [
-        222,
-        234
+        214,
+        156
       ],
       "contentBounds": [
-        0.036,
-        0.0,
-        0.9279,
-        1.0
+        0.0374,
+        0.0513,
+        0.9252,
+        0.8974
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -428,14 +433,14 @@
       "path": "premium/coquette-charms/gift-box-rose.webp",
       "thumbnail": "premium/coquette-charms/gift-box-rose.thumb.webp",
       "viewBox": [
-        237,
-        185
+        236,
+        145
       ],
       "contentBounds": [
-        0.0338,
-        0.0432,
-        0.9325,
-        0.9568
+        0.0339,
+        0.0552,
+        0.9322,
+        0.8897
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -460,14 +465,14 @@
       "path": "premium/coquette-charms/envelope-flower-love.webp",
       "thumbnail": "premium/coquette-charms/envelope-flower-love.thumb.webp",
       "viewBox": [
-        251,
-        199
+        250,
+        198
       ],
       "contentBounds": [
-        0.0319,
-        0.0402,
-        0.9363,
-        0.9246
+        0.032,
+        0.0404,
+        0.936,
+        0.9242
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -492,14 +497,14 @@
       "path": "premium/coquette-charms/teddy-bear-heart.webp",
       "thumbnail": "premium/coquette-charms/teddy-bear-heart.thumb.webp",
       "viewBox": [
-        227,
-        234
+        211,
+        180
       ],
       "contentBounds": [
-        0.0352,
-        0.0,
-        0.9295,
-        1.0
+        0.0379,
+        0.0444,
+        0.9242,
+        0.9111
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -525,13 +530,13 @@
       "thumbnail": "premium/coquette-charms/flower-cookie-pearl.thumb.webp",
       "viewBox": [
         218,
-        195
+        156
       ],
       "contentBounds": [
         0.0367,
-        0.041,
+        0.0513,
         0.9266,
-        0.959
+        0.8974
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -556,14 +561,14 @@
       "path": "premium/coquette-charms/cloud-bow-charm.webp",
       "thumbnail": "premium/coquette-charms/cloud-bow-charm.thumb.webp",
       "viewBox": [
-        216,
-        194
+        215,
+        155
       ],
       "contentBounds": [
-        0.037,
-        0.0412,
-        0.9259,
-        0.9588
+        0.0372,
+        0.0516,
+        0.9256,
+        0.8968
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -587,14 +592,14 @@
       "path": "premium/coquette-charms/strawberry-tart.webp",
       "thumbnail": "premium/coquette-charms/strawberry-tart.thumb.webp",
       "viewBox": [
-        250,
-        233
+        249,
+        170
       ],
       "contentBounds": [
-        0.032,
-        0.0,
-        0.936,
-        1.0
+        0.0321,
+        0.0471,
+        0.9357,
+        0.9059
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -620,14 +625,14 @@
       "path": "premium/coquette-charms/strawberry-milk-bottle-bow.webp",
       "thumbnail": "premium/coquette-charms/strawberry-milk-bottle-bow.thumb.webp",
       "viewBox": [
-        196,
-        233
+        154,
+        155
       ],
       "contentBounds": [
-        0.0408,
-        0.0,
-        0.9184,
-        1.0
+        0.0519,
+        0.0516,
+        0.8961,
+        0.8968
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -652,14 +657,14 @@
       "path": "premium/coquette-charms/paw-print-charm.webp",
       "thumbnail": "premium/coquette-charms/paw-print-charm.thumb.webp",
       "viewBox": [
-        217,
-        233
+        216,
+        194
       ],
       "contentBounds": [
-        0.0369,
-        0.0,
-        0.9263,
-        1.0
+        0.037,
+        0.0309,
+        0.9259,
+        0.9278
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -685,13 +690,13 @@
       "thumbnail": "premium/coquette-charms/cherry-pair-bow.thumb.webp",
       "viewBox": [
         200,
-        213
+        208
       ],
       "contentBounds": [
         0.04,
-        0.0376,
+        0.0385,
         0.92,
-        0.9624
+        0.9231
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -716,14 +721,14 @@
       "path": "premium/coquette-charms/shell-pearl-bow.webp",
       "thumbnail": "premium/coquette-charms/shell-pearl-bow.thumb.webp",
       "viewBox": [
-        244,
-        218
+        242,
+        179
       ],
       "contentBounds": [
-        0.0328,
-        0.0,
-        0.9344,
-        0.9633
+        0.0331,
+        0.0447,
+        0.9339,
+        0.9106
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -749,13 +754,13 @@
       "thumbnail": "premium/coquette-charms/heart-quilted-pearl.thumb.webp",
       "viewBox": [
         251,
-        222
+        183
       ],
       "contentBounds": [
         0.0319,
-        0.0,
+        0.0437,
         0.9363,
-        0.964
+        0.9126
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -780,14 +785,14 @@
       "path": "premium/coquette-charms/butterfly-jewel-pink.webp",
       "thumbnail": "premium/coquette-charms/butterfly-jewel-pink.thumb.webp",
       "viewBox": [
-        265,
-        222
+        261,
+        183
       ],
       "contentBounds": [
-        0.0302,
-        0.0,
-        0.9472,
-        0.964
+        0.0307,
+        0.0437,
+        0.9387,
+        0.9126
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -812,14 +817,14 @@
       "path": "premium/coquette-charms/strawberry-pudding-cup.webp",
       "thumbnail": "premium/coquette-charms/strawberry-pudding-cup.thumb.webp",
       "viewBox": [
-        270,
-        215
+        269,
+        175
       ],
       "contentBounds": [
-        0.0222,
-        0.0,
-        0.9481,
-        0.9628
+        0.026,
+        0.0457,
+        0.9442,
+        0.9086
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -846,13 +851,13 @@
       "thumbnail": "premium/desserts/strawberry-shortcake-slice-b.thumb.webp",
       "viewBox": [
         244,
-        232
+        193
       ],
       "contentBounds": [
         0.0328,
-        0.0345,
+        0.0415,
         0.9344,
-        0.9655
+        0.9171
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -877,14 +882,14 @@
       "path": "premium/desserts/bow-cookie-pearl.webp",
       "thumbnail": "premium/desserts/bow-cookie-pearl.thumb.webp",
       "viewBox": [
-        274,
-        202
+        272,
+        163
       ],
       "contentBounds": [
-        0.0292,
-        0.0396,
-        0.9416,
-        0.9604
+        0.0294,
+        0.0491,
+        0.9412,
+        0.9018
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -909,14 +914,14 @@
       "path": "premium/desserts/strawberry-pudding-heart.webp",
       "thumbnail": "premium/desserts/strawberry-pudding-heart.thumb.webp",
       "viewBox": [
-        281,
-        233
+        232,
+        193
       ],
       "contentBounds": [
-        0.0285,
-        0.0343,
-        0.9715,
-        0.9657
+        0.0345,
+        0.0415,
+        0.931,
+        0.9171
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -940,14 +945,14 @@
       "path": "premium/desserts/strawberry-milkshake.webp",
       "thumbnail": "premium/desserts/strawberry-milkshake.thumb.webp",
       "viewBox": [
-        194,
-        233
+        193,
+        194
       ],
       "contentBounds": [
+        0.0415,
         0.0412,
-        0.0343,
-        0.9175,
-        0.9657
+        0.9171,
+        0.9175
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -971,14 +976,14 @@
       "path": "premium/desserts/heart-macaron.webp",
       "thumbnail": "premium/desserts/heart-macaron.thumb.webp",
       "viewBox": [
-        261,
-        201
+        259,
+        162
       ],
       "contentBounds": [
-        0.0307,
-        0.0398,
-        0.9387,
-        0.9602
+        0.0309,
+        0.0494,
+        0.9382,
+        0.9012
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -1004,13 +1009,13 @@
       "thumbnail": "premium/desserts/strawberry-tart-b.thumb.webp",
       "viewBox": [
         261,
-        206
+        167
       ],
       "contentBounds": [
         0.0307,
-        0.0388,
-        0.9617,
-        0.9612
+        0.0479,
+        0.9579,
+        0.9042
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -1036,14 +1041,14 @@
       "path": "premium/desserts/strawberry-milk-jar-bow.webp",
       "thumbnail": "premium/desserts/strawberry-milk-jar-bow.thumb.webp",
       "viewBox": [
-        234,
-        233
+        174,
+        155
       ],
       "contentBounds": [
-        0.0342,
-        0.0,
-        0.9316,
-        1.0
+        0.046,
+        0.0516,
+        0.908,
+        0.8968
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -1068,14 +1073,14 @@
       "path": "premium/desserts/strawberry-swiss-roll.webp",
       "thumbnail": "premium/desserts/strawberry-swiss-roll.thumb.webp",
       "viewBox": [
-        255,
-        192
+        254,
+        152
       ],
       "contentBounds": [
-        0.0314,
-        0.0417,
-        0.9373,
-        0.9583
+        0.0315,
+        0.0526,
+        0.937,
+        0.8947
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -1100,13 +1105,13 @@
       "thumbnail": "premium/desserts/strawberry-parfait.thumb.webp",
       "viewBox": [
         211,
-        224
+        185
       ],
       "contentBounds": [
         0.0379,
-        0.0357,
+        0.0432,
         0.9242,
-        0.9643
+        0.9135
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -1131,14 +1136,14 @@
       "path": "premium/desserts/chocolate-strawberries-dipped.webp",
       "thumbnail": "premium/desserts/chocolate-strawberries-dipped.thumb.webp",
       "viewBox": [
-        273,
-        204
+        225,
+        165
       ],
       "contentBounds": [
-        0.0293,
-        0.0392,
-        0.9707,
-        0.9608
+        0.0356,
+        0.0485,
+        0.9289,
+        0.903
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -1162,14 +1167,14 @@
       "path": "premium/desserts/heart-cheesecake.webp",
       "thumbnail": "premium/desserts/heart-cheesecake.thumb.webp",
       "viewBox": [
-        275,
-        180
+        227,
+        140
       ],
       "contentBounds": [
-        0.0291,
-        0.0444,
-        0.9709,
-        0.9556
+        0.0352,
+        0.0571,
+        0.9295,
+        0.8857
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -1195,14 +1200,14 @@
       "path": "premium/desserts/strawberry-shortcake-slice-c.webp",
       "thumbnail": "premium/desserts/strawberry-shortcake-slice-c.thumb.webp",
       "viewBox": [
-        240,
-        192
+        234,
+        152
       ],
       "contentBounds": [
-        0.0333,
-        0.0417,
-        0.9333,
-        0.9583
+        0.0342,
+        0.0526,
+        0.9316,
+        0.8947
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -1228,13 +1233,13 @@
       "thumbnail": "premium/desserts/strawberry-cream-soda.thumb.webp",
       "viewBox": [
         187,
-        234
+        152
       ],
       "contentBounds": [
         0.0428,
-        0.0,
+        0.0526,
         0.9144,
-        1.0
+        0.8947
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -1258,14 +1263,14 @@
       "path": "premium/desserts/strawberry-cupcake.webp",
       "thumbnail": "premium/desserts/strawberry-cupcake.thumb.webp",
       "viewBox": [
-        211,
-        190
+        210,
+        151
       ],
       "contentBounds": [
-        0.0379,
-        0.0421,
-        0.9242,
-        0.9579
+        0.0381,
+        0.053,
+        0.9238,
+        0.894
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -1291,14 +1296,14 @@
       "path": "premium/desserts/heart-cookies-bow-pair.webp",
       "thumbnail": "premium/desserts/heart-cookies-bow-pair.thumb.webp",
       "viewBox": [
-        281,
-        178
+        232,
+        139
       ],
       "contentBounds": [
-        0.0285,
-        0.0449,
-        0.9715,
-        0.9551
+        0.0345,
+        0.0576,
+        0.931,
+        0.8849
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -1322,14 +1327,14 @@
       "path": "premium/desserts/strawberry-sundae.webp",
       "thumbnail": "premium/desserts/strawberry-sundae.thumb.webp",
       "viewBox": [
-        228,
-        234
+        223,
+        164
       ],
       "contentBounds": [
-        0.0351,
-        0.0,
-        0.9298,
-        1.0
+        0.0359,
+        0.0488,
+        0.9283,
+        0.9024
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -1354,14 +1359,14 @@
       "path": "premium/desserts/strawberry-shortcake-round.webp",
       "thumbnail": "premium/desserts/strawberry-shortcake-round.thumb.webp",
       "viewBox": [
-        248,
-        233
+        238,
+        155
       ],
       "contentBounds": [
-        0.0323,
-        0.0,
-        0.9355,
-        1.0
+        0.0336,
+        0.0516,
+        0.9328,
+        0.8968
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -1388,13 +1393,13 @@
       "thumbnail": "premium/desserts/strawberry-jelly-heart-bow.thumb.webp",
       "viewBox": [
         268,
-        186
+        147
       ],
       "contentBounds": [
         0.0299,
-        0.043,
-        0.9627,
-        0.957
+        0.0544,
+        0.959,
+        0.8912
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -1419,14 +1424,14 @@
       "path": "premium/desserts/cherry-heart-drink.webp",
       "thumbnail": "premium/desserts/cherry-heart-drink.thumb.webp",
       "viewBox": [
-        254,
-        233
+        186,
+        165
       ],
       "contentBounds": [
-        0.0315,
-        0.0,
-        0.9685,
-        1.0
+        0.043,
+        0.0485,
+        0.914,
+        0.903
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -1451,13 +1456,13 @@
       "thumbnail": "premium/desserts/strawberry-eclair.thumb.webp",
       "viewBox": [
         258,
-        175
+        136
       ],
       "contentBounds": [
         0.031,
-        0.0457,
+        0.0588,
         0.938,
-        0.9543
+        0.8824
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -1482,14 +1487,14 @@
       "path": "premium/desserts/heart-lollipop-bow.webp",
       "thumbnail": "premium/desserts/heart-lollipop-bow.thumb.webp",
       "viewBox": [
-        213,
-        234
+        205,
+        195
       ],
       "contentBounds": [
-        0.0376,
-        0.0,
-        0.9249,
-        0.9786
+        0.039,
+        0.041,
+        0.922,
+        0.9333
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -1515,13 +1520,13 @@
       "thumbnail": "premium/desserts/strawberry-mini-cake.thumb.webp",
       "viewBox": [
         256,
-        234
+        195
       ],
       "contentBounds": [
         0.0312,
-        0.0,
+        0.041,
         0.9375,
-        0.9701
+        0.9231
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -1547,14 +1552,14 @@
       "path": "premium/desserts/strawberry-milk-carton-b.webp",
       "thumbnail": "premium/desserts/strawberry-milk-carton-b.thumb.webp",
       "viewBox": [
-        208,
-        234
+        207,
+        195
       ],
       "contentBounds": [
-        0.0385,
-        0.0,
-        0.9231,
-        0.9744
+        0.0386,
+        0.041,
+        0.9227,
+        0.9282
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -1583,9 +1588,9 @@
         212
       ],
       "contentBounds": [
-        0.0219,
+        0.0255,
         0.0377,
-        0.9489,
+        0.9453,
         0.934
       ],
       "defaultScale": 0.6,
@@ -1611,14 +1616,14 @@
       "path": "premium/cute-animals/bunny-bow-white.webp",
       "thumbnail": "premium/cute-animals/bunny-bow-white.thumb.webp",
       "viewBox": [
-        280,
-        234
+        232,
+        195
       ],
       "contentBounds": [
-        0.0214,
-        0.0342,
-        0.9786,
-        0.9658
+        0.0302,
+        0.041,
+        0.9353,
+        0.9179
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -1643,14 +1648,14 @@
       "path": "premium/cute-animals/bear-heart-pink.webp",
       "thumbnail": "premium/cute-animals/bear-heart-pink.thumb.webp",
       "viewBox": [
-        241,
-        233
+        233,
+        194
       ],
       "contentBounds": [
-        0.0332,
         0.0343,
-        0.9336,
-        0.9657
+        0.0412,
+        0.9313,
+        0.9175
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -1675,14 +1680,14 @@
       "path": "premium/cute-animals/cat-flower-wink.webp",
       "thumbnail": "premium/cute-animals/cat-flower-wink.thumb.webp",
       "viewBox": [
-        253,
-        234
+        252,
+        195
       ],
       "contentBounds": [
-        0.0316,
-        0.0214,
-        0.9407,
-        0.9786
+        0.0317,
+        0.0308,
+        0.9405,
+        0.9282
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -1707,14 +1712,14 @@
       "path": "premium/cute-animals/puppy-bow-brown.webp",
       "thumbnail": "premium/cute-animals/puppy-bow-brown.thumb.webp",
       "viewBox": [
-        276,
-        223
+        227,
+        184
       ],
       "contentBounds": [
-        0.0,
-        0.0359,
-        0.971,
-        0.9641
+        0.0352,
+        0.0435,
+        0.9295,
+        0.913
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -1738,14 +1743,14 @@
       "path": "premium/cute-animals/fawn-flower.webp",
       "thumbnail": "premium/cute-animals/fawn-flower.thumb.webp",
       "viewBox": [
-        236,
-        190
+        234,
+        151
       ],
       "contentBounds": [
-        0.0339,
-        0.0421,
-        0.9322,
-        0.9579
+        0.0342,
+        0.053,
+        0.9316,
+        0.894
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -1769,14 +1774,14 @@
       "path": "premium/cute-animals/lamb-bow.webp",
       "thumbnail": "premium/cute-animals/lamb-bow.thumb.webp",
       "viewBox": [
-        273,
-        233
+        204,
+        156
       ],
       "contentBounds": [
-        0.0293,
-        0.0,
-        0.9707,
-        1.0
+        0.0392,
+        0.0513,
+        0.9216,
+        0.8974
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -1802,13 +1807,13 @@
       "thumbnail": "premium/cute-animals/mouse-heart-pink.thumb.webp",
       "viewBox": [
         241,
-        201
+        162
       ],
       "contentBounds": [
         0.0332,
-        0.0398,
-        0.9419,
-        0.9602
+        0.0494,
+        0.9378,
+        0.9012
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -1833,14 +1838,14 @@
       "path": "premium/cute-animals/chick-sleeping-pink.webp",
       "thumbnail": "premium/cute-animals/chick-sleeping-pink.thumb.webp",
       "viewBox": [
-        259,
-        233
+        251,
+        155
       ],
       "contentBounds": [
-        0.0309,
-        0.0,
-        0.9382,
-        1.0
+        0.0319,
+        0.0516,
+        0.9363,
+        0.8968
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -1865,14 +1870,14 @@
       "path": "premium/cute-animals/bunny-bag-charm.webp",
       "thumbnail": "premium/cute-animals/bunny-bag-charm.thumb.webp",
       "viewBox": [
-        271,
-        204
+        219,
+        164
       ],
       "contentBounds": [
-        0.0295,
-        0.0392,
-        0.9705,
-        0.9608
+        0.0365,
+        0.0488,
+        0.9269,
+        0.9024
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -1897,14 +1902,14 @@
       "path": "premium/cute-animals/paw-print-keychain.webp",
       "thumbnail": "premium/cute-animals/paw-print-keychain.thumb.webp",
       "viewBox": [
-        260,
-        234
+        233,
+        156
       ],
       "contentBounds": [
-        0.0308,
-        0.0,
-        0.9385,
-        1.0
+        0.0343,
+        0.0513,
+        0.9313,
+        0.8974
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -1929,14 +1934,14 @@
       "path": "premium/cute-animals/butterfly-pearl-pastel.webp",
       "thumbnail": "premium/cute-animals/butterfly-pearl-pastel.thumb.webp",
       "viewBox": [
-        252,
-        191
+        204,
+        151
       ],
       "contentBounds": [
-        0.0317,
-        0.0419,
-        0.9683,
-        0.9581
+        0.0392,
+        0.053,
+        0.9216,
+        0.894
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -1961,14 +1966,14 @@
       "path": "premium/cute-animals/heart-bag-pearl.webp",
       "thumbnail": "premium/cute-animals/heart-bag-pearl.thumb.webp",
       "viewBox": [
-        244,
-        234
+        226,
+        156
       ],
       "contentBounds": [
-        0.0328,
-        0.0,
-        0.9344,
-        1.0
+        0.0354,
+        0.0513,
+        0.9292,
+        0.8974
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -1993,14 +1998,14 @@
       "path": "premium/cute-animals/duck-flower-bow.webp",
       "thumbnail": "premium/cute-animals/duck-flower-bow.thumb.webp",
       "viewBox": [
-        244,
-        234
+        216,
+        179
       ],
       "contentBounds": [
-        0.0328,
-        0.0,
-        0.9672,
-        1.0
+        0.037,
+        0.0447,
+        0.9259,
+        0.9106
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -2025,14 +2030,14 @@
       "path": "premium/cute-animals/strawberry-cake-cute.webp",
       "thumbnail": "premium/cute-animals/strawberry-cake-cute.thumb.webp",
       "viewBox": [
-        258,
-        234
+        252,
+        162
       ],
       "contentBounds": [
-        0.031,
-        0.0,
-        0.938,
-        1.0
+        0.0317,
+        0.0494,
+        0.9365,
+        0.9012
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -2057,14 +2062,14 @@
       "path": "premium/cute-animals/bunny-icecream-cone.webp",
       "thumbnail": "premium/cute-animals/bunny-icecream-cone.thumb.webp",
       "viewBox": [
-        189,
-        218
+        188,
+        178
       ],
       "contentBounds": [
-        0.0423,
-        0.0367,
-        0.9153,
-        0.9633
+        0.0426,
+        0.0449,
+        0.9149,
+        0.9101
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -2090,13 +2095,13 @@
       "thumbnail": "premium/cute-animals/cat-sleeping-box.thumb.webp",
       "viewBox": [
         267,
-        234
+        156
       ],
       "contentBounds": [
         0.03,
-        0.0,
+        0.0513,
         0.9401,
-        1.0
+        0.8974
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -2121,14 +2126,14 @@
       "path": "premium/cute-animals/strawberry-bag-charm.webp",
       "thumbnail": "premium/cute-animals/strawberry-bag-charm.thumb.webp",
       "viewBox": [
-        258,
-        233
+        257,
+        155
       ],
       "contentBounds": [
-        0.031,
-        0.0,
-        0.938,
-        1.0
+        0.0311,
+        0.0516,
+        0.9377,
+        0.8968
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -2153,14 +2158,14 @@
       "path": "premium/cute-animals/chick-cloud-hat.webp",
       "thumbnail": "premium/cute-animals/chick-cloud-hat.thumb.webp",
       "viewBox": [
-        265,
-        201
+        217,
+        162
       ],
       "contentBounds": [
-        0.0302,
-        0.0398,
-        0.9698,
-        0.9602
+        0.0369,
+        0.0494,
+        0.9263,
+        0.9012
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -2185,14 +2190,14 @@
       "path": "premium/cute-animals/bunny-strawberry-hug.webp",
       "thumbnail": "premium/cute-animals/bunny-strawberry-hug.thumb.webp",
       "viewBox": [
-        244,
-        233
+        243,
+        155
       ],
       "contentBounds": [
-        0.0328,
-        0.0,
-        0.9344,
-        1.0
+        0.0329,
+        0.0516,
+        0.9342,
+        0.8968
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -2217,14 +2222,14 @@
       "path": "premium/cute-animals/bear-donut-pink.webp",
       "thumbnail": "premium/cute-animals/bear-donut-pink.thumb.webp",
       "viewBox": [
-        244,
-        233
+        238,
+        155
       ],
       "contentBounds": [
-        0.0328,
-        0.0,
-        0.9344,
-        1.0
+        0.0336,
+        0.0516,
+        0.9328,
+        0.8968
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -2249,14 +2254,14 @@
       "path": "premium/cute-animals/heart-wings-perfume.webp",
       "thumbnail": "premium/cute-animals/heart-wings-perfume.thumb.webp",
       "viewBox": [
-        270,
-        234
+        221,
+        195
       ],
       "contentBounds": [
-        0.0296,
-        0.0,
-        0.9704,
-        0.9829
+        0.0362,
+        0.041,
+        0.9276,
+        0.9385
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -2280,14 +2285,14 @@
       "path": "premium/cute-animals/cat-teacup.webp",
       "thumbnail": "premium/cute-animals/cat-teacup.thumb.webp",
       "viewBox": [
-        264,
-        234
+        216,
+        195
       ],
       "contentBounds": [
-        0.0303,
-        0.0,
-        0.9697,
-        0.9957
+        0.037,
+        0.041,
+        0.9259,
+        0.9436
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -2313,13 +2318,13 @@
       "thumbnail": "premium/cute-animals/bunny-cupcake-strawberry.thumb.webp",
       "viewBox": [
         238,
-        234
+        195
       ],
       "contentBounds": [
         0.0336,
-        0.0,
-        0.9412,
-        0.9957
+        0.041,
+        0.937,
+        0.9487
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -2344,13 +2349,13 @@
       "path": "premium/cute-animals/paw-print-wand.webp",
       "thumbnail": "premium/cute-animals/paw-print-wand.thumb.webp",
       "viewBox": [
-        196,
+        194,
         224
       ],
       "contentBounds": [
-        0.0408,
+        0.0412,
         0.0357,
-        0.9184,
+        0.9175,
         0.9464
       ],
       "defaultScale": 0.6,
@@ -2376,14 +2381,14 @@
       "path": "premium/vanity-accessories/bow-pink-classic.webp",
       "thumbnail": "premium/vanity-accessories/bow-pink-classic.thumb.webp",
       "viewBox": [
-        266,
-        217
+        217,
+        178
       ],
       "contentBounds": [
-        0.0301,
         0.0369,
-        0.9699,
-        0.9631
+        0.0449,
+        0.9263,
+        0.9101
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -2409,13 +2414,13 @@
       "thumbnail": "premium/vanity-accessories/heart-jewelry-box.thumb.webp",
       "viewBox": [
         270,
-        233
+        194
       ],
       "contentBounds": [
         0.0296,
-        0.0343,
+        0.0412,
         0.9407,
-        0.9657
+        0.9175
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -2442,13 +2447,13 @@
       "thumbnail": "premium/vanity-accessories/heart-perfume-bow-b.thumb.webp",
       "viewBox": [
         232,
-        234
+        195
       ],
       "contentBounds": [
         0.0345,
-        0.0299,
+        0.041,
         0.931,
-        0.9701
+        0.9179
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -2474,14 +2479,14 @@
       "path": "premium/vanity-accessories/tulip-bouquet-bow-b.webp",
       "thumbnail": "premium/vanity-accessories/tulip-bouquet-bow-b.thumb.webp",
       "viewBox": [
-        255,
-        232
+        252,
+        193
       ],
       "contentBounds": [
-        0.0314,
-        0.0345,
-        0.9373,
-        0.9655
+        0.0317,
+        0.0415,
+        0.9365,
+        0.9171
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -2506,14 +2511,14 @@
       "path": "premium/vanity-accessories/heart-locket-compact.webp",
       "thumbnail": "premium/vanity-accessories/heart-locket-compact.thumb.webp",
       "viewBox": [
-        251,
-        212
+        250,
+        172
       ],
       "contentBounds": [
-        0.0319,
-        0.0377,
-        0.9363,
-        0.9623
+        0.032,
+        0.0465,
+        0.936,
+        0.907
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -2538,14 +2543,14 @@
       "path": "premium/vanity-accessories/envelope-love-letter.webp",
       "thumbnail": "premium/vanity-accessories/envelope-love-letter.thumb.webp",
       "viewBox": [
-        271,
-        201
+        223,
+        161
       ],
       "contentBounds": [
-        0.0295,
-        0.0398,
-        0.9705,
-        0.9602
+        0.0359,
+        0.0497,
+        0.9283,
+        0.9006
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -2570,14 +2575,14 @@
       "path": "premium/vanity-accessories/mini-cake-cherry.webp",
       "thumbnail": "premium/vanity-accessories/mini-cake-cherry.thumb.webp",
       "viewBox": [
-        264,
-        233
+        262,
+        155
       ],
       "contentBounds": [
-        0.0303,
-        0.0,
-        0.9621,
-        1.0
+        0.0305,
+        0.0516,
+        0.9504,
+        0.8968
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -2602,14 +2607,14 @@
       "path": "premium/vanity-accessories/handbag-pearl-bow.webp",
       "thumbnail": "premium/vanity-accessories/handbag-pearl-bow.thumb.webp",
       "viewBox": [
-        246,
-        233
+        235,
+        157
       ],
       "contentBounds": [
-        0.0325,
-        0.0,
-        0.935,
-        1.0
+        0.034,
+        0.051,
+        0.9319,
+        0.8981
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -2634,14 +2639,14 @@
       "path": "premium/vanity-accessories/heart-cushion-quilted.webp",
       "thumbnail": "premium/vanity-accessories/heart-cushion-quilted.thumb.webp",
       "viewBox": [
-        275,
-        195
+        274,
+        155
       ],
       "contentBounds": [
-        0.0291,
-        0.041,
-        0.96,
-        0.959
+        0.0292,
+        0.0516,
+        0.9562,
+        0.8968
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -2667,13 +2672,13 @@
       "thumbnail": "premium/vanity-accessories/keychain-hearts-bow.thumb.webp",
       "viewBox": [
         211,
-        217
+        177
       ],
       "contentBounds": [
         0.0379,
-        0.0369,
-        0.9621,
-        0.9631
+        0.0452,
+        0.9573,
+        0.9096
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -2698,14 +2703,14 @@
       "path": "premium/vanity-accessories/hand-mirror-pearl.webp",
       "thumbnail": "premium/vanity-accessories/hand-mirror-pearl.thumb.webp",
       "viewBox": [
-        246,
-        234
+        216,
+        156
       ],
       "contentBounds": [
-        0.0325,
-        0.0,
-        0.935,
-        1.0
+        0.037,
+        0.0513,
+        0.9259,
+        0.8974
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -2729,14 +2734,14 @@
       "path": "premium/vanity-accessories/teacup-heart.webp",
       "thumbnail": "premium/vanity-accessories/teacup-heart.thumb.webp",
       "viewBox": [
-        270,
-        169
+        261,
+        130
       ],
       "contentBounds": [
-        0.0296,
-        0.0473,
-        0.9407,
-        0.9527
+        0.0307,
+        0.0615,
+        0.9387,
+        0.8769
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -2762,14 +2767,14 @@
       "path": "premium/vanity-accessories/gift-box-rose-b.webp",
       "thumbnail": "premium/vanity-accessories/gift-box-rose-b.thumb.webp",
       "viewBox": [
-        253,
-        187
+        203,
+        148
       ],
       "contentBounds": [
-        0.0316,
-        0.0428,
-        0.9684,
-        0.9572
+        0.0394,
+        0.0541,
+        0.9212,
+        0.8919
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -2795,13 +2800,13 @@
       "thumbnail": "premium/vanity-accessories/locket-heart-bow.thumb.webp",
       "viewBox": [
         228,
-        200
+        161
       ],
       "contentBounds": [
         0.0351,
-        0.04,
-        0.9605,
-        0.96
+        0.0497,
+        0.9518,
+        0.9006
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -2825,14 +2830,14 @@
       "path": "premium/vanity-accessories/lipstick-heart.webp",
       "thumbnail": "premium/vanity-accessories/lipstick-heart.thumb.webp",
       "viewBox": [
-        192,
-        201
+        190,
+        161
       ],
       "contentBounds": [
-        0.0417,
-        0.0398,
-        0.9167,
-        0.9602
+        0.0421,
+        0.0497,
+        0.9158,
+        0.9006
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -2857,14 +2862,14 @@
       "path": "premium/vanity-accessories/perfume-atomizer-bow.webp",
       "thumbnail": "premium/vanity-accessories/perfume-atomizer-bow.thumb.webp",
       "viewBox": [
-        260,
-        234
+        236,
+        145
       ],
       "contentBounds": [
-        0.0308,
-        0.0,
-        0.9385,
-        1.0
+        0.0339,
+        0.0552,
+        0.9322,
+        0.8897
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -2889,14 +2894,14 @@
       "path": "premium/vanity-accessories/hair-clip-rose.webp",
       "thumbnail": "premium/vanity-accessories/hair-clip-rose.thumb.webp",
       "viewBox": [
-        260,
-        177
+        211,
+        137
       ],
       "contentBounds": [
-        0.0308,
-        0.0452,
-        0.9692,
-        0.9548
+        0.0379,
+        0.0584,
+        0.9242,
+        0.8832
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -2922,14 +2927,14 @@
       "path": "premium/vanity-accessories/hand-mirror-heart-wand.webp",
       "thumbnail": "premium/vanity-accessories/hand-mirror-heart-wand.thumb.webp",
       "viewBox": [
-        194,
-        233
+        180,
+        155
       ],
       "contentBounds": [
-        0.0412,
-        0.0,
-        0.9227,
-        1.0
+        0.0444,
+        0.0516,
+        0.9111,
+        0.8968
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -2953,14 +2958,14 @@
       "path": "premium/vanity-accessories/candle-heart.webp",
       "thumbnail": "premium/vanity-accessories/candle-heart.thumb.webp",
       "viewBox": [
-        215,
-        186
+        214,
+        147
       ],
       "contentBounds": [
-        0.0372,
-        0.043,
-        0.9256,
-        0.957
+        0.0374,
+        0.0544,
+        0.9252,
+        0.8912
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -2985,14 +2990,14 @@
       "path": "premium/vanity-accessories/diary-bow-pen.webp",
       "thumbnail": "premium/vanity-accessories/diary-bow-pen.thumb.webp",
       "viewBox": [
-        252,
-        233
+        237,
+        145
       ],
       "contentBounds": [
-        0.0317,
-        0.0,
-        0.9365,
-        1.0
+        0.0338,
+        0.0552,
+        0.9325,
+        0.8897
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -3017,13 +3022,13 @@
       "path": "premium/vanity-accessories/heart-wings-pearl.webp",
       "thumbnail": "premium/vanity-accessories/heart-wings-pearl.thumb.webp",
       "viewBox": [
-        263,
+        214,
         202
       ],
       "contentBounds": [
-        0.0304,
+        0.0374,
         0.0396,
-        0.9696,
+        0.9252,
         0.9208
       ],
       "defaultScale": 0.6,
@@ -3049,14 +3054,14 @@
       "path": "premium/vanity-accessories/macarons-plate-strawberry.webp",
       "thumbnail": "premium/vanity-accessories/macarons-plate-strawberry.thumb.webp",
       "viewBox": [
-        248,
-        226
+        200,
+        205
       ],
       "contentBounds": [
-        0.0323,
-        0.0,
-        0.9677,
-        0.9646
+        0.04,
+        0.039,
+        0.92,
+        0.922
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -3082,13 +3087,13 @@
       "thumbnail": "premium/vanity-accessories/hair-claw-bow.thumb.webp",
       "viewBox": [
         246,
-        231
+        204
       ],
       "contentBounds": [
         0.0325,
-        0.0,
+        0.0392,
         0.9634,
-        0.9654
+        0.9216
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -3113,14 +3118,14 @@
       "path": "premium/vanity-accessories/bow-pearl-loop.webp",
       "thumbnail": "premium/vanity-accessories/bow-pearl-loop.thumb.webp",
       "viewBox": [
-        253,
-        203
+        251,
+        202
       ],
       "contentBounds": [
-        0.0316,
-        0.0394,
-        0.9368,
-        0.9212
+        0.0319,
+        0.0396,
+        0.9363,
+        0.9208
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -3145,14 +3150,14 @@
       "path": "premium/celestial-pastel/moon-star-bow.webp",
       "thumbnail": "premium/celestial-pastel/moon-star-bow.thumb.webp",
       "viewBox": [
-        266,
-        228
+        249,
+        189
       ],
       "contentBounds": [
-        0.0301,
-        0.0351,
-        0.9398,
-        0.9649
+        0.0321,
+        0.0423,
+        0.9357,
+        0.9153
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -3179,13 +3184,13 @@
       "thumbnail": "premium/celestial-pastel/shell-pearl-bow-b.thumb.webp",
       "viewBox": [
         263,
-        230
+        191
       ],
       "contentBounds": [
         0.0304,
-        0.0348,
+        0.0419,
         0.9392,
-        0.9652
+        0.9162
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -3210,14 +3215,14 @@
       "path": "premium/celestial-pastel/whale-cloud-pastel.webp",
       "thumbnail": "premium/celestial-pastel/whale-cloud-pastel.thumb.webp",
       "viewBox": [
-        280,
-        231
+        231,
+        192
       ],
       "contentBounds": [
-        0.0,
         0.0346,
-        0.9714,
-        0.9654
+        0.0417,
+        0.9307,
+        0.9167
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -3242,14 +3247,14 @@
       "path": "premium/celestial-pastel/butterfly-jewel-pastel.webp",
       "thumbnail": "premium/celestial-pastel/butterfly-jewel-pastel.thumb.webp",
       "viewBox": [
-        272,
-        216
+        271,
+        177
       ],
       "contentBounds": [
-        0.0294,
-        0.037,
-        0.9412,
-        0.963
+        0.0295,
+        0.0452,
+        0.941,
+        0.9096
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -3274,14 +3279,14 @@
       "path": "premium/celestial-pastel/cloud-moon-charm.webp",
       "thumbnail": "premium/celestial-pastel/cloud-moon-charm.thumb.webp",
       "viewBox": [
-        274,
-        202
+        273,
+        163
       ],
       "contentBounds": [
-        0.0292,
-        0.0396,
-        0.9416,
-        0.9604
+        0.0293,
+        0.0491,
+        0.9414,
+        0.9018
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -3306,14 +3311,14 @@
       "path": "premium/celestial-pastel/potion-bottle-shell.webp",
       "thumbnail": "premium/celestial-pastel/potion-bottle-shell.thumb.webp",
       "viewBox": [
-        232,
-        213
+        231,
+        173
       ],
       "contentBounds": [
-        0.0345,
-        0.0376,
-        0.931,
-        0.9624
+        0.0346,
+        0.0462,
+        0.9307,
+        0.9075
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -3338,14 +3343,14 @@
       "path": "premium/celestial-pastel/saturn-heart-pastel.webp",
       "thumbnail": "premium/celestial-pastel/saturn-heart-pastel.thumb.webp",
       "viewBox": [
-        274,
-        206
+        273,
+        166
       ],
       "contentBounds": [
-        0.0292,
-        0.0388,
-        0.9416,
-        0.9612
+        0.0293,
+        0.0482,
+        0.9414,
+        0.9036
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -3370,14 +3375,14 @@
       "path": "premium/celestial-pastel/shell-bow-starfish.webp",
       "thumbnail": "premium/celestial-pastel/shell-bow-starfish.thumb.webp",
       "viewBox": [
-        263,
-        208
+        262,
+        169
       ],
       "contentBounds": [
-        0.0304,
-        0.0385,
-        0.9392,
-        0.9615
+        0.0305,
+        0.0473,
+        0.9389,
+        0.9053
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -3401,14 +3406,14 @@
       "path": "premium/celestial-pastel/jellyfish-pastel.webp",
       "thumbnail": "premium/celestial-pastel/jellyfish-pastel.thumb.webp",
       "viewBox": [
-        248,
-        232
+        247,
+        193
       ],
       "contentBounds": [
-        0.0323,
-        0.0345,
-        0.9355,
-        0.9655
+        0.0324,
+        0.0415,
+        0.9352,
+        0.9171
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -3433,14 +3438,14 @@
       "path": "premium/celestial-pastel/shell-pearl-box.webp",
       "thumbnail": "premium/celestial-pastel/shell-pearl-box.thumb.webp",
       "viewBox": [
-        254,
-        234
+        253,
+        181
       ],
       "contentBounds": [
-        0.0315,
-        0.0,
-        0.937,
-        1.0
+        0.0316,
+        0.0442,
+        0.9368,
+        0.9116
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -3465,14 +3470,14 @@
       "path": "premium/celestial-pastel/star-wand-wings.webp",
       "thumbnail": "premium/celestial-pastel/star-wand-wings.thumb.webp",
       "viewBox": [
-        218,
-        234
+        201,
+        195
       ],
       "contentBounds": [
-        0.0367,
-        0.0342,
-        0.9358,
-        0.9658
+        0.0398,
+        0.041,
+        0.9303,
+        0.9179
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -3498,13 +3503,13 @@
       "thumbnail": "premium/celestial-pastel/starfish-pearl-cluster.thumb.webp",
       "viewBox": [
         248,
-        216
+        176
       ],
       "contentBounds": [
         0.0323,
-        0.037,
+        0.0455,
         0.9355,
-        0.963
+        0.9091
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -3529,14 +3534,14 @@
       "path": "premium/celestial-pastel/butterfly-heart-charm.webp",
       "thumbnail": "premium/celestial-pastel/butterfly-heart-charm.thumb.webp",
       "viewBox": [
-        271,
-        227
+        270,
+        226
       ],
       "contentBounds": [
-        0.0295,
-        0.0352,
-        0.941,
-        0.9515
+        0.0296,
+        0.0354,
+        0.9407,
+        0.9513
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -3594,14 +3599,14 @@
       "path": "premium/celestial-pastel/heart-wings-pearl-bow.webp",
       "thumbnail": "premium/celestial-pastel/heart-wings-pearl-bow.thumb.webp",
       "viewBox": [
-        270,
-        221
+        221,
+        220
       ],
       "contentBounds": [
-        0.0296,
         0.0362,
-        0.9704,
-        0.9412
+        0.0364,
+        0.9276,
+        0.9409
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -3626,13 +3631,13 @@
       "path": "premium/celestial-pastel/handbag-pearl-shell.webp",
       "thumbnail": "premium/celestial-pastel/handbag-pearl-shell.thumb.webp",
       "viewBox": [
-        242,
+        240,
         223
       ],
       "contentBounds": [
-        0.0331,
+        0.0333,
         0.0359,
-        0.9339,
+        0.9333,
         0.9283
       ],
       "defaultScale": 0.6,
@@ -3657,14 +3662,14 @@
       "path": "premium/celestial-pastel/goldfish-pastel.webp",
       "thumbnail": "premium/celestial-pastel/goldfish-pastel.thumb.webp",
       "viewBox": [
-        264,
-        233
+        255,
+        194
       ],
       "contentBounds": [
-        0.0303,
-        0.0,
-        0.9621,
-        0.9785
+        0.0314,
+        0.0412,
+        0.9569,
+        0.933
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -3690,13 +3695,13 @@
       "thumbnail": "premium/celestial-pastel/saturn-bow-pastel.thumb.webp",
       "viewBox": [
         255,
-        223
+        183
       ],
       "contentBounds": [
         0.0314,
-        0.0,
+        0.0437,
         0.9529,
-        0.9641
+        0.9126
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -3721,14 +3726,14 @@
       "path": "premium/celestial-pastel/heart-wings-pink.webp",
       "thumbnail": "premium/celestial-pastel/heart-wings-pink.thumb.webp",
       "viewBox": [
-        267,
-        221
+        219,
+        217
       ],
       "contentBounds": [
-        0.03,
-        0.0362,
-        0.97,
-        0.9276
+        0.0365,
+        0.0369,
+        0.9269,
+        0.9263
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -3753,14 +3758,14 @@
       "path": "premium/celestial-pastel/tulip-bouquet-pastel.webp",
       "thumbnail": "premium/celestial-pastel/tulip-bouquet-pastel.thumb.webp",
       "viewBox": [
-        233,
-        233
+        230,
+        155
       ],
       "contentBounds": [
-        0.0343,
-        0.0,
-        0.9313,
-        1.0
+        0.0348,
+        0.0516,
+        0.9304,
+        0.8968
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -3785,14 +3790,14 @@
       "path": "premium/celestial-pastel/bow-cloud-star.webp",
       "thumbnail": "premium/celestial-pastel/bow-cloud-star.thumb.webp",
       "viewBox": [
-        278,
-        225
+        230,
+        185
       ],
       "contentBounds": [
-        0.0288,
-        0.0,
-        0.9712,
-        0.9644
+        0.0348,
+        0.0432,
+        0.9304,
+        0.9135
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -3818,13 +3823,13 @@
       "thumbnail": "premium/celestial-pastel/paper-boat-star.thumb.webp",
       "viewBox": [
         258,
-        217
+        178
       ],
       "contentBounds": [
         0.031,
-        0.0,
+        0.0449,
         0.9612,
-        0.9631
+        0.9101
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -3851,13 +3856,13 @@
       "thumbnail": "premium/celestial-pastel/heart-cloud-rainbow-bow.thumb.webp",
       "viewBox": [
         273,
-        211
+        171
       ],
       "contentBounds": [
         0.0293,
-        0.0,
+        0.0468,
         0.9634,
-        0.9621
+        0.9064
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -3882,14 +3887,14 @@
       "path": "premium/celestial-pastel/heart-wings-saturn.webp",
       "thumbnail": "premium/celestial-pastel/heart-wings-saturn.thumb.webp",
       "viewBox": [
-        280,
+        279,
         215
       ],
       "contentBounds": [
         0.0036,
-        0.0233,
-        0.9679,
-        0.9395
+        0.0279,
+        0.9677,
+        0.9349
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -3914,14 +3919,14 @@
       "path": "premium/florals-fruits/tulip-bouquet-veil.webp",
       "thumbnail": "premium/florals-fruits/tulip-bouquet-veil.thumb.webp",
       "viewBox": [
-        272,
-        233
+        223,
+        194
       ],
       "contentBounds": [
-        0.0294,
-        0.0343,
-        0.9706,
-        0.9657
+        0.0359,
+        0.0412,
+        0.9283,
+        0.9175
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -3946,14 +3951,14 @@
       "path": "premium/florals-fruits/strawberry-cream-flower.webp",
       "thumbnail": "premium/florals-fruits/strawberry-cream-flower.thumb.webp",
       "viewBox": [
-        251,
-        230
+        197,
+        191
       ],
       "contentBounds": [
-        0.0319,
-        0.0348,
-        0.9681,
-        0.9652
+        0.0406,
+        0.0419,
+        0.9188,
+        0.9162
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -3979,13 +3984,13 @@
       "thumbnail": "premium/florals-fruits/perfume-flower-bow.thumb.webp",
       "viewBox": [
         259,
-        234
+        195
       ],
       "contentBounds": [
         0.0309,
-        0.0214,
+        0.0256,
         0.9382,
-        0.9786
+        0.9333
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -4011,13 +4016,13 @@
       "thumbnail": "premium/florals-fruits/peach-basket-bow.thumb.webp",
       "viewBox": [
         266,
-        234
+        195
       ],
       "contentBounds": [
         0.0301,
-        0.0085,
+        0.0256,
         0.9398,
-        0.9915
+        0.9333
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -4043,14 +4048,14 @@
       "path": "premium/florals-fruits/cherry-pair-bow-b.webp",
       "thumbnail": "premium/florals-fruits/cherry-pair-bow-b.thumb.webp",
       "viewBox": [
-        256,
-        233
+        237,
+        139
       ],
       "contentBounds": [
-        0.0312,
-        0.0,
-        0.9375,
-        1.0
+        0.0338,
+        0.0576,
+        0.9325,
+        0.8849
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -4075,14 +4080,14 @@
       "path": "premium/florals-fruits/tulip-jewelry-box.webp",
       "thumbnail": "premium/florals-fruits/tulip-jewelry-box.thumb.webp",
       "viewBox": [
-        243,
-        188
+        241,
+        148
       ],
       "contentBounds": [
-        0.0329,
-        0.0426,
-        0.9671,
-        0.9574
+        0.0332,
+        0.0541,
+        0.9627,
+        0.8919
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -4108,14 +4113,14 @@
       "path": "premium/florals-fruits/flower-cookie-pearl-b.webp",
       "thumbnail": "premium/florals-fruits/flower-cookie-pearl-b.thumb.webp",
       "viewBox": [
-        242,
-        179
+        241,
+        140
       ],
       "contentBounds": [
-        0.0331,
-        0.0447,
-        0.9339,
-        0.9553
+        0.0332,
+        0.0571,
+        0.9336,
+        0.8857
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -4140,14 +4145,14 @@
       "path": "premium/florals-fruits/strawberry-jam-jar.webp",
       "thumbnail": "premium/florals-fruits/strawberry-jam-jar.thumb.webp",
       "viewBox": [
-        237,
-        184
+        220,
+        144
       ],
       "contentBounds": [
-        0.0338,
-        0.0435,
-        0.9325,
-        0.9565
+        0.0364,
+        0.0556,
+        0.9273,
+        0.8889
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -4173,13 +4178,13 @@
       "thumbnail": "premium/florals-fruits/flower-wreath-pink.thumb.webp",
       "viewBox": [
         275,
-        185
+        145
       ],
       "contentBounds": [
         0.0291,
-        0.0432,
+        0.0552,
         0.9564,
-        0.9568
+        0.8897
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -4205,13 +4210,13 @@
       "thumbnail": "premium/florals-fruits/peach-cream-bowl.thumb.webp",
       "viewBox": [
         240,
-        186
+        146
       ],
       "contentBounds": [
         0.0333,
-        0.043,
-        0.9667,
-        0.957
+        0.0548,
+        0.9625,
+        0.8904
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -4236,14 +4241,14 @@
       "path": "premium/florals-fruits/butterfly-pearl-pink.webp",
       "thumbnail": "premium/florals-fruits/butterfly-pearl-pink.thumb.webp",
       "viewBox": [
-        252,
-        163
+        203,
+        123
       ],
       "contentBounds": [
-        0.0317,
-        0.0491,
-        0.9683,
-        0.9509
+        0.0394,
+        0.065,
+        0.9212,
+        0.8699
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -4269,14 +4274,14 @@
       "path": "premium/florals-fruits/lily-of-valley-bow.webp",
       "thumbnail": "premium/florals-fruits/lily-of-valley-bow.thumb.webp",
       "viewBox": [
-        260,
-        187
+        259,
+        147
       ],
       "contentBounds": [
-        0.0308,
-        0.0428,
-        0.9423,
-        0.9572
+        0.0309,
+        0.0544,
+        0.9382,
+        0.8912
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -4301,14 +4306,14 @@
       "path": "premium/florals-fruits/flower-jewelry-box.webp",
       "thumbnail": "premium/florals-fruits/flower-jewelry-box.thumb.webp",
       "viewBox": [
-        265,
-        234
+        262,
+        133
       ],
       "contentBounds": [
-        0.0302,
-        0.0,
-        0.9396,
-        1.0
+        0.0305,
+        0.0602,
+        0.9389,
+        0.8797
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -4333,14 +4338,14 @@
       "path": "premium/florals-fruits/strawberry-drink-flower.webp",
       "thumbnail": "premium/florals-fruits/strawberry-drink-flower.thumb.webp",
       "viewBox": [
-        199,
-        234
+        181,
+        156
       ],
       "contentBounds": [
-        0.0402,
-        0.0,
-        0.9196,
-        1.0
+        0.0442,
+        0.0513,
+        0.9116,
+        0.8974
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -4365,14 +4370,14 @@
       "path": "premium/florals-fruits/cherry-blossom-branch.webp",
       "thumbnail": "premium/florals-fruits/cherry-blossom-branch.thumb.webp",
       "viewBox": [
-        268,
-        179
+        203,
+        140
       ],
       "contentBounds": [
-        0.0299,
-        0.0447,
-        0.9701,
-        0.9553
+        0.0394,
+        0.0571,
+        0.9212,
+        0.8857
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -4397,14 +4402,14 @@
       "path": "premium/florals-fruits/peach-keychain-bow.webp",
       "thumbnail": "premium/florals-fruits/peach-keychain-bow.thumb.webp",
       "viewBox": [
-        233,
-        234
+        230,
+        156
       ],
       "contentBounds": [
-        0.0343,
-        0.0,
-        0.9313,
-        1.0
+        0.0348,
+        0.0513,
+        0.9304,
+        0.8974
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -4429,14 +4434,14 @@
       "path": "premium/florals-fruits/strawberry-tart-flower.webp",
       "thumbnail": "premium/florals-fruits/strawberry-tart-flower.thumb.webp",
       "viewBox": [
-        244,
-        185
+        242,
+        145
       ],
       "contentBounds": [
-        0.0328,
-        0.0432,
-        0.9344,
-        0.9568
+        0.0331,
+        0.0552,
+        0.9339,
+        0.8897
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -4461,14 +4466,14 @@
       "path": "premium/florals-fruits/flower-bow-white.webp",
       "thumbnail": "premium/florals-fruits/flower-bow-white.thumb.webp",
       "viewBox": [
-        270,
-        182
+        258,
+        143
       ],
       "contentBounds": [
-        0.0296,
-        0.044,
-        0.9407,
-        0.956
+        0.031,
+        0.0559,
+        0.938,
+        0.8881
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -4493,14 +4498,14 @@
       "path": "premium/florals-fruits/strawberry-basket-heart.webp",
       "thumbnail": "premium/florals-fruits/strawberry-basket-heart.thumb.webp",
       "viewBox": [
-        246,
-        210
+        239,
+        171
       ],
       "contentBounds": [
-        0.0325,
-        0.0381,
-        0.9472,
-        0.9619
+        0.0335,
+        0.0468,
+        0.9414,
+        0.9064
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -4526,13 +4531,13 @@
       "thumbnail": "premium/florals-fruits/strawberry-heart-cake.thumb.webp",
       "viewBox": [
         250,
-        186
+        146
       ],
       "contentBounds": [
         0.032,
-        0.043,
+        0.0548,
         0.936,
-        0.957
+        0.8904
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -4557,14 +4562,14 @@
       "path": "premium/florals-fruits/rose-glass-dome.webp",
       "thumbnail": "premium/florals-fruits/rose-glass-dome.thumb.webp",
       "viewBox": [
-        213,
-        230
+        212,
+        191
       ],
       "contentBounds": [
-        0.0376,
-        0.0,
-        0.9249,
-        0.9652
+        0.0377,
+        0.0419,
+        0.9245,
+        0.9162
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -4621,13 +4626,13 @@
       "path": "premium/florals-fruits/flower-perfume-bottle.webp",
       "thumbnail": "premium/florals-fruits/flower-perfume-bottle.thumb.webp",
       "viewBox": [
-        205,
+        204,
         214
       ],
       "contentBounds": [
-        0.039,
+        0.0392,
         0.0374,
-        0.922,
+        0.9216,
         0.9393
       ],
       "defaultScale": 0.6,
@@ -4653,14 +4658,14 @@
       "path": "premium/florals-fruits/cherry-pair-plate.webp",
       "thumbnail": "premium/florals-fruits/cherry-pair-plate.thumb.webp",
       "viewBox": [
-        254,
-        234
+        253,
+        216
       ],
       "contentBounds": [
-        0.0315,
-        0.0,
-        0.937,
-        0.9701
+        0.0316,
+        0.037,
+        0.9368,
+        0.9259
       ],
       "defaultScale": 0.6,
       "tintable": false,
@@ -9558,6 +9563,3287 @@
       "tintable": false,
       "layerType": "decal",
       "style": "premium-illustrated",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gc-crown-gold-crystal",
+      "name": "Crown Gold Crystal",
+      "nameVi": "Crown Gold Crystal",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "crown",
+        "gold",
+        "crystal"
+      ],
+      "path": "premium/gem-charms/crown-gold-crystal.webp",
+      "thumbnail": "premium/gem-charms/crown-gold-crystal.thumb.webp",
+      "viewBox": [
+        224,
+        225
+      ],
+      "contentBounds": [
+        0.0268,
+        0.0267,
+        0.9464,
+        0.9467
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gc-bunny-crystal-white",
+      "name": "Bunny Crystal White",
+      "nameVi": "Bunny Crystal White",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "bunny",
+        "crystal",
+        "white"
+      ],
+      "path": "premium/gem-charms/bunny-crystal-white.webp",
+      "thumbnail": "premium/gem-charms/bunny-crystal-white.thumb.webp",
+      "viewBox": [
+        175,
+        241
+      ],
+      "contentBounds": [
+        0.0343,
+        0.0249,
+        0.9314,
+        0.9502
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gc-bow-heart-pink-crystal",
+      "name": "Bow Heart Pink Crystal",
+      "nameVi": "Bow Heart Pink Crystal",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "bow",
+        "heart",
+        "pink",
+        "crystal"
+      ],
+      "path": "premium/gem-charms/bow-heart-pink-crystal.webp",
+      "thumbnail": "premium/gem-charms/bow-heart-pink-crystal.thumb.webp",
+      "viewBox": [
+        236,
+        212
+      ],
+      "contentBounds": [
+        0.0254,
+        0.0283,
+        0.9492,
+        0.9434
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gc-butterfly-opal-crystal",
+      "name": "Butterfly Opal Crystal",
+      "nameVi": "Butterfly Opal Crystal",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "butterfly",
+        "opal",
+        "crystal"
+      ],
+      "path": "premium/gem-charms/butterfly-opal-crystal.webp",
+      "thumbnail": "premium/gem-charms/butterfly-opal-crystal.thumb.webp",
+      "viewBox": [
+        240,
+        198
+      ],
+      "contentBounds": [
+        0.025,
+        0.0303,
+        0.95,
+        0.9394
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gc-heart-pink-crystal-cluster",
+      "name": "Heart Pink Crystal Cluster",
+      "nameVi": "Heart Pink Crystal Cluster",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "heart",
+        "pink",
+        "crystal",
+        "cluster"
+      ],
+      "path": "premium/gem-charms/heart-pink-crystal-cluster.webp",
+      "thumbnail": "premium/gem-charms/heart-pink-crystal-cluster.thumb.webp",
+      "viewBox": [
+        199,
+        193
+      ],
+      "contentBounds": [
+        0.0302,
+        0.0311,
+        0.9397,
+        0.9378
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gc-bear-crystal-white",
+      "name": "Bear Crystal White",
+      "nameVi": "Bear Crystal White",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "bear",
+        "crystal",
+        "white"
+      ],
+      "path": "premium/gem-charms/bear-crystal-white.webp",
+      "thumbnail": "premium/gem-charms/bear-crystal-white.thumb.webp",
+      "viewBox": [
+        179,
+        229
+      ],
+      "contentBounds": [
+        0.0335,
+        0.0262,
+        0.933,
+        0.9476
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gc-moon-star-pearl",
+      "name": "Moon Star Pearl",
+      "nameVi": "Moon Star Pearl",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "moon",
+        "star",
+        "pearl"
+      ],
+      "path": "premium/gem-charms/moon-star-pearl.webp",
+      "thumbnail": "premium/gem-charms/moon-star-pearl.thumb.webp",
+      "viewBox": [
+        179,
+        232
+      ],
+      "contentBounds": [
+        0.0335,
+        0.0259,
+        0.933,
+        0.9483
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gc-clover-crystal-white",
+      "name": "Clover Crystal White",
+      "nameVi": "Clover Crystal White",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "clover",
+        "crystal",
+        "white"
+      ],
+      "path": "premium/gem-charms/clover-crystal-white.webp",
+      "thumbnail": "premium/gem-charms/clover-crystal-white.thumb.webp",
+      "viewBox": [
+        184,
+        221
+      ],
+      "contentBounds": [
+        0.0326,
+        0.0271,
+        0.9348,
+        0.9457
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gc-oval-pink-gem-pearl",
+      "name": "Oval Pink Gem Pearl",
+      "nameVi": "Oval Pink Gem Pearl",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "oval",
+        "pink",
+        "gem",
+        "pearl"
+      ],
+      "path": "premium/gem-charms/oval-pink-gem-pearl.webp",
+      "thumbnail": "premium/gem-charms/oval-pink-gem-pearl.thumb.webp",
+      "viewBox": [
+        177,
+        230
+      ],
+      "contentBounds": [
+        0.0339,
+        0.0261,
+        0.9322,
+        0.9478
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gc-horseshoe-pearl-crystal",
+      "name": "Horseshoe Pearl Crystal",
+      "nameVi": "Horseshoe Pearl Crystal",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "horseshoe",
+        "pearl",
+        "crystal"
+      ],
+      "path": "premium/gem-charms/horseshoe-pearl-crystal.webp",
+      "thumbnail": "premium/gem-charms/horseshoe-pearl-crystal.thumb.webp",
+      "viewBox": [
+        198,
+        215
+      ],
+      "contentBounds": [
+        0.0303,
+        0.0279,
+        0.9394,
+        0.9442
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gc-bow-teardrop-crystal",
+      "name": "Bow Teardrop Crystal",
+      "nameVi": "Bow Teardrop Crystal",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "bow",
+        "teardrop",
+        "crystal"
+      ],
+      "path": "premium/gem-charms/bow-teardrop-crystal.webp",
+      "thumbnail": "premium/gem-charms/bow-teardrop-crystal.thumb.webp",
+      "viewBox": [
+        208,
+        203
+      ],
+      "contentBounds": [
+        0.0288,
+        0.0296,
+        0.9423,
+        0.9409
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gc-flower-pink-crystal-pearl",
+      "name": "Flower Pink Crystal Pearl",
+      "nameVi": "Flower Pink Crystal Pearl",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "flower",
+        "pink",
+        "crystal",
+        "pearl"
+      ],
+      "path": "premium/gem-charms/flower-pink-crystal-pearl.webp",
+      "thumbnail": "premium/gem-charms/flower-pink-crystal-pearl.thumb.webp",
+      "viewBox": [
+        212,
+        204
+      ],
+      "contentBounds": [
+        0.0283,
+        0.0294,
+        0.9434,
+        0.9412
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gc-saturn-crystal-white",
+      "name": "Saturn Crystal White",
+      "nameVi": "Saturn Crystal White",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "saturn",
+        "crystal",
+        "white"
+      ],
+      "path": "premium/gem-charms/saturn-crystal-white.webp",
+      "thumbnail": "premium/gem-charms/saturn-crystal-white.thumb.webp",
+      "viewBox": [
+        209,
+        225
+      ],
+      "contentBounds": [
+        0.0287,
+        0.0267,
+        0.9426,
+        0.9467
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gc-heart-wings-pink-crystal",
+      "name": "Heart Wings Pink Crystal",
+      "nameVi": "Heart Wings Pink Crystal",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "heart",
+        "wings",
+        "pink",
+        "crystal"
+      ],
+      "path": "premium/gem-charms/heart-wings-pink-crystal.webp",
+      "thumbnail": "premium/gem-charms/heart-wings-pink-crystal.thumb.webp",
+      "viewBox": [
+        243,
+        187
+      ],
+      "contentBounds": [
+        0.0247,
+        0.0321,
+        0.9506,
+        0.9358
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gc-cherry-pair-crystal",
+      "name": "Cherry Pair Crystal",
+      "nameVi": "Cherry Pair Crystal",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "cherry",
+        "pair",
+        "crystal"
+      ],
+      "path": "premium/gem-charms/cherry-pair-crystal.webp",
+      "thumbnail": "premium/gem-charms/cherry-pair-crystal.thumb.webp",
+      "viewBox": [
+        184,
+        203
+      ],
+      "contentBounds": [
+        0.0326,
+        0.0296,
+        0.9348,
+        0.9409
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gc-gem-emerald-pink-cut",
+      "name": "Gem Emerald Pink Cut",
+      "nameVi": "Gem Emerald Pink Cut",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "gem",
+        "emerald",
+        "pink",
+        "cut"
+      ],
+      "path": "premium/gem-charms/gem-emerald-pink-cut.webp",
+      "thumbnail": "premium/gem-charms/gem-emerald-pink-cut.thumb.webp",
+      "viewBox": [
+        191,
+        213
+      ],
+      "contentBounds": [
+        0.0314,
+        0.0282,
+        0.9372,
+        0.9437
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gc-bunny-pink-pearl",
+      "name": "Bunny Pink Pearl",
+      "nameVi": "Bunny Pink Pearl",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "bunny",
+        "pink",
+        "pearl"
+      ],
+      "path": "premium/gem-charms/bunny-pink-pearl.webp",
+      "thumbnail": "premium/gem-charms/bunny-pink-pearl.thumb.webp",
+      "viewBox": [
+        172,
+        225
+      ],
+      "contentBounds": [
+        0.0349,
+        0.0267,
+        0.9302,
+        0.9467
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gc-teardrop-crystal-white",
+      "name": "Teardrop Crystal White",
+      "nameVi": "Teardrop Crystal White",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "teardrop",
+        "crystal",
+        "white"
+      ],
+      "path": "premium/gem-charms/teardrop-crystal-white.webp",
+      "thumbnail": "premium/gem-charms/teardrop-crystal-white.thumb.webp",
+      "viewBox": [
+        159,
+        228
+      ],
+      "contentBounds": [
+        0.0377,
+        0.0263,
+        0.9245,
+        0.9474
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gc-clover-pink-crystal",
+      "name": "Clover Pink Crystal",
+      "nameVi": "Clover Pink Crystal",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "clover",
+        "pink",
+        "crystal"
+      ],
+      "path": "premium/gem-charms/clover-pink-crystal.webp",
+      "thumbnail": "premium/gem-charms/clover-pink-crystal.thumb.webp",
+      "viewBox": [
+        214,
+        211
+      ],
+      "contentBounds": [
+        0.028,
+        0.0284,
+        0.9439,
+        0.9431
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gc-flower-white-pearl",
+      "name": "Flower White Pearl",
+      "nameVi": "Flower White Pearl",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "flower",
+        "white",
+        "pearl"
+      ],
+      "path": "premium/gem-charms/flower-white-pearl.webp",
+      "thumbnail": "premium/gem-charms/flower-white-pearl.thumb.webp",
+      "viewBox": [
+        195,
+        205
+      ],
+      "contentBounds": [
+        0.0308,
+        0.0293,
+        0.9385,
+        0.9415
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gc-heart-double-pink-crystal",
+      "name": "Heart Double Pink Crystal",
+      "nameVi": "Heart Double Pink Crystal",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "heart",
+        "double",
+        "pink",
+        "crystal"
+      ],
+      "path": "premium/gem-charms/heart-double-pink-crystal.webp",
+      "thumbnail": "premium/gem-charms/heart-double-pink-crystal.thumb.webp",
+      "viewBox": [
+        191,
+        249
+      ],
+      "contentBounds": [
+        0.0314,
+        0.0241,
+        0.9372,
+        0.9518
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gc-clover-crystal-pink",
+      "name": "Clover Crystal Pink",
+      "nameVi": "Clover Crystal Pink",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "clover",
+        "crystal",
+        "pink"
+      ],
+      "path": "premium/gem-charms/clover-crystal-pink.webp",
+      "thumbnail": "premium/gem-charms/clover-crystal-pink.thumb.webp",
+      "viewBox": [
+        182,
+        244
+      ],
+      "contentBounds": [
+        0.033,
+        0.0246,
+        0.9341,
+        0.9508
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gc-saturn-heart-crystal",
+      "name": "Saturn Heart Crystal",
+      "nameVi": "Saturn Heart Crystal",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "saturn",
+        "heart",
+        "crystal"
+      ],
+      "path": "premium/gem-charms/saturn-heart-crystal.webp",
+      "thumbnail": "premium/gem-charms/saturn-heart-crystal.thumb.webp",
+      "viewBox": [
+        220,
+        191
+      ],
+      "contentBounds": [
+        0.0273,
+        0.0314,
+        0.9455,
+        0.9372
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gc-crown-heart-pink-crystal",
+      "name": "Crown Heart Pink Crystal",
+      "nameVi": "Crown Heart Pink Crystal",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "crown",
+        "heart",
+        "pink",
+        "crystal"
+      ],
+      "path": "premium/gem-charms/crown-heart-pink-crystal.webp",
+      "thumbnail": "premium/gem-charms/crown-heart-pink-crystal.thumb.webp",
+      "viewBox": [
+        223,
+        206
+      ],
+      "contentBounds": [
+        0.0269,
+        0.0291,
+        0.9462,
+        0.9417
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gc-butterfly-pink-crystal",
+      "name": "Butterfly Pink Crystal",
+      "nameVi": "Butterfly Pink Crystal",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "butterfly",
+        "pink",
+        "crystal"
+      ],
+      "path": "premium/gem-charms/butterfly-pink-crystal.webp",
+      "thumbnail": "premium/gem-charms/butterfly-pink-crystal.thumb.webp",
+      "viewBox": [
+        260,
+        202
+      ],
+      "contentBounds": [
+        0.0231,
+        0.0297,
+        0.9538,
+        0.9406
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gj-bow-pink-jelly",
+      "name": "Bow Pink Jelly",
+      "nameVi": "Bow Pink Jelly",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "bow",
+        "pink",
+        "jelly"
+      ],
+      "path": "premium/gem-charms/bow-pink-jelly.webp",
+      "thumbnail": "premium/gem-charms/bow-pink-jelly.thumb.webp",
+      "viewBox": [
+        216,
+        211
+      ],
+      "contentBounds": [
+        0.0278,
+        0.0284,
+        0.9444,
+        0.9431
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gj-butterfly-holo-pearl",
+      "name": "Butterfly Holo Pearl",
+      "nameVi": "Butterfly Holo Pearl",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "butterfly",
+        "holo",
+        "pearl"
+      ],
+      "path": "premium/gem-charms/butterfly-holo-pearl.webp",
+      "thumbnail": "premium/gem-charms/butterfly-holo-pearl.thumb.webp",
+      "viewBox": [
+        207,
+        203
+      ],
+      "contentBounds": [
+        0.029,
+        0.0296,
+        0.942,
+        0.9409
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gj-flower-pink-pearl-jelly",
+      "name": "Flower Pink Pearl Jelly",
+      "nameVi": "Flower Pink Pearl Jelly",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "flower",
+        "pink",
+        "pearl",
+        "jelly"
+      ],
+      "path": "premium/gem-charms/flower-pink-pearl-jelly.webp",
+      "thumbnail": "premium/gem-charms/flower-pink-pearl-jelly.thumb.webp",
+      "viewBox": [
+        206,
+        206
+      ],
+      "contentBounds": [
+        0.0291,
+        0.0291,
+        0.9417,
+        0.9417
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gj-star-holo-jelly",
+      "name": "Star Holo Jelly",
+      "nameVi": "Star Holo Jelly",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "star",
+        "holo",
+        "jelly"
+      ],
+      "path": "premium/gem-charms/star-holo-jelly.webp",
+      "thumbnail": "premium/gem-charms/star-holo-jelly.thumb.webp",
+      "viewBox": [
+        187,
+        192
+      ],
+      "contentBounds": [
+        0.0321,
+        0.0312,
+        0.9358,
+        0.9375
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gj-cherry-pair-jelly",
+      "name": "Cherry Pair Jelly",
+      "nameVi": "Cherry Pair Jelly",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "cherry",
+        "pair",
+        "jelly"
+      ],
+      "path": "premium/gem-charms/cherry-pair-jelly.webp",
+      "thumbnail": "premium/gem-charms/cherry-pair-jelly.thumb.webp",
+      "viewBox": [
+        190,
+        214
+      ],
+      "contentBounds": [
+        0.0316,
+        0.028,
+        0.9368,
+        0.9439
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gj-heart-holo-jelly",
+      "name": "Heart Holo Jelly",
+      "nameVi": "Heart Holo Jelly",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "heart",
+        "holo",
+        "jelly"
+      ],
+      "path": "premium/gem-charms/heart-holo-jelly.webp",
+      "thumbnail": "premium/gem-charms/heart-holo-jelly.thumb.webp",
+      "viewBox": [
+        164,
+        155
+      ],
+      "contentBounds": [
+        0.0366,
+        0.0387,
+        0.9268,
+        0.9226
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gj-butterfly-pink-jelly-crystal",
+      "name": "Butterfly Pink Jelly Crystal",
+      "nameVi": "Butterfly Pink Jelly Crystal",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "butterfly",
+        "pink",
+        "jelly",
+        "crystal"
+      ],
+      "path": "premium/gem-charms/butterfly-pink-jelly-crystal.webp",
+      "thumbnail": "premium/gem-charms/butterfly-pink-jelly-crystal.thumb.webp",
+      "viewBox": [
+        203,
+        193
+      ],
+      "contentBounds": [
+        0.0296,
+        0.0311,
+        0.9409,
+        0.9378
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gj-bow-holo-crystal",
+      "name": "Bow Holo Crystal",
+      "nameVi": "Bow Holo Crystal",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "bow",
+        "holo",
+        "crystal"
+      ],
+      "path": "premium/gem-charms/bow-holo-crystal.webp",
+      "thumbnail": "premium/gem-charms/bow-holo-crystal.thumb.webp",
+      "viewBox": [
+        218,
+        201
+      ],
+      "contentBounds": [
+        0.0275,
+        0.0299,
+        0.945,
+        0.9403
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gj-bear-holo-jelly",
+      "name": "Bear Holo Jelly",
+      "nameVi": "Bear Holo Jelly",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "bear",
+        "holo",
+        "jelly"
+      ],
+      "path": "premium/gem-charms/bear-holo-jelly.webp",
+      "thumbnail": "premium/gem-charms/bear-holo-jelly.thumb.webp",
+      "viewBox": [
+        202,
+        174
+      ],
+      "contentBounds": [
+        0.0297,
+        0.0345,
+        0.9406,
+        0.931
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gj-paw-print-pink-jelly",
+      "name": "Paw Print Pink Jelly",
+      "nameVi": "Paw Print Pink Jelly",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "paw",
+        "print",
+        "pink",
+        "jelly"
+      ],
+      "path": "premium/gem-charms/paw-print-pink-jelly.webp",
+      "thumbnail": "premium/gem-charms/paw-print-pink-jelly.thumb.webp",
+      "viewBox": [
+        202,
+        178
+      ],
+      "contentBounds": [
+        0.0297,
+        0.0337,
+        0.9406,
+        0.9326
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gj-teardrop-holo-jelly",
+      "name": "Teardrop Holo Jelly",
+      "nameVi": "Teardrop Holo Jelly",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "teardrop",
+        "holo",
+        "jelly"
+      ],
+      "path": "premium/gem-charms/teardrop-holo-jelly.webp",
+      "thumbnail": "premium/gem-charms/teardrop-holo-jelly.thumb.webp",
+      "viewBox": [
+        138,
+        189
+      ],
+      "contentBounds": [
+        0.0435,
+        0.0317,
+        0.913,
+        0.9365
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gj-shell-pearl-jelly",
+      "name": "Shell Pearl Jelly",
+      "nameVi": "Shell Pearl Jelly",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "shell",
+        "pearl",
+        "jelly"
+      ],
+      "path": "premium/gem-charms/shell-pearl-jelly.webp",
+      "thumbnail": "premium/gem-charms/shell-pearl-jelly.thumb.webp",
+      "viewBox": [
+        196,
+        191
+      ],
+      "contentBounds": [
+        0.0306,
+        0.0314,
+        0.9388,
+        0.9372
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gj-heart-pink-crystal-jelly",
+      "name": "Heart Pink Crystal Jelly",
+      "nameVi": "Heart Pink Crystal Jelly",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "heart",
+        "pink",
+        "crystal",
+        "jelly"
+      ],
+      "path": "premium/gem-charms/heart-pink-crystal-jelly.webp",
+      "thumbnail": "premium/gem-charms/heart-pink-crystal-jelly.thumb.webp",
+      "viewBox": [
+        212,
+        202
+      ],
+      "contentBounds": [
+        0.0283,
+        0.0297,
+        0.9434,
+        0.9406
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gj-flower-purple-pearl-jelly",
+      "name": "Flower Purple Pearl Jelly",
+      "nameVi": "Flower Purple Pearl Jelly",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "flower",
+        "purple",
+        "pearl",
+        "jelly"
+      ],
+      "path": "premium/gem-charms/flower-purple-pearl-jelly.webp",
+      "thumbnail": "premium/gem-charms/flower-purple-pearl-jelly.thumb.webp",
+      "viewBox": [
+        203,
+        205
+      ],
+      "contentBounds": [
+        0.0296,
+        0.0293,
+        0.9409,
+        0.9415
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gj-cherry-pair-jelly-b",
+      "name": "Cherry Pair Jelly B",
+      "nameVi": "Cherry Pair Jelly B",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "cherry",
+        "pair",
+        "jelly",
+        "b"
+      ],
+      "path": "premium/gem-charms/cherry-pair-jelly-b.webp",
+      "thumbnail": "premium/gem-charms/cherry-pair-jelly-b.thumb.webp",
+      "viewBox": [
+        194,
+        200
+      ],
+      "contentBounds": [
+        0.0309,
+        0.03,
+        0.9381,
+        0.94
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gj-moon-star-holo-jelly",
+      "name": "Moon Star Holo Jelly",
+      "nameVi": "Moon Star Holo Jelly",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "moon",
+        "star",
+        "holo",
+        "jelly"
+      ],
+      "path": "premium/gem-charms/moon-star-holo-jelly.webp",
+      "thumbnail": "premium/gem-charms/moon-star-holo-jelly.thumb.webp",
+      "viewBox": [
+        183,
+        196
+      ],
+      "contentBounds": [
+        0.0328,
+        0.0306,
+        0.9344,
+        0.9388
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gj-bow-orange-jelly",
+      "name": "Bow Orange Jelly",
+      "nameVi": "Bow Orange Jelly",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "bow",
+        "orange",
+        "jelly"
+      ],
+      "path": "premium/gem-charms/bow-orange-jelly.webp",
+      "thumbnail": "premium/gem-charms/bow-orange-jelly.thumb.webp",
+      "viewBox": [
+        195,
+        189
+      ],
+      "contentBounds": [
+        0.0308,
+        0.0317,
+        0.9385,
+        0.9365
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gj-heart-purple-crystal",
+      "name": "Heart Purple Crystal",
+      "nameVi": "Heart Purple Crystal",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "heart",
+        "purple",
+        "crystal"
+      ],
+      "path": "premium/gem-charms/heart-purple-crystal.webp",
+      "thumbnail": "premium/gem-charms/heart-purple-crystal.thumb.webp",
+      "viewBox": [
+        167,
+        159
+      ],
+      "contentBounds": [
+        0.0359,
+        0.0377,
+        0.9281,
+        0.9245
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gj-butterfly-holo-crystal",
+      "name": "Butterfly Holo Crystal",
+      "nameVi": "Butterfly Holo Crystal",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "butterfly",
+        "holo",
+        "crystal"
+      ],
+      "path": "premium/gem-charms/butterfly-holo-crystal.webp",
+      "thumbnail": "premium/gem-charms/butterfly-holo-crystal.thumb.webp",
+      "viewBox": [
+        211,
+        195
+      ],
+      "contentBounds": [
+        0.0284,
+        0.0308,
+        0.9431,
+        0.9385
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gj-star-pink-pearl-jelly",
+      "name": "Star Pink Pearl Jelly",
+      "nameVi": "Star Pink Pearl Jelly",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "star",
+        "pink",
+        "pearl",
+        "jelly"
+      ],
+      "path": "premium/gem-charms/star-pink-pearl-jelly.webp",
+      "thumbnail": "premium/gem-charms/star-pink-pearl-jelly.thumb.webp",
+      "viewBox": [
+        184,
+        182
+      ],
+      "contentBounds": [
+        0.0326,
+        0.033,
+        0.9348,
+        0.9341
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gj-flower-holo-pearl",
+      "name": "Flower Holo Pearl",
+      "nameVi": "Flower Holo Pearl",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "flower",
+        "holo",
+        "pearl"
+      ],
+      "path": "premium/gem-charms/flower-holo-pearl.webp",
+      "thumbnail": "premium/gem-charms/flower-holo-pearl.thumb.webp",
+      "viewBox": [
+        193,
+        198
+      ],
+      "contentBounds": [
+        0.0311,
+        0.0303,
+        0.9378,
+        0.9394
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gj-heart-pink-jelly",
+      "name": "Heart Pink Jelly",
+      "nameVi": "Heart Pink Jelly",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "heart",
+        "pink",
+        "jelly"
+      ],
+      "path": "premium/gem-charms/heart-pink-jelly.webp",
+      "thumbnail": "premium/gem-charms/heart-pink-jelly.thumb.webp",
+      "viewBox": [
+        184,
+        187
+      ],
+      "contentBounds": [
+        0.0326,
+        0.0321,
+        0.9348,
+        0.9358
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gj-bear-holo-jelly-b",
+      "name": "Bear Holo Jelly B",
+      "nameVi": "Bear Holo Jelly B",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "bear",
+        "holo",
+        "jelly",
+        "b"
+      ],
+      "path": "premium/gem-charms/bear-holo-jelly-b.webp",
+      "thumbnail": "premium/gem-charms/bear-holo-jelly-b.thumb.webp",
+      "viewBox": [
+        200,
+        170
+      ],
+      "contentBounds": [
+        0.03,
+        0.0353,
+        0.94,
+        0.9294
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gj-bow-purple-jelly",
+      "name": "Bow Purple Jelly",
+      "nameVi": "Bow Purple Jelly",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "bow",
+        "purple",
+        "jelly"
+      ],
+      "path": "premium/gem-charms/bow-purple-jelly.webp",
+      "thumbnail": "premium/gem-charms/bow-purple-jelly.thumb.webp",
+      "viewBox": [
+        197,
+        181
+      ],
+      "contentBounds": [
+        0.0305,
+        0.0331,
+        0.9391,
+        0.9337
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gb-heart-wings-pink-pearl",
+      "name": "Heart Wings Pink Pearl",
+      "nameVi": "Heart Wings Pink Pearl",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "heart",
+        "wings",
+        "pink",
+        "pearl"
+      ],
+      "path": "premium/gem-charms/heart-wings-pink-pearl.webp",
+      "thumbnail": "premium/gem-charms/heart-wings-pink-pearl.thumb.webp",
+      "viewBox": [
+        282,
+        244
+      ],
+      "contentBounds": [
+        0.0213,
+        0.0246,
+        0.9574,
+        0.9508
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gb-crown-heart-pink-pearl",
+      "name": "Crown Heart Pink Pearl",
+      "nameVi": "Crown Heart Pink Pearl",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "crown",
+        "heart",
+        "pink",
+        "pearl"
+      ],
+      "path": "premium/gem-charms/crown-heart-pink-pearl.webp",
+      "thumbnail": "premium/gem-charms/crown-heart-pink-pearl.thumb.webp",
+      "viewBox": [
+        171,
+        235
+      ],
+      "contentBounds": [
+        0.0351,
+        0.0255,
+        0.9298,
+        0.9489
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gb-bow-pearl-drop",
+      "name": "Bow Pearl Drop",
+      "nameVi": "Bow Pearl Drop",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "bow",
+        "pearl",
+        "drop"
+      ],
+      "path": "premium/gem-charms/bow-pearl-drop.webp",
+      "thumbnail": "premium/gem-charms/bow-pearl-drop.thumb.webp",
+      "viewBox": [
+        210,
+        239
+      ],
+      "contentBounds": [
+        0.0286,
+        0.0251,
+        0.9429,
+        0.9498
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gb-bow-pearl-double-drop",
+      "name": "Bow Pearl Double Drop",
+      "nameVi": "Bow Pearl Double Drop",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "bow",
+        "pearl",
+        "double",
+        "drop"
+      ],
+      "path": "premium/gem-charms/bow-pearl-double-drop.webp",
+      "thumbnail": "premium/gem-charms/bow-pearl-double-drop.thumb.webp",
+      "viewBox": [
+        201,
+        229
+      ],
+      "contentBounds": [
+        0.0299,
+        0.0262,
+        0.9403,
+        0.9476
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gb-butterfly-pink-pearl-cluster",
+      "name": "Butterfly Pink Pearl Cluster",
+      "nameVi": "Butterfly Pink Pearl Cluster",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "butterfly",
+        "pink",
+        "pearl",
+        "cluster"
+      ],
+      "path": "premium/gem-charms/butterfly-pink-pearl-cluster.webp",
+      "thumbnail": "premium/gem-charms/butterfly-pink-pearl-cluster.thumb.webp",
+      "viewBox": [
+        204,
+        196
+      ],
+      "contentBounds": [
+        0.0294,
+        0.0306,
+        0.9412,
+        0.9388
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gb-heart-lock-pink-pearl",
+      "name": "Heart Lock Pink Pearl",
+      "nameVi": "Heart Lock Pink Pearl",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "heart",
+        "lock",
+        "pink",
+        "pearl"
+      ],
+      "path": "premium/gem-charms/heart-lock-pink-pearl.webp",
+      "thumbnail": "premium/gem-charms/heart-lock-pink-pearl.thumb.webp",
+      "viewBox": [
+        186,
+        224
+      ],
+      "contentBounds": [
+        0.0323,
+        0.0268,
+        0.9355,
+        0.9464
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gb-rose-pearl-stem",
+      "name": "Rose Pearl Stem",
+      "nameVi": "Rose Pearl Stem",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "rose",
+        "pearl",
+        "stem"
+      ],
+      "path": "premium/gem-charms/rose-pearl-stem.webp",
+      "thumbnail": "premium/gem-charms/rose-pearl-stem.thumb.webp",
+      "viewBox": [
+        169,
+        215
+      ],
+      "contentBounds": [
+        0.0355,
+        0.0279,
+        0.929,
+        0.9442
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gb-bow-heart-drop",
+      "name": "Bow Heart Drop",
+      "nameVi": "Bow Heart Drop",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "bow",
+        "heart",
+        "drop"
+      ],
+      "path": "premium/gem-charms/bow-heart-drop.webp",
+      "thumbnail": "premium/gem-charms/bow-heart-drop.thumb.webp",
+      "viewBox": [
+        155,
+        251
+      ],
+      "contentBounds": [
+        0.0387,
+        0.0239,
+        0.9226,
+        0.9522
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gb-heart-wreath-pink-pearl",
+      "name": "Heart Wreath Pink Pearl",
+      "nameVi": "Heart Wreath Pink Pearl",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "heart",
+        "wreath",
+        "pink",
+        "pearl"
+      ],
+      "path": "premium/gem-charms/heart-wreath-pink-pearl.webp",
+      "thumbnail": "premium/gem-charms/heart-wreath-pink-pearl.thumb.webp",
+      "viewBox": [
+        190,
+        197
+      ],
+      "contentBounds": [
+        0.0316,
+        0.0305,
+        0.9368,
+        0.9391
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gb-bow-pink-jewel",
+      "name": "Bow Pink Jewel",
+      "nameVi": "Bow Pink Jewel",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "bow",
+        "pink",
+        "jewel"
+      ],
+      "path": "premium/gem-charms/bow-pink-jewel.webp",
+      "thumbnail": "premium/gem-charms/bow-pink-jewel.thumb.webp",
+      "viewBox": [
+        209,
+        174
+      ],
+      "contentBounds": [
+        0.0287,
+        0.0345,
+        0.9426,
+        0.931
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gb-bow-pearl-drop-b",
+      "name": "Bow Pearl Drop B",
+      "nameVi": "Bow Pearl Drop B",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "bow",
+        "pearl",
+        "drop",
+        "b"
+      ],
+      "path": "premium/gem-charms/bow-pearl-drop-b.webp",
+      "thumbnail": "premium/gem-charms/bow-pearl-drop-b.thumb.webp",
+      "viewBox": [
+        201,
+        223
+      ],
+      "contentBounds": [
+        0.0299,
+        0.0269,
+        0.9403,
+        0.9462
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gb-crown-pearl-heart",
+      "name": "Crown Pearl Heart",
+      "nameVi": "Crown Pearl Heart",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "crown",
+        "pearl",
+        "heart"
+      ],
+      "path": "premium/gem-charms/crown-pearl-heart.webp",
+      "thumbnail": "premium/gem-charms/crown-pearl-heart.thumb.webp",
+      "viewBox": [
+        243,
+        199
+      ],
+      "contentBounds": [
+        0.0247,
+        0.0302,
+        0.9506,
+        0.9397
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gb-heart-bow-pink-pearl",
+      "name": "Heart Bow Pink Pearl",
+      "nameVi": "Heart Bow Pink Pearl",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "heart",
+        "bow",
+        "pink",
+        "pearl"
+      ],
+      "path": "premium/gem-charms/heart-bow-pink-pearl.webp",
+      "thumbnail": "premium/gem-charms/heart-bow-pink-pearl.thumb.webp",
+      "viewBox": [
+        196,
+        210
+      ],
+      "contentBounds": [
+        0.0306,
+        0.0286,
+        0.9388,
+        0.9429
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gb-heart-wings-pink-pearl-b",
+      "name": "Heart Wings Pink Pearl B",
+      "nameVi": "Heart Wings Pink Pearl B",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "heart",
+        "wings",
+        "pink",
+        "pearl",
+        "b"
+      ],
+      "path": "premium/gem-charms/heart-wings-pink-pearl-b.webp",
+      "thumbnail": "premium/gem-charms/heart-wings-pink-pearl-b.thumb.webp",
+      "viewBox": [
+        228,
+        222
+      ],
+      "contentBounds": [
+        0.0263,
+        0.027,
+        0.9474,
+        0.9459
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gb-bow-cluster-pink-pearl",
+      "name": "Bow Cluster Pink Pearl",
+      "nameVi": "Bow Cluster Pink Pearl",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "bow",
+        "cluster",
+        "pink",
+        "pearl"
+      ],
+      "path": "premium/gem-charms/bow-cluster-pink-pearl.webp",
+      "thumbnail": "premium/gem-charms/bow-cluster-pink-pearl.thumb.webp",
+      "viewBox": [
+        203,
+        192
+      ],
+      "contentBounds": [
+        0.0296,
+        0.0312,
+        0.9409,
+        0.9375
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gb-heart-scroll-pearl-flower",
+      "name": "Heart Scroll Pearl Flower",
+      "nameVi": "Heart Scroll Pearl Flower",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "heart",
+        "scroll",
+        "pearl",
+        "flower"
+      ],
+      "path": "premium/gem-charms/heart-scroll-pearl-flower.webp",
+      "thumbnail": "premium/gem-charms/heart-scroll-pearl-flower.thumb.webp",
+      "viewBox": [
+        162,
+        226
+      ],
+      "contentBounds": [
+        0.037,
+        0.0265,
+        0.9259,
+        0.9469
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gb-bow-cluster-pearl",
+      "name": "Bow Cluster Pearl",
+      "nameVi": "Bow Cluster Pearl",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "bow",
+        "cluster",
+        "pearl"
+      ],
+      "path": "premium/gem-charms/bow-cluster-pearl.webp",
+      "thumbnail": "premium/gem-charms/bow-cluster-pearl.thumb.webp",
+      "viewBox": [
+        185,
+        217
+      ],
+      "contentBounds": [
+        0.0324,
+        0.0276,
+        0.9351,
+        0.9447
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gb-butterfly-pink-pearl",
+      "name": "Butterfly Pink Pearl",
+      "nameVi": "Butterfly Pink Pearl",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "butterfly",
+        "pink",
+        "pearl"
+      ],
+      "path": "premium/gem-charms/butterfly-pink-pearl.webp",
+      "thumbnail": "premium/gem-charms/butterfly-pink-pearl.thumb.webp",
+      "viewBox": [
+        200,
+        185
+      ],
+      "contentBounds": [
+        0.03,
+        0.0324,
+        0.94,
+        0.9351
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gb-key-heart-pink",
+      "name": "Key Heart Pink",
+      "nameVi": "Key Heart Pink",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "key",
+        "heart",
+        "pink"
+      ],
+      "path": "premium/gem-charms/key-heart-pink.webp",
+      "thumbnail": "premium/gem-charms/key-heart-pink.thumb.webp",
+      "viewBox": [
+        128,
+        230
+      ],
+      "contentBounds": [
+        0.0469,
+        0.0261,
+        0.9062,
+        0.9478
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gb-bow-pink-pearl-drop",
+      "name": "Bow Pink Pearl Drop",
+      "nameVi": "Bow Pink Pearl Drop",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "bow",
+        "pink",
+        "pearl",
+        "drop"
+      ],
+      "path": "premium/gem-charms/bow-pink-pearl-drop.webp",
+      "thumbnail": "premium/gem-charms/bow-pink-pearl-drop.thumb.webp",
+      "viewBox": [
+        191,
+        212
+      ],
+      "contentBounds": [
+        0.0314,
+        0.0283,
+        0.9372,
+        0.9434
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gb-heart-ring-star-pink",
+      "name": "Heart Ring Star Pink",
+      "nameVi": "Heart Ring Star Pink",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "heart",
+        "ring",
+        "star",
+        "pink"
+      ],
+      "path": "premium/gem-charms/heart-ring-star-pink.webp",
+      "thumbnail": "premium/gem-charms/heart-ring-star-pink.thumb.webp",
+      "viewBox": [
+        188,
+        251
+      ],
+      "contentBounds": [
+        0.0319,
+        0.0239,
+        0.9362,
+        0.9522
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gb-butterfly-pink-teardrop",
+      "name": "Butterfly Pink Teardrop",
+      "nameVi": "Butterfly Pink Teardrop",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "butterfly",
+        "pink",
+        "teardrop"
+      ],
+      "path": "premium/gem-charms/butterfly-pink-teardrop.webp",
+      "thumbnail": "premium/gem-charms/butterfly-pink-teardrop.thumb.webp",
+      "viewBox": [
+        179,
+        235
+      ],
+      "contentBounds": [
+        0.0335,
+        0.0255,
+        0.933,
+        0.9489
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gb-bow-pearl-drop-c",
+      "name": "Bow Pearl Drop C",
+      "nameVi": "Bow Pearl Drop C",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "bow",
+        "pearl",
+        "drop",
+        "c"
+      ],
+      "path": "premium/gem-charms/bow-pearl-drop-c.webp",
+      "thumbnail": "premium/gem-charms/bow-pearl-drop-c.thumb.webp",
+      "viewBox": [
+        172,
+        241
+      ],
+      "contentBounds": [
+        0.0349,
+        0.0249,
+        0.9302,
+        0.9502
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gb-heart-wreath-pearl-butterfly",
+      "name": "Heart Wreath Pearl Butterfly",
+      "nameVi": "Heart Wreath Pearl Butterfly",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "heart",
+        "wreath",
+        "pearl",
+        "butterfly"
+      ],
+      "path": "premium/gem-charms/heart-wreath-pearl-butterfly.webp",
+      "thumbnail": "premium/gem-charms/heart-wreath-pearl-butterfly.thumb.webp",
+      "viewBox": [
+        201,
+        195
+      ],
+      "contentBounds": [
+        0.0299,
+        0.0308,
+        0.9403,
+        0.9385
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gb-butterfly-pink-drop",
+      "name": "Butterfly Pink Drop",
+      "nameVi": "Butterfly Pink Drop",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "butterfly",
+        "pink",
+        "drop"
+      ],
+      "path": "premium/gem-charms/butterfly-pink-drop.webp",
+      "thumbnail": "premium/gem-charms/butterfly-pink-drop.thumb.webp",
+      "viewBox": [
+        190,
+        230
+      ],
+      "contentBounds": [
+        0.0316,
+        0.0261,
+        0.9368,
+        0.9478
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gd-clover-pearl-crystal",
+      "name": "Clover Pearl Crystal",
+      "nameVi": "Clover Pearl Crystal",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "clover",
+        "pearl",
+        "crystal"
+      ],
+      "path": "premium/gem-charms/clover-pearl-crystal.webp",
+      "thumbnail": "premium/gem-charms/clover-pearl-crystal.thumb.webp",
+      "viewBox": [
+        187,
+        232
+      ],
+      "contentBounds": [
+        0.0321,
+        0.0259,
+        0.9358,
+        0.9483
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gd-bear-pink-pearl-crystal",
+      "name": "Bear Pink Pearl Crystal",
+      "nameVi": "Bear Pink Pearl Crystal",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "bear",
+        "pink",
+        "pearl",
+        "crystal"
+      ],
+      "path": "premium/gem-charms/bear-pink-pearl-crystal.webp",
+      "thumbnail": "premium/gem-charms/bear-pink-pearl-crystal.thumb.webp",
+      "viewBox": [
+        148,
+        217
+      ],
+      "contentBounds": [
+        0.0405,
+        0.0276,
+        0.9189,
+        0.9447
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gd-bow-crystal-drop",
+      "name": "Bow Crystal Drop",
+      "nameVi": "Bow Crystal Drop",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "bow",
+        "crystal",
+        "drop"
+      ],
+      "path": "premium/gem-charms/bow-crystal-drop.webp",
+      "thumbnail": "premium/gem-charms/bow-crystal-drop.thumb.webp",
+      "viewBox": [
+        218,
+        222
+      ],
+      "contentBounds": [
+        0.0275,
+        0.027,
+        0.945,
+        0.9459
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gd-bow-pink-jelly-crystal",
+      "name": "Bow Pink Jelly Crystal",
+      "nameVi": "Bow Pink Jelly Crystal",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "bow",
+        "pink",
+        "jelly",
+        "crystal"
+      ],
+      "path": "premium/gem-charms/bow-pink-jelly-crystal.webp",
+      "thumbnail": "premium/gem-charms/bow-pink-jelly-crystal.thumb.webp",
+      "viewBox": [
+        206,
+        200
+      ],
+      "contentBounds": [
+        0.0291,
+        0.03,
+        0.9417,
+        0.94
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gd-butterfly-pink-pearl-wing",
+      "name": "Butterfly Pink Pearl Wing",
+      "nameVi": "Butterfly Pink Pearl Wing",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "butterfly",
+        "pink",
+        "pearl",
+        "wing"
+      ],
+      "path": "premium/gem-charms/butterfly-pink-pearl-wing.webp",
+      "thumbnail": "premium/gem-charms/butterfly-pink-pearl-wing.thumb.webp",
+      "viewBox": [
+        223,
+        210
+      ],
+      "contentBounds": [
+        0.0269,
+        0.0286,
+        0.9462,
+        0.9429
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gd-shell-pearl-star",
+      "name": "Shell Pearl Star",
+      "nameVi": "Shell Pearl Star",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "shell",
+        "pearl",
+        "star"
+      ],
+      "path": "premium/gem-charms/shell-pearl-star.webp",
+      "thumbnail": "premium/gem-charms/shell-pearl-star.thumb.webp",
+      "viewBox": [
+        185,
+        192
+      ],
+      "contentBounds": [
+        0.0324,
+        0.0312,
+        0.9351,
+        0.9375
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gd-bunny-pearl-bow",
+      "name": "Bunny Pearl Bow",
+      "nameVi": "Bunny Pearl Bow",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "bunny",
+        "pearl",
+        "bow"
+      ],
+      "path": "premium/gem-charms/bunny-pearl-bow.webp",
+      "thumbnail": "premium/gem-charms/bunny-pearl-bow.thumb.webp",
+      "viewBox": [
+        144,
+        247
+      ],
+      "contentBounds": [
+        0.0417,
+        0.0243,
+        0.9167,
+        0.9514
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gd-crown-pearl-oval",
+      "name": "Crown Pearl Oval",
+      "nameVi": "Crown Pearl Oval",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "crown",
+        "pearl",
+        "oval"
+      ],
+      "path": "premium/gem-charms/crown-pearl-oval.webp",
+      "thumbnail": "premium/gem-charms/crown-pearl-oval.thumb.webp",
+      "viewBox": [
+        225,
+        226
+      ],
+      "contentBounds": [
+        0.0267,
+        0.0265,
+        0.9467,
+        0.9469
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gd-heart-pink-pearl-drop",
+      "name": "Heart Pink Pearl Drop",
+      "nameVi": "Heart Pink Pearl Drop",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "heart",
+        "pink",
+        "pearl",
+        "drop"
+      ],
+      "path": "premium/gem-charms/heart-pink-pearl-drop.webp",
+      "thumbnail": "premium/gem-charms/heart-pink-pearl-drop.thumb.webp",
+      "viewBox": [
+        175,
+        244
+      ],
+      "contentBounds": [
+        0.0343,
+        0.0246,
+        0.9314,
+        0.9508
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gd-star-crystal-pearl",
+      "name": "Star Crystal Pearl",
+      "nameVi": "Star Crystal Pearl",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "star",
+        "crystal",
+        "pearl"
+      ],
+      "path": "premium/gem-charms/star-crystal-pearl.webp",
+      "thumbnail": "premium/gem-charms/star-crystal-pearl.thumb.webp",
+      "viewBox": [
+        209,
+        240
+      ],
+      "contentBounds": [
+        0.0287,
+        0.025,
+        0.9426,
+        0.95
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gd-cat-gold-pearl",
+      "name": "Cat Gold Pearl",
+      "nameVi": "Cat Gold Pearl",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "cat",
+        "gold",
+        "pearl"
+      ],
+      "path": "premium/gem-charms/cat-gold-pearl.webp",
+      "thumbnail": "premium/gem-charms/cat-gold-pearl.thumb.webp",
+      "viewBox": [
+        162,
+        236
+      ],
+      "contentBounds": [
+        0.037,
+        0.0254,
+        0.9259,
+        0.9492
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gd-flower-pink-pearl-crystal",
+      "name": "Flower Pink Pearl Crystal",
+      "nameVi": "Flower Pink Pearl Crystal",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "flower",
+        "pink",
+        "pearl",
+        "crystal"
+      ],
+      "path": "premium/gem-charms/flower-pink-pearl-crystal.webp",
+      "thumbnail": "premium/gem-charms/flower-pink-pearl-crystal.thumb.webp",
+      "viewBox": [
+        193,
+        212
+      ],
+      "contentBounds": [
+        0.0311,
+        0.0283,
+        0.9378,
+        0.9434
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gd-butterfly-pearl-crystal",
+      "name": "Butterfly Pearl Crystal",
+      "nameVi": "Butterfly Pearl Crystal",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "butterfly",
+        "pearl",
+        "crystal"
+      ],
+      "path": "premium/gem-charms/butterfly-pearl-crystal.webp",
+      "thumbnail": "premium/gem-charms/butterfly-pearl-crystal.thumb.webp",
+      "viewBox": [
+        222,
+        198
+      ],
+      "contentBounds": [
+        0.027,
+        0.0303,
+        0.9459,
+        0.9394
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gd-bow-crystal-drop-b",
+      "name": "Bow Crystal Drop B",
+      "nameVi": "Bow Crystal Drop B",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "bow",
+        "crystal",
+        "drop",
+        "b"
+      ],
+      "path": "premium/gem-charms/bow-crystal-drop-b.webp",
+      "thumbnail": "premium/gem-charms/bow-crystal-drop-b.thumb.webp",
+      "viewBox": [
+        200,
+        283
+      ],
+      "contentBounds": [
+        0.03,
+        0.0212,
+        0.94,
+        0.9576
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gd-gem-oval-pearl-star",
+      "name": "Gem Oval Pearl Star",
+      "nameVi": "Gem Oval Pearl Star",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "gem",
+        "oval",
+        "pearl",
+        "star"
+      ],
+      "path": "premium/gem-charms/gem-oval-pearl-star.webp",
+      "thumbnail": "premium/gem-charms/gem-oval-pearl-star.thumb.webp",
+      "viewBox": [
+        179,
+        207
+      ],
+      "contentBounds": [
+        0.0335,
+        0.029,
+        0.933,
+        0.942
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gd-heart-flower-pearl",
+      "name": "Heart Flower Pearl",
+      "nameVi": "Heart Flower Pearl",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "heart",
+        "flower",
+        "pearl"
+      ],
+      "path": "premium/gem-charms/heart-flower-pearl.webp",
+      "thumbnail": "premium/gem-charms/heart-flower-pearl.thumb.webp",
+      "viewBox": [
+        187,
+        207
+      ],
+      "contentBounds": [
+        0.0321,
+        0.029,
+        0.9358,
+        0.942
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gd-quatrefoil-pearl",
+      "name": "Quatrefoil Pearl",
+      "nameVi": "Quatrefoil Pearl",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "quatrefoil",
+        "pearl"
+      ],
+      "path": "premium/gem-charms/quatrefoil-pearl.webp",
+      "thumbnail": "premium/gem-charms/quatrefoil-pearl.thumb.webp",
+      "viewBox": [
+        164,
+        172
+      ],
+      "contentBounds": [
+        0.0366,
+        0.0349,
+        0.9268,
+        0.9302
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gd-bow-crystal-heart-drop",
+      "name": "Bow Crystal Heart Drop",
+      "nameVi": "Bow Crystal Heart Drop",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "bow",
+        "crystal",
+        "heart",
+        "drop"
+      ],
+      "path": "premium/gem-charms/bow-crystal-heart-drop.webp",
+      "thumbnail": "premium/gem-charms/bow-crystal-heart-drop.thumb.webp",
+      "viewBox": [
+        177,
+        237
+      ],
+      "contentBounds": [
+        0.0339,
+        0.0253,
+        0.9322,
+        0.9494
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gd-oval-pink-crystal-ring",
+      "name": "Oval Pink Crystal Ring",
+      "nameVi": "Oval Pink Crystal Ring",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "oval",
+        "pink",
+        "crystal",
+        "ring"
+      ],
+      "path": "premium/gem-charms/oval-pink-crystal-ring.webp",
+      "thumbnail": "premium/gem-charms/oval-pink-crystal-ring.thumb.webp",
+      "viewBox": [
+        189,
+        267
+      ],
+      "contentBounds": [
+        0.0317,
+        0.0225,
+        0.9365,
+        0.9551
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gd-flower-pink-pearl-crystal-b",
+      "name": "Flower Pink Pearl Crystal B",
+      "nameVi": "Flower Pink Pearl Crystal B",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "flower",
+        "pink",
+        "pearl",
+        "crystal",
+        "b"
+      ],
+      "path": "premium/gem-charms/flower-pink-pearl-crystal-b.webp",
+      "thumbnail": "premium/gem-charms/flower-pink-pearl-crystal-b.thumb.webp",
+      "viewBox": [
+        194,
+        260
+      ],
+      "contentBounds": [
+        0.0309,
+        0.0231,
+        0.9381,
+        0.9538
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gd-heart-wings-pink-pearl-halo",
+      "name": "Heart Wings Pink Pearl Halo",
+      "nameVi": "Heart Wings Pink Pearl Halo",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "heart",
+        "wings",
+        "pink",
+        "pearl",
+        "halo"
+      ],
+      "path": "premium/gem-charms/heart-wings-pink-pearl-halo.webp",
+      "thumbnail": "premium/gem-charms/heart-wings-pink-pearl-halo.thumb.webp",
+      "viewBox": [
+        188,
+        252
+      ],
+      "contentBounds": [
+        0.0319,
+        0.0238,
+        0.9362,
+        0.9524
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gd-star-pearl-shell",
+      "name": "Star Pearl Shell",
+      "nameVi": "Star Pearl Shell",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "star",
+        "pearl",
+        "shell"
+      ],
+      "path": "premium/gem-charms/star-pearl-shell.webp",
+      "thumbnail": "premium/gem-charms/star-pearl-shell.thumb.webp",
+      "viewBox": [
+        177,
+        246
+      ],
+      "contentBounds": [
+        0.0339,
+        0.0244,
+        0.9322,
+        0.9512
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gd-bow-pearl-drop-crystal",
+      "name": "Bow Pearl Drop Crystal",
+      "nameVi": "Bow Pearl Drop Crystal",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "bow",
+        "pearl",
+        "drop",
+        "crystal"
+      ],
+      "path": "premium/gem-charms/bow-pearl-drop-crystal.webp",
+      "thumbnail": "premium/gem-charms/bow-pearl-drop-crystal.thumb.webp",
+      "viewBox": [
+        181,
+        283
+      ],
+      "contentBounds": [
+        0.0331,
+        0.0212,
+        0.9337,
+        0.9576
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
+      "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
+      "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
+    },
+    {
+      "id": "gd-moon-star-crystal-pink",
+      "name": "Moon Star Crystal Pink",
+      "nameVi": "Moon Star Crystal Pink",
+      "category": "gem-charms",
+      "categoryVi": "Charm đá quý",
+      "tags": [
+        "premium",
+        "charm",
+        "gem-charms",
+        "moon",
+        "star",
+        "crystal",
+        "pink"
+      ],
+      "path": "premium/gem-charms/moon-star-crystal-pink.webp",
+      "thumbnail": "premium/gem-charms/moon-star-crystal-pink.thumb.webp",
+      "viewBox": [
+        162,
+        298
+      ],
+      "contentBounds": [
+        0.037,
+        0.0201,
+        0.9259,
+        0.9597
+      ],
+      "defaultScale": 0.5,
+      "tintable": false,
+      "layerType": "raised",
+      "style": "premium-jewelry-charm",
       "source": "User-provided sticker sheet (AI-generated illustration), cropped/processed for VIBEU",
       "license": "Project-owned as provided by the site owner — verify commercial-use terms of the original generator before public launch"
     }
