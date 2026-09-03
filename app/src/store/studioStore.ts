@@ -117,6 +117,7 @@ interface StudioState extends DesignSnapshot {
   saveCurrentDesign: (name: string) => void
   loadSavedDesign: (id: string) => void
   deleteSavedDesign: (id: string) => void
+  loadSharedDesign: (payload: { skinTone: SkinToneId; fingers: Record<FingerId, FingerDesign>; customDecals: DecalAsset[] }) => void
 }
 
 /** Every design-mutating action goes through this so undo/redo stays correct without
@@ -406,4 +407,15 @@ export const useStudioStore = create<StudioState>((set, get) => ({
     deleteDesign(id)
     set({ savedDesigns: listSavedDesigns() })
   },
+
+  loadSharedDesign: (payload) =>
+    withHistory(set, () => ({
+      skinTone: payload.skinTone,
+      fingers: payload.fingers,
+      customDecals: payload.customDecals,
+      selectedStickerInstance: null,
+      view: 'design',
+      activeTemplateName: null,
+      activeTemplateId: null,
+    })),
 }))

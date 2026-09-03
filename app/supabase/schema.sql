@@ -218,6 +218,50 @@ create policy "Admins manage blog posts"
   );
 
 -- =========================================================================
+-- shared_designs — the "recipe & QR" feature in Studio. The QR itself normally embeds the
+-- whole design compressed in the URL (works with zero backend), but very detailed designs
+-- (lots of stickers/freehand strokes) may not fit in a scannable QR — this table is the
+-- durable fallback + what /admin/recipes lists. `id` is the short id already shown in the
+-- share link, generated client-side (see src/lib/recipe.ts).
+-- =========================================================================
+create table if not exists public.shared_designs (
+  id text primary key,
+  owner_id uuid references public.profiles (id) on delete set null,
+  skin_tone text not null check (skin_tone in ('cozy', 'matcha')),
+  fingers jsonb not null,
+  custom_decals jsonb not null default '[]'::jsonb,
+  light jsonb,
+  view_count int not null default 0,
+  created_at timestamptz not null default now()
+);
+
+alter table public.shared_designs enable row level security;
+
+drop policy if exists "Shared designs are viewable by everyone" on public.shared_designs;
+create policy "Shared designs are viewable by everyone"
+  on public.shared_designs for select using (true);
+
+-- Studio works without logging in, so creating a share/QR must too — a design recipe has
+-- no secret data. owner_id may only be null or the caller's own id, never someone else's.
+drop policy if exists "Anyone can create a shared design" on public.shared_designs;
+create policy "Anyone can create a shared design"
+  on public.shared_designs for insert with check (owner_id is null or owner_id = auth.uid());
+
+drop policy if exists "Owners or admins can delete shared designs" on public.shared_designs;
+create policy "Owners or admins can delete shared designs"
+  on public.shared_designs for delete using (
+    (owner_id is not null and auth.uid() = owner_id)
+    or exists (select 1 from public.profiles where id = auth.uid() and role = 'admin')
+  );
+
+create or replace function public.increment_shared_design_views(design_id text)
+returns void as $$
+begin
+  update public.shared_designs set view_count = view_count + 1 where id = design_id;
+end;
+$$ language plpgsql security definer set search_path = public;
+
+-- =========================================================================
 -- Storage bucket for user-uploaded community photos.
 -- =========================================================================
 insert into storage.buckets (id, name, public)

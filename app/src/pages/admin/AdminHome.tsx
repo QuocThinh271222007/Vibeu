@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Newspaper, Users, Users2 } from 'lucide-react'
+import { Newspaper, QrCode, Users, Users2 } from 'lucide-react'
 import { fetchAdminCounts, type AdminCounts } from '@/lib/adminApi'
 import { BLOG_POSTS } from '@/data/blog'
 import { COMMUNITY_POSTS } from '@/data/community'
@@ -28,6 +28,12 @@ export default function AdminHome() {
       icon: Newspaper,
       to: '/admin/blog',
     },
+    {
+      label: 'Công thức đã xuất (QR)',
+      value: counts?.sharedDesigns ?? '…',
+      icon: QrCode,
+      to: '/admin/recipes',
+    },
   ]
 
   return (
@@ -35,7 +41,7 @@ export default function AdminHome() {
       <h1 className="font-display text-2xl font-semibold text-vibe-ink">Tổng quan</h1>
       <p className="mt-1 text-sm text-vibe-ink-soft">Quản lý dữ liệu Blog, Cộng đồng và tài khoản người dùng của VIBEU.</p>
 
-      <div className="mt-6 grid gap-4 sm:grid-cols-3">
+      <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {cards.map((c) => (
           <Link key={c.label} to={c.to} className="rounded-2xl bg-white p-5 shadow-sm transition-shadow hover:shadow-vibe">
             <span className="grid h-10 w-10 place-items-center rounded-xl bg-vibe-cream text-vibe-pink-dark">

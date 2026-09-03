@@ -1,6 +1,6 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
-import { ArrowLeft, Check, Copy, Download, ImageDown, Send, Sparkles } from 'lucide-react'
+import { AlertTriangle, ArrowLeft, Check, Copy, Download, ImageDown, Send, Sparkles } from 'lucide-react'
 import { HandCanvas } from '@/components/studio/HandCanvas'
 import { Button } from '@/components/ui/Button'
 import { useColorPresets, useDecals } from '@/data/loaders'
@@ -9,8 +9,17 @@ import { buildShareUrl, buildSpecRows, generateShareId } from '@/lib/recipe'
 import { downloadBlob, exportDesignPng } from '@/lib/exportImage'
 import { DEFAULT_LIGHT } from '@/lib/nailFill'
 import { useQrCode } from '@/lib/useQrCode'
+import { collectUsedCustomDecals, encodeSharedDesign, type SharedDesignPayload } from '@/lib/designCodec'
+import { saveSharedDesign } from '@/lib/shareApi'
+import { isSupabaseConfigured } from '@/lib/supabaseClient'
+import { useAuthStore } from '@/store/authStore'
 import type { FingerDesign, FingerId, SkinToneId } from '@/types/vibeu'
 import { useNavigate } from 'react-router-dom'
+
+// Keeps the URL — and therefore the QR image — comfortably scannable by an ordinary phone
+// camera. Past this, embedding the whole design in the link stops being reliable, so the
+// design is persisted to Supabase instead and the QR just carries the short id.
+const FRAGMENT_SIZE_BUDGET = 1400
 
 export function ResultView({
   skinTone,
@@ -27,14 +36,54 @@ export function ResultView({
   const lightExposure = useStudioStore((s) => s.lightExposure)
   const lightStrength = useStudioStore((s) => s.lightStrength)
   const lightAngleDeg = useStudioStore((s) => s.lightAngleDeg)
+  const { profile } = useAuthStore()
   const navigate = useNavigate()
   const [toast, setToast] = useState<string | null>(null)
   const [posted, setPosted] = useState(false)
   const [exporting, setExporting] = useState(false)
 
   const shareId = useMemo(() => generateShareId(), [])
-  const shareUrl = buildShareUrl(shareId)
-  const qr = useQrCode(shareUrl)
+  const [shareUrl, setShareUrl] = useState<string | null>(null)
+  const [shareNotice, setShareNotice] = useState<string | null>(null)
+  const qr = useQrCode(shareUrl ?? '')
+
+  useEffect(() => {
+    let cancelled = false
+
+    async function run() {
+      const payload: SharedDesignPayload = {
+        skinTone,
+        fingers,
+        customDecals: collectUsedCustomDecals(fingers, customDecals),
+        light: { exposure: lightExposure, strength: lightStrength, angleDeg: lightAngleDeg },
+      }
+      const fragment = await encodeSharedDesign(payload)
+      if (cancelled) return
+      const fits = fragment.length <= FRAGMENT_SIZE_BUDGET
+
+      let notice: string | null = null
+      if (isSupabaseConfigured) {
+        const { error } = await saveSharedDesign(shareId, payload, profile?.id ?? null)
+        if (cancelled) return
+        if (!fits && error) {
+          notice = 'Thiết kế khá chi tiết và không lưu được lên máy chủ — mã QR có thể không mở lại đúng bản thiết kế này.'
+        }
+      } else if (!fits) {
+        notice =
+          'Thiết kế có quá nhiều chi tiết (charm/nét vẽ tay) để nhúng gọn vào mã QR, và trang chưa kết nối Supabase để lưu dự phòng — mã QR này có thể không mở lại đúng. Kết nối Supabase hoặc đơn giản hoá thiết kế.'
+      }
+
+      if (cancelled) return
+      setShareUrl(buildShareUrl(shareId, fits ? fragment : undefined))
+      setShareNotice(notice)
+    }
+
+    run()
+    return () => {
+      cancelled = true
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [shareId])
 
   const presetsById = useMemo(() => Object.fromEntries(presets.map((p) => [p.id, p])), [presets])
   const stickersById = useMemo(() => Object.fromEntries([...decals, ...customDecals].map((d) => [d.id, d])), [decals, customDecals])
@@ -46,6 +95,7 @@ export function ResultView({
   }
 
   function copyLink() {
+    if (!shareUrl) return
     navigator.clipboard?.writeText(shareUrl).catch(() => {})
     flashToast('Đã sao chép liên kết!')
   }
@@ -116,10 +166,16 @@ export function ResultView({
             <div className="grid h-40 w-40 place-items-center rounded-2xl bg-vibe-cream p-3">
               {qr ? <img src={qr} alt="QR công thức" className="h-full w-full" /> : <Sparkles className="animate-pulse text-vibe-ink-soft" />}
             </div>
-            <button onClick={copyLink} className="flex items-center gap-1.5 text-xs font-semibold text-vibe-blue-dark hover:underline">
-              <Copy size={13} /> {shareUrl.replace('https://', '')}
+            <button onClick={copyLink} disabled={!shareUrl} className="flex items-center gap-1.5 text-xs font-semibold text-vibe-blue-dark hover:underline disabled:opacity-50">
+              <Copy size={13} /> {shareUrl ? shareUrl.replace(/^https?:\/\//, '') : 'Đang tạo liên kết...'}
             </button>
-            <p className="text-xs text-vibe-ink-soft">Thợ quét mã bằng camera điện thoại để mở lại đúng bản thiết kế này.</p>
+            {shareNotice ? (
+              <p className="flex items-start gap-1.5 rounded-xl bg-amber-50 px-3 py-2 text-left text-xs text-amber-800">
+                <AlertTriangle size={14} className="mt-0.5 shrink-0" /> {shareNotice}
+              </p>
+            ) : (
+              <p className="text-xs text-vibe-ink-soft">Thợ quét mã bằng camera điện thoại để mở lại đúng bản thiết kế này — dữ liệu được mã hoá ngay trong mã QR, không phụ thuộc máy chủ.</p>
+            )}
           </div>
 
           <div className="grid gap-3 sm:grid-cols-2 print:hidden">

@@ -28,18 +28,21 @@ export interface AdminCounts {
   users: number
   communityPosts: number
   blogPosts: number
+  sharedDesigns: number
 }
 
 export async function fetchAdminCounts(): Promise<AdminCounts> {
-  if (!supabase) return { users: 0, communityPosts: 0, blogPosts: 0 }
-  const [users, communityPosts, blogPosts] = await Promise.all([
+  if (!supabase) return { users: 0, communityPosts: 0, blogPosts: 0, sharedDesigns: 0 }
+  const [users, communityPosts, blogPosts, sharedDesigns] = await Promise.all([
     supabase.from('profiles').select('*', { count: 'exact', head: true }),
     supabase.from('community_posts').select('*', { count: 'exact', head: true }),
     supabase.from('blog_posts').select('*', { count: 'exact', head: true }),
+    supabase.from('shared_designs').select('*', { count: 'exact', head: true }),
   ])
   return {
     users: users.count ?? 0,
     communityPosts: communityPosts.count ?? 0,
     blogPosts: blogPosts.count ?? 0,
+    sharedDesigns: sharedDesigns.count ?? 0,
   }
 }

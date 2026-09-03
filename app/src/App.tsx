@@ -10,12 +10,14 @@ import Blog from '@/pages/Blog'
 import BlogPost from '@/pages/BlogPost'
 import About from '@/pages/About'
 import Auth from '@/pages/Auth'
+import SharedDesign from '@/pages/SharedDesign'
 import AdminLayout from '@/pages/admin/AdminLayout'
 import AdminHome from '@/pages/admin/AdminHome'
 import AdminBlogList from '@/pages/admin/AdminBlogList'
 import AdminBlogEditor from '@/pages/admin/AdminBlogEditor'
 import AdminCommunity from '@/pages/admin/AdminCommunity'
 import AdminUsers from '@/pages/admin/AdminUsers'
+import AdminRecipes from '@/pages/admin/AdminRecipes'
 import { useAuthStore } from '@/store/authStore'
 
 function ScrollToTop() {
@@ -54,6 +56,7 @@ export default function App() {
         <Route path="/blog/:slug" element={<SiteLayout><BlogPost /></SiteLayout>} />
         <Route path="/about" element={<SiteLayout><About /></SiteLayout>} />
         <Route path="/auth" element={<Auth />} />
+        <Route path="/r/:id" element={<SharedDesign />} />
         <Route path="/admin" element={<AdminLayout />}>
           <Route index element={<AdminHome />} />
           <Route path="blog" element={<AdminBlogList />} />
@@ -61,6 +64,7 @@ export default function App() {
           <Route path="blog/:id" element={<AdminBlogEditor />} />
           <Route path="community" element={<AdminCommunity />} />
           <Route path="users" element={<AdminUsers />} />
+          <Route path="recipes" element={<AdminRecipes />} />
         </Route>
       </Routes>
     </BrowserRouter>

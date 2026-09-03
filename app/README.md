@@ -22,7 +22,11 @@ npm run build    # build production vào dist/
    để mở khoá `/admin`.
 5. `npm run dev` lại — Header sẽ hiện avatar thật, Cộng đồng cho đăng bài, `/admin` dùng được.
 
-**Những gì đã nối Supabase:** đăng ký/đăng nhập (email+mật khẩu), đăng bài + thích bài trên Cộng đồng (kèm upload ảnh thật), trang `/admin` (Blog CRUD, kiểm duyệt bài Cộng đồng, cấp quyền admin cho user). **Chưa đụng tới** (theo yêu cầu): form móng và độ dài móng trong Studio vẫn dùng dữ liệu tĩnh như cũ.
+**Những gì đã nối Supabase:** đăng ký/đăng nhập (email+mật khẩu), đăng bài + thích bài trên Cộng đồng (kèm upload ảnh thật), trang `/admin` (Blog CRUD, kiểm duyệt bài Cộng đồng, cấp quyền admin cho user, xem công thức đã xuất qua QR). **Chưa đụng tới** (theo yêu cầu): form móng và độ dài móng trong Studio vẫn dùng dữ liệu tĩnh như cũ.
+
+## Hệ thống Mã QR / Công thức
+
+Bấm "Xuất công thức & Mã QR" trong Studio tạo ra một link `/r/<id>` **tự chứa toàn bộ thiết kế** (form, màu, hiệu ứng, charm, nét vẽ tay, tông da) — nén gzip + mã hoá base64url ngay trong phần `#d=...` của URL (xem `src/lib/designCodec.ts`). Vì dữ liệu nằm ngay trong mã QR, việc quét luôn mở lại **đúng y hệt** bản thiết kế đó, kể cả khi không kết nối Supabase. Khi có kết nối Supabase, mỗi lần xuất còn được lưu thêm vào bảng `shared_designs` — dùng làm phương án dự phòng cho thiết kế quá chi tiết (nhiều charm/nét vẽ khiến URL vượt ngưỡng quét được) và để `/admin/recipes` liệt kê/kiểm duyệt. Trang `/r/:id` có nút "Mở trong Studio để chỉnh sửa" để tiếp tục chỉnh từ đúng bản đã quét.
 
 ## Cấu trúc
 
@@ -60,4 +64,4 @@ Lịch sử git (trước commit gỡ 3 gói này) vẫn còn đầy đủ nội
 - **Font logo/tiêu đề**: brief yêu cầu "Lucky Bones" — đây là font thương mại không có bản nhúng web miễn phí, nên đã thay bằng **Fredoka** (Google Fonts) — cùng tinh thần tròn trịa, trẻ trung. Đổi lại trong `index.html` + `index.css` nếu có file font gốc.
 - **Form móng (Vuông/Nhọn/Coffin/Oval)**: vì chỉ có ảnh chụp tay thật cho 2 tông da (không có ảnh riêng từng form), form được mô phỏng bằng cách "cắt" thêm phần đầu móng trên nền mask thật (dùng `uvFrame` có sẵn trong `coordinates.json`) thay vì đổi ảnh — đủ để phân biệt trực quan và vẫn lưu đúng vào công thức xuất ra.
 - **Màu da**: chỉ có 2 tông (`cozy`, `matcha`) vì đó là toàn bộ ảnh tay có sẵn trong `VIBEU-Studio-Pro`.
-- **Mã QR**: sinh bằng thư viện `qrcode` phía client, trỏ tới một share-link dạng `vibeu.app/r/<id>` mang tính minh hoạ (chưa có backend để link thật sự mở lại thiết kế).
+- **Mã QR**: sinh bằng thư viện `qrcode` phía client; link trỏ tới origin thật của app (không còn hardcode `vibeu.app`) và tự chứa dữ liệu thiết kế — xem mục "Hệ thống Mã QR / Công thức" ở trên.

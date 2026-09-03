@@ -37,6 +37,13 @@ export function generateShareId(): string {
   return Math.random().toString(36).slice(2, 8) + Date.now().toString(36).slice(-4)
 }
 
-export function buildShareUrl(shareId: string): string {
-  return `https://vibeu.app/r/${shareId}`
+/**
+ * Points at wherever the app is actually running (localhost in dev, the real deployed
+ * domain in prod) instead of a hardcoded placeholder — a QR encoding the wrong host would
+ * never resolve to anything for whoever scans it.
+ */
+export function buildShareUrl(shareId: string, fragment?: string): string {
+  const origin = typeof window !== 'undefined' ? window.location.origin : ''
+  const base = `${origin}/r/${shareId}`
+  return fragment ? `${base}#d=${fragment}` : base
 }

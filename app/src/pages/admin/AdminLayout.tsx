@@ -1,5 +1,5 @@
 import { Link, NavLink, Navigate, Outlet } from 'react-router-dom'
-import { AlertTriangle, LayoutDashboard, Newspaper, ShieldOff, Users2, Users, ArrowLeft } from 'lucide-react'
+import { AlertTriangle, LayoutDashboard, Newspaper, QrCode, ShieldOff, Users2, Users, ArrowLeft } from 'lucide-react'
 import { Logo } from '@/components/ui/Logo'
 import { useAuthStore } from '@/store/authStore'
 import { isSupabaseConfigured } from '@/lib/supabaseClient'
@@ -8,6 +8,7 @@ const NAV = [
   { to: '/admin', label: 'Tổng quan', icon: LayoutDashboard, end: true },
   { to: '/admin/blog', label: 'Blog', icon: Newspaper, end: false },
   { to: '/admin/community', label: 'Cộng đồng', icon: Users2, end: false },
+  { to: '/admin/recipes', label: 'Công thức & QR', icon: QrCode, end: false },
   { to: '/admin/users', label: 'Người dùng', icon: Users, end: false },
 ]
 
