@@ -8,6 +8,26 @@ const DIRECTIONS: { label: string; start: [number, number]; end: [number, number
   { label: '→ Ngang', start: [0, 0.5], end: [1, 0.5] },
 ]
 
+/** Default base/tip split for a fresh switch into French mode — a nude base band, a hard
+ * (but not razor-sharp) transition, then the tip color for the rest of the free edge. `at`
+ * on the two inner stops is the actual v-space (cuticle->tip) transition line, not a
+ * gradient blend position — see nailFill.ts's `paint.mode === 'french'` branch. */
+const FRENCH_DEFAULT_STOPS: PaintStop[] = [
+  { at: 0, color: '#F3D9C6' },
+  { at: 0.74, color: '#F3D9C6' },
+  { at: 0.8, color: '#FFFFFF' },
+  { at: 1, color: '#FFFFFF' },
+]
+
+const MODE_BUTTONS: { mode: PaintMode; label: string }[] = [
+  { mode: 'solid', label: 'Đơn sắc' },
+  { mode: 'ombre', label: 'Ombre' },
+  { mode: 'linear', label: 'Gradient' },
+  { mode: 'radial', label: 'Tròn' },
+  { mode: 'aurora', label: 'Aura' },
+  { mode: 'french', label: 'French' },
+]
+
 function sortStops(stops: PaintStop[]): PaintStop[] {
   return [...stops].sort((a, b) => a.at - b.at)
 }
@@ -123,16 +143,20 @@ export function GradientEditor({
         )}
       </div>
 
-      <div className="flex gap-1.5">
-        {(['solid', 'linear', 'radial'] as PaintMode[]).map((m) => (
+      <div className="flex flex-wrap gap-1.5">
+        {MODE_BUTTONS.map(({ mode: m, label }) => (
           <button
             key={m}
-            onClick={() => commit({ mode: m })}
+            onClick={() => {
+              if (m === 'ombre') commit({ mode: m, start: [0.5, 0], end: [0.5, 1] })
+              else if (m === 'french' && active.mode !== 'french') commit({ mode: m, stops: FRENCH_DEFAULT_STOPS.map((s) => ({ ...s })) })
+              else commit({ mode: m })
+            }}
             className={`rounded-full border-2 px-2.5 py-1 text-[11px] font-semibold ${
               active.mode === m ? 'border-vibe-blue-dark bg-vibe-blue/15 text-vibe-ink' : 'border-vibe-ink/10 text-vibe-ink-soft'
             }`}
           >
-            {m === 'solid' ? 'Đơn sắc' : m === 'linear' ? 'Thẳng' : 'Tròn'}
+            {label}
           </button>
         ))}
       </div>

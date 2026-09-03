@@ -37,7 +37,7 @@ export interface HandData {
   nails: NailCoord[]
 }
 
-export type PaintMode = 'linear' | 'radial' | 'aurora' | 'solid'
+export type PaintMode = 'linear' | 'radial' | 'aurora' | 'solid' | 'ombre' | 'french'
 
 export interface PaintStop {
   at: number
@@ -78,7 +78,7 @@ export interface ColorPreset {
   }
 }
 
-export type EffectId = 'gel' | 'jelly' | 'catEye' | 'chrome' | 'matte' | 'glitter' | 'holo'
+export type EffectId = 'gel' | 'jelly' | 'catEye' | 'chrome' | 'matte' | 'glitter' | 'holo' | 'glazed' | 'velvet'
 
 export const EFFECT_LABEL_VI: Record<EffectId, string> = {
   gel: 'Sơn Gel',
@@ -88,6 +88,8 @@ export const EFFECT_LABEL_VI: Record<EffectId, string> = {
   matte: 'Lì (Matte)',
   glitter: 'Nhũ óng ánh',
   holo: 'Ánh cầu vồng (Holo)',
+  glazed: 'Glazed',
+  velvet: 'Velvet',
 }
 
 export type NailShape = 'oval' | 'square' | 'coffin' | 'almond'

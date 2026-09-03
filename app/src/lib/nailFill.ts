@@ -2,7 +2,7 @@ import type { PreparedNail } from '@/lib/nailLighting'
 import type { ColorPreset, CustomGradient, EffectId } from '@/types/vibeu'
 
 export interface PaintConfig {
-  mode: 'linear' | 'radial' | 'aurora' | 'solid'
+  mode: 'linear' | 'radial' | 'aurora' | 'solid' | 'ombre' | 'french'
   stops: { at: number; color: string }[]
   start: [number, number]
   end: [number, number]
@@ -204,6 +204,41 @@ const MATERIAL_PROFILES: Record<EffectId, NailMaterialProfile> = {
     glitterDensity: 0.2,
     iridescence: 0,
     catEyeStrength: 1,
+  },
+  // "Glazed donut" nails: a sheer, milky base under an extra-strong, extra-glossy topcoat —
+  // very low roughness for a sharp "wet glass" highlight, moderate translucency so the milky
+  // sheer pigment lets real nail luminance show through, a touch of iridescence for the
+  // faint shimmer glazed looks often have.
+  glazed: {
+    roughness: 0.1,
+    fresnelF0: 0.06,
+    clearcoat: 0.95,
+    clearcoatRoughness: 0.05,
+    metallic: 0,
+    translucency: 0.35,
+    microNormalStrength: 0.03,
+    roughnessVariation: 0.02,
+    environmentReflection: 0.25,
+    glitterDensity: 0,
+    iridescence: 0.08,
+    catEyeStrength: 0,
+  },
+  // Velvet/magnetic-flock: fully diffuse, near-zero specular/clearcoat (fabric-like, no
+  // shine at all), with strong micro-normal + roughness variation so light scatters in a
+  // broken-up, fuzzy way instead of the smooth gradient a plain matte gets.
+  velvet: {
+    roughness: 0.92,
+    fresnelF0: 0.015,
+    clearcoat: 0.03,
+    clearcoatRoughness: 0.7,
+    metallic: 0,
+    translucency: 0,
+    microNormalStrength: 0.28,
+    roughnessVariation: 0.22,
+    environmentReflection: 0.02,
+    glitterDensity: 0,
+    iridescence: 0,
+    catEyeStrength: 0,
   },
 }
 
@@ -422,12 +457,17 @@ export function composeNail(
     finalNormal[k * 3 + 2] = fn[2]
 
     let t = 0
-    if (paint.mode === 'linear') {
+    if (paint.mode === 'linear' || paint.mode === 'ombre') {
       t = ((u - a0) * (b0 - a0) + (v - a1) * (b1 - a1)) / ((b0 - a0) ** 2 + (b1 - a1) ** 2 || 1)
     } else if (paint.mode === 'radial') {
       t = Math.hypot(u - a0, v - a1) / (Math.hypot(b0 - a0, b1 - a1) || 0.5)
     } else if (paint.mode === 'aurora') {
       t = 0.5 + 0.28 * Math.sin(u * 5 + v * 4) + 0.22 * Math.cos(v * 7 - u * 2)
+    } else if (paint.mode === 'french') {
+      // French tip: t is v itself (cuticle->tip position), not a projected gradient vector —
+      // the "gradient" stops become a base-color band then a hard-ish transition into the
+      // tip-color band, using the exact same multi-stop sampler as every other mode.
+      t = v
     }
     let color: [number, number, number] = solidColor ?? sample!(clamp(t))
 
