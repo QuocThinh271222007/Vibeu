@@ -2,7 +2,7 @@ import type { PreparedNail } from '@/lib/nailLighting'
 import type { ColorPreset, CustomGradient, EffectId } from '@/types/vibeu'
 
 export interface PaintConfig {
-  mode: 'linear' | 'radial' | 'aurora' | 'solid' | 'ombre' | 'french'
+  mode: 'linear' | 'radial' | 'aurora' | 'solid' | 'ombre' | 'french' | 'marble' | 'watercolor' | 'tortoiseshell' | 'bleed'
   stops: { at: number; color: string }[]
   start: [number, number]
   end: [number, number]
@@ -354,6 +354,39 @@ function hash(x: number, y: number, s = 1): number {
   return a - Math.floor(a)
 }
 
+/** Smooth (bilinear-interpolated lattice) value noise in ~[0,1] — cheap, deterministic,
+ * used by the marble/watercolor/tortoiseshell/bleed patterns below. */
+function valueNoise2D(x: number, y: number, seed: number): number {
+  const xi = Math.floor(x)
+  const yi = Math.floor(y)
+  const xf = x - xi
+  const yf = y - yi
+  const fx = xf * xf * (3 - 2 * xf)
+  const fy = yf * yf * (3 - 2 * yf)
+  const n00 = hash(xi, yi, seed)
+  const n10 = hash(xi + 1, yi, seed)
+  const n01 = hash(xi, yi + 1, seed)
+  const n11 = hash(xi + 1, yi + 1, seed)
+  const nx0 = n00 + (n10 - n00) * fx
+  const nx1 = n01 + (n11 - n01) * fx
+  return nx0 + (nx1 - nx0) * fy
+}
+
+/** Fractal sum of `valueNoise2D` octaves — more organic/detailed than a single lattice. */
+function fbm(x: number, y: number, seed: number, octaves: number): number {
+  let total = 0
+  let amp = 0.5
+  let freq = 1
+  let ampSum = 0
+  for (let i = 0; i < octaves; i++) {
+    total += valueNoise2D(x * freq, y * freq, seed + i * 17) * amp
+    ampSum += amp
+    amp *= 0.5
+    freq *= 2
+  }
+  return ampSum > 0 ? total / ampSum : 0
+}
+
 function fresnelSchlick(f0: number, ndotv: number): number {
   return f0 + (1 - f0) * Math.pow(1 - clamp(ndotv), 5)
 }
@@ -468,8 +501,37 @@ export function composeNail(
       // the "gradient" stops become a base-color band then a hard-ish transition into the
       // tip-color band, using the exact same multi-stop sampler as every other mode.
       t = v
+    } else if (paint.mode === 'watercolor') {
+      // Large, soft organic blotches — low-frequency fbm gives smooth pooled-color regions
+      // (fed through the same multi-stop sampler) instead of a directional blend.
+      t = fbm(xx * 0.012, yy * 0.012, seed * 91, 3)
+    } else if (paint.mode === 'tortoiseshell') {
+      // Same fbm idea as watercolor but higher frequency and contrast-sharpened, for
+      // smaller, more mottled patches instead of big soft pools.
+      const n = fbm(xx * 0.028, yy * 0.028, seed * 131, 3)
+      t = clamp((n - 0.5) * 1.9 + 0.5)
+    } else if (paint.mode === 'bleed') {
+      // "Loang màu": a soft ink-diffusion blend — contrast-pushed through smoothstep so
+      // 2-3 distinct color "pools" emerge with feathered edges, rather than reading as a
+      // near-uniform wash (a plain low-frequency noise value barely varies across one nail).
+      const n = fbm(xx * 0.009, yy * 0.009, seed * 61, 3)
+      t = smoothstep01(0.35, 0.65, n)
+    } else if (paint.mode === 'marble') {
+      // Domain-warped fbm: warp the sampling coordinate by a second noise field first, then
+      // sample again — this is what turns straight noise contours into winding vein lines.
+      const warpX = (fbm(xx * 0.02, yy * 0.02, seed * 41, 2) - 0.5) * 40
+      const warpY = (fbm(xx * 0.02 + 50, yy * 0.02 + 50, seed * 43, 2) - 0.5) * 40
+      t = fbm((xx + warpX) * 0.03, (yy + warpY) * 0.03, seed * 53, 4)
     }
     let color: [number, number, number] = solidColor ?? sample!(clamp(t))
+
+    if (paint.mode === 'marble') {
+      // The vein itself: a thin band right around the warped noise field's mid-value reads
+      // as a winding line (exactly like a contour line at one height on a terrain map).
+      const veinLine = clamp(1 - Math.abs(t - 0.5) * 7)
+      const veinColor = paint.stops.length > 1 ? hexToRgb01(paint.stops[paint.stops.length - 1].color) : ([1, 1, 1] as [number, number, number])
+      color = mix3(color, veinColor, veinLine * 0.7)
+    }
 
     if (profile.catEyeStrength > 0) {
       const ca = (profile.catEyeAngleDeg * Math.PI) / 180

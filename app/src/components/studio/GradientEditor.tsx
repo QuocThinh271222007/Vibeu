@@ -28,6 +28,17 @@ const MODE_BUTTONS: { mode: PaintMode; label: string }[] = [
   { mode: 'french', label: 'French' },
 ]
 
+/** "Kiểu vân/hoạ tiết nền" — procedural texture patterns, kept as their own PaintMode
+ * values (reusing the exact same multi-stop sampler as every other mode, just fed a
+ * noise-based `t` instead of a directional one — see nailFill.ts) rather than a second
+ * orthogonal system, since that's far less code for the same visual result. */
+const PATTERN_BUTTONS: { mode: PaintMode; label: string }[] = [
+  { mode: 'marble', label: 'Vân đá' },
+  { mode: 'watercolor', label: 'Màu nước' },
+  { mode: 'tortoiseshell', label: 'Đồi mồi' },
+  { mode: 'bleed', label: 'Loang màu' },
+]
+
 function sortStops(stops: PaintStop[]): PaintStop[] {
   return [...stops].sort((a, b) => a.at - b.at)
 }
@@ -143,22 +154,42 @@ export function GradientEditor({
         )}
       </div>
 
-      <div className="flex flex-wrap gap-1.5">
-        {MODE_BUTTONS.map(({ mode: m, label }) => (
-          <button
-            key={m}
-            onClick={() => {
-              if (m === 'ombre') commit({ mode: m, start: [0.5, 0], end: [0.5, 1] })
-              else if (m === 'french' && active.mode !== 'french') commit({ mode: m, stops: FRENCH_DEFAULT_STOPS.map((s) => ({ ...s })) })
-              else commit({ mode: m })
-            }}
-            className={`rounded-full border-2 px-2.5 py-1 text-[11px] font-semibold ${
-              active.mode === m ? 'border-vibe-blue-dark bg-vibe-blue/15 text-vibe-ink' : 'border-vibe-ink/10 text-vibe-ink-soft'
-            }`}
-          >
-            {label}
-          </button>
-        ))}
+      <div>
+        <p className="mb-1.5 text-[10px] font-semibold uppercase tracking-wide text-vibe-ink-soft/70">Kiểu phủ</p>
+        <div className="flex flex-wrap gap-1.5">
+          {MODE_BUTTONS.map(({ mode: m, label }) => (
+            <button
+              key={m}
+              onClick={() => {
+                if (m === 'ombre') commit({ mode: m, start: [0.5, 0], end: [0.5, 1] })
+                else if (m === 'french' && active.mode !== 'french') commit({ mode: m, stops: FRENCH_DEFAULT_STOPS.map((s) => ({ ...s })) })
+                else commit({ mode: m })
+              }}
+              className={`rounded-full border-2 px-2.5 py-1 text-[11px] font-semibold ${
+                active.mode === m ? 'border-vibe-blue-dark bg-vibe-blue/15 text-vibe-ink' : 'border-vibe-ink/10 text-vibe-ink-soft'
+              }`}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <p className="mb-1.5 text-[10px] font-semibold uppercase tracking-wide text-vibe-ink-soft/70">Kiểu vân / hoạ tiết nền</p>
+        <div className="flex flex-wrap gap-1.5">
+          {PATTERN_BUTTONS.map(({ mode: m, label }) => (
+            <button
+              key={m}
+              onClick={() => commit({ mode: m })}
+              className={`rounded-full border-2 px-2.5 py-1 text-[11px] font-semibold ${
+                active.mode === m ? 'border-vibe-blue-dark bg-vibe-blue/15 text-vibe-ink' : 'border-vibe-ink/10 text-vibe-ink-soft'
+              }`}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
       </div>
 
       {active.mode === 'solid' ? (
