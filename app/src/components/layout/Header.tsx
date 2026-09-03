@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Menu, User, X } from 'lucide-react'
+import { LogOut, Menu, Shield, User, X } from 'lucide-react'
 import { Logo } from '@/components/ui/Logo'
 import { Button } from '@/components/ui/Button'
+import { useAuthStore } from '@/store/authStore'
 
 const NAV = [
   { to: '/', label: 'Trang chủ' },
@@ -17,7 +18,9 @@ const NAV = [
 export function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [accountOpen, setAccountOpen] = useState(false)
   const navigate = useNavigate()
+  const { status, profile, signOut } = useAuthStore()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12)
@@ -53,9 +56,59 @@ export function Header() {
           </nav>
 
           <div className="flex items-center gap-2">
-            <Button variant="secondary" size="sm" className="hidden sm:inline-flex" onClick={() => navigate('/auth')}>
-              <User size={16} /> Đăng nhập
-            </Button>
+            {status === 'signedIn' && profile ? (
+              <div className="relative hidden sm:block">
+                <button
+                  onClick={() => setAccountOpen((o) => !o)}
+                  className="flex items-center gap-2 rounded-full bg-white py-1 pl-1 pr-3 text-sm font-semibold text-vibe-ink shadow-sm"
+                >
+                  <span
+                    className="grid h-8 w-8 place-items-center rounded-full text-xs font-bold text-white"
+                    style={{ background: profile.avatarColor }}
+                  >
+                    {profile.displayName.charAt(0).toUpperCase()}
+                  </span>
+                  {profile.displayName}
+                </button>
+                <AnimatePresence>
+                  {accountOpen && (
+                    <>
+                      <div className="fixed inset-0 z-[95]" onClick={() => setAccountOpen(false)} />
+                      <motion.div
+                        initial={{ opacity: 0, y: -6 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -6 }}
+                        transition={{ duration: 0.15 }}
+                        className="absolute right-0 top-[calc(100%+8px)] z-[96] w-48 overflow-hidden rounded-2xl bg-white p-1.5 shadow-vibe-lg"
+                      >
+                        {profile.role === 'admin' && (
+                          <Link
+                            to="/admin"
+                            onClick={() => setAccountOpen(false)}
+                            className="flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-medium text-vibe-ink hover:bg-vibe-cream"
+                          >
+                            <Shield size={16} /> Trang quản trị
+                          </Link>
+                        )}
+                        <button
+                          onClick={() => {
+                            setAccountOpen(false)
+                            signOut()
+                          }}
+                          className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-sm font-medium text-vibe-ink hover:bg-vibe-cream"
+                        >
+                          <LogOut size={16} /> Đăng xuất
+                        </button>
+                      </motion.div>
+                    </>
+                  )}
+                </AnimatePresence>
+              </div>
+            ) : (
+              <Button variant="secondary" size="sm" className="hidden sm:inline-flex" onClick={() => navigate('/auth')}>
+                <User size={16} /> Đăng nhập
+              </Button>
+            )}
             <Button size="sm" className="hidden sm:inline-flex" onClick={() => navigate('/studio')}>
               Bắt đầu thiết kế
             </Button>
@@ -105,15 +158,40 @@ export function Header() {
                 ))}
               </nav>
               <div className="mt-auto flex flex-col gap-2">
-                <Button
-                  variant="secondary"
-                  onClick={() => {
-                    setMobileOpen(false)
-                    navigate('/auth')
-                  }}
-                >
-                  Đăng nhập / Đăng ký
-                </Button>
+                {status === 'signedIn' && profile ? (
+                  <>
+                    {profile.role === 'admin' && (
+                      <Button
+                        variant="secondary"
+                        onClick={() => {
+                          setMobileOpen(false)
+                          navigate('/admin')
+                        }}
+                      >
+                        <Shield size={16} /> Trang quản trị
+                      </Button>
+                    )}
+                    <Button
+                      variant="secondary"
+                      onClick={() => {
+                        setMobileOpen(false)
+                        signOut()
+                      }}
+                    >
+                      <LogOut size={16} /> Đăng xuất ({profile.displayName})
+                    </Button>
+                  </>
+                ) : (
+                  <Button
+                    variant="secondary"
+                    onClick={() => {
+                      setMobileOpen(false)
+                      navigate('/auth')
+                    }}
+                  >
+                    Đăng nhập / Đăng ký
+                  </Button>
+                )}
                 <Button
                   onClick={() => {
                     setMobileOpen(false)

@@ -1,6 +1,6 @@
 # VIBEU — Demo Web App
 
-Frontend-only demo dựng theo mô tả trong `Ý tưởng.docx`. Không có backend — mọi dữ liệu (mẫu, bài viết cộng đồng/blog) là dữ liệu tĩnh trong `src/data/`.
+Dựng theo mô tả trong `Ý tưởng.docx`. Thư viện mẫu nail (20 mẫu, form/màu/hiệu ứng) vẫn là dữ liệu tĩnh trong `src/data/`. Đăng nhập, đăng bài Cộng đồng, và Blog do admin quản lý nay chạy trên **Supabase** (Postgres + Auth + Storage) — xem phần "Cấu hình Supabase" bên dưới. Không cấu hình thì app tự chạy ở "chế độ demo": vẫn xem được toàn bộ nội dung mẫu, nhưng đăng nhập/đăng bài/`/admin` sẽ hiện thông báo yêu cầu kết nối thay vì báo lỗi.
 
 ## Chạy thử
 
@@ -10,19 +10,38 @@ npm run dev      # http://localhost:5173
 npm run build    # build production vào dist/
 ```
 
+## Cấu hình Supabase
+
+1. Tạo project miễn phí tại [supabase.com](https://supabase.com).
+2. Vào **SQL Editor**, dán toàn bộ nội dung `supabase/schema.sql` và chạy — tạo bảng `profiles`, `community_posts`, `community_likes`, `blog_posts`, RLS policies, và bucket Storage `community-media`.
+3. Copy `.env.example` thành `.env.local`, điền `VITE_SUPABASE_URL` và `VITE_SUPABASE_ANON_KEY` (Project Settings → API).
+4. Đăng ký một tài khoản qua `/auth`, sau đó trong SQL Editor chạy:
+   ```sql
+   update public.profiles set role = 'admin' where email = 'ban@example.com';
+   ```
+   để mở khoá `/admin`.
+5. `npm run dev` lại — Header sẽ hiện avatar thật, Cộng đồng cho đăng bài, `/admin` dùng được.
+
+**Những gì đã nối Supabase:** đăng ký/đăng nhập (email+mật khẩu), đăng bài + thích bài trên Cộng đồng (kèm upload ảnh thật), trang `/admin` (Blog CRUD, kiểm duyệt bài Cộng đồng, cấp quyền admin cho user). **Chưa đụng tới** (theo yêu cầu): form móng và độ dài móng trong Studio vẫn dùng dữ liệu tĩnh như cũ.
+
 ## Cấu trúc
 
 ```
 src/
   components/
     home/       Hero, Why-us, How-it-works, Suggested designs, CTA (trang chủ)
-    layout/     Header, Footer, AuthModal (đăng nhập/đăng ký — chỉ UI)
+    layout/     Header (nav + trạng thái đăng nhập thật), Footer
+    community/  NewPostComposer (đăng bài Cộng đồng, chỉ hiện khi đã đăng nhập)
     studio/     HandCanvas (engine vẽ nail + kéo/xoay/scale charm), các tab công cụ, Result/QR
     ui/         Button, Chip, Logo dùng chung
-  data/         color/sticker manifest loader, 20 mẫu thiết kế, bài cộng đồng/blog demo
-  lib/          toán học UV/hình học móng, gradient theo hiệu ứng sơn, QR, recipe
-  store/        zustand store cho trạng thái thiết kế trong Studio
-  pages/        Home, Studio, Library, Community, Blog, BlogPost, About
+  data/         color/sticker manifest loader, 20 mẫu thiết kế, bài cộng đồng/blog "biên tập sẵn"
+  hooks/        useBlogPosts (gộp bài blog tĩnh + bài đăng từ /admin)
+  lib/          toán học UV/hình học móng, gradient theo hiệu ứng sơn, QR, recipe,
+                supabaseClient/communityApi/blogApi/adminApi (lớp gọi Supabase)
+  store/        zustand: studioStore (thiết kế trong Studio), authStore (phiên đăng nhập)
+  pages/        Home, Studio, Library, Community, Blog, BlogPost, About, Auth
+  pages/admin/  AdminLayout (bảo vệ route theo role) + Home/BlogList/BlogEditor/Community/Users
+supabase/       schema.sql — chạy 1 lần trong SQL Editor của project Supabase
 public/assets/  bản sao tài nguyên đã dùng từ 3 gói gốc (colors/stickers/hands)
 ```
 

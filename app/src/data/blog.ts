@@ -148,14 +148,14 @@ export const BLOG_POSTS: BlogPost[] = [
   },
 ]
 
-export function findBlogPost(slug: string): BlogPost | undefined {
-  return BLOG_POSTS.find((p) => p.slug === slug)
+export function findBlogPost(slug: string, posts: BlogPost[] = BLOG_POSTS): BlogPost | undefined {
+  return posts.find((p) => p.slug === slug)
 }
 
-export function relatedPosts(slug: string, count = 3): BlogPost[] {
-  const current = findBlogPost(slug)
-  if (!current) return BLOG_POSTS.slice(0, count)
-  return BLOG_POSTS.filter((p) => p.slug !== slug && p.category === current.category).slice(0, count).concat(
-    BLOG_POSTS.filter((p) => p.slug !== slug && p.category !== current.category),
+export function relatedPosts(slug: string, posts: BlogPost[] = BLOG_POSTS, count = 3): BlogPost[] {
+  const current = findBlogPost(slug, posts)
+  if (!current) return posts.slice(0, count)
+  return posts.filter((p) => p.slug !== slug && p.category === current.category).slice(0, count).concat(
+    posts.filter((p) => p.slug !== slug && p.category !== current.category),
   ).slice(0, count)
 }

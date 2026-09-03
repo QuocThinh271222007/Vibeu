@@ -10,6 +10,13 @@ import Blog from '@/pages/Blog'
 import BlogPost from '@/pages/BlogPost'
 import About from '@/pages/About'
 import Auth from '@/pages/Auth'
+import AdminLayout from '@/pages/admin/AdminLayout'
+import AdminHome from '@/pages/admin/AdminHome'
+import AdminBlogList from '@/pages/admin/AdminBlogList'
+import AdminBlogEditor from '@/pages/admin/AdminBlogEditor'
+import AdminCommunity from '@/pages/admin/AdminCommunity'
+import AdminUsers from '@/pages/admin/AdminUsers'
+import { useAuthStore } from '@/store/authStore'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -30,6 +37,11 @@ function SiteLayout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
+  const init = useAuthStore((s) => s.init)
+  useEffect(() => {
+    init()
+  }, [init])
+
   return (
     <BrowserRouter>
       <ScrollToTop />
@@ -42,6 +54,14 @@ export default function App() {
         <Route path="/blog/:slug" element={<SiteLayout><BlogPost /></SiteLayout>} />
         <Route path="/about" element={<SiteLayout><About /></SiteLayout>} />
         <Route path="/auth" element={<Auth />} />
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<AdminHome />} />
+          <Route path="blog" element={<AdminBlogList />} />
+          <Route path="blog/new" element={<AdminBlogEditor />} />
+          <Route path="blog/:id" element={<AdminBlogEditor />} />
+          <Route path="community" element={<AdminCommunity />} />
+          <Route path="users" element={<AdminUsers />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   )

@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { ArrowLeft } from 'lucide-react'
 import { MediaPlaceholder } from '@/components/ui/MediaPlaceholder'
 import { BLOG_CATEGORY_LABEL, findBlogPost, relatedPosts, type BlogPost as BlogPostType } from '@/data/blog'
+import { useBlogPosts } from '@/hooks/useBlogPosts'
 
 function CoverMedia({ post, className, compact = false }: { post: BlogPostType; className: string; compact?: boolean }) {
   return (
@@ -24,11 +25,15 @@ function CoverMedia({ post, className, compact = false }: { post: BlogPostType; 
 
 export default function BlogPost() {
   const { slug } = useParams<{ slug: string }>()
-  const post = slug ? findBlogPost(slug) : undefined
+  const { posts, loading } = useBlogPosts()
+  const post = slug ? findBlogPost(slug, posts) : undefined
 
-  if (!post) return <Navigate to="/blog" replace />
+  if (!post) {
+    if (loading) return null
+    return <Navigate to="/blog" replace />
+  }
 
-  const related = relatedPosts(post.slug)
+  const related = relatedPosts(post.slug, posts)
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-14 sm:px-6">

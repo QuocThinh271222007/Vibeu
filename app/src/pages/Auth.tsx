@@ -1,26 +1,62 @@
 import { useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Mail, Lock, User, Sparkles, ArrowLeft, CheckCircle2 } from 'lucide-react'
+import { Mail, Lock, User, Sparkles, ArrowLeft, CheckCircle2, AlertCircle } from 'lucide-react'
 import { Logo } from '@/components/ui/Logo'
 import { Button } from '@/components/ui/Button'
+import { useAuthStore } from '@/store/authStore'
+import { isSupabaseConfigured } from '@/lib/supabaseClient'
 
 const PERKS = [
   'Lưu lại các thiết kế móng yêu thích của bạn',
   'Mở khoá toàn bộ thư viện mẫu premium',
-  'Đồng bộ studio trên mọi thiết bị',
+  'Đăng bài chia sẻ thiết kế lên Cộng đồng',
 ]
 
 export default function Auth() {
   const [params] = useSearchParams()
   const [tab, setTab] = useState<'login' | 'register'>(params.get('tab') === 'register' ? 'register' : 'login')
-  const [done, setDone] = useState(false)
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [done, setDone] = useState<'signedIn' | 'confirmEmail' | null>(null)
   const navigate = useNavigate()
+  const { signIn, signUp } = useAuthStore()
+  const redirectTo = params.get('redirect') || '/'
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    setDone(true)
-    setTimeout(() => navigate('/'), 1400)
+    if (!isSupabaseConfigured) {
+      setError('Chưa cấu hình Supabase — thêm VITE_SUPABASE_URL và VITE_SUPABASE_ANON_KEY vào .env.local rồi tải lại trang.')
+      return
+    }
+    setError(null)
+    setSubmitting(true)
+    if (tab === 'login') {
+      const { error } = await signIn(email, password)
+      setSubmitting(false)
+      if (error) {
+        setError(error)
+        return
+      }
+      setDone('signedIn')
+      setTimeout(() => navigate(redirectTo), 900)
+    } else {
+      const { error, needsEmailConfirmation } = await signUp(email, password, name)
+      setSubmitting(false)
+      if (error) {
+        setError(error)
+        return
+      }
+      if (needsEmailConfirmation) {
+        setDone('confirmEmail')
+      } else {
+        setDone('signedIn')
+        setTimeout(() => navigate(redirectTo), 900)
+      }
+    }
   }
 
   return (
@@ -62,22 +98,34 @@ export default function Auth() {
           transition={{ type: 'spring', stiffness: 320, damping: 30 }}
           className="w-full max-w-sm"
         >
-          <Link to="/" className="mb-6 inline-flex items-center gap-1.5 text-sm font-medium text-vibe-ink-soft hover:text-vibe-ink lg:hidden">
-            <ArrowLeft size={16} /> Về trang chủ
-          </Link>
-
-          <div className="mb-6 flex justify-center lg:hidden">
+          <div className="mb-6 flex items-center justify-between lg:hidden">
+            <Link to="/" className="inline-flex items-center gap-1.5 text-sm font-medium text-vibe-ink-soft hover:text-vibe-ink">
+              <ArrowLeft size={16} /> Về trang chủ
+            </Link>
             <Logo />
           </div>
 
           <div className="rounded-[2rem] bg-white p-7 shadow-vibe-lg sm:p-8">
+            {!isSupabaseConfigured && (
+              <div className="mb-5 flex items-start gap-2 rounded-2xl bg-amber-50 p-3 text-xs text-amber-800">
+                <AlertCircle size={15} className="mt-0.5 shrink-0" />
+                Chưa kết nối Supabase — đăng nhập/đăng ký tạm thời chưa hoạt động. Xem <code>.env.example</code>.
+              </div>
+            )}
+
             {done ? (
               <div className="py-10 text-center">
                 <div className="mx-auto mb-4 grid h-16 w-16 place-items-center rounded-2xl bg-vibe-pink/10">
                   <Sparkles className="text-vibe-pink-dark" size={28} />
                 </div>
-                <p className="font-display text-lg font-semibold text-vibe-ink">Chào mừng đến VIBEU!</p>
-                <p className="mt-2 text-sm text-vibe-ink-soft">Đây là bản demo giao diện — chưa kết nối hệ thống tài khoản thật.</p>
+                <p className="font-display text-lg font-semibold text-vibe-ink">
+                  {done === 'confirmEmail' ? 'Kiểm tra email của bạn!' : 'Chào mừng đến VIBEU!'}
+                </p>
+                <p className="mt-2 text-sm text-vibe-ink-soft">
+                  {done === 'confirmEmail'
+                    ? 'Bấm vào liên kết xác nhận trong email vừa gửi để hoàn tất đăng ký.'
+                    : 'Đang chuyển hướng...'}
+                </p>
               </div>
             ) : (
               <>
@@ -92,7 +140,11 @@ export default function Auth() {
                   {(['login', 'register'] as const).map((t) => (
                     <button
                       key={t}
-                      onClick={() => setTab(t)}
+                      type="button"
+                      onClick={() => {
+                        setTab(t)
+                        setError(null)
+                      }}
                       className={`flex-1 rounded-full py-2 text-sm font-semibold transition-colors ${
                         tab === t ? 'bg-white text-vibe-ink shadow-sm' : 'text-vibe-ink-soft'
                       }`}
@@ -106,17 +158,44 @@ export default function Auth() {
                   {tab === 'register' && (
                     <label className="flex items-center gap-2.5 rounded-2xl border-2 border-vibe-ink/10 px-4 py-3 focus-within:border-vibe-pink/50">
                       <User size={18} className="text-vibe-ink-soft" />
-                      <input required placeholder="Tên của bạn" className="w-full bg-transparent text-sm outline-none placeholder:text-vibe-ink-soft/60" />
+                      <input
+                        required
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        placeholder="Tên của bạn"
+                        className="w-full bg-transparent text-sm outline-none placeholder:text-vibe-ink-soft/60"
+                      />
                     </label>
                   )}
                   <label className="flex items-center gap-2.5 rounded-2xl border-2 border-vibe-ink/10 px-4 py-3 focus-within:border-vibe-pink/50">
                     <Mail size={18} className="text-vibe-ink-soft" />
-                    <input required type="email" placeholder="Email" className="w-full bg-transparent text-sm outline-none placeholder:text-vibe-ink-soft/60" />
+                    <input
+                      required
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="Email"
+                      className="w-full bg-transparent text-sm outline-none placeholder:text-vibe-ink-soft/60"
+                    />
                   </label>
                   <label className="flex items-center gap-2.5 rounded-2xl border-2 border-vibe-ink/10 px-4 py-3 focus-within:border-vibe-pink/50">
                     <Lock size={18} className="text-vibe-ink-soft" />
-                    <input required type="password" placeholder="Mật khẩu" className="w-full bg-transparent text-sm outline-none placeholder:text-vibe-ink-soft/60" />
+                    <input
+                      required
+                      type="password"
+                      minLength={6}
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      placeholder="Mật khẩu"
+                      className="w-full bg-transparent text-sm outline-none placeholder:text-vibe-ink-soft/60"
+                    />
                   </label>
+
+                  {error && (
+                    <p className="flex items-start gap-1.5 rounded-xl bg-red-50 px-3 py-2 text-xs text-red-700">
+                      <AlertCircle size={14} className="mt-0.5 shrink-0" /> {error}
+                    </p>
+                  )}
 
                   {tab === 'login' && (
                     <div className="flex justify-end">
@@ -126,10 +205,9 @@ export default function Auth() {
                     </div>
                   )}
 
-                  <Button type="submit" className="mt-2 w-full">
-                    {tab === 'login' ? 'Đăng nhập' : 'Tạo tài khoản'}
+                  <Button type="submit" disabled={submitting} className="mt-2 w-full">
+                    {submitting ? 'Đang xử lý...' : tab === 'login' ? 'Đăng nhập' : 'Tạo tài khoản'}
                   </Button>
-                  <p className="pt-1 text-center text-xs text-vibe-ink-soft">Demo giao diện — chưa kết nối backend thật.</p>
                 </form>
               </>
             )}

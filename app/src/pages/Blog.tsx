@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Chip } from '@/components/ui/Chip'
 import { MediaPlaceholder } from '@/components/ui/MediaPlaceholder'
-import { BLOG_CATEGORY_LABEL, BLOG_POSTS, type BlogCategory, type BlogPost } from '@/data/blog'
+import { BLOG_CATEGORY_LABEL, type BlogCategory, type BlogPost } from '@/data/blog'
+import { useBlogPosts } from '@/hooks/useBlogPosts'
 
 function BlogCoverMedia({ post, className, compact = false }: { post: BlogPost; className: string; compact?: boolean }) {
   return (
@@ -27,8 +28,9 @@ const CATS: (BlogCategory | 'all')[] = ['all', 'tips', 'trend', 'care']
 
 export default function Blog() {
   const [cat, setCat] = useState<BlogCategory | 'all'>('all')
+  const { posts } = useBlogPosts()
 
-  const filtered = useMemo(() => (cat === 'all' ? BLOG_POSTS : BLOG_POSTS.filter((p) => p.category === cat)), [cat])
+  const filtered = useMemo(() => (cat === 'all' ? posts : posts.filter((p) => p.category === cat)), [cat, posts])
   const [featured, ...rest] = filtered
 
   return (
