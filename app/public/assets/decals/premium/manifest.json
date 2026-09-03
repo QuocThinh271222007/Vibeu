@@ -9569,7 +9569,7 @@
     {
       "id": "gc-crown-gold-crystal",
       "name": "Crown Gold Crystal",
-      "nameVi": "Crown Gold Crystal",
+      "nameVi": "Vương miện Vàng Pha lê",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -9578,7 +9578,10 @@
         "gem-charms",
         "crown",
         "gold",
-        "crystal"
+        "crystal",
+        "vương miện",
+        "vàng",
+        "pha lê"
       ],
       "path": "premium/gem-charms/crown-gold-crystal.webp",
       "thumbnail": "premium/gem-charms/crown-gold-crystal.thumb.webp",
@@ -9602,7 +9605,7 @@
     {
       "id": "gc-bunny-crystal-white",
       "name": "Bunny Crystal White",
-      "nameVi": "Bunny Crystal White",
+      "nameVi": "Thỏ Pha lê Trắng",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -9611,7 +9614,10 @@
         "gem-charms",
         "bunny",
         "crystal",
-        "white"
+        "white",
+        "thỏ",
+        "pha lê",
+        "trắng"
       ],
       "path": "premium/gem-charms/bunny-crystal-white.webp",
       "thumbnail": "premium/gem-charms/bunny-crystal-white.thumb.webp",
@@ -9635,7 +9641,7 @@
     {
       "id": "gc-bow-heart-pink-crystal",
       "name": "Bow Heart Pink Crystal",
-      "nameVi": "Bow Heart Pink Crystal",
+      "nameVi": "Nơ Trái tim hồng Pha lê",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -9645,7 +9651,11 @@
         "bow",
         "heart",
         "pink",
-        "crystal"
+        "crystal",
+        "nơ",
+        "trái tim",
+        "hồng",
+        "pha lê"
       ],
       "path": "premium/gem-charms/bow-heart-pink-crystal.webp",
       "thumbnail": "premium/gem-charms/bow-heart-pink-crystal.thumb.webp",
@@ -9669,7 +9679,7 @@
     {
       "id": "gc-butterfly-opal-crystal",
       "name": "Butterfly Opal Crystal",
-      "nameVi": "Butterfly Opal Crystal",
+      "nameVi": "Bướm Opal Pha lê",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -9678,7 +9688,9 @@
         "gem-charms",
         "butterfly",
         "opal",
-        "crystal"
+        "crystal",
+        "bướm",
+        "pha lê"
       ],
       "path": "premium/gem-charms/butterfly-opal-crystal.webp",
       "thumbnail": "premium/gem-charms/butterfly-opal-crystal.thumb.webp",
@@ -9702,7 +9714,7 @@
     {
       "id": "gc-heart-pink-crystal-cluster",
       "name": "Heart Pink Crystal Cluster",
-      "nameVi": "Heart Pink Crystal Cluster",
+      "nameVi": "Trái tim hồng Pha lê Chùm",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -9712,7 +9724,11 @@
         "heart",
         "pink",
         "crystal",
-        "cluster"
+        "cluster",
+        "trái tim",
+        "hồng",
+        "pha lê",
+        "chùm"
       ],
       "path": "premium/gem-charms/heart-pink-crystal-cluster.webp",
       "thumbnail": "premium/gem-charms/heart-pink-crystal-cluster.thumb.webp",
@@ -9736,7 +9752,7 @@
     {
       "id": "gc-bear-crystal-white",
       "name": "Bear Crystal White",
-      "nameVi": "Bear Crystal White",
+      "nameVi": "Gấu Pha lê Trắng",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -9745,7 +9761,10 @@
         "gem-charms",
         "bear",
         "crystal",
-        "white"
+        "white",
+        "gấu",
+        "pha lê",
+        "trắng"
       ],
       "path": "premium/gem-charms/bear-crystal-white.webp",
       "thumbnail": "premium/gem-charms/bear-crystal-white.thumb.webp",
@@ -9769,7 +9788,7 @@
     {
       "id": "gc-moon-star-pearl",
       "name": "Moon Star Pearl",
-      "nameVi": "Moon Star Pearl",
+      "nameVi": "Mặt trăng Ngôi sao Ngọc trai",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -9778,7 +9797,10 @@
         "gem-charms",
         "moon",
         "star",
-        "pearl"
+        "pearl",
+        "mặt trăng",
+        "ngôi sao",
+        "ngọc trai"
       ],
       "path": "premium/gem-charms/moon-star-pearl.webp",
       "thumbnail": "premium/gem-charms/moon-star-pearl.thumb.webp",
@@ -9802,7 +9824,7 @@
     {
       "id": "gc-clover-crystal-white",
       "name": "Clover Crystal White",
-      "nameVi": "Clover Crystal White",
+      "nameVi": "Cỏ ba lá Pha lê Trắng",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -9811,7 +9833,10 @@
         "gem-charms",
         "clover",
         "crystal",
-        "white"
+        "white",
+        "cỏ ba lá",
+        "pha lê",
+        "trắng"
       ],
       "path": "premium/gem-charms/clover-crystal-white.webp",
       "thumbnail": "premium/gem-charms/clover-crystal-white.thumb.webp",
@@ -9835,7 +9860,7 @@
     {
       "id": "gc-oval-pink-gem-pearl",
       "name": "Oval Pink Gem Pearl",
-      "nameVi": "Oval Pink Gem Pearl",
+      "nameVi": "Oval hồng Đá quý Ngọc trai",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -9845,7 +9870,10 @@
         "oval",
         "pink",
         "gem",
-        "pearl"
+        "pearl",
+        "hồng",
+        "đá quý",
+        "ngọc trai"
       ],
       "path": "premium/gem-charms/oval-pink-gem-pearl.webp",
       "thumbnail": "premium/gem-charms/oval-pink-gem-pearl.thumb.webp",
@@ -9869,7 +9897,7 @@
     {
       "id": "gc-horseshoe-pearl-crystal",
       "name": "Horseshoe Pearl Crystal",
-      "nameVi": "Horseshoe Pearl Crystal",
+      "nameVi": "Móng ngựa Ngọc trai Pha lê",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -9878,7 +9906,10 @@
         "gem-charms",
         "horseshoe",
         "pearl",
-        "crystal"
+        "crystal",
+        "móng ngựa",
+        "ngọc trai",
+        "pha lê"
       ],
       "path": "premium/gem-charms/horseshoe-pearl-crystal.webp",
       "thumbnail": "premium/gem-charms/horseshoe-pearl-crystal.thumb.webp",
@@ -9902,7 +9933,7 @@
     {
       "id": "gc-bow-teardrop-crystal",
       "name": "Bow Teardrop Crystal",
-      "nameVi": "Bow Teardrop Crystal",
+      "nameVi": "Nơ Giọt nước Pha lê",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -9911,7 +9942,10 @@
         "gem-charms",
         "bow",
         "teardrop",
-        "crystal"
+        "crystal",
+        "nơ",
+        "giọt nước",
+        "pha lê"
       ],
       "path": "premium/gem-charms/bow-teardrop-crystal.webp",
       "thumbnail": "premium/gem-charms/bow-teardrop-crystal.thumb.webp",
@@ -9935,7 +9969,7 @@
     {
       "id": "gc-flower-pink-crystal-pearl",
       "name": "Flower Pink Crystal Pearl",
-      "nameVi": "Flower Pink Crystal Pearl",
+      "nameVi": "Hoa hồng Pha lê Ngọc trai",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -9945,7 +9979,11 @@
         "flower",
         "pink",
         "crystal",
-        "pearl"
+        "pearl",
+        "hoa",
+        "hồng",
+        "pha lê",
+        "ngọc trai"
       ],
       "path": "premium/gem-charms/flower-pink-crystal-pearl.webp",
       "thumbnail": "premium/gem-charms/flower-pink-crystal-pearl.thumb.webp",
@@ -9969,7 +10007,7 @@
     {
       "id": "gc-saturn-crystal-white",
       "name": "Saturn Crystal White",
-      "nameVi": "Saturn Crystal White",
+      "nameVi": "Sao Thổ Pha lê Trắng",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -9978,7 +10016,10 @@
         "gem-charms",
         "saturn",
         "crystal",
-        "white"
+        "white",
+        "sao thổ",
+        "pha lê",
+        "trắng"
       ],
       "path": "premium/gem-charms/saturn-crystal-white.webp",
       "thumbnail": "premium/gem-charms/saturn-crystal-white.thumb.webp",
@@ -10002,7 +10043,7 @@
     {
       "id": "gc-heart-wings-pink-crystal",
       "name": "Heart Wings Pink Crystal",
-      "nameVi": "Heart Wings Pink Crystal",
+      "nameVi": "Trái tim Cánh hồng Pha lê",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -10012,7 +10053,11 @@
         "heart",
         "wings",
         "pink",
-        "crystal"
+        "crystal",
+        "trái tim",
+        "cánh",
+        "hồng",
+        "pha lê"
       ],
       "path": "premium/gem-charms/heart-wings-pink-crystal.webp",
       "thumbnail": "premium/gem-charms/heart-wings-pink-crystal.thumb.webp",
@@ -10036,7 +10081,7 @@
     {
       "id": "gc-cherry-pair-crystal",
       "name": "Cherry Pair Crystal",
-      "nameVi": "Cherry Pair Crystal",
+      "nameVi": "Anh đào đôi Pha lê",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -10045,7 +10090,10 @@
         "gem-charms",
         "cherry",
         "pair",
-        "crystal"
+        "crystal",
+        "anh đào",
+        "đôi",
+        "pha lê"
       ],
       "path": "premium/gem-charms/cherry-pair-crystal.webp",
       "thumbnail": "premium/gem-charms/cherry-pair-crystal.thumb.webp",
@@ -10069,7 +10117,7 @@
     {
       "id": "gc-gem-emerald-pink-cut",
       "name": "Gem Emerald Pink Cut",
-      "nameVi": "Gem Emerald Pink Cut",
+      "nameVi": "Đá quý Ngọc lục bảo hồng cắt",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -10079,7 +10127,11 @@
         "gem",
         "emerald",
         "pink",
-        "cut"
+        "cut",
+        "đá quý",
+        "ngọc lục bảo",
+        "hồng",
+        "cắt"
       ],
       "path": "premium/gem-charms/gem-emerald-pink-cut.webp",
       "thumbnail": "premium/gem-charms/gem-emerald-pink-cut.thumb.webp",
@@ -10103,7 +10155,7 @@
     {
       "id": "gc-bunny-pink-pearl",
       "name": "Bunny Pink Pearl",
-      "nameVi": "Bunny Pink Pearl",
+      "nameVi": "Thỏ hồng Ngọc trai",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -10112,7 +10164,10 @@
         "gem-charms",
         "bunny",
         "pink",
-        "pearl"
+        "pearl",
+        "thỏ",
+        "hồng",
+        "ngọc trai"
       ],
       "path": "premium/gem-charms/bunny-pink-pearl.webp",
       "thumbnail": "premium/gem-charms/bunny-pink-pearl.thumb.webp",
@@ -10136,7 +10191,7 @@
     {
       "id": "gc-teardrop-crystal-white",
       "name": "Teardrop Crystal White",
-      "nameVi": "Teardrop Crystal White",
+      "nameVi": "Giọt nước Pha lê Trắng",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -10145,7 +10200,10 @@
         "gem-charms",
         "teardrop",
         "crystal",
-        "white"
+        "white",
+        "giọt nước",
+        "pha lê",
+        "trắng"
       ],
       "path": "premium/gem-charms/teardrop-crystal-white.webp",
       "thumbnail": "premium/gem-charms/teardrop-crystal-white.thumb.webp",
@@ -10169,7 +10227,7 @@
     {
       "id": "gc-clover-pink-crystal",
       "name": "Clover Pink Crystal",
-      "nameVi": "Clover Pink Crystal",
+      "nameVi": "Cỏ ba lá hồng Pha lê",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -10178,7 +10236,10 @@
         "gem-charms",
         "clover",
         "pink",
-        "crystal"
+        "crystal",
+        "cỏ ba lá",
+        "hồng",
+        "pha lê"
       ],
       "path": "premium/gem-charms/clover-pink-crystal.webp",
       "thumbnail": "premium/gem-charms/clover-pink-crystal.thumb.webp",
@@ -10202,7 +10263,7 @@
     {
       "id": "gc-flower-white-pearl",
       "name": "Flower White Pearl",
-      "nameVi": "Flower White Pearl",
+      "nameVi": "Hoa Trắng Ngọc trai",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -10211,7 +10272,10 @@
         "gem-charms",
         "flower",
         "white",
-        "pearl"
+        "pearl",
+        "hoa",
+        "trắng",
+        "ngọc trai"
       ],
       "path": "premium/gem-charms/flower-white-pearl.webp",
       "thumbnail": "premium/gem-charms/flower-white-pearl.thumb.webp",
@@ -10235,7 +10299,7 @@
     {
       "id": "gc-heart-double-pink-crystal",
       "name": "Heart Double Pink Crystal",
-      "nameVi": "Heart Double Pink Crystal",
+      "nameVi": "Trái tim Đôi hồng Pha lê",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -10245,7 +10309,11 @@
         "heart",
         "double",
         "pink",
-        "crystal"
+        "crystal",
+        "trái tim",
+        "đôi",
+        "hồng",
+        "pha lê"
       ],
       "path": "premium/gem-charms/heart-double-pink-crystal.webp",
       "thumbnail": "premium/gem-charms/heart-double-pink-crystal.thumb.webp",
@@ -10269,7 +10337,7 @@
     {
       "id": "gc-clover-crystal-pink",
       "name": "Clover Crystal Pink",
-      "nameVi": "Clover Crystal Pink",
+      "nameVi": "Cỏ ba lá Pha lê hồng",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -10278,7 +10346,10 @@
         "gem-charms",
         "clover",
         "crystal",
-        "pink"
+        "pink",
+        "cỏ ba lá",
+        "pha lê",
+        "hồng"
       ],
       "path": "premium/gem-charms/clover-crystal-pink.webp",
       "thumbnail": "premium/gem-charms/clover-crystal-pink.thumb.webp",
@@ -10302,7 +10373,7 @@
     {
       "id": "gc-saturn-heart-crystal",
       "name": "Saturn Heart Crystal",
-      "nameVi": "Saturn Heart Crystal",
+      "nameVi": "Sao Thổ Trái tim Pha lê",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -10311,7 +10382,10 @@
         "gem-charms",
         "saturn",
         "heart",
-        "crystal"
+        "crystal",
+        "sao thổ",
+        "trái tim",
+        "pha lê"
       ],
       "path": "premium/gem-charms/saturn-heart-crystal.webp",
       "thumbnail": "premium/gem-charms/saturn-heart-crystal.thumb.webp",
@@ -10335,7 +10409,7 @@
     {
       "id": "gc-crown-heart-pink-crystal",
       "name": "Crown Heart Pink Crystal",
-      "nameVi": "Crown Heart Pink Crystal",
+      "nameVi": "Vương miện Trái tim hồng Pha lê",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -10345,7 +10419,11 @@
         "crown",
         "heart",
         "pink",
-        "crystal"
+        "crystal",
+        "vương miện",
+        "trái tim",
+        "hồng",
+        "pha lê"
       ],
       "path": "premium/gem-charms/crown-heart-pink-crystal.webp",
       "thumbnail": "premium/gem-charms/crown-heart-pink-crystal.thumb.webp",
@@ -10369,7 +10447,7 @@
     {
       "id": "gc-butterfly-pink-crystal",
       "name": "Butterfly Pink Crystal",
-      "nameVi": "Butterfly Pink Crystal",
+      "nameVi": "Bướm hồng Pha lê",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -10378,7 +10456,10 @@
         "gem-charms",
         "butterfly",
         "pink",
-        "crystal"
+        "crystal",
+        "bướm",
+        "hồng",
+        "pha lê"
       ],
       "path": "premium/gem-charms/butterfly-pink-crystal.webp",
       "thumbnail": "premium/gem-charms/butterfly-pink-crystal.thumb.webp",
@@ -10402,7 +10483,7 @@
     {
       "id": "gj-bow-pink-jelly",
       "name": "Bow Pink Jelly",
-      "nameVi": "Bow Pink Jelly",
+      "nameVi": "Nơ hồng Thạch",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -10411,7 +10492,10 @@
         "gem-charms",
         "bow",
         "pink",
-        "jelly"
+        "jelly",
+        "nơ",
+        "hồng",
+        "thạch"
       ],
       "path": "premium/gem-charms/bow-pink-jelly.webp",
       "thumbnail": "premium/gem-charms/bow-pink-jelly.thumb.webp",
@@ -10435,7 +10519,7 @@
     {
       "id": "gj-butterfly-holo-pearl",
       "name": "Butterfly Holo Pearl",
-      "nameVi": "Butterfly Holo Pearl",
+      "nameVi": "Bướm Ánh cầu vồng Ngọc trai",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -10444,7 +10528,10 @@
         "gem-charms",
         "butterfly",
         "holo",
-        "pearl"
+        "pearl",
+        "bướm",
+        "ánh cầu vồng",
+        "ngọc trai"
       ],
       "path": "premium/gem-charms/butterfly-holo-pearl.webp",
       "thumbnail": "premium/gem-charms/butterfly-holo-pearl.thumb.webp",
@@ -10468,7 +10555,7 @@
     {
       "id": "gj-flower-pink-pearl-jelly",
       "name": "Flower Pink Pearl Jelly",
-      "nameVi": "Flower Pink Pearl Jelly",
+      "nameVi": "Hoa hồng Ngọc trai Thạch",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -10478,7 +10565,11 @@
         "flower",
         "pink",
         "pearl",
-        "jelly"
+        "jelly",
+        "hoa",
+        "hồng",
+        "ngọc trai",
+        "thạch"
       ],
       "path": "premium/gem-charms/flower-pink-pearl-jelly.webp",
       "thumbnail": "premium/gem-charms/flower-pink-pearl-jelly.thumb.webp",
@@ -10502,7 +10593,7 @@
     {
       "id": "gj-star-holo-jelly",
       "name": "Star Holo Jelly",
-      "nameVi": "Star Holo Jelly",
+      "nameVi": "Ngôi sao Ánh cầu vồng Thạch",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -10511,7 +10602,10 @@
         "gem-charms",
         "star",
         "holo",
-        "jelly"
+        "jelly",
+        "ngôi sao",
+        "ánh cầu vồng",
+        "thạch"
       ],
       "path": "premium/gem-charms/star-holo-jelly.webp",
       "thumbnail": "premium/gem-charms/star-holo-jelly.thumb.webp",
@@ -10535,7 +10629,7 @@
     {
       "id": "gj-cherry-pair-jelly",
       "name": "Cherry Pair Jelly",
-      "nameVi": "Cherry Pair Jelly",
+      "nameVi": "Anh đào đôi Thạch",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -10544,7 +10638,10 @@
         "gem-charms",
         "cherry",
         "pair",
-        "jelly"
+        "jelly",
+        "anh đào",
+        "đôi",
+        "thạch"
       ],
       "path": "premium/gem-charms/cherry-pair-jelly.webp",
       "thumbnail": "premium/gem-charms/cherry-pair-jelly.thumb.webp",
@@ -10568,7 +10665,7 @@
     {
       "id": "gj-heart-holo-jelly",
       "name": "Heart Holo Jelly",
-      "nameVi": "Heart Holo Jelly",
+      "nameVi": "Trái tim Ánh cầu vồng Thạch",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -10577,7 +10674,10 @@
         "gem-charms",
         "heart",
         "holo",
-        "jelly"
+        "jelly",
+        "trái tim",
+        "ánh cầu vồng",
+        "thạch"
       ],
       "path": "premium/gem-charms/heart-holo-jelly.webp",
       "thumbnail": "premium/gem-charms/heart-holo-jelly.thumb.webp",
@@ -10601,7 +10701,7 @@
     {
       "id": "gj-butterfly-pink-jelly-crystal",
       "name": "Butterfly Pink Jelly Crystal",
-      "nameVi": "Butterfly Pink Jelly Crystal",
+      "nameVi": "Bướm hồng Thạch Pha lê",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -10611,7 +10711,11 @@
         "butterfly",
         "pink",
         "jelly",
-        "crystal"
+        "crystal",
+        "bướm",
+        "hồng",
+        "thạch",
+        "pha lê"
       ],
       "path": "premium/gem-charms/butterfly-pink-jelly-crystal.webp",
       "thumbnail": "premium/gem-charms/butterfly-pink-jelly-crystal.thumb.webp",
@@ -10635,7 +10739,7 @@
     {
       "id": "gj-bow-holo-crystal",
       "name": "Bow Holo Crystal",
-      "nameVi": "Bow Holo Crystal",
+      "nameVi": "Nơ Ánh cầu vồng Pha lê",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -10644,7 +10748,10 @@
         "gem-charms",
         "bow",
         "holo",
-        "crystal"
+        "crystal",
+        "nơ",
+        "ánh cầu vồng",
+        "pha lê"
       ],
       "path": "premium/gem-charms/bow-holo-crystal.webp",
       "thumbnail": "premium/gem-charms/bow-holo-crystal.thumb.webp",
@@ -10668,7 +10775,7 @@
     {
       "id": "gj-bear-holo-jelly",
       "name": "Bear Holo Jelly",
-      "nameVi": "Bear Holo Jelly",
+      "nameVi": "Gấu Ánh cầu vồng Thạch",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -10677,7 +10784,10 @@
         "gem-charms",
         "bear",
         "holo",
-        "jelly"
+        "jelly",
+        "gấu",
+        "ánh cầu vồng",
+        "thạch"
       ],
       "path": "premium/gem-charms/bear-holo-jelly.webp",
       "thumbnail": "premium/gem-charms/bear-holo-jelly.thumb.webp",
@@ -10701,7 +10811,7 @@
     {
       "id": "gj-paw-print-pink-jelly",
       "name": "Paw Print Pink Jelly",
-      "nameVi": "Paw Print Pink Jelly",
+      "nameVi": "Dấu chân hồng Thạch",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -10711,7 +10821,10 @@
         "paw",
         "print",
         "pink",
-        "jelly"
+        "jelly",
+        "dấu chân",
+        "hồng",
+        "thạch"
       ],
       "path": "premium/gem-charms/paw-print-pink-jelly.webp",
       "thumbnail": "premium/gem-charms/paw-print-pink-jelly.thumb.webp",
@@ -10735,7 +10848,7 @@
     {
       "id": "gj-teardrop-holo-jelly",
       "name": "Teardrop Holo Jelly",
-      "nameVi": "Teardrop Holo Jelly",
+      "nameVi": "Giọt nước Ánh cầu vồng Thạch",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -10744,7 +10857,10 @@
         "gem-charms",
         "teardrop",
         "holo",
-        "jelly"
+        "jelly",
+        "giọt nước",
+        "ánh cầu vồng",
+        "thạch"
       ],
       "path": "premium/gem-charms/teardrop-holo-jelly.webp",
       "thumbnail": "premium/gem-charms/teardrop-holo-jelly.thumb.webp",
@@ -10768,7 +10884,7 @@
     {
       "id": "gj-shell-pearl-jelly",
       "name": "Shell Pearl Jelly",
-      "nameVi": "Shell Pearl Jelly",
+      "nameVi": "Vỏ sò Ngọc trai Thạch",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -10777,7 +10893,10 @@
         "gem-charms",
         "shell",
         "pearl",
-        "jelly"
+        "jelly",
+        "vỏ sò",
+        "ngọc trai",
+        "thạch"
       ],
       "path": "premium/gem-charms/shell-pearl-jelly.webp",
       "thumbnail": "premium/gem-charms/shell-pearl-jelly.thumb.webp",
@@ -10801,7 +10920,7 @@
     {
       "id": "gj-heart-pink-crystal-jelly",
       "name": "Heart Pink Crystal Jelly",
-      "nameVi": "Heart Pink Crystal Jelly",
+      "nameVi": "Trái tim hồng Pha lê Thạch",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -10811,7 +10930,11 @@
         "heart",
         "pink",
         "crystal",
-        "jelly"
+        "jelly",
+        "trái tim",
+        "hồng",
+        "pha lê",
+        "thạch"
       ],
       "path": "premium/gem-charms/heart-pink-crystal-jelly.webp",
       "thumbnail": "premium/gem-charms/heart-pink-crystal-jelly.thumb.webp",
@@ -10835,7 +10958,7 @@
     {
       "id": "gj-flower-purple-pearl-jelly",
       "name": "Flower Purple Pearl Jelly",
-      "nameVi": "Flower Purple Pearl Jelly",
+      "nameVi": "Hoa Tím Ngọc trai Thạch",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -10845,7 +10968,11 @@
         "flower",
         "purple",
         "pearl",
-        "jelly"
+        "jelly",
+        "hoa",
+        "tím",
+        "ngọc trai",
+        "thạch"
       ],
       "path": "premium/gem-charms/flower-purple-pearl-jelly.webp",
       "thumbnail": "premium/gem-charms/flower-purple-pearl-jelly.thumb.webp",
@@ -10869,7 +10996,7 @@
     {
       "id": "gj-cherry-pair-jelly-b",
       "name": "Cherry Pair Jelly B",
-      "nameVi": "Cherry Pair Jelly B",
+      "nameVi": "Anh đào đôi Thạch",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -10879,7 +11006,10 @@
         "cherry",
         "pair",
         "jelly",
-        "b"
+        "b",
+        "anh đào",
+        "đôi",
+        "thạch"
       ],
       "path": "premium/gem-charms/cherry-pair-jelly-b.webp",
       "thumbnail": "premium/gem-charms/cherry-pair-jelly-b.thumb.webp",
@@ -10903,7 +11033,7 @@
     {
       "id": "gj-moon-star-holo-jelly",
       "name": "Moon Star Holo Jelly",
-      "nameVi": "Moon Star Holo Jelly",
+      "nameVi": "Mặt trăng Ngôi sao Ánh cầu vồng Thạch",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -10913,7 +11043,11 @@
         "moon",
         "star",
         "holo",
-        "jelly"
+        "jelly",
+        "mặt trăng",
+        "ngôi sao",
+        "ánh cầu vồng",
+        "thạch"
       ],
       "path": "premium/gem-charms/moon-star-holo-jelly.webp",
       "thumbnail": "premium/gem-charms/moon-star-holo-jelly.thumb.webp",
@@ -10937,7 +11071,7 @@
     {
       "id": "gj-bow-orange-jelly",
       "name": "Bow Orange Jelly",
-      "nameVi": "Bow Orange Jelly",
+      "nameVi": "Nơ Cam Thạch",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -10946,7 +11080,10 @@
         "gem-charms",
         "bow",
         "orange",
-        "jelly"
+        "jelly",
+        "nơ",
+        "cam",
+        "thạch"
       ],
       "path": "premium/gem-charms/bow-orange-jelly.webp",
       "thumbnail": "premium/gem-charms/bow-orange-jelly.thumb.webp",
@@ -10970,7 +11107,7 @@
     {
       "id": "gj-heart-purple-crystal",
       "name": "Heart Purple Crystal",
-      "nameVi": "Heart Purple Crystal",
+      "nameVi": "Trái tim Tím Pha lê",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -10979,7 +11116,10 @@
         "gem-charms",
         "heart",
         "purple",
-        "crystal"
+        "crystal",
+        "trái tim",
+        "tím",
+        "pha lê"
       ],
       "path": "premium/gem-charms/heart-purple-crystal.webp",
       "thumbnail": "premium/gem-charms/heart-purple-crystal.thumb.webp",
@@ -11003,7 +11143,7 @@
     {
       "id": "gj-butterfly-holo-crystal",
       "name": "Butterfly Holo Crystal",
-      "nameVi": "Butterfly Holo Crystal",
+      "nameVi": "Bướm Ánh cầu vồng Pha lê",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -11012,7 +11152,10 @@
         "gem-charms",
         "butterfly",
         "holo",
-        "crystal"
+        "crystal",
+        "bướm",
+        "ánh cầu vồng",
+        "pha lê"
       ],
       "path": "premium/gem-charms/butterfly-holo-crystal.webp",
       "thumbnail": "premium/gem-charms/butterfly-holo-crystal.thumb.webp",
@@ -11036,7 +11179,7 @@
     {
       "id": "gj-star-pink-pearl-jelly",
       "name": "Star Pink Pearl Jelly",
-      "nameVi": "Star Pink Pearl Jelly",
+      "nameVi": "Ngôi sao hồng Ngọc trai Thạch",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -11046,7 +11189,11 @@
         "star",
         "pink",
         "pearl",
-        "jelly"
+        "jelly",
+        "ngôi sao",
+        "hồng",
+        "ngọc trai",
+        "thạch"
       ],
       "path": "premium/gem-charms/star-pink-pearl-jelly.webp",
       "thumbnail": "premium/gem-charms/star-pink-pearl-jelly.thumb.webp",
@@ -11070,7 +11217,7 @@
     {
       "id": "gj-flower-holo-pearl",
       "name": "Flower Holo Pearl",
-      "nameVi": "Flower Holo Pearl",
+      "nameVi": "Hoa Ánh cầu vồng Ngọc trai",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -11079,7 +11226,10 @@
         "gem-charms",
         "flower",
         "holo",
-        "pearl"
+        "pearl",
+        "hoa",
+        "ánh cầu vồng",
+        "ngọc trai"
       ],
       "path": "premium/gem-charms/flower-holo-pearl.webp",
       "thumbnail": "premium/gem-charms/flower-holo-pearl.thumb.webp",
@@ -11103,7 +11253,7 @@
     {
       "id": "gj-heart-pink-jelly",
       "name": "Heart Pink Jelly",
-      "nameVi": "Heart Pink Jelly",
+      "nameVi": "Trái tim hồng Thạch",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -11112,7 +11262,10 @@
         "gem-charms",
         "heart",
         "pink",
-        "jelly"
+        "jelly",
+        "trái tim",
+        "hồng",
+        "thạch"
       ],
       "path": "premium/gem-charms/heart-pink-jelly.webp",
       "thumbnail": "premium/gem-charms/heart-pink-jelly.thumb.webp",
@@ -11136,7 +11289,7 @@
     {
       "id": "gj-bear-holo-jelly-b",
       "name": "Bear Holo Jelly B",
-      "nameVi": "Bear Holo Jelly B",
+      "nameVi": "Gấu Ánh cầu vồng Thạch",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -11146,7 +11299,10 @@
         "bear",
         "holo",
         "jelly",
-        "b"
+        "b",
+        "gấu",
+        "ánh cầu vồng",
+        "thạch"
       ],
       "path": "premium/gem-charms/bear-holo-jelly-b.webp",
       "thumbnail": "premium/gem-charms/bear-holo-jelly-b.thumb.webp",
@@ -11170,7 +11326,7 @@
     {
       "id": "gj-bow-purple-jelly",
       "name": "Bow Purple Jelly",
-      "nameVi": "Bow Purple Jelly",
+      "nameVi": "Nơ Tím Thạch",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -11179,7 +11335,10 @@
         "gem-charms",
         "bow",
         "purple",
-        "jelly"
+        "jelly",
+        "nơ",
+        "tím",
+        "thạch"
       ],
       "path": "premium/gem-charms/bow-purple-jelly.webp",
       "thumbnail": "premium/gem-charms/bow-purple-jelly.thumb.webp",
@@ -11203,7 +11362,7 @@
     {
       "id": "gb-heart-wings-pink-pearl",
       "name": "Heart Wings Pink Pearl",
-      "nameVi": "Heart Wings Pink Pearl",
+      "nameVi": "Trái tim Cánh hồng Ngọc trai",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -11213,7 +11372,11 @@
         "heart",
         "wings",
         "pink",
-        "pearl"
+        "pearl",
+        "trái tim",
+        "cánh",
+        "hồng",
+        "ngọc trai"
       ],
       "path": "premium/gem-charms/heart-wings-pink-pearl.webp",
       "thumbnail": "premium/gem-charms/heart-wings-pink-pearl.thumb.webp",
@@ -11237,7 +11400,7 @@
     {
       "id": "gb-crown-heart-pink-pearl",
       "name": "Crown Heart Pink Pearl",
-      "nameVi": "Crown Heart Pink Pearl",
+      "nameVi": "Vương miện Trái tim hồng Ngọc trai",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -11247,7 +11410,11 @@
         "crown",
         "heart",
         "pink",
-        "pearl"
+        "pearl",
+        "vương miện",
+        "trái tim",
+        "hồng",
+        "ngọc trai"
       ],
       "path": "premium/gem-charms/crown-heart-pink-pearl.webp",
       "thumbnail": "premium/gem-charms/crown-heart-pink-pearl.thumb.webp",
@@ -11271,7 +11438,7 @@
     {
       "id": "gb-bow-pearl-drop",
       "name": "Bow Pearl Drop",
-      "nameVi": "Bow Pearl Drop",
+      "nameVi": "Nơ Ngọc trai Giọt",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -11280,7 +11447,10 @@
         "gem-charms",
         "bow",
         "pearl",
-        "drop"
+        "drop",
+        "nơ",
+        "ngọc trai",
+        "giọt"
       ],
       "path": "premium/gem-charms/bow-pearl-drop.webp",
       "thumbnail": "premium/gem-charms/bow-pearl-drop.thumb.webp",
@@ -11304,7 +11474,7 @@
     {
       "id": "gb-bow-pearl-double-drop",
       "name": "Bow Pearl Double Drop",
-      "nameVi": "Bow Pearl Double Drop",
+      "nameVi": "Nơ Ngọc trai Đôi Giọt",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -11314,7 +11484,11 @@
         "bow",
         "pearl",
         "double",
-        "drop"
+        "drop",
+        "nơ",
+        "ngọc trai",
+        "đôi",
+        "giọt"
       ],
       "path": "premium/gem-charms/bow-pearl-double-drop.webp",
       "thumbnail": "premium/gem-charms/bow-pearl-double-drop.thumb.webp",
@@ -11338,7 +11512,7 @@
     {
       "id": "gb-butterfly-pink-pearl-cluster",
       "name": "Butterfly Pink Pearl Cluster",
-      "nameVi": "Butterfly Pink Pearl Cluster",
+      "nameVi": "Bướm hồng Ngọc trai Chùm",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -11348,7 +11522,11 @@
         "butterfly",
         "pink",
         "pearl",
-        "cluster"
+        "cluster",
+        "bướm",
+        "hồng",
+        "ngọc trai",
+        "chùm"
       ],
       "path": "premium/gem-charms/butterfly-pink-pearl-cluster.webp",
       "thumbnail": "premium/gem-charms/butterfly-pink-pearl-cluster.thumb.webp",
@@ -11372,7 +11550,7 @@
     {
       "id": "gb-heart-lock-pink-pearl",
       "name": "Heart Lock Pink Pearl",
-      "nameVi": "Heart Lock Pink Pearl",
+      "nameVi": "Trái tim Khóa hồng Ngọc trai",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -11382,7 +11560,11 @@
         "heart",
         "lock",
         "pink",
-        "pearl"
+        "pearl",
+        "trái tim",
+        "khóa",
+        "hồng",
+        "ngọc trai"
       ],
       "path": "premium/gem-charms/heart-lock-pink-pearl.webp",
       "thumbnail": "premium/gem-charms/heart-lock-pink-pearl.thumb.webp",
@@ -11406,7 +11588,7 @@
     {
       "id": "gb-rose-pearl-stem",
       "name": "Rose Pearl Stem",
-      "nameVi": "Rose Pearl Stem",
+      "nameVi": "Hoa hồng Ngọc trai Cành",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -11415,7 +11597,10 @@
         "gem-charms",
         "rose",
         "pearl",
-        "stem"
+        "stem",
+        "hoa hồng",
+        "ngọc trai",
+        "cành"
       ],
       "path": "premium/gem-charms/rose-pearl-stem.webp",
       "thumbnail": "premium/gem-charms/rose-pearl-stem.thumb.webp",
@@ -11439,7 +11624,7 @@
     {
       "id": "gb-bow-heart-drop",
       "name": "Bow Heart Drop",
-      "nameVi": "Bow Heart Drop",
+      "nameVi": "Nơ Trái tim Giọt",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -11448,7 +11633,10 @@
         "gem-charms",
         "bow",
         "heart",
-        "drop"
+        "drop",
+        "nơ",
+        "trái tim",
+        "giọt"
       ],
       "path": "premium/gem-charms/bow-heart-drop.webp",
       "thumbnail": "premium/gem-charms/bow-heart-drop.thumb.webp",
@@ -11472,7 +11660,7 @@
     {
       "id": "gb-heart-wreath-pink-pearl",
       "name": "Heart Wreath Pink Pearl",
-      "nameVi": "Heart Wreath Pink Pearl",
+      "nameVi": "Trái tim Vòng hoa hồng Ngọc trai",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -11482,7 +11670,11 @@
         "heart",
         "wreath",
         "pink",
-        "pearl"
+        "pearl",
+        "trái tim",
+        "vòng hoa",
+        "hồng",
+        "ngọc trai"
       ],
       "path": "premium/gem-charms/heart-wreath-pink-pearl.webp",
       "thumbnail": "premium/gem-charms/heart-wreath-pink-pearl.thumb.webp",
@@ -11506,7 +11698,7 @@
     {
       "id": "gb-bow-pink-jewel",
       "name": "Bow Pink Jewel",
-      "nameVi": "Bow Pink Jewel",
+      "nameVi": "Nơ hồng Trang sức",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -11515,7 +11707,10 @@
         "gem-charms",
         "bow",
         "pink",
-        "jewel"
+        "jewel",
+        "nơ",
+        "hồng",
+        "trang sức"
       ],
       "path": "premium/gem-charms/bow-pink-jewel.webp",
       "thumbnail": "premium/gem-charms/bow-pink-jewel.thumb.webp",
@@ -11539,7 +11734,7 @@
     {
       "id": "gb-bow-pearl-drop-b",
       "name": "Bow Pearl Drop B",
-      "nameVi": "Bow Pearl Drop B",
+      "nameVi": "Nơ Ngọc trai Giọt",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -11549,7 +11744,10 @@
         "bow",
         "pearl",
         "drop",
-        "b"
+        "b",
+        "nơ",
+        "ngọc trai",
+        "giọt"
       ],
       "path": "premium/gem-charms/bow-pearl-drop-b.webp",
       "thumbnail": "premium/gem-charms/bow-pearl-drop-b.thumb.webp",
@@ -11573,7 +11771,7 @@
     {
       "id": "gb-crown-pearl-heart",
       "name": "Crown Pearl Heart",
-      "nameVi": "Crown Pearl Heart",
+      "nameVi": "Vương miện Ngọc trai Trái tim",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -11582,7 +11780,10 @@
         "gem-charms",
         "crown",
         "pearl",
-        "heart"
+        "heart",
+        "vương miện",
+        "ngọc trai",
+        "trái tim"
       ],
       "path": "premium/gem-charms/crown-pearl-heart.webp",
       "thumbnail": "premium/gem-charms/crown-pearl-heart.thumb.webp",
@@ -11606,7 +11807,7 @@
     {
       "id": "gb-heart-bow-pink-pearl",
       "name": "Heart Bow Pink Pearl",
-      "nameVi": "Heart Bow Pink Pearl",
+      "nameVi": "Trái tim Nơ hồng Ngọc trai",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -11616,7 +11817,11 @@
         "heart",
         "bow",
         "pink",
-        "pearl"
+        "pearl",
+        "trái tim",
+        "nơ",
+        "hồng",
+        "ngọc trai"
       ],
       "path": "premium/gem-charms/heart-bow-pink-pearl.webp",
       "thumbnail": "premium/gem-charms/heart-bow-pink-pearl.thumb.webp",
@@ -11640,7 +11845,7 @@
     {
       "id": "gb-heart-wings-pink-pearl-b",
       "name": "Heart Wings Pink Pearl B",
-      "nameVi": "Heart Wings Pink Pearl B",
+      "nameVi": "Trái tim Cánh hồng Ngọc trai",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -11651,7 +11856,11 @@
         "wings",
         "pink",
         "pearl",
-        "b"
+        "b",
+        "trái tim",
+        "cánh",
+        "hồng",
+        "ngọc trai"
       ],
       "path": "premium/gem-charms/heart-wings-pink-pearl-b.webp",
       "thumbnail": "premium/gem-charms/heart-wings-pink-pearl-b.thumb.webp",
@@ -11675,7 +11884,7 @@
     {
       "id": "gb-bow-cluster-pink-pearl",
       "name": "Bow Cluster Pink Pearl",
-      "nameVi": "Bow Cluster Pink Pearl",
+      "nameVi": "Nơ Chùm hồng Ngọc trai",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -11685,7 +11894,11 @@
         "bow",
         "cluster",
         "pink",
-        "pearl"
+        "pearl",
+        "nơ",
+        "chùm",
+        "hồng",
+        "ngọc trai"
       ],
       "path": "premium/gem-charms/bow-cluster-pink-pearl.webp",
       "thumbnail": "premium/gem-charms/bow-cluster-pink-pearl.thumb.webp",
@@ -11709,7 +11922,7 @@
     {
       "id": "gb-heart-scroll-pearl-flower",
       "name": "Heart Scroll Pearl Flower",
-      "nameVi": "Heart Scroll Pearl Flower",
+      "nameVi": "Trái tim Cuộn Ngọc trai Hoa",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -11719,7 +11932,11 @@
         "heart",
         "scroll",
         "pearl",
-        "flower"
+        "flower",
+        "trái tim",
+        "cuộn",
+        "ngọc trai",
+        "hoa"
       ],
       "path": "premium/gem-charms/heart-scroll-pearl-flower.webp",
       "thumbnail": "premium/gem-charms/heart-scroll-pearl-flower.thumb.webp",
@@ -11743,7 +11960,7 @@
     {
       "id": "gb-bow-cluster-pearl",
       "name": "Bow Cluster Pearl",
-      "nameVi": "Bow Cluster Pearl",
+      "nameVi": "Nơ Chùm Ngọc trai",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -11752,7 +11969,10 @@
         "gem-charms",
         "bow",
         "cluster",
-        "pearl"
+        "pearl",
+        "nơ",
+        "chùm",
+        "ngọc trai"
       ],
       "path": "premium/gem-charms/bow-cluster-pearl.webp",
       "thumbnail": "premium/gem-charms/bow-cluster-pearl.thumb.webp",
@@ -11776,7 +11996,7 @@
     {
       "id": "gb-butterfly-pink-pearl",
       "name": "Butterfly Pink Pearl",
-      "nameVi": "Butterfly Pink Pearl",
+      "nameVi": "Bướm hồng Ngọc trai",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -11785,7 +12005,10 @@
         "gem-charms",
         "butterfly",
         "pink",
-        "pearl"
+        "pearl",
+        "bướm",
+        "hồng",
+        "ngọc trai"
       ],
       "path": "premium/gem-charms/butterfly-pink-pearl.webp",
       "thumbnail": "premium/gem-charms/butterfly-pink-pearl.thumb.webp",
@@ -11809,7 +12032,7 @@
     {
       "id": "gb-key-heart-pink",
       "name": "Key Heart Pink",
-      "nameVi": "Key Heart Pink",
+      "nameVi": "Chìa khóa Trái tim hồng",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -11818,7 +12041,10 @@
         "gem-charms",
         "key",
         "heart",
-        "pink"
+        "pink",
+        "chìa khóa",
+        "trái tim",
+        "hồng"
       ],
       "path": "premium/gem-charms/key-heart-pink.webp",
       "thumbnail": "premium/gem-charms/key-heart-pink.thumb.webp",
@@ -11842,7 +12068,7 @@
     {
       "id": "gb-bow-pink-pearl-drop",
       "name": "Bow Pink Pearl Drop",
-      "nameVi": "Bow Pink Pearl Drop",
+      "nameVi": "Nơ hồng Ngọc trai Giọt",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -11852,7 +12078,11 @@
         "bow",
         "pink",
         "pearl",
-        "drop"
+        "drop",
+        "nơ",
+        "hồng",
+        "ngọc trai",
+        "giọt"
       ],
       "path": "premium/gem-charms/bow-pink-pearl-drop.webp",
       "thumbnail": "premium/gem-charms/bow-pink-pearl-drop.thumb.webp",
@@ -11876,7 +12106,7 @@
     {
       "id": "gb-heart-ring-star-pink",
       "name": "Heart Ring Star Pink",
-      "nameVi": "Heart Ring Star Pink",
+      "nameVi": "Trái tim Nhẫn Ngôi sao hồng",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -11886,7 +12116,11 @@
         "heart",
         "ring",
         "star",
-        "pink"
+        "pink",
+        "trái tim",
+        "nhẫn",
+        "ngôi sao",
+        "hồng"
       ],
       "path": "premium/gem-charms/heart-ring-star-pink.webp",
       "thumbnail": "premium/gem-charms/heart-ring-star-pink.thumb.webp",
@@ -11910,7 +12144,7 @@
     {
       "id": "gb-butterfly-pink-teardrop",
       "name": "Butterfly Pink Teardrop",
-      "nameVi": "Butterfly Pink Teardrop",
+      "nameVi": "Bướm hồng Giọt nước",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -11919,7 +12153,10 @@
         "gem-charms",
         "butterfly",
         "pink",
-        "teardrop"
+        "teardrop",
+        "bướm",
+        "hồng",
+        "giọt nước"
       ],
       "path": "premium/gem-charms/butterfly-pink-teardrop.webp",
       "thumbnail": "premium/gem-charms/butterfly-pink-teardrop.thumb.webp",
@@ -11943,7 +12180,7 @@
     {
       "id": "gb-bow-pearl-drop-c",
       "name": "Bow Pearl Drop C",
-      "nameVi": "Bow Pearl Drop C",
+      "nameVi": "Nơ Ngọc trai Giọt",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -11953,7 +12190,10 @@
         "bow",
         "pearl",
         "drop",
-        "c"
+        "c",
+        "nơ",
+        "ngọc trai",
+        "giọt"
       ],
       "path": "premium/gem-charms/bow-pearl-drop-c.webp",
       "thumbnail": "premium/gem-charms/bow-pearl-drop-c.thumb.webp",
@@ -11977,7 +12217,7 @@
     {
       "id": "gb-heart-wreath-pearl-butterfly",
       "name": "Heart Wreath Pearl Butterfly",
-      "nameVi": "Heart Wreath Pearl Butterfly",
+      "nameVi": "Trái tim Vòng hoa Ngọc trai Bướm",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -11987,7 +12227,11 @@
         "heart",
         "wreath",
         "pearl",
-        "butterfly"
+        "butterfly",
+        "trái tim",
+        "vòng hoa",
+        "ngọc trai",
+        "bướm"
       ],
       "path": "premium/gem-charms/heart-wreath-pearl-butterfly.webp",
       "thumbnail": "premium/gem-charms/heart-wreath-pearl-butterfly.thumb.webp",
@@ -12011,7 +12255,7 @@
     {
       "id": "gb-butterfly-pink-drop",
       "name": "Butterfly Pink Drop",
-      "nameVi": "Butterfly Pink Drop",
+      "nameVi": "Bướm hồng Giọt",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -12020,7 +12264,10 @@
         "gem-charms",
         "butterfly",
         "pink",
-        "drop"
+        "drop",
+        "bướm",
+        "hồng",
+        "giọt"
       ],
       "path": "premium/gem-charms/butterfly-pink-drop.webp",
       "thumbnail": "premium/gem-charms/butterfly-pink-drop.thumb.webp",
@@ -12044,7 +12291,7 @@
     {
       "id": "gd-clover-pearl-crystal",
       "name": "Clover Pearl Crystal",
-      "nameVi": "Clover Pearl Crystal",
+      "nameVi": "Cỏ ba lá Ngọc trai Pha lê",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -12053,7 +12300,10 @@
         "gem-charms",
         "clover",
         "pearl",
-        "crystal"
+        "crystal",
+        "cỏ ba lá",
+        "ngọc trai",
+        "pha lê"
       ],
       "path": "premium/gem-charms/clover-pearl-crystal.webp",
       "thumbnail": "premium/gem-charms/clover-pearl-crystal.thumb.webp",
@@ -12077,7 +12327,7 @@
     {
       "id": "gd-bear-pink-pearl-crystal",
       "name": "Bear Pink Pearl Crystal",
-      "nameVi": "Bear Pink Pearl Crystal",
+      "nameVi": "Gấu hồng Ngọc trai Pha lê",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -12087,7 +12337,11 @@
         "bear",
         "pink",
         "pearl",
-        "crystal"
+        "crystal",
+        "gấu",
+        "hồng",
+        "ngọc trai",
+        "pha lê"
       ],
       "path": "premium/gem-charms/bear-pink-pearl-crystal.webp",
       "thumbnail": "premium/gem-charms/bear-pink-pearl-crystal.thumb.webp",
@@ -12111,7 +12365,7 @@
     {
       "id": "gd-bow-crystal-drop",
       "name": "Bow Crystal Drop",
-      "nameVi": "Bow Crystal Drop",
+      "nameVi": "Nơ Pha lê Giọt",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -12120,7 +12374,10 @@
         "gem-charms",
         "bow",
         "crystal",
-        "drop"
+        "drop",
+        "nơ",
+        "pha lê",
+        "giọt"
       ],
       "path": "premium/gem-charms/bow-crystal-drop.webp",
       "thumbnail": "premium/gem-charms/bow-crystal-drop.thumb.webp",
@@ -12144,7 +12401,7 @@
     {
       "id": "gd-bow-pink-jelly-crystal",
       "name": "Bow Pink Jelly Crystal",
-      "nameVi": "Bow Pink Jelly Crystal",
+      "nameVi": "Nơ hồng Thạch Pha lê",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -12154,7 +12411,11 @@
         "bow",
         "pink",
         "jelly",
-        "crystal"
+        "crystal",
+        "nơ",
+        "hồng",
+        "thạch",
+        "pha lê"
       ],
       "path": "premium/gem-charms/bow-pink-jelly-crystal.webp",
       "thumbnail": "premium/gem-charms/bow-pink-jelly-crystal.thumb.webp",
@@ -12178,7 +12439,7 @@
     {
       "id": "gd-butterfly-pink-pearl-wing",
       "name": "Butterfly Pink Pearl Wing",
-      "nameVi": "Butterfly Pink Pearl Wing",
+      "nameVi": "Bướm hồng Ngọc trai Wing",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -12188,7 +12449,10 @@
         "butterfly",
         "pink",
         "pearl",
-        "wing"
+        "wing",
+        "bướm",
+        "hồng",
+        "ngọc trai"
       ],
       "path": "premium/gem-charms/butterfly-pink-pearl-wing.webp",
       "thumbnail": "premium/gem-charms/butterfly-pink-pearl-wing.thumb.webp",
@@ -12212,7 +12476,7 @@
     {
       "id": "gd-shell-pearl-star",
       "name": "Shell Pearl Star",
-      "nameVi": "Shell Pearl Star",
+      "nameVi": "Vỏ sò Ngọc trai Ngôi sao",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -12221,7 +12485,10 @@
         "gem-charms",
         "shell",
         "pearl",
-        "star"
+        "star",
+        "vỏ sò",
+        "ngọc trai",
+        "ngôi sao"
       ],
       "path": "premium/gem-charms/shell-pearl-star.webp",
       "thumbnail": "premium/gem-charms/shell-pearl-star.thumb.webp",
@@ -12245,7 +12512,7 @@
     {
       "id": "gd-bunny-pearl-bow",
       "name": "Bunny Pearl Bow",
-      "nameVi": "Bunny Pearl Bow",
+      "nameVi": "Thỏ Ngọc trai Nơ",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -12254,7 +12521,10 @@
         "gem-charms",
         "bunny",
         "pearl",
-        "bow"
+        "bow",
+        "thỏ",
+        "ngọc trai",
+        "nơ"
       ],
       "path": "premium/gem-charms/bunny-pearl-bow.webp",
       "thumbnail": "premium/gem-charms/bunny-pearl-bow.thumb.webp",
@@ -12278,7 +12548,7 @@
     {
       "id": "gd-crown-pearl-oval",
       "name": "Crown Pearl Oval",
-      "nameVi": "Crown Pearl Oval",
+      "nameVi": "Vương miện Ngọc trai Oval",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -12287,7 +12557,9 @@
         "gem-charms",
         "crown",
         "pearl",
-        "oval"
+        "oval",
+        "vương miện",
+        "ngọc trai"
       ],
       "path": "premium/gem-charms/crown-pearl-oval.webp",
       "thumbnail": "premium/gem-charms/crown-pearl-oval.thumb.webp",
@@ -12311,7 +12583,7 @@
     {
       "id": "gd-heart-pink-pearl-drop",
       "name": "Heart Pink Pearl Drop",
-      "nameVi": "Heart Pink Pearl Drop",
+      "nameVi": "Trái tim hồng Ngọc trai Giọt",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -12321,7 +12593,11 @@
         "heart",
         "pink",
         "pearl",
-        "drop"
+        "drop",
+        "trái tim",
+        "hồng",
+        "ngọc trai",
+        "giọt"
       ],
       "path": "premium/gem-charms/heart-pink-pearl-drop.webp",
       "thumbnail": "premium/gem-charms/heart-pink-pearl-drop.thumb.webp",
@@ -12345,7 +12621,7 @@
     {
       "id": "gd-star-crystal-pearl",
       "name": "Star Crystal Pearl",
-      "nameVi": "Star Crystal Pearl",
+      "nameVi": "Ngôi sao Pha lê Ngọc trai",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -12354,7 +12630,10 @@
         "gem-charms",
         "star",
         "crystal",
-        "pearl"
+        "pearl",
+        "ngôi sao",
+        "pha lê",
+        "ngọc trai"
       ],
       "path": "premium/gem-charms/star-crystal-pearl.webp",
       "thumbnail": "premium/gem-charms/star-crystal-pearl.thumb.webp",
@@ -12378,7 +12657,7 @@
     {
       "id": "gd-cat-gold-pearl",
       "name": "Cat Gold Pearl",
-      "nameVi": "Cat Gold Pearl",
+      "nameVi": "Mèo Vàng Ngọc trai",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -12387,7 +12666,10 @@
         "gem-charms",
         "cat",
         "gold",
-        "pearl"
+        "pearl",
+        "mèo",
+        "vàng",
+        "ngọc trai"
       ],
       "path": "premium/gem-charms/cat-gold-pearl.webp",
       "thumbnail": "premium/gem-charms/cat-gold-pearl.thumb.webp",
@@ -12411,7 +12693,7 @@
     {
       "id": "gd-flower-pink-pearl-crystal",
       "name": "Flower Pink Pearl Crystal",
-      "nameVi": "Flower Pink Pearl Crystal",
+      "nameVi": "Hoa hồng Ngọc trai Pha lê",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -12421,7 +12703,11 @@
         "flower",
         "pink",
         "pearl",
-        "crystal"
+        "crystal",
+        "hoa",
+        "hồng",
+        "ngọc trai",
+        "pha lê"
       ],
       "path": "premium/gem-charms/flower-pink-pearl-crystal.webp",
       "thumbnail": "premium/gem-charms/flower-pink-pearl-crystal.thumb.webp",
@@ -12445,7 +12731,7 @@
     {
       "id": "gd-butterfly-pearl-crystal",
       "name": "Butterfly Pearl Crystal",
-      "nameVi": "Butterfly Pearl Crystal",
+      "nameVi": "Bướm Ngọc trai Pha lê",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -12454,7 +12740,10 @@
         "gem-charms",
         "butterfly",
         "pearl",
-        "crystal"
+        "crystal",
+        "bướm",
+        "ngọc trai",
+        "pha lê"
       ],
       "path": "premium/gem-charms/butterfly-pearl-crystal.webp",
       "thumbnail": "premium/gem-charms/butterfly-pearl-crystal.thumb.webp",
@@ -12478,7 +12767,7 @@
     {
       "id": "gd-bow-crystal-drop-b",
       "name": "Bow Crystal Drop B",
-      "nameVi": "Bow Crystal Drop B",
+      "nameVi": "Nơ Pha lê Giọt",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -12488,7 +12777,10 @@
         "bow",
         "crystal",
         "drop",
-        "b"
+        "b",
+        "nơ",
+        "pha lê",
+        "giọt"
       ],
       "path": "premium/gem-charms/bow-crystal-drop-b.webp",
       "thumbnail": "premium/gem-charms/bow-crystal-drop-b.thumb.webp",
@@ -12512,7 +12804,7 @@
     {
       "id": "gd-gem-oval-pearl-star",
       "name": "Gem Oval Pearl Star",
-      "nameVi": "Gem Oval Pearl Star",
+      "nameVi": "Đá quý Oval Ngọc trai Ngôi sao",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -12522,7 +12814,10 @@
         "gem",
         "oval",
         "pearl",
-        "star"
+        "star",
+        "đá quý",
+        "ngọc trai",
+        "ngôi sao"
       ],
       "path": "premium/gem-charms/gem-oval-pearl-star.webp",
       "thumbnail": "premium/gem-charms/gem-oval-pearl-star.thumb.webp",
@@ -12546,7 +12841,7 @@
     {
       "id": "gd-heart-flower-pearl",
       "name": "Heart Flower Pearl",
-      "nameVi": "Heart Flower Pearl",
+      "nameVi": "Trái tim Hoa Ngọc trai",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -12555,7 +12850,10 @@
         "gem-charms",
         "heart",
         "flower",
-        "pearl"
+        "pearl",
+        "trái tim",
+        "hoa",
+        "ngọc trai"
       ],
       "path": "premium/gem-charms/heart-flower-pearl.webp",
       "thumbnail": "premium/gem-charms/heart-flower-pearl.thumb.webp",
@@ -12579,7 +12877,7 @@
     {
       "id": "gd-quatrefoil-pearl",
       "name": "Quatrefoil Pearl",
-      "nameVi": "Quatrefoil Pearl",
+      "nameVi": "Bốn cánh Ngọc trai",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -12587,7 +12885,9 @@
         "charm",
         "gem-charms",
         "quatrefoil",
-        "pearl"
+        "pearl",
+        "bốn cánh",
+        "ngọc trai"
       ],
       "path": "premium/gem-charms/quatrefoil-pearl.webp",
       "thumbnail": "premium/gem-charms/quatrefoil-pearl.thumb.webp",
@@ -12611,7 +12911,7 @@
     {
       "id": "gd-bow-crystal-heart-drop",
       "name": "Bow Crystal Heart Drop",
-      "nameVi": "Bow Crystal Heart Drop",
+      "nameVi": "Nơ Pha lê Trái tim Giọt",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -12621,7 +12921,11 @@
         "bow",
         "crystal",
         "heart",
-        "drop"
+        "drop",
+        "nơ",
+        "pha lê",
+        "trái tim",
+        "giọt"
       ],
       "path": "premium/gem-charms/bow-crystal-heart-drop.webp",
       "thumbnail": "premium/gem-charms/bow-crystal-heart-drop.thumb.webp",
@@ -12645,7 +12949,7 @@
     {
       "id": "gd-oval-pink-crystal-ring",
       "name": "Oval Pink Crystal Ring",
-      "nameVi": "Oval Pink Crystal Ring",
+      "nameVi": "Oval hồng Pha lê Nhẫn",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -12655,7 +12959,10 @@
         "oval",
         "pink",
         "crystal",
-        "ring"
+        "ring",
+        "hồng",
+        "pha lê",
+        "nhẫn"
       ],
       "path": "premium/gem-charms/oval-pink-crystal-ring.webp",
       "thumbnail": "premium/gem-charms/oval-pink-crystal-ring.thumb.webp",
@@ -12679,7 +12986,7 @@
     {
       "id": "gd-flower-pink-pearl-crystal-b",
       "name": "Flower Pink Pearl Crystal B",
-      "nameVi": "Flower Pink Pearl Crystal B",
+      "nameVi": "Hoa hồng Ngọc trai Pha lê",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -12690,7 +12997,11 @@
         "pink",
         "pearl",
         "crystal",
-        "b"
+        "b",
+        "hoa",
+        "hồng",
+        "ngọc trai",
+        "pha lê"
       ],
       "path": "premium/gem-charms/flower-pink-pearl-crystal-b.webp",
       "thumbnail": "premium/gem-charms/flower-pink-pearl-crystal-b.thumb.webp",
@@ -12714,7 +13025,7 @@
     {
       "id": "gd-heart-wings-pink-pearl-halo",
       "name": "Heart Wings Pink Pearl Halo",
-      "nameVi": "Heart Wings Pink Pearl Halo",
+      "nameVi": "Trái tim Cánh hồng Ngọc trai Vầng hào quang",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -12725,7 +13036,12 @@
         "wings",
         "pink",
         "pearl",
-        "halo"
+        "halo",
+        "trái tim",
+        "cánh",
+        "hồng",
+        "ngọc trai",
+        "vầng hào quang"
       ],
       "path": "premium/gem-charms/heart-wings-pink-pearl-halo.webp",
       "thumbnail": "premium/gem-charms/heart-wings-pink-pearl-halo.thumb.webp",
@@ -12749,7 +13065,7 @@
     {
       "id": "gd-star-pearl-shell",
       "name": "Star Pearl Shell",
-      "nameVi": "Star Pearl Shell",
+      "nameVi": "Ngôi sao Ngọc trai Vỏ sò",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -12758,7 +13074,10 @@
         "gem-charms",
         "star",
         "pearl",
-        "shell"
+        "shell",
+        "ngôi sao",
+        "ngọc trai",
+        "vỏ sò"
       ],
       "path": "premium/gem-charms/star-pearl-shell.webp",
       "thumbnail": "premium/gem-charms/star-pearl-shell.thumb.webp",
@@ -12782,7 +13101,7 @@
     {
       "id": "gd-bow-pearl-drop-crystal",
       "name": "Bow Pearl Drop Crystal",
-      "nameVi": "Bow Pearl Drop Crystal",
+      "nameVi": "Nơ Ngọc trai Giọt Pha lê",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -12792,7 +13111,11 @@
         "bow",
         "pearl",
         "drop",
-        "crystal"
+        "crystal",
+        "nơ",
+        "ngọc trai",
+        "giọt",
+        "pha lê"
       ],
       "path": "premium/gem-charms/bow-pearl-drop-crystal.webp",
       "thumbnail": "premium/gem-charms/bow-pearl-drop-crystal.thumb.webp",
@@ -12816,7 +13139,7 @@
     {
       "id": "gd-moon-star-crystal-pink",
       "name": "Moon Star Crystal Pink",
-      "nameVi": "Moon Star Crystal Pink",
+      "nameVi": "Mặt trăng Ngôi sao Pha lê hồng",
       "category": "gem-charms",
       "categoryVi": "Charm đá quý",
       "tags": [
@@ -12826,7 +13149,11 @@
         "moon",
         "star",
         "crystal",
-        "pink"
+        "pink",
+        "mặt trăng",
+        "ngôi sao",
+        "pha lê",
+        "hồng"
       ],
       "path": "premium/gem-charms/moon-star-crystal-pink.webp",
       "thumbnail": "premium/gem-charms/moon-star-crystal-pink.thumb.webp",
