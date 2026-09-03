@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { deleteDesign, listSavedDesigns, loadDesign, saveDesign, type SavedDesignMeta } from '@/lib/persistence'
 import { DEFAULT_LIGHT } from '@/lib/nailFill'
-import { FINGER_ORDER, type CustomGradient, type DecalAsset, type FingerDesign, type FingerId, type SkinToneId, type StickerInstance, type Template } from '@/types/vibeu'
+import { FINGER_ORDER, type CustomGradient, type DecalAsset, type DrawStroke, type FingerDesign, type FingerId, type SkinToneId, type StickerInstance, type Template } from '@/types/vibeu'
 
 const DEFAULT_PRESET_ID = 'cloud-candy'
 const MAX_HISTORY = 50
@@ -15,6 +15,7 @@ function defaultFinger(): FingerDesign {
     customGradient: null,
     effect: 'gel',
     stickers: [],
+    drawStrokes: [],
   }
 }
 
@@ -34,8 +35,14 @@ function nextInstanceId() {
   return `sticker-${Date.now()}-${instanceCounter}`
 }
 
+let strokeCounter = 0
+function nextStrokeId() {
+  strokeCounter += 1
+  return `stroke-${Date.now()}-${strokeCounter}`
+}
+
 export type StudioView = 'design' | 'result'
-export type StudioTab = 'shape' | 'paint' | 'charms'
+export type StudioTab = 'shape' | 'paint' | 'charms' | 'draw'
 
 /** The part of the design that undo/redo and save/load actually operate on. */
 interface DesignSnapshot {
@@ -60,6 +67,11 @@ interface StudioState extends DesignSnapshot {
   /** QA-only overlay (mask outline, pointer/uv readout, decal bounds, normal/roughness/Fresnel
    * views) — off by default, never part of the design/history so toggling it can't be undone. */
   debugMode: boolean
+  /** Freehand draw tool preferences — a tool/UI setting like debugMode, not part of the
+   * design recipe itself (only the committed strokes in FingerDesign.drawStrokes are).
+   * Whether draw mode is *active* is just `activeTab === 'draw'`, not separate state. */
+  brushWidth: number
+  brushColor: string
   /** Studio's "Ánh sáng" panel — a viewing/lighting preference, not part of the nail design
    * recipe itself (a template or saved design never specifies "how it was photographed"), so
    * — like debugMode — this is deliberately outside past/future undo history. Defaults match
@@ -86,6 +98,8 @@ interface StudioState extends DesignSnapshot {
   setStickerLocked: (finger: FingerId, instanceId: string, locked: boolean) => void
   reorderSticker: (finger: FingerId, instanceId: string, direction: 'up' | 'down') => void
   selectSticker: (instanceId: string | null) => void
+  addStroke: (finger: FingerId, points: [number, number][], color: string, width: number) => void
+  clearStrokes: (finger: FingerId) => void
   reset: () => void
   loadTemplate: (template: Template) => void
   goToResult: () => void
@@ -93,6 +107,8 @@ interface StudioState extends DesignSnapshot {
   undo: () => void
   redo: () => void
   toggleDebugMode: () => void
+  setBrushWidth: (w: number) => void
+  setBrushColor: (c: string) => void
   setLightExposure: (v: number) => void
   setLightStrength: (v: number) => void
   setLightAngleDeg: (v: number) => void
@@ -132,6 +148,8 @@ export const useStudioStore = create<StudioState>((set, get) => ({
   future: [],
   savedDesigns: listSavedDesigns(),
   debugMode: false,
+  brushWidth: 4,
+  brushColor: '#FF2D87',
   lightExposure: DEFAULT_LIGHT.exposure,
   lightStrength: DEFAULT_LIGHT.strength,
   lightAngleDeg: DEFAULT_LIGHT.angle,
@@ -279,6 +297,22 @@ export const useStudioStore = create<StudioState>((set, get) => ({
 
   selectSticker: (instanceId) => set({ selectedStickerInstance: instanceId }),
 
+  addStroke: (finger, points, color, width) =>
+    withHistory(set, (s) => {
+      const stroke: DrawStroke = { id: nextStrokeId(), points, color, width }
+      return {
+        fingers: {
+          ...s.fingers,
+          [finger]: { ...s.fingers[finger], drawStrokes: [...s.fingers[finger].drawStrokes, stroke] },
+        },
+      }
+    }),
+
+  clearStrokes: (finger) =>
+    withHistory(set, (s) => ({
+      fingers: { ...s.fingers, [finger]: { ...s.fingers[finger], drawStrokes: [] } },
+    })),
+
   reset: () => withHistory(set, () => ({ fingers: defaultFingers(), selectedStickerInstance: null, view: 'design', activeTemplateName: null, activeTemplateId: null })),
 
   loadTemplate: (template) =>
@@ -337,6 +371,8 @@ export const useStudioStore = create<StudioState>((set, get) => ({
     }),
 
   toggleDebugMode: () => set((s) => ({ debugMode: !s.debugMode })),
+  setBrushWidth: (w) => set({ brushWidth: w }),
+  setBrushColor: (c) => set({ brushColor: c }),
 
   setLightExposure: (v) => set({ lightExposure: Math.min(0.25, Math.max(-0.2, v)) }),
   setLightStrength: (v) => set({ lightStrength: Math.min(1, Math.max(0, v)) }),

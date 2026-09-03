@@ -9,6 +9,7 @@ function defaultFinger(): FingerDesign {
     customGradient: null,
     effect: 'gel',
     stickers: [],
+    drawStrokes: [],
   }
 }
 

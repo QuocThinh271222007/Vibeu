@@ -164,6 +164,16 @@ export interface CustomGradient {
   end: [number, number]
 }
 
+/** One freehand brush stroke drawn directly on a nail — a simple vector polyline
+ * (nail-local uv points, like StickerInstance.uv) rendered as an SVG path clipped to the
+ * nail, not baked into the composeNail raster. */
+export interface DrawStroke {
+  id: string
+  points: [number, number][]
+  color: string
+  width: number
+}
+
 export interface FingerDesign {
   shape: NailShape
   length: NailLength
@@ -173,6 +183,7 @@ export interface FingerDesign {
   customGradient: CustomGradient | null
   effect: EffectId
   stickers: StickerInstance[]
+  drawStrokes: DrawStroke[]
 }
 
 /**

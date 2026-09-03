@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Palette, QrCode, Ruler, Sticker as StickerIcon, ZoomIn, ZoomOut } from 'lucide-react'
+import { Palette, PenLine, QrCode, Ruler, Sticker as StickerIcon, ZoomIn, ZoomOut } from 'lucide-react'
 import { useStudioStore, type StudioTab } from '@/store/studioStore'
 import { useColorPresets } from '@/data/loaders'
 import { HandCanvas } from '@/components/studio/HandCanvas'
@@ -9,6 +9,7 @@ import { StudioTopBar } from '@/components/studio/StudioTopBar'
 import { FingerSelector } from '@/components/studio/FingerSelector'
 import { ShapeLengthTab } from '@/components/studio/ShapeLengthTab'
 import { PaintTab } from '@/components/studio/PaintTab'
+import { DrawTab } from '@/components/studio/DrawTab'
 import { DecalLibrary } from '@/components/studio/DecalLibrary'
 import { LayersPanel } from '@/components/studio/LayersPanel'
 import { LightingPanel } from '@/components/studio/LightingPanel'
@@ -22,6 +23,7 @@ const TABS: { id: StudioTab; label: string; icon: typeof Palette }[] = [
   { id: 'shape', label: 'Form & Độ dài', icon: Ruler },
   { id: 'paint', label: 'Hiệu ứng màu', icon: Palette },
   { id: 'charms', label: 'Thư viện Charm', icon: StickerIcon },
+  { id: 'draw', label: 'Vẽ nail', icon: PenLine },
 ]
 
 // 100%–200% in fixed steps. Zooms by simply widening the canvas's own max-width (the
@@ -112,6 +114,10 @@ export default function Studio() {
               onUpdateSticker={s.updateSticker}
               onRemoveSticker={s.removeSticker}
               onDuplicateSticker={s.duplicateSticker}
+              drawMode={s.activeTab === 'draw'}
+              brushWidth={s.brushWidth}
+              brushColor={s.brushColor}
+              onAddStroke={(finger, points) => s.addStroke(finger, points, s.brushColor, s.brushWidth)}
             />
           </div>
 
@@ -184,6 +190,16 @@ export default function Studio() {
                     {activeDesign.stickers.length > 0 && <LayersPanel finger={s.selectedFinger} />}
                     <DecalLibrary onAdd={(decalId) => s.addSticker(s.selectedFinger, decalId)} />
                   </div>
+                )}
+                {s.activeTab === 'draw' && (
+                  <DrawTab
+                    brushWidth={s.brushWidth}
+                    brushColor={s.brushColor}
+                    hasStrokes={activeDesign.drawStrokes.length > 0}
+                    onBrushWidth={s.setBrushWidth}
+                    onBrushColor={s.setBrushColor}
+                    onClear={() => s.clearStrokes(s.selectedFinger)}
+                  />
                 )}
               </motion.div>
             </AnimatePresence>

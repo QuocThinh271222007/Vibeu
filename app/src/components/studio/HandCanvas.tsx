@@ -97,7 +97,19 @@ interface HandCanvasProps {
   onUpdateSticker?: (finger: FingerId, instanceId: string, patch: Partial<StickerInstance>) => void
   onRemoveSticker?: (finger: FingerId, instanceId: string) => void
   onDuplicateSticker?: (finger: FingerId, instanceId: string) => void
+  /** Freehand draw tool (DrawTab) — while true, touching any nail starts a brush stroke
+   * instead of the normal select/deselect-sticker behavior. */
+  drawMode?: boolean
+  brushWidth?: number
+  brushColor?: string
+  onAddStroke?: (finger: FingerId, points: [number, number][]) => void
   className?: string
+}
+
+/** Image-space SVG path "d" for a polyline of nail-local uv points — shared by the
+ * committed-stroke render in NailPaint and the live in-progress preview below. */
+function strokePathD(nail: NailCoord, points: [number, number][]): string {
+  return points.map((p, i) => `${i === 0 ? 'M' : 'L'} ${localToImage(nail, p).join(' ')}`).join(' ')
 }
 
 export function HandCanvas({
@@ -111,6 +123,10 @@ export function HandCanvas({
   onUpdateSticker,
   onRemoveSticker,
   onDuplicateSticker,
+  drawMode = false,
+  brushWidth = 4,
+  brushColor = '#FF2D87',
+  onAddStroke,
   className = '',
 }: HandCanvasProps) {
   const { hand, loading: handLoading } = useHandData(skinTone)
@@ -140,6 +156,35 @@ export function HandCanvas({
 
   const presetsById = useMemo(() => Object.fromEntries(presets.map((p) => [p.id, p])), [presets])
   const [liveDrag, setLiveDrag] = useState<LiveDragOverride | null>(null)
+  const [liveStroke, setLiveStroke] = useState<{ finger: FingerId; points: [number, number][] } | null>(null)
+
+  const startStroke = (nail: NailCoord, e: React.PointerEvent) => {
+    const svg = svgRef.current
+    if (!svg) return
+    const point = clientToSvgPoint(svg, e.clientX, e.clientY)
+    if (!point) return
+    try {
+      ;(e.target as Element).setPointerCapture(e.pointerId)
+    } catch {
+      // Some input sources (synthetic events, certain touch/pen edge cases) don't have an
+      // active pointer to capture — the stroke still works via bubbled pointermove/pointerup.
+    }
+    setLiveStroke({ finger: nail.id, points: [imageToLocal(nail, point)] })
+  }
+
+  const continueStroke = (nail: NailCoord, e: React.PointerEvent) => {
+    if (!liveStroke || liveStroke.finger !== nail.id) return
+    const svg = svgRef.current
+    if (!svg) return
+    const point = clientToSvgPoint(svg, e.clientX, e.clientY)
+    if (!point) return
+    setLiveStroke((s) => (s ? { ...s, points: [...s.points, imageToLocal(nail, point)] } : s))
+  }
+
+  const endStroke = () => {
+    if (liveStroke && liveStroke.points.length > 1) onAddStroke?.(liveStroke.finger, liveStroke.points)
+    setLiveStroke(null)
+  }
 
   // Clicking anywhere outside this HandCanvas entirely (e.g. the tool panel beside it)
   // also deselects the sticker — the in-canvas paths handle clicks that land on the nail
@@ -234,18 +279,37 @@ export function HandCanvas({
               d={nail.path}
               data-nail-id={nail.id}
               fill="transparent"
-              className="cursor-pointer"
+              className={drawMode ? 'cursor-crosshair' : 'cursor-pointer'}
               onPointerDown={(e) => {
                 e.stopPropagation()
                 onSelectFinger?.(nail.id)
+                if (drawMode) {
+                  startStroke(nail, e)
+                  return
+                }
                 // Tapping empty nail area (not the sticker/gizmo itself, which is drawn on
                 // top and would have already stopped this event) also deselects — otherwise
                 // a sticker's gizmo handles stay stuck on screen after the user taps away,
                 // covering the design they're trying to look at.
                 onSelectSticker?.(null)
               }}
+              onPointerMove={drawMode ? (e) => continueStroke(nail, e) : undefined}
+              onPointerUp={drawMode ? endStroke : undefined}
+              onPointerCancel={drawMode ? endStroke : undefined}
             />
           ))}
+        {drawMode && liveStroke && liveStroke.points.length > 1 && (
+          <g clipPath={`url(#clip-real-${iid}-${liveStroke.finger})`} pointerEvents="none">
+            <path
+              d={strokePathD(hand.nails.find((n) => n.id === liveStroke.finger)!, liveStroke.points)}
+              fill="none"
+              stroke={brushColor}
+              strokeWidth={brushWidth}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </g>
+        )}
         {interactive && selectedFinger && (
           <StickerGizmoLayer
             svgRef={svgRef}
@@ -520,6 +584,17 @@ function NailPaint({
           <g transform={lengthMatrix}>
             <image href={dataUrl} x={prepared.x} y={prepared.y} width={prepared.w} height={prepared.h} preserveAspectRatio="none" />
           </g>
+          {design.drawStrokes.map((stroke) => (
+            <path
+              key={stroke.id}
+              d={strokePathD(nail, stroke.points)}
+              fill="none"
+              stroke={stroke.color}
+              strokeWidth={stroke.width}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          ))}
         </g>
       </g>
     </g>
