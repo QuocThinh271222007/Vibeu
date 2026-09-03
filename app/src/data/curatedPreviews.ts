@@ -82,7 +82,7 @@ const CURATED_PREVIEWS: Record<string, TemplatePreview> = {
     type: 'curated',
     image: '/assets/templates/libra-rose-quartz/cover.jpg',
     objectPosition: 'center center',
-    alt: 'Móng tay đỏ mận đính ren đen, hoa hồng và đá lấp lánh sang trọng',
+    alt: 'Móng tay hồng nude đính charm nơ, gương trang điểm và chai nước hoa ánh kim hồng',
   },
   'xuan-cherry-blossom': {
     type: 'curated',
@@ -124,13 +124,13 @@ const CURATED_PREVIEWS: Record<string, TemplatePreview> = {
     type: 'curated',
     image: '/assets/templates/minimalist-nude/cover.jpg',
     objectPosition: 'center center',
-    alt: 'Móng tay dâu tây kem ngọt ngào đính nơ, ngọc trai và chữ thêu',
+    alt: 'Móng tay nude đào nhạt họa tiết hoa nhí và charm quả đào mềm mại',
   },
   'tone-pastel-rainbow': {
     type: 'curated',
     image: '/assets/templates/tone-pastel-rainbow/cover.jpg',
     objectPosition: 'center center',
-    alt: 'Móng tay nude hồng đào họa tiết hoa nhí và charm đào mềm mại',
+    alt: 'Móng tay dâu tây kem ngọt ngào đính nơ, ngọc trai và chữ thêu',
   },
 }
 

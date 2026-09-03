@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
 import { ArrowRight, PlayCircle, Sparkles } from 'lucide-react'
@@ -7,14 +8,19 @@ import { useDecals } from '@/data/loaders'
 import { findTemplate } from '@/data/templates'
 
 const SHOWCASE = [
-  { id: findTemplate('gemini-sparkle')!, rotate: -9, x: -34, y: 26, z: 10, delay: 0 },
-  { id: findTemplate('strawberry-lace-dream')!, rotate: 4, x: 18, y: -6, z: 30, delay: 0.6 },
-  { id: findTemplate('xuan-cherry-blossom')!, rotate: 13, x: 66, y: 34, z: 20, delay: 1.2 },
+  { id: findTemplate('gemini-sparkle')!, rotate: -9, x: -58, y: 40, z: 10, delay: 0 },
+  { id: findTemplate('strawberry-lace-dream')!, rotate: 4, x: 22, y: -14, z: 30, delay: 0.6 },
+  { id: findTemplate('xuan-cherry-blossom')!, rotate: 13, x: 102, y: 52, z: 20, delay: 1.2 },
 ]
+
+/** How far (px) the non-hovered cards dodge away from the hovered one. */
+const DODGE_DISTANCE = 46
 
 export function Hero() {
   const navigate = useNavigate()
   const { decals } = useDecals()
+  const [hoveredId, setHoveredId] = useState<string | null>(null)
+  const hoveredCard = SHOWCASE.find((s) => s.id.id === hoveredId)
 
   return (
     <section className="relative overflow-hidden pb-20 pt-10 sm:pt-16">
@@ -59,39 +65,65 @@ export function Hero() {
           </div>
         </motion.div>
 
-        <div className="relative mx-auto h-[420px] w-full max-w-md lg:h-[480px]">
-          {SHOWCASE.map((s) => (
-            <motion.div
-              key={s.id.id}
-              initial={{ opacity: 0, scale: 0.85, rotate: s.rotate - 6 }}
-              animate={{ opacity: 1, scale: 1, rotate: s.rotate }}
-              transition={{ duration: 0.7, delay: s.delay * 0.25, ease: [0.22, 1, 0.36, 1] }}
-              style={{ zIndex: s.z, left: `calc(50% + ${s.x}px)`, top: `calc(50% + ${s.y}px)` }}
-              className="absolute w-40 -translate-x-1/2 -translate-y-1/2 sm:w-48"
-            >
+        <div className="relative mx-auto h-[480px] w-full max-w-lg lg:h-[560px]">
+          {SHOWCASE.map((s) => {
+            const isHovered = hoveredId === s.id.id
+            const isOtherHovered = hoveredId !== null && !isHovered
+
+            // When another card is hovered, dodge directly away from it so the hovered
+            // card gets clear space; otherwise sit at the resting offset.
+            let dodgeX = 0
+            let dodgeY = 0
+            if (isOtherHovered && hoveredCard) {
+              const dx = s.x - hoveredCard.x
+              const dy = s.y - hoveredCard.y
+              const dist = Math.hypot(dx, dy) || 1
+              dodgeX = (dx / dist) * DODGE_DISTANCE
+              dodgeY = (dy / dist) * DODGE_DISTANCE
+            }
+
+            return (
               <motion.div
-                animate={{ y: [0, -12, 0] }}
-                transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut', delay: s.delay }}
-                className="relative overflow-hidden rounded-[1.5rem] border-4 border-white bg-white shadow-vibe-lg"
+                key={s.id.id}
+                initial={{ opacity: 0, scale: 0.85, rotate: s.rotate - 6 }}
+                animate={{
+                  opacity: isOtherHovered ? 0.7 : 1,
+                  scale: isOtherHovered ? 0.92 : 1,
+                  rotate: s.rotate,
+                  x: dodgeX,
+                  y: dodgeY,
+                }}
+                transition={{ duration: 0.7, delay: s.delay * 0.25, ease: [0.22, 1, 0.36, 1] }}
+                style={{ zIndex: isHovered ? 50 : s.z, left: `calc(50% + ${s.x}px)`, top: `calc(50% + ${s.y}px)` }}
+                className="absolute w-48 -translate-x-1/2 -translate-y-1/2 sm:w-60"
               >
-                <TemplatePreviewMedia
-                  template={s.id}
-                  className="aspect-[2/3] w-full"
-                  imageClassName="scale-[1.01]"
-                  eager
-                />
-                {/* Caption lives inside the card's own clipped frame — as a sibling outside
-                    this rotated/offset motion.div it would inherit the same rotate+translate
-                    as the card and swing sideways into a neighboring stacked card's space,
-                    reading as overlapping garbled text (see the landing-page report). Baking
-                    it into the frame keeps it attached and upright regardless of the stack's
-                    transform. */}
-                <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 via-black/25 to-transparent px-3 pb-2 pt-6">
-                  <p className="truncate text-center font-display text-xs font-semibold text-white">{s.id.name}</p>
-                </div>
+                <motion.div
+                  animate={{ y: [0, -12, 0] }}
+                  whileHover={{ y: -28, scale: 1.08, transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] } }}
+                  transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut', delay: s.delay }}
+                  onHoverStart={() => setHoveredId(s.id.id)}
+                  onHoverEnd={() => setHoveredId(null)}
+                  className="relative cursor-pointer overflow-hidden rounded-[1.5rem] border-4 border-white bg-white shadow-vibe-lg transition-shadow duration-300 hover:shadow-[0_40px_70px_-20px_rgba(80,50,120,0.5)]"
+                >
+                  <TemplatePreviewMedia
+                    template={s.id}
+                    className="aspect-[2/3] w-full"
+                    imageClassName="scale-[1.01]"
+                    eager
+                  />
+                  {/* Caption lives inside the card's own clipped frame — as a sibling outside
+                      this rotated/offset motion.div it would inherit the same rotate+translate
+                      as the card and swing sideways into a neighboring stacked card's space,
+                      reading as overlapping garbled text (see the landing-page report). Baking
+                      it into the frame keeps it attached and upright regardless of the stack's
+                      transform. */}
+                  <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 via-black/25 to-transparent px-3 pb-2 pt-6">
+                    <p className="truncate text-center font-display text-xs font-semibold text-white">{s.id.name}</p>
+                  </div>
+                </motion.div>
               </motion.div>
-            </motion.div>
-          ))}
+            )
+          })}
         </div>
       </div>
     </section>

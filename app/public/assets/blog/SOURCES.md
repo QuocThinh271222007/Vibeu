@@ -1,25 +1,25 @@
 # Blog cover photo sources
 
-**Update (2026-09-03):** replaced per explicit user request/request for a more premium,
-Pinterest-style aesthetic than the previous Wikimedia Commons set could offer. **These images
-do NOT have a verified reuse license** — they were pulled directly from Pinterest pins
-(`i.pinimg.com` CDN) at the user's explicit instruction, after being told this carries real
-copyright risk for a commercial product and choosing to accept that risk anyway. If that
-decision changes, revert to properly-licensed sources (see the previous Wikimedia Commons
-set in git history) rather than mixing licensing regimes silently.
+**Update (2026-09-03, second pass):** replaced the Pinterest-sourced set below with
+AI-generated (ChatGPT Image) photos supplied directly by the user, the same batch used to
+replace the Library covers (see `../templates/CURATED-SOURCES.md`) after the user found the
+Pinterest set "too ugly and worthless." Each cover was picked from that batch for the closest
+mood fit to its post topic (not a literal illustration of the topic). Since these are
+user-supplied AI-generated images (not scraped), the earlier Pinterest copyright-risk caveat
+no longer applies.
 
-- `y2k-nail-2026` — Y2K chrome/marble nail art photo, sourced via Pinterest search
-  ("Y2K chrome nail art design"), from a pin under pinterest.com/pin/y2k-nails-aesthetic-*.
-- `chon-form-mong-hop-dang-tay` — "Popular Nail Shapes" reference chart (oval/square/squoval/
-  almond/coffin/stiletto), sourced via Pinterest ("nail shape guide").
-- `duong-mong-sau-khi-go-gel` — nail health before/after (damaged vs. recovered nails) photo,
-  sourced via Pinterest ("healing nails after gel").
-- `12-cung-hoang-dao-nail` — 12-zodiac-sign nail art collage, sourced via Pinterest
-  ("zodiac sign nail designs").
-- `meo-chup-anh-nail-dep` — phone camera viewfinder photographing a manicured hand, sourced
-  via Pinterest ("nail idea photography").
-- `quy-trinh-dung-nail-studio` — a cute "Nail Planner" worksheet graphic, sourced via
-  Pinterest ("digital nail planner").
+- `y2k-nail-2026` — white holographic nails with crystal bows (futuristic/sparkly, fits the
+  Y2K theme).
+- `chon-form-mong-hop-dang-tay` — clear almond-shaped nails with hand-painted cherry blossom,
+  chosen for its clean, clearly-visible nail shape.
+- `duong-mong-sau-khi-go-gel` — natural coffee-tone nails with fine gold linework, chosen for
+  its healthy, gentle look.
+- `12-cung-hoang-dao-nail` — navy/purple night-sky nail art with stars and a crescent moon,
+  fitting the zodiac/celestial theme.
+- `meo-chup-anh-nail-dep` — a well-styled tea-party photo (cup, saucer, cake charm) as an
+  example of good composition/lighting.
+- `quy-trinh-dung-nail-studio` — wine-tone nails with rose-gold chrome and charm detailing, as
+  an example of a fully planned, intricate design.
 
-All downloaded at the pin's `originals` CDN resolution where available, downscaled to a
-1600px-max-dimension JPEG (quality 85) for web delivery.
+All resized to a 1400px-max-dimension JPEG (quality 88) via Pillow. Originals are the same
+user-supplied `ChatGPT Image *.png` drop described in `../templates/CURATED-SOURCES.md`.
