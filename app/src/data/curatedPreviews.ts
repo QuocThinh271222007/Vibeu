@@ -7,130 +7,130 @@ import type { Template, TemplatePreview } from '@/types/vibeu'
  * an honest live approximation users can edit finger by finger.
  *
  * Source pages are documented in public/assets/templates/CURATED-SOURCES.md.
- * As of 2026-09-03 these are Pinterest-sourced per explicit user request/risk
- * acceptance — see that file for the licensing caveat before reusing this
- * pattern elsewhere.
+ * As of 2026-09-03 these are user-supplied AI-generated (ChatGPT Image) photos,
+ * replacing the earlier Pinterest-sourced set the user found low-quality — see
+ * that file for the full history/caveat before reusing this pattern elsewhere.
  */
 const CURATED_PREVIEWS: Record<string, TemplatePreview> = {
   'gemini-sparkle': {
     type: 'curated',
     image: '/assets/templates/gemini-sparkle/cover.jpg',
     objectPosition: 'center center',
-    alt: 'Móng tay họa tiết chòm sao Song Tử ánh đen huyền bí và hồng pastel',
+    alt: 'Móng tay hồng pastel đính nơ ngọc trai và trái tim lãng mạn',
   },
   'leo-golden-glow': {
     type: 'curated',
     image: '/assets/templates/leo-golden-glow/cover.jpg',
     objectPosition: 'center center',
-    alt: 'Móng tay chrome vàng ánh kim sang trọng phong cách Sư Tử',
+    alt: 'Móng tay tiệc trà pastel với charm tách trà và bánh kem mạ vàng',
   },
   'pisces-ocean-dream': {
     type: 'curated',
     image: '/assets/templates/pisces-ocean-dream/cover.jpg',
     objectPosition: 'center center',
-    alt: 'Móng tay họa tiết vảy cá và vỏ sò ánh bạc xanh phong cách Song Ngư',
+    alt: 'Móng tay ngọc trai xà cừ họa tiết vỏ sò, sao biển và ánh trăng',
   },
   'cancer-moon-milk': {
     type: 'curated',
     image: '/assets/templates/cancer-moon-milk/cover.jpg',
     objectPosition: 'center center',
-    alt: 'Móng tay trắng sữa đính nhũ bạc và chữ ký hiệu Cự Giải',
+    alt: 'Móng tay trắng ánh nhũ holographic đính đá pha lê và nơ lấp lánh',
   },
   'aries-cherry-flame': {
     type: 'curated',
     image: '/assets/templates/aries-cherry-flame/cover.jpg',
     objectPosition: 'center center',
-    alt: 'Móng tay ombre đỏ cam họa tiết hoa văn phong cách Bạch Dương',
+    alt: 'Móng tay đỏ trắng chủ đề Giáng Sinh với bông tuyết, nơ và ruy băng đỏ',
   },
   'virgo-sage-minimal': {
     type: 'curated',
     image: '/assets/templates/virgo-sage-minimal/cover.jpg',
     objectPosition: 'center center',
-    alt: 'Móng tay xanh rêu jelly bóng tối giản phong cách Xử Nữ',
+    alt: 'Móng tay hồng trắng họa tiết dâu tây và bánh kem ngọt ngào',
   },
   'scorpio-midnight': {
     type: 'curated',
     image: '/assets/templates/scorpio-midnight/cover.jpg',
     objectPosition: 'center center',
-    alt: 'Móng tay ombre đen tím huyền bí phong cách Bọ Cạp',
+    alt: 'Móng tay đỏ mận huyền bí đính charm mặt dây chuyền cổ điển và hoa hồng',
   },
   'sagittarius-sunset': {
     type: 'curated',
     image: '/assets/templates/sagittarius-sunset/cover.jpg',
     objectPosition: 'center center',
-    alt: 'Móng tay xanh đen đính đá lấp lánh hình sao và mặt trăng phong cách Nhân Mã',
+    alt: 'Móng tay xanh navy tím họa tiết bầu trời đêm, sao và trăng lưỡi liềm',
   },
   'capricorn-chrome': {
     type: 'curated',
     image: '/assets/templates/capricorn-chrome/cover.jpg',
     objectPosition: 'center center',
-    alt: 'Móng tay nâu chrome đính ngọc trai vàng sang trọng phong cách Ma Kết',
+    alt: 'Móng tay đỏ mận đính charm chrome ánh kim hồng và ren cổ điển',
   },
   'aquarius-aurora': {
     type: 'curated',
     image: '/assets/templates/aquarius-aurora/cover.jpg',
     objectPosition: 'center center',
-    alt: 'Móng tay xanh ngọc marble hoạ tiết phong cách Bảo Bình',
+    alt: 'Móng tay ánh holographic tím xanh họa tiết mặt trăng và ngôi sao lấp lánh',
   },
   'taurus-matcha-latte': {
     type: 'curated',
     image: '/assets/templates/taurus-matcha-latte/cover.jpg',
     objectPosition: 'center center',
-    alt: 'Móng tay xanh rêu ánh nhũ tím phong cách Kim Ngưu',
+    alt: 'Móng tay xanh matcha đính charm tách trà, nơ vàng và macaron',
   },
   'libra-rose-quartz': {
     type: 'curated',
     image: '/assets/templates/libra-rose-quartz/cover.jpg',
     objectPosition: 'center center',
-    alt: 'Móng tay bạc ánh kim đính đá phong cách Thiên Bình',
+    alt: 'Móng tay đỏ mận đính ren đen, hoa hồng và đá lấp lánh sang trọng',
   },
   'xuan-cherry-blossom': {
     type: 'curated',
     image: '/assets/templates/xuan-cherry-blossom/cover.jpg',
     objectPosition: 'center center',
-    alt: 'Móng tay French tip trắng vẽ tay cành hoa anh đào',
+    alt: 'Móng tay trong suốt vẽ tay hoa anh đào hồng pastel đính đá',
   },
   'ha-ocean-breeze': {
     type: 'curated',
     image: '/assets/templates/ha-ocean-breeze/cover.jpg',
     objectPosition: 'center center',
-    alt: 'Móng tay French tip xanh biển marble đính vỏ sò vàng',
+    alt: 'Móng tay xanh ngọc họa tiết vảy cá, vỏ sò và sao biển phong cách nàng tiên cá',
   },
   'thu-terracotta-leaves': {
     type: 'curated',
     image: '/assets/templates/thu-terracotta-leaves/cover.jpg',
     objectPosition: 'center 30%',
-    alt: 'Móng tay tông đất nung terracotta họa tiết lá mùa thu',
+    alt: 'Móng tay nâu cà phê vẽ chỉ vàng kèm charm tách trà ấm áp mùa thu',
   },
   'dong-winter-frost': {
     type: 'curated',
     image: '/assets/templates/dong-winter-frost/cover.jpg',
     objectPosition: 'center center',
-    alt: 'Móng tay nude ánh bạc họa tiết bông tuyết mùa đông',
+    alt: 'Móng tay xanh bạc ánh nhũ họa tiết bông tuyết và nơ pha lê mùa đông',
   },
   'y2k-butterfly-chrome': {
     type: 'curated',
     image: '/assets/templates/y2k-butterfly-chrome/cover.jpg',
     objectPosition: 'center center',
-    alt: 'Móng tay chrome họa tiết cánh bướm ánh vàng tím phong cách Y2K',
+    alt: 'Móng tay French trắng ngọc trai đính nơ pha lê sang trọng',
   },
   'y2k-candy-pop': {
     type: 'curated',
     image: '/assets/templates/y2k-candy-pop/cover.jpg',
     objectPosition: 'center center',
-    alt: 'Móng tay nhiều màu sắc rực rỡ họa tiết trừu tượng phong cách Y2K',
+    alt: 'Móng tay ombre tím lavender pastel đính nơ pha lê và ngọc trai',
   },
   'minimalist-nude': {
     type: 'curated',
     image: '/assets/templates/minimalist-nude/cover.jpg',
     objectPosition: 'center center',
-    alt: 'Móng tay nude tự nhiên tối giản',
+    alt: 'Móng tay dâu tây kem ngọt ngào đính nơ, ngọc trai và chữ thêu',
   },
   'tone-pastel-rainbow': {
     type: 'curated',
     image: '/assets/templates/tone-pastel-rainbow/cover.jpg',
     objectPosition: 'center center',
-    alt: 'Móng tay tông màu pastel cầu vồng nhẹ nhàng',
+    alt: 'Móng tay nude hồng đào họa tiết hoa nhí và charm đào mềm mại',
   },
 }
 

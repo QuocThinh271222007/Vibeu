@@ -9,6 +9,7 @@ import Community from '@/pages/Community'
 import Blog from '@/pages/Blog'
 import BlogPost from '@/pages/BlogPost'
 import About from '@/pages/About'
+import Auth from '@/pages/Auth'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -40,6 +41,7 @@ export default function App() {
         <Route path="/blog" element={<SiteLayout><Blog /></SiteLayout>} />
         <Route path="/blog/:slug" element={<SiteLayout><BlogPost /></SiteLayout>} />
         <Route path="/about" element={<SiteLayout><About /></SiteLayout>} />
+        <Route path="/auth" element={<Auth />} />
       </Routes>
     </BrowserRouter>
   )

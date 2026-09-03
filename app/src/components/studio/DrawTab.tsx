@@ -1,4 +1,5 @@
 import { Eraser, PenLine } from 'lucide-react'
+import { ColorWheel } from './ColorWheel'
 
 const BRUSH_SIZES: { width: number; label: string }[] = [
   { width: 2, label: 'Mảnh' },
@@ -55,15 +56,8 @@ export function DrawTab({
 
       <div>
         <p className="mb-3 text-sm font-semibold text-vibe-ink">Màu nét vẽ</p>
-        <div className="flex items-center gap-3">
-          <label className="relative h-11 w-11 shrink-0 cursor-pointer overflow-hidden rounded-full border-2 border-vibe-ink/10 shadow-sm">
-            <input
-              type="color"
-              value={brushColor}
-              onChange={(e) => onBrushColor(e.target.value)}
-              className="absolute -left-2 -top-2 h-16 w-16 cursor-pointer"
-            />
-          </label>
+        <div className="flex flex-col items-center gap-3 rounded-2xl border-2 border-vibe-ink/10 bg-white py-4">
+          <ColorWheel value={brushColor} onChange={onBrushColor} />
           <span className="text-xs text-vibe-ink-soft">
             Màu hiện tại: <span className="font-semibold text-vibe-ink">{brushColor}</span>
           </span>

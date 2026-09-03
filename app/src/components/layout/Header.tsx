@@ -4,7 +4,6 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { Menu, User, X } from 'lucide-react'
 import { Logo } from '@/components/ui/Logo'
 import { Button } from '@/components/ui/Button'
-import { AuthModal } from '@/components/layout/AuthModal'
 
 const NAV = [
   { to: '/', label: 'Trang chủ' },
@@ -18,7 +17,6 @@ const NAV = [
 export function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [authOpen, setAuthOpen] = useState(false)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -55,7 +53,7 @@ export function Header() {
           </nav>
 
           <div className="flex items-center gap-2">
-            <Button variant="secondary" size="sm" className="hidden sm:inline-flex" onClick={() => setAuthOpen(true)}>
+            <Button variant="secondary" size="sm" className="hidden sm:inline-flex" onClick={() => navigate('/auth')}>
               <User size={16} /> Đăng nhập
             </Button>
             <Button size="sm" className="hidden sm:inline-flex" onClick={() => navigate('/studio')}>
@@ -111,7 +109,7 @@ export function Header() {
                   variant="secondary"
                   onClick={() => {
                     setMobileOpen(false)
-                    setAuthOpen(true)
+                    navigate('/auth')
                   }}
                 >
                   Đăng nhập / Đăng ký
@@ -129,8 +127,6 @@ export function Header() {
           </motion.div>
         )}
       </AnimatePresence>
-
-      <AuthModal open={authOpen} onClose={() => setAuthOpen(false)} />
     </>
   )
 }
