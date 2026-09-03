@@ -124,7 +124,7 @@ export function GradientEditor({
       </div>
 
       <div className="flex gap-1.5">
-        {(['linear', 'radial'] as PaintMode[]).map((m) => (
+        {(['solid', 'linear', 'radial'] as PaintMode[]).map((m) => (
           <button
             key={m}
             onClick={() => commit({ mode: m })}
@@ -132,76 +132,90 @@ export function GradientEditor({
               active.mode === m ? 'border-vibe-blue-dark bg-vibe-blue/15 text-vibe-ink' : 'border-vibe-ink/10 text-vibe-ink-soft'
             }`}
           >
-            {m === 'linear' ? 'Thẳng' : 'Tròn'}
+            {m === 'solid' ? 'Đơn sắc' : m === 'linear' ? 'Thẳng' : 'Tròn'}
           </button>
         ))}
       </div>
 
-      <div
-        ref={barRef}
-        className="relative h-8 cursor-pointer rounded-full border-2 border-vibe-ink/10"
-        style={{ background: cssGradient(active.stops) }}
-        onPointerDown={(e) => {
-          if (e.target !== e.currentTarget) return
-          addStop(barPointerToAt(e.clientX))
-        }}
-      >
-        {active.stops.map((s, i) => (
-          <div
-            key={i}
-            onPointerDown={(e) => {
-              e.stopPropagation()
-              setSelected(i)
-              dragIndex.current = i
-              try {
-                ;(e.target as Element).setPointerCapture(e.pointerId)
-              } catch {
-                // Some input sources (synthetic events, certain touch/pen edge cases) don't
-                // have an active pointer to capture — the drag still works via bubbled
-                // pointermove/pointerup, this just loses capture-outside-the-element.
-              }
-            }}
-            onPointerMove={(e) => {
-              if (dragIndex.current !== i) return
-              updateStopAt(i, barPointerToAt(e.clientX))
-            }}
-            onPointerUp={() => {
-              dragIndex.current = null
-            }}
-            className={`absolute top-1/2 h-5 w-5 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 shadow ${
-              selected === i ? 'border-vibe-pink-dark ring-2 ring-vibe-pink-dark/40' : 'border-white'
-            }`}
-            style={{ left: `${s.at * 100}%`, background: s.color }}
+      {active.mode === 'solid' ? (
+        <div className="flex items-center gap-2">
+          <input
+            type="color"
+            value={active.stops[0]?.color ?? '#ffffff'}
+            onChange={(e) => commit({ stops: [{ at: 0, color: e.target.value }] })}
+            className="h-9 w-12 cursor-pointer rounded-lg border border-vibe-ink/10"
           />
-        ))}
-      </div>
-
-      <div className="flex items-center gap-2">
-        <input
-          type="color"
-          value={active.stops[selected]?.color ?? '#ffffff'}
-          onChange={(e) => updateStopColor(selected, e.target.value)}
-          className="h-8 w-10 cursor-pointer rounded-lg border border-vibe-ink/10"
-        />
-        <span className="text-[11px] text-vibe-ink-soft">
-          Điểm {selected + 1}/{active.stops.length} · {Math.round((active.stops[selected]?.at ?? 0) * 100)}%
-        </span>
-        <div className="ml-auto flex gap-1.5">
-          <button onClick={reverseStops} title="Đảo ngược gradient" className="grid h-7 w-7 place-items-center rounded-full border-2 border-vibe-ink/10 text-vibe-ink-soft hover:border-vibe-pink/40">
-            <ArrowLeftRight size={14} />
-          </button>
-          <button onClick={() => addStop()} className="grid h-7 w-7 place-items-center rounded-full border-2 border-vibe-ink/10 text-vibe-ink-soft hover:border-vibe-pink/40">
-            <Plus size={14} />
-          </button>
-          <button
-            onClick={() => removeStop(selected)}
-            disabled={active.stops.length <= 2}
-            className="grid h-7 w-7 place-items-center rounded-full border-2 border-vibe-ink/10 text-vibe-ink-soft hover:border-vibe-pink/40 disabled:opacity-30"
-          >
-            <Trash2 size={14} />
-          </button>
+          <span className="text-[11px] text-vibe-ink-soft">Một màu duy nhất, phủ đều cả móng.</span>
         </div>
-      </div>
+      ) : (
+        <>
+          <div
+            ref={barRef}
+            className="relative h-8 cursor-pointer rounded-full border-2 border-vibe-ink/10"
+            style={{ background: cssGradient(active.stops) }}
+            onPointerDown={(e) => {
+              if (e.target !== e.currentTarget) return
+              addStop(barPointerToAt(e.clientX))
+            }}
+          >
+            {active.stops.map((s, i) => (
+              <div
+                key={i}
+                onPointerDown={(e) => {
+                  e.stopPropagation()
+                  setSelected(i)
+                  dragIndex.current = i
+                  try {
+                    ;(e.target as Element).setPointerCapture(e.pointerId)
+                  } catch {
+                    // Some input sources (synthetic events, certain touch/pen edge cases) don't
+                    // have an active pointer to capture — the drag still works via bubbled
+                    // pointermove/pointerup, this just loses capture-outside-the-element.
+                  }
+                }}
+                onPointerMove={(e) => {
+                  if (dragIndex.current !== i) return
+                  updateStopAt(i, barPointerToAt(e.clientX))
+                }}
+                onPointerUp={() => {
+                  dragIndex.current = null
+                }}
+                className={`absolute top-1/2 h-5 w-5 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 shadow ${
+                  selected === i ? 'border-vibe-pink-dark ring-2 ring-vibe-pink-dark/40' : 'border-white'
+                }`}
+                style={{ left: `${s.at * 100}%`, background: s.color }}
+              />
+            ))}
+          </div>
+
+          <div className="flex items-center gap-2">
+            <input
+              type="color"
+              value={active.stops[selected]?.color ?? '#ffffff'}
+              onChange={(e) => updateStopColor(selected, e.target.value)}
+              className="h-8 w-10 cursor-pointer rounded-lg border border-vibe-ink/10"
+            />
+            <span className="text-[11px] text-vibe-ink-soft">
+              Điểm {selected + 1}/{active.stops.length} · {Math.round((active.stops[selected]?.at ?? 0) * 100)}%
+            </span>
+            <div className="ml-auto flex gap-1.5">
+              <button onClick={reverseStops} title="Đảo ngược gradient" className="grid h-7 w-7 place-items-center rounded-full border-2 border-vibe-ink/10 text-vibe-ink-soft hover:border-vibe-pink/40">
+                <ArrowLeftRight size={14} />
+              </button>
+              <button onClick={() => addStop()} className="grid h-7 w-7 place-items-center rounded-full border-2 border-vibe-ink/10 text-vibe-ink-soft hover:border-vibe-pink/40">
+                <Plus size={14} />
+              </button>
+              <button
+                onClick={() => removeStop(selected)}
+                disabled={active.stops.length <= 2}
+                className="grid h-7 w-7 place-items-center rounded-full border-2 border-vibe-ink/10 text-vibe-ink-soft hover:border-vibe-pink/40 disabled:opacity-30"
+              >
+                <Trash2 size={14} />
+              </button>
+            </div>
+          </div>
+        </>
+      )}
 
       {active.mode === 'linear' && (
         <>

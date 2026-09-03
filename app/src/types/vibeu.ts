@@ -37,7 +37,7 @@ export interface HandData {
   nails: NailCoord[]
 }
 
-export type PaintMode = 'linear' | 'radial' | 'aurora'
+export type PaintMode = 'linear' | 'radial' | 'aurora' | 'solid'
 
 export interface PaintStop {
   at: number
