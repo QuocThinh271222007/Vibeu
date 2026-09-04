@@ -82,18 +82,15 @@ don't have to do all of them at once. Suggested order, most-used first:
    calibrated, enabled — see `CLAUDE-REVIEW-BATCH1.md` §7).
 2. ~~`oval`-`S` and `oval`-`L` (both tones) — length variety on the shape that
    already works. **4 photos.**~~ **DONE** (see `CLAUDE-REVIEW-BATCH1.md` §2/§5).
-3. **Remaining — 12 photos, still needed.** Every shape below is already shot at
-   its default `M` length; these are the same shapes at `S` (short) and `L` (long):
-   - `square`-`S`, `square`-`L` — both tones (4 photos)
-   - `coffin`-`S`, `coffin`-`L` — both tones (4 photos)
-   - `almond`-`S`, `almond`-`L` — both tones (4 photos)
+3. ~~`square`-`S`/`L`, `coffin`-`S`/`L`, `almond`-`S`/`L` (both tones) — **12
+   photos.**~~ **DONE** (received, calibrated, enabled — see
+   `CLAUDE-REVIEW-BATCH1.md` §8).
 
-   Same style brief as above applies unchanged — same pose/crop/lighting/background
-   per tone, only the nail length changes relative to the already-shot `M` version
-   of that same shape (shorter = polish stops closer to the fingertip; longer =
-   extends noticeably past it). Once these land, all 4 shapes × all 3 lengths × both
-   tones will have a real photo — no combination will need to fall back to the
-   default photo anymore.
+**Full matrix complete.** All 4 shapes × all 3 lengths × both tones (22 combinations,
+plus each tone's own `oval`-`M` default photo = 24) now have a real photographed base.
+No shape/length selection in Studio needs to fall back to a different combo's photo
+anymore. Any *future* asset work is a new photoshoot style (a third skin tone, a
+different pose/background), not filling in this matrix.
 
 ## Prompt template (fill in the bracketed parts per photo)
 

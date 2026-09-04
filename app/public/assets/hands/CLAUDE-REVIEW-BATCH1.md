@@ -190,3 +190,52 @@ Separately, per the user's request: the Studio locked-template panel now shows a
 plain "Không thể chỉnh sửa." line under the "Đây là thiết kế mẫu có sẵn" heading,
 replacing the old AI-attribution sentence explaining *why* editing is disabled
 (`src/pages/Studio.tsx`) — the QR/export/Reset guidance sentence was kept.
+
+## 8. Shape/length UX fix + one real calibration bug found and fixed
+
+The user reported the shape/length switching "looked misaligned." Two separate
+findings, not one bug:
+
+1. **UX confusion (not a rendering bug):** picking a shape+length with no real photo
+   correctly keeps rendering the current real photo (per the no-2D-warp invariant),
+   but nothing told the user that — the side panel showed their new selection as
+   "active" while the canvas visibly didn't change. Fixed in `ShapeLengthTab.tsx`: a
+   green/grey availability dot per length (for the current shape + skin tone, via new
+   `availableLengthsForShape()` in `handVariants.ts`), plus an inline amber notice
+   when the current combo has no photo yet, explaining the preview is intentionally
+   staying on the default photo while the recipe still stores the real selection.
+
+2. **Real bug, found via a batch overlay audit** (every `coordinates.json` polygon
+   drawn back onto its own `base.jpg` and eyeballed): `cozy/oval-L`'s coordinates
+   didn't match its own photo — traced polygons were shifted/crossed, rendering as
+   melted-blob paint shapes instead of clean long ovals. Recalibrated with the same
+   tool; verified against the photo and live in Studio. All other variants existing
+   at the time (`oval-S` both tones, `matcha/oval-L`, batch-1's 6) passed the audit
+   clean — this was an isolated calibration mistake, not a systemic issue.
+
+## 9. Batch 3 — the remaining 12 photos (square/coffin/almond × S/L, both tones)
+
+The user provided all 12 full-resolution (1024×1536) PNGs directly, closing every
+gap `VARIANT-ASSET-GUIDE.md` still listed. Converted to JPEG and staged at
+`<tone>/variants/<shape>-{S,L}/base.jpg`.
+
+Calibration for the `L` (long) photos needed more iteration than usual: an initial
+attempt at auto-generating seed rects from each shape's already-calibrated `M`-length
+bbox (expanded along that finger's own tip-axis vector) produced heavy cross-finger
+tangling for every long-nail photo — long nails sit closer to (and often visually
+overlap) the neighboring finger, so a formulaic expansion isn't tight enough. Fell
+back to the manual fine-grid-crop + iterative rect method used throughout this
+project; all 12 were then verified with the same full overlay audit from §8 before
+enabling anything.
+
+**`HAND_VARIANTS` now has all 4 shapes × all 3 lengths enabled for both tones**
+(22 real-photo variants + each tone's own `oval-M` default = the full 24-combination
+matrix). Verified live: every one of the 24 (shape, length) combinations under
+"Áp dụng cả 5 ngón" resolves to a distinct, correctly-named photo URL; spot-checked
+screenshots (square/coffin/almond at both S and L) show paint tracking the real nail
+silhouette with no gaps or blob artifacts; a mixed-finger selection still correctly
+falls back to the default photo; PNG/QR export still works; no console errors.
+
+The shape/length photographic-fidelity limitation that motivated `VARIANT-ASSET-GUIDE.md`
+is now fully closed. Any further hand-photo asset work would be a new photoshoot
+(a third skin tone, a different pose), not filling in this matrix.
