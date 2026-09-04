@@ -26,6 +26,20 @@ npm run build    # build production vào dist/
 
 Sau khi cập nhật `supabase/schema.sql` (thêm bảng/cột mới), **chạy lại toàn bộ file trong SQL Editor** — mọi câu lệnh đều idempotent (an toàn chạy lại nhiều lần), không cần tách riêng phần mới.
 
+## Thư viện mẫu — mở trong Studio là bản khoá, không chỉnh sửa được
+
+Ảnh cover của 21 mẫu trong Thư viện là ảnh AI-generated thật (không phải render lại
+từ công thức) — xem `public/assets/templates/CURATED-SOURCES.md`. Vì bộ máy paint
+của Studio không thể tái tạo pixel-for-pixel một tấm ảnh AI, bấm "Dùng mẫu này" sẽ
+nạp đúng công thức (recipe) của mẫu vào state như trước, nhưng Studio hiển thị
+**đúng tấm ảnh gốc** thay vì bản render lại, và **khoá toàn bộ tab chỉnh sửa**
+(`getLockedTemplateView` trong `src/lib/templateLock.ts`, dùng ở `Studio.tsx` và
+`ResultView.tsx`). Công thức/QR vẫn dùng recipe như cũ (self-contained, không cần
+host ảnh) — chỉ phần xem trước và "Xuất ảnh PNG" đổi sang dùng đúng file ảnh gốc.
+Bấm "Reset" ở top bar để thoát khoá và tự thiết kế từ đầu. Mở một **thiết kế đã
+lưu** (Lưu/Mở) thì vẫn luôn ở chế độ chỉnh sửa tự do như trước — chỉ nạp từ Thư
+viện mới bị khoá.
+
 ## Hệ thống Mã QR / Công thức
 
 Bấm "Xuất công thức & Mã QR" trong Studio tạo ra một link `/r/<id>` **tự chứa toàn bộ thiết kế** (form, màu, hiệu ứng, charm, nét vẽ tay, tông da) — nén gzip + mã hoá base64url ngay trong phần `#d=...` của URL (xem `src/lib/designCodec.ts`). Vì dữ liệu nằm ngay trong mã QR, việc quét luôn mở lại **đúng y hệt** bản thiết kế đó, kể cả khi không kết nối Supabase. Khi có kết nối Supabase, mỗi lần xuất còn được lưu thêm vào bảng `shared_designs` — dùng làm phương án dự phòng cho thiết kế quá chi tiết (nhiều charm/nét vẽ khiến URL vượt ngưỡng quét được) và để `/admin/recipes` liệt kê/kiểm duyệt. Trang `/r/:id` có nút "Mở trong Studio để chỉnh sửa" để tiếp tục chỉnh từ đúng bản đã quét.
@@ -86,6 +100,6 @@ Lịch sử git (trước commit gỡ 3 gói này) vẫn còn đầy đủ nội
 ## Quyết định thiết kế đáng chú ý
 
 - **Font logo/tiêu đề**: brief yêu cầu "Lucky Bones" — đây là font thương mại không có bản nhúng web miễn phí, nên đã thay bằng **Fredoka** (Google Fonts) — cùng tinh thần tròn trịa, trẻ trung. Đổi lại trong `index.html` + `index.css` nếu có file font gốc.
-- **Form móng (Vuông/Nhọn/Coffin/Oval)**: vì chỉ có ảnh chụp tay thật cho 2 tông da (không có ảnh riêng từng form), form được mô phỏng bằng cách "cắt" thêm phần đầu móng trên nền mask thật (dùng `uvFrame` có sẵn trong `coordinates.json`) thay vì đổi ảnh — đủ để phân biệt trực quan và vẫn lưu đúng vào công thức xuất ra.
-- **Màu da**: chỉ có 2 tông (`cozy`, `matcha`) vì đó là toàn bộ ảnh tay có sẵn trong `VIBEU-Studio-Pro`.
+- **Form móng (Vuông/Nhọn/Coffin/Oval) & Độ dài (S/M/L)**: một ảnh chụp tay thật không thể bị "cắt/kéo dài" bằng 2D để trông giống form/độ dài khác một cách chân thực (đã thử và bỏ — xem comment ở `LENGTH_SCALE`/`shapeTrimUv` trong `src/lib/geometry.ts`) — luôn lộ mép giả. Cách làm đúng: **thêm ảnh tay thật khác** cho từng tổ hợp form+độ dài, đăng ký trong `src/data/handVariants.ts`; khi cả 5 ngón cùng một form & độ dài và ảnh tương ứng đã tồn tại, Studio tự đổi sang đúng ảnh đó (`getPreparedHand`/`handBaseUrl` trong `src/data/loaders.ts`). Hiện `HAND_VARIANTS` còn trống (chưa có ảnh nào ngoài 2 ảnh mặc định) — xem `public/assets/hands/VARIANT-ASSET-GUIDE.md` để biết brief ảnh cần gen (bằng ChatGPT Image hoặc công cụ tương tự) khớp phong cách 2 ảnh hiện có, và quy trình hiệu chỉnh toạ độ móng cho ảnh mới.
+- **Màu da**: chỉ có 2 tông (`cozy`, `matcha`) vì đó là toàn bộ ảnh tay có sẵn trong `VIBEU-Studio-Pro` (gói nguồn gốc, đã gỡ khỏi repo).
 - **Mã QR**: sinh bằng thư viện `qrcode` phía client; link trỏ tới origin thật của app (không còn hardcode `vibeu.app`) và tự chứa dữ liệu thiết kế — xem mục "Hệ thống Mã QR / Công thức" ở trên.

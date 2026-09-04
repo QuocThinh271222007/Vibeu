@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
-import type { ColorPreset, DecalAsset, HandData, SkinToneId, StickerCategory } from '@/types/vibeu'
+import type { ColorPreset, DecalAsset, HandData, NailLength, NailShape, SkinToneId, StickerCategory } from '@/types/vibeu'
+import { handVariantSegment } from '@/data/handVariants'
 
 interface ColorManifest {
   presets: ColorPreset[]
@@ -26,8 +27,16 @@ function cachedFetch<T>(url: string): () => Promise<T> {
 const getColorManifest = cachedFetch<ColorManifest>('/assets/colors/manifest.json')
 const getStandardDecalManifest = cachedFetch<DecalManifest>('/assets/decals/manifest.json')
 const getPremiumDecalManifest = cachedFetch<DecalManifest>('/assets/decals/premium/manifest.json')
-const getHandCozy = cachedFetch<HandData>('/assets/hands/cozy/coordinates.json')
-const getHandMatcha = cachedFetch<HandData>('/assets/hands/matcha/coordinates.json')
+
+const handDataLoaders = new Map<string, () => Promise<HandData>>()
+function getHandDataLoader(url: string): () => Promise<HandData> {
+  let loader = handDataLoaders.get(url)
+  if (!loader) {
+    loader = cachedFetch<HandData>(url)
+    handDataLoaders.set(url, loader)
+  }
+  return loader
+}
 
 /**
  * Merges the original flat-vector decal library with the richer illustrated premium pack
@@ -51,8 +60,12 @@ async function getDecalManifest(): Promise<DecalManifest> {
   }
 }
 
-export function getHandData(tone: SkinToneId): Promise<HandData> {
-  return tone === 'cozy' ? getHandCozy() : getHandMatcha()
+/** `shape`/`length` only change anything when a matching hand-variants.ts entry exists;
+ * otherwise this resolves the tone's default photo, exactly like before this existed. */
+export function getHandData(tone: SkinToneId, shape?: NailShape, length?: NailLength): Promise<HandData> {
+  const segment = handVariantSegment(tone, shape, length)
+  const url = segment ? `/assets/hands/${tone}/${segment}/coordinates.json` : `/assets/hands/${tone}/coordinates.json`
+  return getHandDataLoader(url)()
 }
 
 function useAsync<T>(loader: () => Promise<T>, deps: unknown[]): { data: T | null; loading: boolean; error: boolean } {
@@ -97,8 +110,8 @@ export function useDecalsById(customDecals: DecalAsset[]): Record<string, DecalA
   return useMemo(() => Object.fromEntries([...decals, ...customDecals].map((d) => [d.id, d])), [decals, customDecals])
 }
 
-export function useHandData(tone: SkinToneId) {
-  const { data, loading, error } = useAsync(() => getHandData(tone), [tone])
+export function useHandData(tone: SkinToneId, shape?: NailShape, length?: NailLength) {
+  const { data, loading, error } = useAsync(() => getHandData(tone, shape, length), [tone, shape, length])
   return { hand: data, loading, error }
 }
 
@@ -141,8 +154,9 @@ export async function getMaterialPreviewUrl(effectId: string): Promise<string | 
   return rel ? `/assets/materials/${rel}` : null
 }
 
-export function handBaseUrl(tone: SkinToneId) {
-  return `/assets/hands/${tone}/base.jpg`
+export function handBaseUrl(tone: SkinToneId, shape?: NailShape, length?: NailLength) {
+  const segment = handVariantSegment(tone, shape, length)
+  return segment ? `/assets/hands/${tone}/${segment}/base.jpg` : `/assets/hands/${tone}/base.jpg`
 }
 
 export async function getPresetById(id: string): Promise<ColorPreset | undefined> {

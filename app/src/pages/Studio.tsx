@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Palette, PenLine, QrCode, Ruler, Sticker as StickerIcon, ZoomIn, ZoomOut } from 'lucide-react'
+import { Lock, Palette, PenLine, QrCode, Ruler, Sticker as StickerIcon, ZoomIn, ZoomOut } from 'lucide-react'
 import { useStudioStore, type StudioTab } from '@/store/studioStore'
 import { useColorPresets } from '@/data/loaders'
 import { HandCanvas } from '@/components/studio/HandCanvas'
@@ -13,10 +13,10 @@ import { DrawTab } from '@/components/studio/DrawTab'
 import { DecalLibrary } from '@/components/studio/DecalLibrary'
 import { LayersPanel } from '@/components/studio/LayersPanel'
 import { LightingPanel } from '@/components/studio/LightingPanel'
-import { StudioReferenceBadge } from '@/components/studio/StudioReferenceBadge'
 import { ResultView } from '@/components/studio/ResultView'
 import { Button } from '@/components/ui/Button'
 import { findTemplate } from '@/data/templates'
+import { getLockedTemplateView } from '@/lib/templateLock'
 import { FINGER_LABEL_VI } from '@/types/vibeu'
 
 const TABS: { id: StudioTab; label: string; icon: typeof Palette }[] = [
@@ -87,6 +87,7 @@ export default function Studio() {
   }
 
   const activeDesign = s.fingers[s.selectedFinger]
+  const locked = getLockedTemplateView(s.activeTemplateId)
 
   return (
     <div className="flex min-h-screen flex-col bg-vibe-cream lg:h-screen lg:min-h-0">
@@ -97,28 +98,44 @@ export default function Studio() {
           {s.activeTemplateName && (
             <div className="flex flex-wrap items-center justify-center gap-2">
               <span className="rounded-full bg-white px-3.5 py-1 text-xs font-semibold text-vibe-pink-dark shadow-sm">
-                Đang chỉnh từ mẫu: {s.activeTemplateName}
+                {locked ? 'Mẫu có sẵn:' : 'Đang chỉnh từ mẫu:'} {s.activeTemplateName}
               </span>
-              <StudioReferenceBadge templateId={s.activeTemplateId} />
+              {locked && (
+                <span className="flex items-center gap-1 rounded-full bg-vibe-ink px-3 py-1 text-xs font-semibold text-white">
+                  <Lock size={12} /> Không thể chỉnh sửa
+                </span>
+              )}
             </div>
           )}
           <div className="w-full shrink-0 transition-[max-width] duration-200" style={{ maxWidth: `${BASE_MAX_WIDTH_REM * zoom}rem` }}>
-            <HandCanvas
-              skinTone={s.skinTone}
-              fingers={s.fingers}
-              interactive
-              selectedFinger={s.selectedFinger}
-              onSelectFinger={s.selectFinger}
-              selectedStickerInstance={s.selectedStickerInstance}
-              onSelectSticker={s.selectSticker}
-              onUpdateSticker={s.updateSticker}
-              onRemoveSticker={s.removeSticker}
-              onDuplicateSticker={s.duplicateSticker}
-              drawMode={s.activeTab === 'draw'}
-              brushWidth={s.brushWidth}
-              brushColor={s.brushColor}
-              onAddStroke={(finger, points) => s.addStroke(finger, points, s.brushColor, s.brushWidth)}
-            />
+            {locked ? (
+              <div className="relative aspect-[1024/1536] w-full overflow-hidden rounded-[2rem] border-4 border-white shadow-vibe-lg">
+                <img
+                  src={locked.image}
+                  alt={locked.alt}
+                  style={{ objectPosition: locked.objectPosition }}
+                  className="h-full w-full object-cover"
+                  draggable={false}
+                />
+              </div>
+            ) : (
+              <HandCanvas
+                skinTone={s.skinTone}
+                fingers={s.fingers}
+                interactive
+                selectedFinger={s.selectedFinger}
+                onSelectFinger={s.selectFinger}
+                selectedStickerInstance={s.selectedStickerInstance}
+                onSelectSticker={s.selectSticker}
+                onUpdateSticker={s.updateSticker}
+                onRemoveSticker={s.removeSticker}
+                onDuplicateSticker={s.duplicateSticker}
+                drawMode={s.activeTab === 'draw'}
+                brushWidth={s.brushWidth}
+                brushColor={s.brushColor}
+                onAddStroke={(finger, points) => s.addStroke(finger, points, s.brushColor, s.brushWidth)}
+              />
+            )}
           </div>
 
           <div className="flex items-center gap-1 rounded-full bg-white px-1.5 py-1 shadow-sm">
@@ -141,69 +158,86 @@ export default function Studio() {
             </button>
           </div>
 
-          <FingerSelector fingers={s.fingers} selected={s.selectedFinger} onSelect={s.selectFinger} presetsById={presetsById} />
-          <p className="text-center text-xs text-vibe-ink-soft">
-            Đang chỉnh: <span className="font-semibold text-vibe-ink">{FINGER_LABEL_VI[s.selectedFinger]}</span> — chạm charm để kéo, xoay, phóng to/thu nhỏ.
-          </p>
-
-          <LightingPanel />
+          {!locked && (
+            <>
+              <FingerSelector fingers={s.fingers} selected={s.selectedFinger} onSelect={s.selectFinger} presetsById={presetsById} />
+              <p className="text-center text-xs text-vibe-ink-soft">
+                Đang chỉnh: <span className="font-semibold text-vibe-ink">{FINGER_LABEL_VI[s.selectedFinger]}</span> — chạm charm để kéo, xoay, phóng to/thu nhỏ.
+              </p>
+              <LightingPanel />
+            </>
+          )}
         </div>
 
         <div className="flex flex-col border-t border-vibe-ink/10 bg-white/80 backdrop-blur lg:min-h-0 lg:w-[420px] lg:border-l lg:border-t-0">
-          <div className="flex border-b border-vibe-ink/10">
-            {TABS.map((t) => (
-              <button
-                key={t.id}
-                onClick={() => s.setActiveTab(t.id)}
-                className={`relative flex flex-1 flex-col items-center gap-1 py-3 text-[11px] font-semibold transition-colors sm:text-xs ${
-                  s.activeTab === t.id ? 'text-vibe-pink-dark' : 'text-vibe-ink-soft'
-                }`}
-              >
-                <t.icon size={18} />
-                {t.label}
-                {s.activeTab === t.id && <motion.span layoutId="tab-underline" className="absolute inset-x-4 bottom-0 h-0.5 rounded-full bg-vibe-pink-dark" />}
-              </button>
-            ))}
-          </div>
+          {locked ? (
+            <div className="flex flex-1 flex-col items-center justify-center gap-3 p-8 text-center">
+              <span className="grid h-12 w-12 place-items-center rounded-full bg-vibe-pink/15 text-vibe-pink-dark">
+                <Lock size={22} />
+              </span>
+              <p className="font-display text-base font-semibold text-vibe-ink">Đây là thiết kế mẫu có sẵn</p>
+              <p className="max-w-xs text-sm text-vibe-ink-soft">
+                Ảnh này do AI tạo nên Studio không thể chỉnh sửa để giữ đúng y hệt như trong thư viện. Bạn vẫn có thể xuất công thức &amp; mã QR để mang ra tiệm, hoặc bấm "Reset" ở trên để tự do sáng tạo từ đầu.
+              </p>
+            </div>
+          ) : (
+            <>
+              <div className="flex border-b border-vibe-ink/10">
+                {TABS.map((t) => (
+                  <button
+                    key={t.id}
+                    onClick={() => s.setActiveTab(t.id)}
+                    className={`relative flex flex-1 flex-col items-center gap-1 py-3 text-[11px] font-semibold transition-colors sm:text-xs ${
+                      s.activeTab === t.id ? 'text-vibe-pink-dark' : 'text-vibe-ink-soft'
+                    }`}
+                  >
+                    <t.icon size={18} />
+                    {t.label}
+                    {s.activeTab === t.id && <motion.span layoutId="tab-underline" className="absolute inset-x-4 bottom-0 h-0.5 rounded-full bg-vibe-pink-dark" />}
+                  </button>
+                ))}
+              </div>
 
-          <div className="p-5 vibe-scrollbar lg:flex-1 lg:overflow-y-auto">
-            <AnimatePresence mode="wait">
-              <motion.div key={s.activeTab} initial={{ opacity: 0, x: 8 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -8 }} transition={{ duration: 0.2 }}>
-                {s.activeTab === 'shape' && (
-                  <ShapeLengthTab
-                    design={activeDesign}
-                    onShape={(shape) => s.setShape(s.selectedFinger, shape)}
-                    onLength={(length) => s.setLength(s.selectedFinger, length)}
-                  />
-                )}
-                {s.activeTab === 'paint' && (
-                  <PaintTab
-                    design={activeDesign}
-                    onPreset={(id, all) => s.setPreset(s.selectedFinger, id, all)}
-                    onEffect={(effect) => s.setEffect(s.selectedFinger, effect)}
-                    onCustomColor={(hex) => s.setCustomColor(s.selectedFinger, hex)}
-                    onCustomGradient={(g) => s.setCustomGradient(s.selectedFinger, g)}
-                  />
-                )}
-                {s.activeTab === 'charms' && (
-                  <div className="space-y-5">
-                    {activeDesign.stickers.length > 0 && <LayersPanel finger={s.selectedFinger} />}
-                    <DecalLibrary onAdd={(decalId) => s.addSticker(s.selectedFinger, decalId)} />
-                  </div>
-                )}
-                {s.activeTab === 'draw' && (
-                  <DrawTab
-                    brushWidth={s.brushWidth}
-                    brushColor={s.brushColor}
-                    hasStrokes={activeDesign.drawStrokes.length > 0}
-                    onBrushWidth={s.setBrushWidth}
-                    onBrushColor={s.setBrushColor}
-                    onClear={() => s.clearStrokes(s.selectedFinger)}
-                  />
-                )}
-              </motion.div>
-            </AnimatePresence>
-          </div>
+              <div className="p-5 vibe-scrollbar lg:flex-1 lg:overflow-y-auto">
+                <AnimatePresence mode="wait">
+                  <motion.div key={s.activeTab} initial={{ opacity: 0, x: 8 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -8 }} transition={{ duration: 0.2 }}>
+                    {s.activeTab === 'shape' && (
+                      <ShapeLengthTab
+                        design={activeDesign}
+                        onShape={(shape, all) => s.setShape(s.selectedFinger, shape, all)}
+                        onLength={(length, all) => s.setLength(s.selectedFinger, length, all)}
+                      />
+                    )}
+                    {s.activeTab === 'paint' && (
+                      <PaintTab
+                        design={activeDesign}
+                        onPreset={(id, all) => s.setPreset(s.selectedFinger, id, all)}
+                        onEffect={(effect) => s.setEffect(s.selectedFinger, effect)}
+                        onCustomColor={(hex) => s.setCustomColor(s.selectedFinger, hex)}
+                        onCustomGradient={(g) => s.setCustomGradient(s.selectedFinger, g)}
+                      />
+                    )}
+                    {s.activeTab === 'charms' && (
+                      <div className="space-y-5">
+                        {activeDesign.stickers.length > 0 && <LayersPanel finger={s.selectedFinger} />}
+                        <DecalLibrary onAdd={(decalId) => s.addSticker(s.selectedFinger, decalId)} />
+                      </div>
+                    )}
+                    {s.activeTab === 'draw' && (
+                      <DrawTab
+                        brushWidth={s.brushWidth}
+                        brushColor={s.brushColor}
+                        hasStrokes={activeDesign.drawStrokes.length > 0}
+                        onBrushWidth={s.setBrushWidth}
+                        onBrushColor={s.setBrushColor}
+                        onClear={() => s.clearStrokes(s.selectedFinger)}
+                      />
+                    )}
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+            </>
+          )}
 
           <div className="border-t border-vibe-ink/10 p-4">
             <Button className="w-full" size="lg" onClick={s.goToResult}>

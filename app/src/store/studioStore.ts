@@ -56,8 +56,9 @@ interface StudioState extends DesignSnapshot {
   selectedStickerInstance: string | null
   view: StudioView
   activeTemplateName: string | null
-  /** Id of the loaded template, if any — used only to look up its curated reference photo
-   * (see StudioReferenceBadge). Cleared on reset; not set when loading a saved design. */
+  /** Id of the loaded template, if any — used to look up its curated cover photo and lock
+   * Studio into showing that exact photo (see lib/templateLock.ts). Cleared on reset; not
+   * set when loading a saved design (those stay fully editable). */
   activeTemplateId: string | null
   /** User-uploaded decal assets, registered at runtime so they can be placed like any library decal. */
   customDecals: DecalAsset[]
@@ -83,8 +84,8 @@ interface StudioState extends DesignSnapshot {
   setSkinTone: (tone: SkinToneId) => void
   selectFinger: (finger: FingerId) => void
   setActiveTab: (tab: StudioTab) => void
-  setShape: (finger: FingerId, shape: FingerDesign['shape']) => void
-  setLength: (finger: FingerId, length: FingerDesign['length']) => void
+  setShape: (finger: FingerId, shape: FingerDesign['shape'], applyToAll?: boolean) => void
+  setLength: (finger: FingerId, length: FingerDesign['length'], applyToAll?: boolean) => void
   setPreset: (finger: FingerId, presetId: string, applyToAll?: boolean) => void
   setCustomColor: (finger: FingerId, hex: string | null) => void
   setCustomGradient: (finger: FingerId, gradient: CustomGradient | null) => void
@@ -159,11 +160,25 @@ export const useStudioStore = create<StudioState>((set, get) => ({
   selectFinger: (finger) => set({ selectedFinger: finger, selectedStickerInstance: null }),
   setActiveTab: (tab) => set({ activeTab: tab }),
 
-  setShape: (finger, shape) =>
-    withHistory(set, (s) => ({ fingers: { ...s.fingers, [finger]: { ...s.fingers[finger], shape } } })),
+  setShape: (finger, shape, applyToAll) =>
+    withHistory(set, (s) => {
+      if (applyToAll) {
+        const next = { ...s.fingers }
+        for (const f of FINGER_ORDER) next[f] = { ...next[f], shape }
+        return { fingers: next }
+      }
+      return { fingers: { ...s.fingers, [finger]: { ...s.fingers[finger], shape } } }
+    }),
 
-  setLength: (finger, length) =>
-    withHistory(set, (s) => ({ fingers: { ...s.fingers, [finger]: { ...s.fingers[finger], length } } })),
+  setLength: (finger, length, applyToAll) =>
+    withHistory(set, (s) => {
+      if (applyToAll) {
+        const next = { ...s.fingers }
+        for (const f of FINGER_ORDER) next[f] = { ...next[f], length }
+        return { fingers: next }
+      }
+      return { fingers: { ...s.fingers, [finger]: { ...s.fingers[finger], length } } }
+    }),
 
   setPreset: (finger, presetId, applyToAll) =>
     withHistory(set, (s) => {

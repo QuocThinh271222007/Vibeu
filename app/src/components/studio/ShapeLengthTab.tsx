@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import type { FingerDesign, NailLength, NailShape } from '@/types/vibeu'
 import { SHAPE_LABEL_VI } from '@/types/vibeu'
@@ -11,18 +12,28 @@ export function ShapeLengthTab({
   onLength,
 }: {
   design: FingerDesign
-  onShape: (s: NailShape) => void
-  onLength: (l: NailLength) => void
+  onShape: (s: NailShape, applyToAll: boolean) => void
+  onLength: (l: NailLength, applyToAll: boolean) => void
 }) {
+  const [applyToAll, setApplyToAll] = useState(false)
+
   return (
     <div className="space-y-7">
+      <div className="flex items-center justify-between">
+        <p className="text-xs text-vibe-ink-soft">Chọn ngón đang chỉnh ở khung bên, hoặc áp dụng cho cả bộ:</p>
+        <label className="flex shrink-0 items-center gap-1.5 text-xs text-vibe-ink-soft">
+          <input type="checkbox" checked={applyToAll} onChange={(e) => setApplyToAll(e.target.checked)} className="accent-vibe-pink-dark" />
+          Áp dụng cả 5 ngón
+        </label>
+      </div>
+
       <div>
         <p className="mb-3 text-sm font-semibold text-vibe-ink">Form móng</p>
         <div className="grid grid-cols-4 gap-2.5">
           {SHAPES.map((s) => (
             <button
               key={s}
-              onClick={() => onShape(s)}
+              onClick={() => onShape(s, applyToAll)}
               className={`flex flex-col items-center gap-1.5 rounded-2xl border-2 py-3 transition-colors ${
                 design.shape === s ? 'border-vibe-pink-dark bg-vibe-pink/10' : 'border-vibe-ink/10 bg-white hover:border-vibe-pink/30'
               }`}
@@ -38,7 +49,7 @@ export function ShapeLengthTab({
         <p className="mb-3 text-sm font-semibold text-vibe-ink">Độ dài</p>
         <div className="relative flex rounded-full bg-vibe-cream p-1">
           {LENGTHS.map((l) => (
-            <button key={l} onClick={() => onLength(l)} className="relative z-10 flex-1 py-2.5 text-sm font-semibold">
+            <button key={l} onClick={() => onLength(l, applyToAll)} className="relative z-10 flex-1 py-2.5 text-sm font-semibold">
               {design.length === l && (
                 <motion.span
                   layoutId="length-pill"
@@ -51,6 +62,9 @@ export function ShapeLengthTab({
           ))}
         </div>
         <p className="mt-2 text-xs text-vibe-ink-soft">S = ngắn gọn · M = vừa vặn · L = dài nổi bật</p>
+        <p className="mt-1 text-xs text-vibe-ink-soft">
+          Khi cả 5 ngón cùng một form &amp; độ dài, Studio sẽ đổi sang ảnh tay thật khớp với lựa chọn đó (nếu đã có ảnh cho tổ hợp này).
+        </p>
       </div>
     </div>
   )

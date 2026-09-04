@@ -1,6 +1,6 @@
 import { getHandData, handBaseUrl, resolveDecalPath } from '@/data/loaders'
 import { getResolvedDecalAsset } from '@/lib/decalCache'
-import { LENGTH_SCALE, lengthScaleMatrixValues, localToImage, nailWidthPx, shapeTrimUv } from '@/lib/geometry'
+import { LENGTH_SCALE, lengthScaleMatrixValues, localToImage, nailWidthPx, shapeTrimUv, uniformShapeLength } from '@/lib/geometry'
 import { buildMaterialConfig, buildPaintConfig, composeCharmLayer, composeNail, DEFAULT_LIGHT, hexToRgb01, type DecalLayer, type LightState } from '@/lib/nailFill'
 import { maskGrowPxFor } from '@/lib/nailEdgeTuning'
 import { getPreparedHand } from '@/lib/nailLighting'
@@ -100,7 +100,12 @@ export async function exportDesignPng(
   stickersById: Record<string, DecalAsset>,
   light: LightState = DEFAULT_LIGHT,
 ): Promise<Blob> {
-  const [hand, preparedMap, baseImg] = await Promise.all([getHandData(skinTone), getPreparedHand(skinTone), loadImage(handBaseUrl(skinTone))])
+  const variant = uniformShapeLength(fingers)
+  const [hand, preparedMap, baseImg] = await Promise.all([
+    getHandData(skinTone, variant?.shape, variant?.length),
+    getPreparedHand(skinTone, variant?.shape, variant?.length),
+    loadImage(handBaseUrl(skinTone, variant?.shape, variant?.length)),
+  ])
 
   const canvas = document.createElement('canvas')
   canvas.width = hand.width

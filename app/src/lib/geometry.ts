@@ -1,4 +1,4 @@
-import type { NailCoord, NailShape } from '@/types/vibeu'
+import { FINGER_ORDER, type FingerDesign, type FingerId, type NailCoord, type NailLength, type NailShape } from '@/types/vibeu'
 
 /** A point in the nail's normalized local space: u = across width [0,1], v = cuticle(0) -> tip(1). */
 export type UV = [number, number]
@@ -74,6 +74,13 @@ export function lengthScaleMatrix(nail: NailCoord, scale: number): string {
  * or extended silhouette. The previous S/L transforms revealed parts of the
  * unpainted source nail and produced obvious grey wedges. Length is therefore
  * preserved in the recipe/state but the live photo remains registration-safe.
+ *
+ * This is deliberately NOT where shape/length become visually real — a 2D
+ * warp of one photo can't truthfully turn a photographed nail into a longer
+ * or differently-shaped one. The actual fix is `handVariants.ts`: a second,
+ * genuinely re-photographed base hand image per (shape, length) that
+ * `HandCanvas`/`exportImage` switch to via `uniformShapeLength` below, when
+ * all 5 fingers agree and that photo exists.
  */
 export const LENGTH_SCALE: Record<'S' | 'M' | 'L', number> = {
   S: 1,
@@ -86,11 +93,25 @@ export const LENGTH_SCALE: Record<'S' | 'M' | 'L', number> = {
  * photographed nail into square/coffin/almond. Trimming the paint layer only
  * exposes the original nail underneath and reads as a broken mask. Keep the
  * full real nail silhouette for every shape; the selected shape still remains
- * part of the design recipe and can be rendered later by a geometry-aware
- * extension/segmentation stage.
+ * part of the design recipe. See the `handVariants.ts` note on `LENGTH_SCALE`
+ * above — real shape differences come from switching the base photo, not
+ * from trimming this one.
  */
 export function shapeTrimUv(_shape: NailShape): UV[] | null {
   return null
+}
+
+/**
+ * The base hand photo is one whole-hand image, so it can only visually
+ * represent ONE shape+length at a time — not five independently-shaped
+ * fingers. Returns the shared (shape, length) only when every finger agrees;
+ * otherwise null, meaning "no single photo can represent this mix, stay on
+ * the default photo" (today's behavior, unchanged).
+ */
+export function uniformShapeLength(fingers: Record<FingerId, FingerDesign>): { shape: NailShape; length: NailLength } | null {
+  const first = fingers[FINGER_ORDER[0]]
+  const uniform = FINGER_ORDER.every((f) => fingers[f].shape === first.shape && fingers[f].length === first.length)
+  return uniform ? { shape: first.shape, length: first.length } : null
 }
 
 export function trimPolygonToImagePoints(nail: NailCoord, uvPoly: UV[]): string {

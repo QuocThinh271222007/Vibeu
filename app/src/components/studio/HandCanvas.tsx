@@ -10,6 +10,7 @@ import {
   rotatePointDeg,
   shapeTrimUv,
   trimPolygonToImagePoints,
+  uniformShapeLength,
 } from '@/lib/geometry'
 import { maskGrowPxFor } from '@/lib/nailEdgeTuning'
 import {
@@ -28,7 +29,7 @@ import { getPreparedHand, type PreparedNail } from '@/lib/nailLighting'
 import { getResolvedDecalAsset, type ResolvedDecalAsset } from '@/lib/decalCache'
 import { clientToSvgPoint } from '@/lib/svgPoint'
 import { useStudioStore } from '@/store/studioStore'
-import type { DecalAsset, FingerDesign, FingerId, NailCoord, SkinToneId, StickerInstance } from '@/types/vibeu'
+import type { DecalAsset, FingerDesign, FingerId, NailCoord, NailLength, NailShape, SkinToneId, StickerInstance } from '@/types/vibeu'
 import { FINGER_ORDER } from '@/types/vibeu'
 
 /** Decodes+caches decal pixel data for a set of image URLs, keyed by the URL set itself. */
@@ -54,19 +55,19 @@ function useResolvedDecalAssets(urls: string[]): Map<string, ResolvedDecalAsset>
   return map
 }
 
-function usePreparedHand(tone: SkinToneId) {
+function usePreparedHand(tone: SkinToneId, shape?: NailShape, length?: NailLength) {
   const [prepared, setPrepared] = useState<Map<FingerId, PreparedNail> | null>(null)
 
   useEffect(() => {
     let alive = true
     setPrepared(null)
-    getPreparedHand(tone).then((map) => {
+    getPreparedHand(tone, shape, length).then((map) => {
       if (alive) setPrepared(map)
     })
     return () => {
       alive = false
     }
-  }, [tone])
+  }, [tone, shape, length])
 
   return prepared
 }
@@ -129,11 +130,14 @@ export function HandCanvas({
   onAddStroke,
   className = '',
 }: HandCanvasProps) {
-  const { hand, loading: handLoading } = useHandData(skinTone)
+  // Only a whole-hand shape+length (all 5 fingers agreeing) can select a different real
+  // photo — see uniformShapeLength's doc comment in geometry.ts for why a mixed set can't.
+  const variant = useMemo(() => uniformShapeLength(fingers), [fingers])
+  const { hand, loading: handLoading } = useHandData(skinTone, variant?.shape, variant?.length)
   const { presets, loading: presetsLoading } = useColorPresets()
   const customDecals = useStudioStore((s) => s.customDecals)
   const stickersById = useDecalsById(customDecals)
-  const prepared = usePreparedHand(skinTone)
+  const prepared = usePreparedHand(skinTone, variant?.shape, variant?.length)
   const debugMode = useStudioStore((s) => s.debugMode)
   // User lighting ("Ánh sáng" panel) only applies to the interactive Studio canvas —
   // Home/Library preview instances of HandCanvas stay on DEFAULT_LIGHT regardless of what
@@ -238,7 +242,7 @@ export function HandCanvas({
       onPointerLeave={() => setDebugPointer(null)}
     >
       <img
-        src={handBaseUrl(skinTone)}
+        src={handBaseUrl(skinTone, variant?.shape, variant?.length)}
         alt="Bàn tay mô phỏng"
         draggable={false}
         className="pointer-events-none absolute inset-0 h-full w-full rounded-[2rem] object-cover"

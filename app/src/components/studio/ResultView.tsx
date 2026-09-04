@@ -13,6 +13,7 @@ import { collectUsedCustomDecals, encodeSharedDesign, type SharedDesignPayload }
 import { saveSharedDesign } from '@/lib/shareApi'
 import { isSupabaseConfigured } from '@/lib/supabaseClient'
 import { useAuthStore } from '@/store/authStore'
+import { getLockedTemplateView } from '@/lib/templateLock'
 import type { FingerDesign, FingerId, SkinToneId } from '@/types/vibeu'
 import { useNavigate } from 'react-router-dom'
 
@@ -36,6 +37,8 @@ export function ResultView({
   const lightExposure = useStudioStore((s) => s.lightExposure)
   const lightStrength = useStudioStore((s) => s.lightStrength)
   const lightAngleDeg = useStudioStore((s) => s.lightAngleDeg)
+  const activeTemplateId = useStudioStore((s) => s.activeTemplateId)
+  const locked = getLockedTemplateView(activeTemplateId)
   const { profile } = useAuthStore()
   const navigate = useNavigate()
   const [toast, setToast] = useState<string | null>(null)
@@ -109,6 +112,13 @@ export function ResultView({
   async function exportPng() {
     setExporting(true)
     try {
+      // A locked template's cover is a real AI-generated photo the compositor can't
+      // reproduce pixel-for-pixel — export that exact file instead of the recipe render.
+      if (locked) {
+        const blob = await fetch(locked.image).then((r) => r.blob())
+        downloadBlob(blob, `vibeu-nail-design-${locked.templateId}.jpg`)
+        return
+      }
       // Matches Studio's user lighting exactly ("Ánh sáng" panel) so the exported PNG
       // reflects the same adjustments the user was looking at when they exported.
       const light = { ...DEFAULT_LIGHT, exposure: lightExposure, strength: lightStrength, angle: lightAngleDeg }
@@ -134,13 +144,25 @@ export function ResultView({
       </div>
 
       <div className="grid gap-8 lg:grid-cols-[1fr_1.1fr]">
-        <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5 }}>
-          <div className="overflow-hidden rounded-[2rem] border-4 border-white shadow-vibe-lg">
-            <HandCanvas skinTone={skinTone} fingers={fingers} className="rounded-none" />
-          </div>
+        <motion.div className="min-w-0" initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5 }}>
+          {locked ? (
+            <div className="relative aspect-[1024/1536] w-full overflow-hidden rounded-[2rem] border-4 border-white shadow-vibe-lg">
+              <img
+                src={locked.image}
+                alt={locked.alt}
+                style={{ objectPosition: locked.objectPosition }}
+                className="h-full w-full object-cover"
+                draggable={false}
+              />
+            </div>
+          ) : (
+            <div className="overflow-hidden rounded-[2rem] border-4 border-white shadow-vibe-lg">
+              <HandCanvas skinTone={skinTone} fingers={fingers} className="rounded-none" />
+            </div>
+          )}
         </motion.div>
 
-        <div className="space-y-6">
+        <div className="min-w-0 space-y-6">
           <div className="rounded-[1.75rem] bg-white p-5 shadow-[0_10px_30px_-18px_rgba(80,50,120,0.3)] sm:p-6">
             <p className="mb-4 font-display text-sm font-semibold text-vibe-ink">Bảng thông số kỹ thuật</p>
             <div className="space-y-3">
@@ -166,7 +188,7 @@ export function ResultView({
             <div className="grid h-40 w-40 place-items-center rounded-2xl bg-vibe-cream p-3">
               {qr ? <img src={qr} alt="QR công thức" className="h-full w-full" /> : <Sparkles className="animate-pulse text-vibe-ink-soft" />}
             </div>
-            <button onClick={copyLink} disabled={!shareUrl} className="flex items-center gap-1.5 text-xs font-semibold text-vibe-blue-dark hover:underline disabled:opacity-50">
+            <button onClick={copyLink} disabled={!shareUrl} className="flex items-center gap-1.5 break-all text-xs font-semibold text-vibe-blue-dark hover:underline disabled:opacity-50">
               <Copy size={13} /> {shareUrl ? shareUrl.replace(/^https?:\/\//, '') : 'Đang tạo liên kết...'}
             </button>
             {shareNotice ? (

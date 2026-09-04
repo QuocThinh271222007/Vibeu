@@ -1,7 +1,7 @@
 import { imageToLocal } from '@/lib/geometry'
 import { getHandData, handBaseUrl } from '@/data/loaders'
 import { maskGrowPxFor } from '@/lib/nailEdgeTuning'
-import type { FingerId, NailCoord, SkinToneId } from '@/types/vibeu'
+import type { FingerId, NailCoord, NailLength, NailShape, SkinToneId } from '@/types/vibeu'
 
 /**
  * Per-nail baked geometry — the single authoritative source every shading
@@ -261,7 +261,7 @@ export function prepareNail(nail: NailCoord, fullImage: ImageData, tone?: SkinTo
   return { id: nail.id, x, y, w, h, alpha, uv, normal, curve, edge, light, spec, source, photoAmbient, photoTint }
 }
 
-function loadImagePixels(tone: SkinToneId, width: number, height: number): Promise<ImageData> {
+function loadImagePixels(url: string, width: number, height: number): Promise<ImageData> {
   return new Promise((resolve, reject) => {
     const img = new Image()
     img.decoding = 'sync'
@@ -273,33 +273,36 @@ function loadImagePixels(tone: SkinToneId, width: number, height: number): Promi
       ctx.drawImage(img, 0, 0, width, height)
       resolve(ctx.getImageData(0, 0, width, height))
     }
-    img.onerror = () => reject(new Error(`Failed to load ${handBaseUrl(tone)}`))
-    img.src = handBaseUrl(tone)
+    img.onerror = () => reject(new Error(`Failed to load ${url}`))
+    img.src = url
   })
 }
 
-const preparedCache = new Map<SkinToneId, Promise<Map<FingerId, PreparedNail>>>()
+const preparedCache = new Map<string, Promise<Map<FingerId, PreparedNail>>>()
 
 /**
  * Resolves the hand's own coordinates.json internally (via the same cached
  * fetch `useHandData` uses) instead of trusting a `hand` object passed in from
  * a component render — the caller's `hand` prop can still reflect the
- * previous skin tone for a render or two after `tone` has already switched
- * (its fetch resolves asynchronously), and baking that stale geometry into
- * this cache under the new tone's key would corrupt every nail permanently
- * for that tone until reload.
+ * previous skin tone/shape/length for a render or two after they've already
+ * switched (the fetch resolves asynchronously), and baking that stale
+ * geometry into this cache under the new key would corrupt every nail
+ * permanently for that key until reload. Cache key is the resolved base
+ * photo URL itself, so it's automatically distinct per (tone, shape, length)
+ * variant without needing a separate key-building step.
  */
-export function getPreparedHand(tone: SkinToneId): Promise<Map<FingerId, PreparedNail>> {
-  let cached = preparedCache.get(tone)
+export function getPreparedHand(tone: SkinToneId, shape?: NailShape, length?: NailLength): Promise<Map<FingerId, PreparedNail>> {
+  const url = handBaseUrl(tone, shape, length)
+  let cached = preparedCache.get(url)
   if (!cached) {
-    cached = getHandData(tone).then((hand) =>
-      loadImagePixels(tone, hand.width, hand.height).then((pixels) => {
+    cached = getHandData(tone, shape, length).then((hand) =>
+      loadImagePixels(url, hand.width, hand.height).then((pixels) => {
         const map = new Map<FingerId, PreparedNail>()
         for (const nail of hand.nails) map.set(nail.id, prepareNail(nail, pixels, tone))
         return map
       }),
     )
-    preparedCache.set(tone, cached)
+    preparedCache.set(url, cached)
   }
   return cached
 }
