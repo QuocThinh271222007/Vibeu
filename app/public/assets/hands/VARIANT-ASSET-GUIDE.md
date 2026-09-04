@@ -77,11 +77,23 @@ Full matrix is 4 shapes × 3 lengths × 2 tones = 24 combinations, minus the 2 t
 already exist (`oval`+`M` for both tones) = **22 new photos**. That's a lot — you
 don't have to do all of them at once. Suggested order, most-used first:
 
-1. `square`-`M` and `almond`-`M` and `coffin`-`M` (both tones) — the 3 missing
-   shapes at the existing default length. **6 photos.**
-2. `oval`-`S` and `oval`-`L` (both tones) — length variety on the shape that
-   already works. **4 photos.**
-3. The remaining 12 combinations, as needed.
+1. ~~`square`-`M` and `almond`-`M` and `coffin`-`M` (both tones) — the 3 missing
+   shapes at the existing default length. **6 photos.**~~ **DONE** (received,
+   calibrated, enabled — see `CLAUDE-REVIEW-BATCH1.md` §7).
+2. ~~`oval`-`S` and `oval`-`L` (both tones) — length variety on the shape that
+   already works. **4 photos.**~~ **DONE** (see `CLAUDE-REVIEW-BATCH1.md` §2/§5).
+3. **Remaining — 12 photos, still needed.** Every shape below is already shot at
+   its default `M` length; these are the same shapes at `S` (short) and `L` (long):
+   - `square`-`S`, `square`-`L` — both tones (4 photos)
+   - `coffin`-`S`, `coffin`-`L` — both tones (4 photos)
+   - `almond`-`S`, `almond`-`L` — both tones (4 photos)
+
+   Same style brief as above applies unchanged — same pose/crop/lighting/background
+   per tone, only the nail length changes relative to the already-shot `M` version
+   of that same shape (shorter = polish stops closer to the fingertip; longer =
+   extends noticeably past it). Once these land, all 4 shapes × all 3 lengths × both
+   tones will have a real photo — no combination will need to fall back to the
+   default photo anymore.
 
 ## Prompt template (fill in the bracketed parts per photo)
 

@@ -34,3 +34,18 @@ export function hasHandVariant(tone: SkinToneId, shape?: NailShape, length?: Nai
 export function handVariantSegment(tone: SkinToneId, shape?: NailShape, length?: NailLength): string {
   return hasHandVariant(tone, shape, length) ? `variants/${shape}-${length}` : ''
 }
+
+/**
+ * Which lengths already have a real photo for `shape` on `tone` — drives the small
+ * availability hint in ShapeLengthTab so picking an unphotographed combo reads as
+ * "not shot yet" instead of a silent, confusing no-op on the canvas (the canvas
+ * itself must stay on the current real photo per the photographic compositor
+ * invariant — see LENGTH_SCALE/shapeTrimUv in geometry.ts).
+ */
+export function availableLengthsForShape(tone: SkinToneId, shape: NailShape): NailLength[] {
+  const entry = HAND_VARIANTS[tone]
+  if (!entry) return shape === 'oval' ? ['M'] : []
+  const lengths: NailLength[] = ['S', 'M', 'L']
+  const real = lengths.filter((l) => (shape === 'oval' && l === 'M') || entry[`${shape}-${l}`])
+  return real
+}

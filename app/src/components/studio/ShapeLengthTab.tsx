@@ -1,21 +1,26 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import type { FingerDesign, NailLength, NailShape } from '@/types/vibeu'
+import type { FingerDesign, NailLength, NailShape, SkinToneId } from '@/types/vibeu'
 import { SHAPE_LABEL_VI } from '@/types/vibeu'
+import { availableLengthsForShape } from '@/data/handVariants'
 
 const SHAPES: NailShape[] = ['oval', 'square', 'coffin', 'almond']
 const LENGTHS: NailLength[] = ['S', 'M', 'L']
 
 export function ShapeLengthTab({
   design,
+  skinTone,
   onShape,
   onLength,
 }: {
   design: FingerDesign
+  skinTone: SkinToneId
   onShape: (s: NailShape, applyToAll: boolean) => void
   onLength: (l: NailLength, applyToAll: boolean) => void
 }) {
   const [applyToAll, setApplyToAll] = useState(false)
+  const availableLengths = availableLengthsForShape(skinTone, design.shape)
+  const currentHasPhoto = availableLengths.includes(design.length)
 
   return (
     <div className="space-y-7">
@@ -58,13 +63,27 @@ export function ShapeLengthTab({
                 />
               )}
               <span className={design.length === l ? 'text-vibe-ink' : 'text-vibe-ink-soft'}>{l}</span>
+              <span
+                className={`absolute right-2 top-1.5 h-1.5 w-1.5 rounded-full ${
+                  availableLengths.includes(l) ? 'bg-emerald-400' : 'bg-vibe-ink/15'
+                }`}
+                title={availableLengths.includes(l) ? 'Đã có ảnh tay thật' : 'Chưa có ảnh tay thật cho độ dài này'}
+              />
             </button>
           ))}
         </div>
         <p className="mt-2 text-xs text-vibe-ink-soft">S = ngắn gọn · M = vừa vặn · L = dài nổi bật</p>
         <p className="mt-1 text-xs text-vibe-ink-soft">
-          Khi cả 5 ngón cùng một form &amp; độ dài, Studio sẽ đổi sang ảnh tay thật khớp với lựa chọn đó (nếu đã có ảnh cho tổ hợp này).
+          <span className="mr-1 inline-block h-1.5 w-1.5 rounded-full bg-emerald-400 align-middle" /> = đã có ảnh tay thật cho form + độ dài đó.
+          Khi cả 5 ngón cùng một form &amp; độ dài có chấm xanh, Studio sẽ đổi sang ảnh tay thật khớp với lựa chọn đó.
         </p>
+        {!currentHasPhoto && (
+          <p className="mt-2 rounded-xl bg-amber-50 p-2.5 text-xs text-amber-800">
+            Form <strong>{SHAPE_LABEL_VI[design.shape]}</strong>, độ dài <strong>{design.length}</strong> chưa có ảnh tay thật.
+            Studio vẫn lưu đúng lựa chọn này vào công thức, nhưng ảnh xem trước sẽ tạm hiển thị ảnh tay mặc định (Oval, M) để
+            tránh làm méo/lệch hình móng thật.
+          </p>
+        )}
       </div>
     </div>
   )
