@@ -21,8 +21,8 @@ export type HandVariantKey = `${NailShape}-${NailLength}`
  * plus the calibration workflow for turning a new photo into a coordinates.json.
  */
 export const HAND_VARIANTS: Partial<Record<SkinToneId, Partial<Record<HandVariantKey, true>>>> = {
-  cozy: {},
-  matcha: {},
+  cozy: { 'oval-S': true, 'oval-L': true },
+  matcha: { 'oval-S': true, 'oval-L': true },
 }
 
 export function hasHandVariant(tone: SkinToneId, shape?: NailShape, length?: NailLength): boolean {
