@@ -22,11 +22,34 @@ npm run build    # build production vào dist/
    để mở khoá `/admin`.
 5. `npm run dev` lại — Header sẽ hiện avatar thật, Cộng đồng cho đăng bài, `/admin` dùng được.
 
-**Những gì đã nối Supabase:** đăng ký/đăng nhập (email+mật khẩu), đăng bài + thích bài trên Cộng đồng (kèm upload ảnh thật), trang `/admin` (Blog CRUD, kiểm duyệt bài Cộng đồng, cấp quyền admin cho user, xem công thức đã xuất qua QR). **Chưa đụng tới** (theo yêu cầu): form móng và độ dài móng trong Studio vẫn dùng dữ liệu tĩnh như cũ.
+**Những gì đã nối Supabase:** đăng ký/đăng nhập (email+mật khẩu) kèm quên mật khẩu/đặt lại mật khẩu và gửi lại email xác nhận, trang `/settings` (đổi tên hiển thị/handle/ảnh đại diện/mật khẩu), đăng bài + thích bài trên Cộng đồng (kèm upload ảnh thật, có rate limit chống spam), trang `/admin` (Blog CRUD, kiểm duyệt bài Cộng đồng, cấp quyền admin cho user, xem công thức đã xuất qua QR, công tắc cấu hình toàn site). **Chưa đụng tới** (theo yêu cầu): form móng và độ dài móng trong Studio vẫn dùng dữ liệu tĩnh như cũ.
+
+Sau khi cập nhật `supabase/schema.sql` (thêm bảng/cột mới), **chạy lại toàn bộ file trong SQL Editor** — mọi câu lệnh đều idempotent (an toàn chạy lại nhiều lần), không cần tách riêng phần mới.
 
 ## Hệ thống Mã QR / Công thức
 
 Bấm "Xuất công thức & Mã QR" trong Studio tạo ra một link `/r/<id>` **tự chứa toàn bộ thiết kế** (form, màu, hiệu ứng, charm, nét vẽ tay, tông da) — nén gzip + mã hoá base64url ngay trong phần `#d=...` của URL (xem `src/lib/designCodec.ts`). Vì dữ liệu nằm ngay trong mã QR, việc quét luôn mở lại **đúng y hệt** bản thiết kế đó, kể cả khi không kết nối Supabase. Khi có kết nối Supabase, mỗi lần xuất còn được lưu thêm vào bảng `shared_designs` — dùng làm phương án dự phòng cho thiết kế quá chi tiết (nhiều charm/nét vẽ khiến URL vượt ngưỡng quét được) và để `/admin/recipes` liệt kê/kiểm duyệt. Trang `/r/:id` có nút "Mở trong Studio để chỉnh sửa" để tiếp tục chỉnh từ đúng bản đã quét.
+
+## Bảo mật & chống spam
+
+**Rate limit (chặn spam đăng bài/thích/lưu công thức)** — chạy hoàn toàn ở tầng Postgres (bảng `rate_limit_hits` + trigger `enforce_rate_limit`, xem `supabase/schema.sql`), không cần bật gì thêm: tối đa 5 bài đăng Cộng đồng/10 phút, 40 lượt thích/phút, 20 lần lưu công thức QR/giờ cho mỗi tài khoản. Vượt hạn mức sẽ trả lỗi tiếng Việt dễ hiểu ngay trên form thay vì lỗi kỹ thuật.
+
+**Captcha (Cloudflare Turnstile)** — miễn phí, không cần thẻ tín dụng:
+1. Tạo site tại [dash.cloudflare.com](https://dash.cloudflare.com) → **Turnstile** → **Add site** (chọn loại "Managed").
+2. Copy **Site Key** vào `.env.local`: `VITE_TURNSTILE_SITE_KEY=...`. Widget sẽ tự hiện trên form Đăng nhập/Đăng ký/Quên mật khẩu — không có key thì các form vẫn hoạt động bình thường, chỉ là không có captcha.
+3. Copy **Secret Key** vào Supabase Dashboard → **Authentication** → **Attack Protection** → bật **Enable CAPTCHA protection**, chọn Turnstile, dán secret key. Đây là bước bắt buộc để captcha thật sự có tác dụng chặn bot — token phía client chỉ là bước 1, Supabase Auth mới là nơi xác minh token đó ở server.
+4. (Tuỳ chọn) Bật công tắc "Bắt buộc captcha khi đăng nhập/đăng ký" trong `/admin/settings` để form từ chối submit nếu chưa xác minh captcha.
+
+Lưu ý: đăng bài Cộng đồng hiện chỉ được bảo vệ bằng rate limit ở trên, chưa có captcha riêng — vì xác minh captcha thật sự (không phải chỉ hiện widget cho có) cần một hàm phía server để gọi Cloudflare siteverify API, việc này cần triển khai Supabase Edge Function (Supabase CLI + `supabase functions deploy`) mà project hiện chưa có sẵn access token để tự làm thay bạn. Đây là hạn chế đã biết, không phải bug.
+
+**Email xác thực & đặt lại mật khẩu ("noreply")** — mặc định Supabase tự gửi 2 email này (xác nhận đăng ký, đặt lại mật khẩu) từ địa chỉ dùng chung `noreply@mail.app.supabase.io`, đã hoạt động ngay không cần cấu hình gì (có giới hạn số email/giờ theo gói free). Để gửi từ **email riêng của bạn** (VD `noreply@vibeu.vn`) và branding đẹp hơn:
+1. Tạo tài khoản ở một nhà cung cấp SMTP (khuyến nghị [Resend](https://resend.com) — free tier, dễ cấu hình), xác thực domain của bạn.
+2. Supabase Dashboard → **Project Settings** → **Authentication** → **SMTP Settings** → điền host/port/user/pass + "Sender email" là `noreply@<domain của bạn>`.
+3. Dán nội dung `supabase/email-templates/confirm-signup.html` và `reset-password.html` vào **Authentication** → **Email Templates** (tương ứng "Confirm signup" và "Reset Password") để email có giao diện đúng thương hiệu VIBEU thay vì mẫu mặc định của Supabase.
+
+**Site settings** — `/admin/settings` có 3 công tắc áp dụng ngay cho toàn site: đóng/mở đăng ký tài khoản mới, chế độ bảo trì (khách thấy trang bảo trì, admin vẫn dùng được bình thường), và bắt buộc captcha. Lưu trong bảng `site_settings` (đọc được bởi ai cũng được, chỉ admin sửa được).
+
+**An toàn khác đã có sẵn:** không thể tự phong admin cho chính mình qua API (trigger `protect_profile_role`), không thể bỏ quyền admin của admin cuối cùng (tự khoá cả site), không thể tự sửa `likes_count`/`comments_count` để làm giả độ nổi tiếng, giới hạn loại file + dung lượng khi upload ảnh Cộng đồng (8MB) và ảnh đại diện (2MB).
 
 ## Cấu trúc
 
@@ -37,15 +60,16 @@ src/
     layout/     Header (nav + trạng thái đăng nhập thật), Footer
     community/  NewPostComposer (đăng bài Cộng đồng, chỉ hiện khi đã đăng nhập)
     studio/     HandCanvas (engine vẽ nail + kéo/xoay/scale charm), các tab công cụ, Result/QR
-    ui/         Button, Chip, Logo dùng chung
+    ui/         Button, Chip, Logo, Avatar, Toast, Captcha (Turnstile) dùng chung
   data/         color/sticker manifest loader, 20 mẫu thiết kế, bài cộng đồng/blog "biên tập sẵn"
-  hooks/        useBlogPosts (gộp bài blog tĩnh + bài đăng từ /admin)
-  lib/          toán học UV/hình học móng, gradient theo hiệu ứng sơn, QR, recipe,
-                supabaseClient/communityApi/blogApi/adminApi (lớp gọi Supabase)
+  hooks/        useBlogPosts (gộp bài blog tĩnh + bài đăng từ /admin), useSiteSettings
+  lib/          toán học UV/hình học móng, gradient theo hiệu ứng sơn, QR, recipe, captcha,
+                supabaseClient/communityApi/blogApi/adminApi/profileApi/siteSettingsApi/shareApi
+                (lớp gọi Supabase)
   store/        zustand: studioStore (thiết kế trong Studio), authStore (phiên đăng nhập)
-  pages/        Home, Studio, Library, Community, Blog, BlogPost, About, Auth
-  pages/admin/  AdminLayout (bảo vệ route theo role) + Home/BlogList/BlogEditor/Community/Users
-supabase/       schema.sql — chạy 1 lần trong SQL Editor của project Supabase
+  pages/        Home, Studio, Library, Community, Blog, BlogPost, About, Auth, ResetPassword, Settings
+  pages/admin/  AdminLayout (bảo vệ route theo role) + Home/BlogList/BlogEditor/Community/Users/Recipes/Settings
+supabase/       schema.sql (chạy trong SQL Editor) + email-templates/ (dán vào Auth email templates)
 public/assets/  bản sao tài nguyên đã dùng từ 3 gói gốc (colors/stickers/hands)
 ```
 

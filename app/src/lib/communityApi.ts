@@ -1,5 +1,17 @@
 import { COMMUNITY_MEDIA_BUCKET, supabase } from '@/lib/supabaseClient'
 
+const ALLOWED_MEDIA_TYPES = ['image/png', 'image/jpeg', 'image/webp', 'image/gif']
+const MAX_MEDIA_BYTES = 8 * 1024 * 1024
+
+/** Postgres rate-limit triggers raise `RATE_LIMITED: <vietnamese message>` — strip the technical
+ * prefix so the UI shows only the human-readable half; other errors pass through unchanged. */
+export function friendlyDbError(message: string): string {
+  const marker = 'RATE_LIMITED:'
+  const idx = message.indexOf(marker)
+  if (idx === -1) return message
+  return message.slice(idx + marker.length).trim()
+}
+
 /** A community post backed by Supabase, shaped for direct rendering by Community.tsx's PostCard. */
 export interface RemoteCommunityPost {
   id: string
@@ -8,6 +20,7 @@ export interface RemoteCommunityPost {
   handle: string
   avatarInitial: string
   avatarColor: string
+  avatarUrl: string | null
   timeAgo: string
   caption: string
   hashtags: string[]
@@ -30,7 +43,7 @@ interface CommunityPostRow {
   likes_count: number
   comments_count: number
   created_at: string
-  profiles: { display_name: string; handle: string | null; avatar_color: string } | null
+  profiles: { display_name: string; handle: string | null; avatar_color: string; avatar_url: string | null } | null
 }
 
 function timeAgoVi(iso: string): string {
@@ -53,6 +66,7 @@ function mapRow(row: CommunityPostRow, likedPostIds: Set<string>): RemoteCommuni
     handle: row.profiles?.handle ?? '@vibeu',
     avatarInitial: name.trim().charAt(0).toUpperCase() || 'V',
     avatarColor: row.profiles?.avatar_color ?? '#90B8EB',
+    avatarUrl: row.profiles?.avatar_url ?? null,
     timeAgo: timeAgoVi(row.created_at),
     caption: row.caption,
     hashtags: row.hashtags ?? [],
@@ -69,7 +83,7 @@ export async function fetchCommunityPosts(currentUserId: string | null): Promise
   if (!supabase) return []
   const { data, error } = await supabase
     .from('community_posts')
-    .select('*, profiles(display_name, handle, avatar_color)')
+    .select('*, profiles(display_name, handle, avatar_color, avatar_url)')
     .order('created_at', { ascending: false })
   if (error || !data) return []
 
@@ -101,11 +115,17 @@ export async function createCommunityPost(input: NewCommunityPostInput): Promise
     media_url: input.mediaUrl,
     media_alt: input.mediaAlt,
   })
-  return { error: error?.message ?? null }
+  return { error: error ? friendlyDbError(error.message) : null }
 }
 
 export async function uploadCommunityMedia(file: File, userId: string): Promise<{ url: string | null; error: string | null }> {
   if (!supabase) return { url: null, error: 'Chưa kết nối Supabase.' }
+  if (!ALLOWED_MEDIA_TYPES.includes(file.type)) {
+    return { url: null, error: 'Chỉ nhận ảnh PNG, JPEG, WebP hoặc GIF.' }
+  }
+  if (file.size > MAX_MEDIA_BYTES) {
+    return { url: null, error: 'Ảnh vượt quá 8MB, hãy chọn ảnh nhẹ hơn.' }
+  }
   const ext = file.name.split('.').pop() || 'jpg'
   const path = `${userId}/${Date.now()}.${ext}`
   const { error } = await supabase.storage.from(COMMUNITY_MEDIA_BUCKET).upload(path, file, { upsert: false })
@@ -114,13 +134,14 @@ export async function uploadCommunityMedia(file: File, userId: string): Promise<
   return { url: data.publicUrl, error: null }
 }
 
-export async function setCommunityLike(postId: string, userId: string, liked: boolean): Promise<void> {
-  if (!supabase) return
+export async function setCommunityLike(postId: string, userId: string, liked: boolean): Promise<{ error: string | null }> {
+  if (!supabase) return { error: 'Chưa kết nối Supabase.' }
   if (liked) {
-    await supabase.from('community_likes').insert({ post_id: postId, user_id: userId })
-  } else {
-    await supabase.from('community_likes').delete().eq('post_id', postId).eq('user_id', userId)
+    const { error } = await supabase.from('community_likes').insert({ post_id: postId, user_id: userId })
+    return { error: error ? friendlyDbError(error.message) : null }
   }
+  const { error } = await supabase.from('community_likes').delete().eq('post_id', postId).eq('user_id', userId)
+  return { error: error?.message ?? null }
 }
 
 export async function deleteCommunityPost(id: string): Promise<{ error: string | null }> {

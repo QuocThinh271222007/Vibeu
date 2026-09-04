@@ -12,9 +12,13 @@ create table if not exists public.profiles (
   display_name text not null default 'Người dùng VIBEU',
   handle text,
   avatar_color text not null default '#90B8EB',
+  avatar_url text,
   role text not null default 'user' check (role in ('user', 'admin')),
   created_at timestamptz not null default now()
 );
+
+-- Added after the initial release — safe no-op if the column already exists.
+alter table public.profiles add column if not exists avatar_url text;
 
 alter table public.profiles enable row level security;
 
@@ -59,13 +63,26 @@ create trigger on_auth_user_created
 -- profiles.update({ role: 'admin' }) on their own row. Only an existing admin (checked here,
 -- not via the trigger's own privileges) may change role; anyone else's attempted change is
 -- silently reverted rather than erroring the whole request.
+-- v2: also refuses to demote the last remaining admin (even another admin can't strand the
+-- site with zero admins — they'd have to promote someone else first).
 create or replace function public.protect_profile_role()
 returns trigger as $$
+declare
+  actor_is_admin boolean;
+  remaining_admins int;
 begin
-  if new.role is distinct from old.role and not exists (
-    select 1 from public.profiles where id = auth.uid() and role = 'admin'
-  ) then
-    new.role := old.role;
+  if new.role is distinct from old.role then
+    select exists (select 1 from public.profiles where id = auth.uid() and role = 'admin') into actor_is_admin;
+    if not actor_is_admin then
+      new.role := old.role;
+      return new;
+    end if;
+    if old.role = 'admin' and new.role <> 'admin' then
+      select count(*) into remaining_admins from public.profiles where role = 'admin';
+      if remaining_admins <= 1 then
+        new.role := old.role;
+      end if;
+    end if;
   end if;
   return new;
 end;
@@ -262,11 +279,114 @@ end;
 $$ language plpgsql security definer set search_path = public;
 
 -- =========================================================================
+-- rate_limit_hits — generic per-user/per-action counter used by the triggers below to throttle
+-- spammy writes (post/like/QR-save flooding). Never touched directly from the client: only the
+-- security-definer trigger functions read/write it, and RLS below denies all direct access.
+-- =========================================================================
+create table if not exists public.rate_limit_hits (
+  id bigint generated always as identity primary key,
+  user_id uuid not null,
+  action text not null,
+  created_at timestamptz not null default now()
+);
+
+create index if not exists rate_limit_hits_lookup on public.rate_limit_hits (user_id, action, created_at);
+
+alter table public.rate_limit_hits enable row level security;
+-- No policies at all -> every direct client request is denied; only security-definer functions
+-- (which bypass RLS) may read/write this table.
+
+create or replace function public.enforce_rate_limit(p_action text, p_max_count int, p_window interval)
+returns void as $$
+declare
+  hit_count int;
+begin
+  if auth.uid() is null then
+    return; -- nothing to key a per-user limit on; anonymous writes are already restricted by RLS elsewhere
+  end if;
+  delete from public.rate_limit_hits where created_at < now() - p_window;
+  select count(*) into hit_count
+  from public.rate_limit_hits
+  where user_id = auth.uid() and action = p_action and created_at > now() - p_window;
+  if hit_count >= p_max_count then
+    raise exception 'RATE_LIMITED: Bạn đang thao tác quá nhanh, vui lòng thử lại sau ít phút.';
+  end if;
+  insert into public.rate_limit_hits (user_id, action) values (auth.uid(), p_action);
+end;
+$$ language plpgsql security definer set search_path = public;
+
+create or replace function public.rate_limit_community_posts()
+returns trigger as $$
+begin
+  perform public.enforce_rate_limit('community_post', 5, interval '10 minutes');
+  return new;
+end;
+$$ language plpgsql security definer set search_path = public;
+
+drop trigger if exists rate_limit_community_posts_trigger on public.community_posts;
+create trigger rate_limit_community_posts_trigger
+  before insert on public.community_posts
+  for each row execute procedure public.rate_limit_community_posts();
+
+create or replace function public.rate_limit_community_likes()
+returns trigger as $$
+begin
+  perform public.enforce_rate_limit('community_like', 40, interval '1 minute');
+  return new;
+end;
+$$ language plpgsql security definer set search_path = public;
+
+drop trigger if exists rate_limit_community_likes_trigger on public.community_likes;
+create trigger rate_limit_community_likes_trigger
+  before insert on public.community_likes
+  for each row execute procedure public.rate_limit_community_likes();
+
+create or replace function public.rate_limit_shared_designs()
+returns trigger as $$
+begin
+  perform public.enforce_rate_limit('shared_design', 20, interval '1 hour');
+  return new;
+end;
+$$ language plpgsql security definer set search_path = public;
+
+drop trigger if exists rate_limit_shared_designs_trigger on public.shared_designs;
+create trigger rate_limit_shared_designs_trigger
+  before insert on public.shared_designs
+  for each row execute procedure public.rate_limit_shared_designs();
+
+-- =========================================================================
+-- site_settings — single-row table of admin-controlled site-wide toggles, read by every visitor
+-- (to show a maintenance banner or close registration) and writable only by admins.
+-- =========================================================================
+create table if not exists public.site_settings (
+  id boolean primary key default true check (id),
+  registration_open boolean not null default true,
+  maintenance_mode boolean not null default false,
+  maintenance_message text not null default 'VIBEU đang bảo trì, quay lại sau ít phút nhé!',
+  require_captcha boolean not null default false,
+  updated_at timestamptz not null default now()
+);
+
+insert into public.site_settings (id) values (true) on conflict (id) do nothing;
+
+alter table public.site_settings enable row level security;
+
+drop policy if exists "Site settings are viewable by everyone" on public.site_settings;
+create policy "Site settings are viewable by everyone"
+  on public.site_settings for select using (true);
+
+drop policy if exists "Admins can update site settings" on public.site_settings;
+create policy "Admins can update site settings"
+  on public.site_settings for update using (
+    exists (select 1 from public.profiles where id = auth.uid() and role = 'admin')
+  );
+
+-- =========================================================================
 -- Storage bucket for user-uploaded community photos.
 -- =========================================================================
-insert into storage.buckets (id, name, public)
-values ('community-media', 'community-media', true)
-on conflict (id) do nothing;
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values ('community-media', 'community-media', true, 8388608, array['image/png', 'image/jpeg', 'image/webp', 'image/gif'])
+on conflict (id) do update set file_size_limit = excluded.file_size_limit, allowed_mime_types = excluded.allowed_mime_types;
 
 drop policy if exists "Public read community media" on storage.objects;
 create policy "Public read community media"
@@ -279,6 +399,29 @@ create policy "Authenticated users can upload community media"
 drop policy if exists "Owners can delete their community media" on storage.objects;
 create policy "Owners can delete their community media"
   on storage.objects for delete using (bucket_id = 'community-media' and owner = auth.uid());
+
+-- =========================================================================
+-- Storage bucket for profile avatars.
+-- =========================================================================
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values ('avatars', 'avatars', true, 2097152, array['image/png', 'image/jpeg', 'image/webp'])
+on conflict (id) do update set file_size_limit = excluded.file_size_limit, allowed_mime_types = excluded.allowed_mime_types;
+
+drop policy if exists "Public read avatars" on storage.objects;
+create policy "Public read avatars"
+  on storage.objects for select using (bucket_id = 'avatars');
+
+drop policy if exists "Users can upload their own avatar" on storage.objects;
+create policy "Users can upload their own avatar"
+  on storage.objects for insert with check (bucket_id = 'avatars' and owner = auth.uid());
+
+drop policy if exists "Users can replace their own avatar" on storage.objects;
+create policy "Users can replace their own avatar"
+  on storage.objects for update using (bucket_id = 'avatars' and owner = auth.uid());
+
+drop policy if exists "Users can delete their own avatar" on storage.objects;
+create policy "Users can delete their own avatar"
+  on storage.objects for delete using (bucket_id = 'avatars' and owner = auth.uid());
 
 -- =========================================================================
 -- After running this file: promote your own account to admin so /admin

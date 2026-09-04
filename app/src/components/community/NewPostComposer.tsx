@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react'
 import { ImagePlus, Loader2, Sparkles } from 'lucide-react'
+import { Avatar } from '@/components/ui/Avatar'
 import { Button } from '@/components/ui/Button'
 import { TEMPLATES } from '@/data/templates'
 import { createCommunityPost, uploadCommunityMedia } from '@/lib/communityApi'
@@ -76,12 +77,7 @@ export function NewPostComposer({ profile, onCreated }: { profile: Profile; onCr
       className="mb-6 rounded-[1.75rem] bg-white p-5 shadow-[0_10px_30px_-18px_rgba(80,50,120,0.3)]"
     >
       <div className="flex items-center gap-3">
-        <span
-          className="grid h-10 w-10 shrink-0 place-items-center rounded-full font-display text-sm font-bold text-white"
-          style={{ background: profile.avatarColor }}
-        >
-          {profile.displayName.charAt(0).toUpperCase()}
-        </span>
+        <Avatar name={profile.displayName} color={profile.avatarColor} url={profile.avatarUrl} size={40} />
         <p className="text-sm font-semibold text-vibe-ink">Chia sẻ bộ nail của bạn</p>
       </div>
 

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Heart, MessageCircle, Share2, Sparkles, Trash2 } from 'lucide-react'
 import { HandCanvas } from '@/components/studio/HandCanvas'
+import { Avatar } from '@/components/ui/Avatar'
 import { NewPostComposer } from '@/components/community/NewPostComposer'
 import { COMMUNITY_POSTS } from '@/data/community'
 import { findTemplate } from '@/data/templates'
@@ -19,6 +20,7 @@ interface FeedItem {
   handle: string
   avatarInitial: string
   avatarColor: string
+  avatarUrl: string | null
   timeAgo: string
   caption: string
   hashtags: string[]
@@ -38,6 +40,7 @@ function remoteToFeedItem(p: RemoteCommunityPost): FeedItem {
     handle: p.handle,
     avatarInitial: p.avatarInitial,
     avatarColor: p.avatarColor,
+    avatarUrl: p.avatarUrl,
     timeAgo: p.timeAgo,
     caption: p.caption,
     hashtags: p.hashtags,
@@ -58,6 +61,7 @@ function staticToFeedItem(p: (typeof COMMUNITY_POSTS)[number]): FeedItem {
     handle: p.handle,
     avatarInitial: p.avatarInitial,
     avatarColor: p.avatarColor,
+    avatarUrl: null,
     timeAgo: p.timeAgo,
     caption: p.caption,
     hashtags: p.hashtags,
@@ -136,20 +140,31 @@ function PostCard({
 }) {
   const [liked, setLiked] = useState(post.likedByMe)
   const [likeCount, setLikeCount] = useState(post.likes)
+  const [cardError, setLikeError] = useState<string | null>(null)
   const template = post.templateId ? findTemplate(post.templateId) : undefined
 
   async function toggleLike() {
     const next = !liked
     setLiked(next)
     setLikeCount((c) => (next ? c + 1 : c - 1))
+    setLikeError(null)
     if (post.isRemote && currentUserId) {
-      await setCommunityLike(post.id, currentUserId, next)
+      const { error } = await setCommunityLike(post.id, currentUserId, next)
+      if (error) {
+        setLiked(!next)
+        setLikeCount((c) => (next ? c - 1 : c + 1))
+        setLikeError(error)
+      }
     }
   }
 
   async function handleDelete() {
     if (!confirm('Xoá bài đăng này?')) return
-    await deleteCommunityPost(post.id)
+    const { error } = await deleteCommunityPost(post.id)
+    if (error) {
+      setLikeError(error)
+      return
+    }
     onChanged()
   }
 
@@ -164,12 +179,7 @@ function PostCard({
       className="overflow-hidden rounded-[1.75rem] bg-white shadow-[0_10px_30px_-18px_rgba(80,50,120,0.3)]"
     >
       <div className="flex items-center gap-3 p-4">
-        <span
-          className="grid h-10 w-10 shrink-0 place-items-center rounded-full font-display text-sm font-bold text-white"
-          style={{ background: post.avatarColor }}
-        >
-          {post.avatarInitial}
-        </span>
+        <Avatar name={post.avatarInitial} color={post.avatarColor} url={post.avatarUrl} size={40} />
         <div className="min-w-0 flex-1">
           <p className="truncate text-sm font-semibold text-vibe-ink">{post.userName}</p>
           <p className="truncate text-xs text-vibe-ink-soft">{post.handle} · {post.timeAgo}</p>
@@ -205,6 +215,7 @@ function PostCard({
       <div className="p-4">
         <p className="text-sm leading-relaxed text-vibe-ink">{post.caption}</p>
         {post.hashtags.length > 0 && <p className="mt-1.5 text-xs font-medium text-vibe-blue-dark">{post.hashtags.join('  ')}</p>}
+        {cardError && <p className="mt-1.5 text-xs text-red-600">{cardError}</p>}
 
         <div className="mt-4 flex items-center gap-5 border-t border-vibe-ink/5 pt-3">
           <button onClick={toggleLike} className="flex items-center gap-1.5 text-sm font-medium text-vibe-ink-soft transition-colors hover:text-vibe-pink-dark">

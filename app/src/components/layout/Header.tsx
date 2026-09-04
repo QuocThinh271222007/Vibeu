@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import { LogOut, Menu, Shield, User, X } from 'lucide-react'
+import { LogOut, Menu, Settings, Shield, User, X } from 'lucide-react'
 import { Logo } from '@/components/ui/Logo'
 import { Button } from '@/components/ui/Button'
+import { Avatar } from '@/components/ui/Avatar'
 import { useAuthStore } from '@/store/authStore'
 
 const NAV = [
@@ -62,12 +63,7 @@ export function Header() {
                   onClick={() => setAccountOpen((o) => !o)}
                   className="flex items-center gap-2 rounded-full bg-white py-1 pl-1 pr-3 text-sm font-semibold text-vibe-ink shadow-sm"
                 >
-                  <span
-                    className="grid h-8 w-8 place-items-center rounded-full text-xs font-bold text-white"
-                    style={{ background: profile.avatarColor }}
-                  >
-                    {profile.displayName.charAt(0).toUpperCase()}
-                  </span>
+                  <Avatar name={profile.displayName} color={profile.avatarColor} url={profile.avatarUrl} size={32} />
                   {profile.displayName}
                 </button>
                 <AnimatePresence>
@@ -90,6 +86,13 @@ export function Header() {
                             <Shield size={16} /> Trang quản trị
                           </Link>
                         )}
+                        <Link
+                          to="/settings"
+                          onClick={() => setAccountOpen(false)}
+                          className="flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-medium text-vibe-ink hover:bg-vibe-cream"
+                        >
+                          <Settings size={16} /> Cài đặt tài khoản
+                        </Link>
                         <button
                           onClick={() => {
                             setAccountOpen(false)
@@ -171,6 +174,15 @@ export function Header() {
                         <Shield size={16} /> Trang quản trị
                       </Button>
                     )}
+                    <Button
+                      variant="secondary"
+                      onClick={() => {
+                        setMobileOpen(false)
+                        navigate('/settings')
+                      }}
+                    >
+                      <Settings size={16} /> Cài đặt tài khoản
+                    </Button>
                     <Button
                       variant="secondary"
                       onClick={() => {

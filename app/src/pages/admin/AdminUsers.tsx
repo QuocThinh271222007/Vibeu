@@ -1,31 +1,50 @@
-import { useEffect, useState } from 'react'
-import { Shield, ShieldCheck } from 'lucide-react'
+import { useEffect, useMemo, useState } from 'react'
+import { Search, Shield, ShieldCheck } from 'lucide-react'
+import { Avatar } from '@/components/ui/Avatar'
+import { useToast } from '@/components/ui/Toast'
 import { fetchAllProfiles, setUserRole, type AdminProfileRow } from '@/lib/adminApi'
 import { useAuthStore } from '@/store/authStore'
 
 export default function AdminUsers() {
   const { profile: me } = useAuthStore()
+  const { push } = useToast()
   const [rows, setRows] = useState<AdminProfileRow[]>([])
   const [loading, setLoading] = useState(true)
   const [busyId, setBusyId] = useState<string | null>(null)
+  const [query, setQuery] = useState('')
 
   function reload() {
     setLoading(true)
-    fetchAllProfiles().then((data) => {
+    return fetchAllProfiles().then((data) => {
       setRows(data)
       setLoading(false)
+      return data
     })
   }
 
-  useEffect(reload, [])
+  useEffect(() => {
+    reload()
+  }, [])
+
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase()
+    if (!q) return rows
+    return rows.filter((r) => r.display_name.toLowerCase().includes(q) || (r.email ?? '').toLowerCase().includes(q))
+  }, [rows, query])
 
   async function toggleRole(row: AdminProfileRow) {
     const nextRole = row.role === 'admin' ? 'user' : 'admin'
     if (row.id === me?.id && nextRole === 'user' && !confirm('Bạn sẽ tự bỏ quyền admin của chính mình. Tiếp tục?')) return
     setBusyId(row.id)
     await setUserRole(row.id, nextRole)
+    const fresh = await reload()
     setBusyId(null)
-    reload()
+    const updated = fresh.find((r) => r.id === row.id)
+    if (updated?.role !== nextRole) {
+      push('error', 'Không thể bỏ quyền admin — đây là admin duy nhất còn lại. Hãy cấp quyền cho người khác trước.')
+      return
+    }
+    push('success', nextRole === 'admin' ? `Đã cấp quyền admin cho ${row.display_name}.` : `Đã bỏ quyền admin của ${row.display_name}.`)
   }
 
   return (
@@ -33,7 +52,17 @@ export default function AdminUsers() {
       <h1 className="font-display text-2xl font-semibold text-vibe-ink">Người dùng</h1>
       <p className="mt-1 text-sm text-vibe-ink-soft">Danh sách tài khoản đã đăng ký. Cấp quyền admin cho tài khoản đáng tin cậy.</p>
 
-      <div className="mt-6 overflow-x-auto rounded-2xl bg-white shadow-sm">
+      <label className="mt-5 flex max-w-xs items-center gap-2 rounded-full border-2 border-vibe-ink/10 bg-white px-4 py-2">
+        <Search size={15} className="text-vibe-ink-soft" />
+        <input
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Tìm theo tên hoặc email..."
+          className="w-full bg-transparent text-sm outline-none placeholder:text-vibe-ink-soft/60"
+        />
+      </label>
+
+      <div className="mt-4 overflow-x-auto rounded-2xl bg-white shadow-sm">
         <table className="w-full text-left text-sm">
           <thead>
             <tr className="border-b border-vibe-ink/10 text-xs uppercase tracking-wide text-vibe-ink-soft">
@@ -51,19 +80,17 @@ export default function AdminUsers() {
                   Đang tải...
                 </td>
               </tr>
-            ) : rows.length === 0 ? (
+            ) : filtered.length === 0 ? (
               <tr>
                 <td colSpan={5} className="px-4 py-8 text-center text-vibe-ink-soft">
-                  Chưa có ai đăng ký.
+                  {rows.length === 0 ? 'Chưa có ai đăng ký.' : 'Không tìm thấy tài khoản phù hợp.'}
                 </td>
               </tr>
             ) : (
-              rows.map((r) => (
+              filtered.map((r) => (
                 <tr key={r.id} className="border-b border-vibe-ink/5 last:border-0">
                   <td className="flex items-center gap-2.5 px-4 py-3 font-medium text-vibe-ink">
-                    <span className="grid h-8 w-8 place-items-center rounded-full text-xs font-bold text-white" style={{ background: r.avatar_color }}>
-                      {r.display_name.charAt(0).toUpperCase()}
-                    </span>
+                    <Avatar name={r.display_name} color={r.avatar_color} url={r.avatar_url} size={32} />
                     {r.display_name}
                   </td>
                   <td className="px-4 py-3 text-vibe-ink-soft">{r.email}</td>

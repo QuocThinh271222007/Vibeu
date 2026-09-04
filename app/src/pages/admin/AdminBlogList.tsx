@@ -2,10 +2,12 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Pencil, Plus, Trash2 } from 'lucide-react'
 import { BLOG_CATEGORY_LABEL } from '@/data/blog'
+import { useToast } from '@/components/ui/Toast'
 import { deleteBlogPost, fetchAllBlogPostsAdmin, type BlogPostRow } from '@/lib/blogApi'
 import { BLOG_POSTS } from '@/data/blog'
 
 export default function AdminBlogList() {
+  const { push } = useToast()
   const [rows, setRows] = useState<BlogPostRow[]>([])
   const [loading, setLoading] = useState(true)
 
@@ -21,7 +23,12 @@ export default function AdminBlogList() {
 
   async function handleDelete(id: string) {
     if (!confirm('Xoá bài viết này?')) return
-    await deleteBlogPost(id)
+    const { error } = await deleteBlogPost(id)
+    if (error) {
+      push('error', error)
+      return
+    }
+    push('success', 'Đã xoá bài viết.')
     reload()
   }
 

@@ -10,6 +10,7 @@ export interface Profile {
   displayName: string
   handle: string | null
   avatarColor: string
+  avatarUrl: string | null
   role: UserRole
 }
 
@@ -21,9 +22,18 @@ interface AuthState {
   /** True once init() has wired up the Supabase session listener — guards against double-subscribing in React StrictMode. */
   initialized: boolean
   init: () => void
-  signIn: (email: string, password: string) => Promise<{ error: string | null }>
-  signUp: (email: string, password: string, displayName: string) => Promise<{ error: string | null; needsEmailConfirmation: boolean }>
+  signIn: (email: string, password: string, captchaToken?: string | null) => Promise<{ error: string | null }>
+  signUp: (
+    email: string,
+    password: string,
+    displayName: string,
+    captchaToken?: string | null,
+  ) => Promise<{ error: string | null; needsEmailConfirmation: boolean }>
   signOut: () => Promise<void>
+  resendConfirmation: (email: string) => Promise<{ error: string | null }>
+  requestPasswordReset: (email: string, captchaToken?: string | null) => Promise<{ error: string | null }>
+  updatePassword: (newPassword: string) => Promise<{ error: string | null }>
+  refreshProfile: () => Promise<void>
 }
 
 function mapRow(row: {
@@ -32,6 +42,7 @@ function mapRow(row: {
   display_name: string
   handle: string | null
   avatar_color: string
+  avatar_url: string | null
   role: string
 }): Profile {
   return {
@@ -40,6 +51,7 @@ function mapRow(row: {
     displayName: row.display_name,
     handle: row.handle,
     avatarColor: row.avatar_color,
+    avatarUrl: row.avatar_url ?? null,
     role: row.role === 'admin' ? 'admin' : 'user',
   }
 }
@@ -58,6 +70,10 @@ async function applySession(set: (partial: Partial<AuthState>) => void, session:
   }
   const profile = await fetchProfile(session.user.id)
   set({ status: 'signedIn', profile })
+}
+
+function siteOrigin() {
+  return typeof window !== 'undefined' ? window.location.origin : ''
 }
 
 export const useAuthStore = create<AuthState>((set, get) => ({
@@ -83,18 +99,26 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     })
   },
 
-  signIn: async (email, password) => {
+  signIn: async (email, password, captchaToken) => {
     if (!supabase) return { error: 'Chưa kết nối Supabase — không thể đăng nhập.' }
-    const { error } = await supabase.auth.signInWithPassword({ email, password })
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+      options: captchaToken ? { captchaToken } : undefined,
+    })
     return { error: error?.message ?? null }
   },
 
-  signUp: async (email, password, displayName) => {
+  signUp: async (email, password, displayName, captchaToken) => {
     if (!supabase) return { error: 'Chưa kết nối Supabase — không thể đăng ký.', needsEmailConfirmation: false }
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
-      options: { data: { display_name: displayName || undefined } },
+      options: {
+        data: { display_name: displayName || undefined },
+        emailRedirectTo: `${siteOrigin()}/auth`,
+        captchaToken: captchaToken || undefined,
+      },
     })
     if (error) return { error: error.message, needsEmailConfirmation: false }
     return { error: null, needsEmailConfirmation: !data.session }
@@ -103,5 +127,38 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   signOut: async () => {
     if (!supabase) return
     await supabase.auth.signOut()
+  },
+
+  resendConfirmation: async (email) => {
+    if (!supabase) return { error: 'Chưa kết nối Supabase.' }
+    const { error } = await supabase.auth.resend({
+      type: 'signup',
+      email,
+      options: { emailRedirectTo: `${siteOrigin()}/auth` },
+    })
+    return { error: error?.message ?? null }
+  },
+
+  requestPasswordReset: async (email, captchaToken) => {
+    if (!supabase) return { error: 'Chưa kết nối Supabase.' }
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${siteOrigin()}/reset-password`,
+      captchaToken: captchaToken || undefined,
+    })
+    return { error: error?.message ?? null }
+  },
+
+  updatePassword: async (newPassword) => {
+    if (!supabase) return { error: 'Chưa kết nối Supabase.' }
+    const { error } = await supabase.auth.updateUser({ password: newPassword })
+    return { error: error?.message ?? null }
+  },
+
+  refreshProfile: async () => {
+    if (!supabase) return
+    const { data } = await supabase.auth.getUser()
+    if (!data.user) return
+    const profile = await fetchProfile(data.user.id)
+    set({ profile })
   },
 }))

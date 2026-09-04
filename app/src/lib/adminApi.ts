@@ -7,6 +7,7 @@ export interface AdminProfileRow {
   display_name: string
   handle: string | null
   avatar_color: string
+  avatar_url: string | null
   role: UserRole
   created_at: string
 }

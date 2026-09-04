@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react'
 import { Eye, Trash2 } from 'lucide-react'
+import { useToast } from '@/components/ui/Toast'
 import { deleteSharedDesign, fetchAllSharedDesignsAdmin, type SharedDesignAdminRow } from '@/lib/shareApi'
 
 export default function AdminRecipes() {
+  const { push } = useToast()
   const [rows, setRows] = useState<SharedDesignAdminRow[]>([])
   const [loading, setLoading] = useState(true)
 
@@ -18,7 +20,12 @@ export default function AdminRecipes() {
 
   async function handleDelete(id: string) {
     if (!confirm('Xoá bản lưu công thức này? Mã QR đã in trước đó vẫn có thể hoạt động nếu dữ liệu được nhúng ngay trong mã (không phụ thuộc bản lưu này).')) return
-    await deleteSharedDesign(id)
+    const { error } = await deleteSharedDesign(id)
+    if (error) {
+      push('error', error)
+      return
+    }
+    push('success', 'Đã xoá bản lưu công thức.')
     reload()
   }
 
