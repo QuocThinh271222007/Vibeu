@@ -162,5 +162,9 @@ def process(image_path, fingers, out_json, out_preview):
     print("wrote", out_json, out_preview)
 
 if __name__ == '__main__':
-    cfg = json.loads(sys.argv[1])
+    arg = sys.argv[1]
+    # Accept either an inline JSON string or a path to a JSON config file
+    # (a file path sidesteps shell-quoting issues with embedded Vietnamese/backslashes).
+    raw = open(arg, encoding='utf-8').read() if not arg.strip().startswith('{') else arg
+    cfg = json.loads(raw)
     process(cfg['image'], [(f['id'], f['name'], tuple(f['rect'])) for f in cfg['fingers']], cfg['out_json'], cfg['out_preview'])

@@ -176,8 +176,9 @@ export default function Studio() {
                 <Lock size={22} />
               </span>
               <p className="font-display text-base font-semibold text-vibe-ink">Đây là thiết kế mẫu có sẵn</p>
+              <p className="text-sm font-medium text-vibe-ink-soft">Không thể chỉnh sửa.</p>
               <p className="max-w-xs text-sm text-vibe-ink-soft">
-                Ảnh này do AI tạo nên Studio không thể chỉnh sửa để giữ đúng y hệt như trong thư viện. Bạn vẫn có thể xuất công thức &amp; mã QR để mang ra tiệm, hoặc bấm "Reset" ở trên để tự do sáng tạo từ đầu.
+                Bạn vẫn có thể xuất công thức &amp; mã QR để mang ra tiệm, hoặc bấm "Reset" ở trên để tự do sáng tạo từ đầu.
               </p>
             </div>
           ) : (

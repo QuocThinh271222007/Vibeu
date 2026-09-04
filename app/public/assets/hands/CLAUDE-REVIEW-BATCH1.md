@@ -148,3 +148,45 @@ Once §4's files land and calibration is done for what's staged so far, the rema
 matrix per `VARIANT-ASSET-GUIDE.md` is still the right list: fill in the rest of the
 4 shapes × 3 lengths per tone. No new asset *types* — just more of the same real hand
 photos, per the same style brief already in that file.
+
+## 7. Batch 1 full-resolution files received — calibrated, verified, ENABLED
+
+The user attached all 6 full-resolution (1024×1536) PNGs directly (same convention as
+batch 2). Converted to JPEG and staged at:
+
+```text
+app/public/assets/hands/cozy/variants/square-M/base.jpg
+app/public/assets/hands/cozy/variants/coffin-M/base.jpg
+app/public/assets/hands/cozy/variants/almond-M/base.jpg
+app/public/assets/hands/matcha/variants/square-M/base.jpg
+app/public/assets/hands/matcha/variants/coffin-M/base.jpg
+app/public/assets/hands/matcha/variants/almond-M/base.jpg
+```
+
+Calibrated all 6 with `calibrate-hand-nails.py`, same workflow as batch 2 — GrabCut
+per finger from a loose seed rectangle, verified against the outline+arrow preview
+before acceptance. One new lesson from this batch: the seed rectangle for each finger
+must stay tight to that finger's own nail and NOT reach into a neighboring nail's
+pixels, even loosely — when two rects both cover a strip of nail-colored pixels (two
+adjacent nails are close/touching in these curled-fist poses), GrabCut's rect-seeded
+color model can bleed across into the neighbor and merge the two into one blob
+("figure-8" outlines in the preview). Fixed by tightening rects finger-by-finger using
+zoomed crops with a fine pixel grid overlay, iterating on the preview until each nail's
+outline was fully self-contained. No changes to the calibration script itself were
+needed — this is a rect-authoring discipline note, not a tool bug.
+
+Ran the same live acceptance checklist as batch 2 against the dev server (both tones,
+all 3 shapes: `square-M`, `coffin-M`, `almond-M`) — correct photo switch per shape when
+all 5 fingers match, paint masks track the real nail silhouettes with no grey
+wedge/seam/skin-spillover at zoom, clean PNG/QR export, no console errors.
+
+**`HAND_VARIANTS` now has `square-M`, `coffin-M`, `almond-M` enabled for both `cozy`
+and `matcha`, in addition to the existing `oval-S`/`oval-L`.** That's 6 of the 8
+shape×length combinations per tone now backed by real photos — only `oval-M` (the
+tone's own default photo, not a variant) and any square/coffin/almond at `S`/`L`
+lengths remain data-only, per the `VARIANT-ASSET-GUIDE.md` priority list.
+
+Separately, per the user's request: the Studio locked-template panel now shows a
+plain "Không thể chỉnh sửa." line under the "Đây là thiết kế mẫu có sẵn" heading,
+replacing the old AI-attribution sentence explaining *why* editing is disabled
+(`src/pages/Studio.tsx`) — the QR/export/Reset guidance sentence was kept.
