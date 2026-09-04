@@ -65,6 +65,12 @@ create trigger on_auth_user_created
 -- silently reverted rather than erroring the whole request.
 -- v2: also refuses to demote the last remaining admin (even another admin can't strand the
 -- site with zero admins — they'd have to promote someone else first).
+-- v3: auth.uid() is NULL when this runs with no JWT context at all — i.e. from the Supabase
+-- SQL Editor or any service-role/migration script, which is exactly how you bootstrap your
+-- first admin (see the "update ... where email = ..." command at the bottom of this file).
+-- v1/v2 treated that the same as an anonymous stranger and silently reverted it, permanently
+-- breaking the documented bootstrap flow. Only a real authenticated *non-admin* request
+-- (auth.uid() is not null but isn't an admin) should be blocked.
 create or replace function public.protect_profile_role()
 returns trigger as $$
 declare
@@ -72,10 +78,12 @@ declare
   remaining_admins int;
 begin
   if new.role is distinct from old.role then
-    select exists (select 1 from public.profiles where id = auth.uid() and role = 'admin') into actor_is_admin;
-    if not actor_is_admin then
-      new.role := old.role;
-      return new;
+    if auth.uid() is not null then
+      select exists (select 1 from public.profiles where id = auth.uid() and role = 'admin') into actor_is_admin;
+      if not actor_is_admin then
+        new.role := old.role;
+        return new;
+      end if;
     end if;
     if old.role = 'admin' and new.role <> 'admin' then
       select count(*) into remaining_admins from public.profiles where role = 'admin';
