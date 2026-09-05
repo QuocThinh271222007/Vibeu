@@ -25,6 +25,13 @@ The route is intentionally absent from the public navigation and is outside `Sit
 7. Click **Save draft** before switching combinations. Drafts are stored per combination in browser local storage.
 8. Click **Export JSON** and replace the exact repository path shown in the right panel.
 
+## Import detection and saving
+
+- New exports include a `_vibeuGeometry` metadata block with skin tone, shape, length, selected finger, editor version, and save timestamp. Studio ignores this extra block and continues to read the normal `HandData` fields.
+- **Open JSON and auto-detect** switches to the encoded hand combination and selected finger before loading the geometry. Legacy files are detected from the `<tone>-<shape>-<length>-coordinates.json` filename; files with neither metadata nor a standard filename stay on the current combination.
+- Imported geometry is immediately retained as that combination's browser draft.
+- **Save current file** overwrites the file opened through the native browser picker. When the File System Access API is unavailable, the editor safely falls back to downloading a new JSON file.
+
 ## Precision controls
 
 - Arrow keys: move selected node, or the selected nail when no node is selected, by 1 px.

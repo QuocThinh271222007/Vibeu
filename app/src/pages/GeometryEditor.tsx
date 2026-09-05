@@ -16,6 +16,7 @@ import {
   Redo2,
   RotateCcw,
   Save,
+  SaveAll,
   Trash2,
   Undo2,
   Upload,
@@ -26,6 +27,8 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { handBaseUrl, getHandData } from '@/data/loaders'
 import {
+  detectGeometryTarget,
+  geometryEditorDocument,
   nearestSegmentIndex,
   parsePathPoints,
   pointsForHand,
@@ -62,6 +65,22 @@ interface TransformForm {
   scaleX: string
   scaleY: string
   rotation: string
+}
+
+interface GeometryWritableFile {
+  write: (data: string) => Promise<void>
+  close: () => Promise<void>
+}
+
+interface GeometryFileHandle {
+  name: string
+  getFile: () => Promise<File>
+  createWritable: () => Promise<GeometryWritableFile>
+}
+
+interface GeometryPickerWindow extends Window {
+  showOpenFilePicker?: (options?: object) => Promise<GeometryFileHandle[]>
+  showSaveFilePicker?: (options?: object) => Promise<GeometryFileHandle>
 }
 
 type DragState =
@@ -201,6 +220,8 @@ export default function GeometryEditor() {
   const dragRef = useRef<DragState | null>(null)
   const importRef = useRef<HTMLInputElement>(null)
   const imageRef = useRef<HTMLInputElement>(null)
+  const sourceFileRef = useRef<{ key: string; handle: GeometryFileHandle } | null>(null)
+  const pendingImportRef = useRef<{ key: string; message: string } | null>(null)
 
   const key = variantKey(tone, shape, length)
   const imageUrl = customImage ?? handBaseUrl(tone, shape, length)
@@ -219,7 +240,13 @@ export default function GeometryEditor() {
         if (draft) {
           try {
             working = validateHandData(JSON.parse(draft))
-            setMessage('Đã khôi phục bản nháp trên trình duyệt.')
+            const pending = pendingImportRef.current
+            if (pending?.key === key) {
+              setMessage(pending.message)
+              pendingImportRef.current = null
+            } else {
+              setMessage('Đã khôi phục bản nháp trên trình duyệt.')
+            }
           } catch {
             localStorage.removeItem(`vibeu-geometry:${key}`)
           }
@@ -494,7 +521,8 @@ export default function GeometryEditor() {
 
   const saveDraft = () => {
     if (!hand) return
-    localStorage.setItem(`vibeu-geometry:${key}`, JSON.stringify(hand))
+    const document = geometryEditorDocument(hand, { tone, shape, length, selectedFinger })
+    localStorage.setItem(`vibeu-geometry:${key}`, JSON.stringify(document))
     setMessage(`Đã lưu bản nháp ${key} trên trình duyệt.`)
   }
 
@@ -509,29 +537,110 @@ export default function GeometryEditor() {
 
   const exportCurrent = () => {
     if (!hand) return
-    downloadJson(`${tone}-${shape}-${length}-coordinates.json`, hand)
+    const document = geometryEditorDocument(hand, { tone, shape, length, selectedFinger })
+    downloadJson(`${tone}-${shape}-${length}-coordinates.json`, document)
     setMessage(`Đã xuất file dùng cho ${destinationPath(tone, shape, length)}.`)
   }
 
   const copyCurrent = async () => {
     if (!hand) return
-    await navigator.clipboard.writeText(`${JSON.stringify(hand, null, 2)}\n`)
+    const document = geometryEditorDocument(hand, { tone, shape, length, selectedFinger })
+    await navigator.clipboard.writeText(`${JSON.stringify(document, null, 2)}\n`)
     setMessage('Đã sao chép toàn bộ coordinates.json vào clipboard.')
   }
 
-  const importCoordinates = async (file: File) => {
+  const importCoordinates = async (file: File, handle?: GeometryFileHandle) => {
     try {
-      const imported = validateHandData(JSON.parse(await file.text()))
+      const raw = JSON.parse(await file.text())
+      const imported = validateHandData(raw)
+      const detected = detectGeometryTarget(raw, file.name)
       if (hand && (imported.width !== hand.width || imported.height !== hand.height)) {
         const proceed = window.confirm(`Kích thước JSON là ${imported.width}×${imported.height}, khác ảnh hiện tại ${hand.width}×${hand.height}. Vẫn nhập?`)
         if (!proceed) return
       }
-      if (hand) setPast((items) => [...items, cloneHand(hand)].slice(-100))
-      setFuture([])
-      setHand(cloneHand(imported))
-      setMessage(`Đã nhập ${file.name}.`)
+      const targetTone = detected?.tone ?? tone
+      const targetShape = detected?.shape ?? shape
+      const targetLength = detected?.length ?? length
+      const targetFinger = detected?.selectedFinger ?? selectedFinger
+      const targetKey = variantKey(targetTone, targetShape, targetLength)
+      const document = geometryEditorDocument(imported, {
+        tone: targetTone,
+        shape: targetShape,
+        length: targetLength,
+        selectedFinger: targetFinger,
+      })
+      const detectionMessage = detected
+        ? `Đã nhận diện ${TONES.find((item) => item.id === targetTone)?.label} · ${SHAPE_LABEL_VI[targetShape]}-${targetLength} · ${FINGER_LABEL_VI[targetFinger]}.`
+        : `Đã nhập ${file.name}; file cũ không có metadata nên giữ tổ hợp hiện tại.`
+      localStorage.setItem(`vibeu-geometry:${targetKey}`, JSON.stringify(document))
+      sourceFileRef.current = handle ? { key: targetKey, handle } : null
+      setSelectedFinger(targetFinger)
+
+      if (targetKey === key) {
+        if (hand) setPast((items) => [...items, cloneHand(hand)].slice(-100))
+        setFuture([])
+        setHand(cloneHand(imported))
+        setSelectedPoint(null)
+        setMessage(detectionMessage)
+      } else {
+        pendingImportRef.current = { key: targetKey, message: detectionMessage }
+        setTone(targetTone)
+        setShape(targetShape)
+        setLength(targetLength)
+      }
     } catch (error) {
       setMessage(error instanceof Error ? error.message : 'Không đọc được file JSON.')
+    }
+  }
+
+  const openCoordinatesFile = async () => {
+    const picker = (window as GeometryPickerWindow).showOpenFilePicker
+    if (!picker) {
+      importRef.current?.click()
+      return
+    }
+    try {
+      const [handle] = await picker({
+        multiple: false,
+        types: [{ description: 'VIBEU coordinates.json', accept: { 'application/json': ['.json'] } }],
+      })
+      if (!handle) return
+      await importCoordinates(await handle.getFile(), handle)
+    } catch (error) {
+      if (!(error instanceof DOMException && error.name === 'AbortError')) {
+        setMessage(error instanceof Error ? error.message : 'Không mở được file JSON.')
+      }
+    }
+  }
+
+  const saveCoordinatesFile = async () => {
+    if (!hand) return
+    const document = geometryEditorDocument(hand, { tone, shape, length, selectedFinger })
+    const content = `${JSON.stringify(document, null, 2)}\n`
+    let handle = sourceFileRef.current?.key === key ? sourceFileRef.current.handle : null
+    try {
+      if (!handle) {
+        const picker = (window as GeometryPickerWindow).showSaveFilePicker
+        if (!picker) {
+          downloadJson(`${tone}-${shape}-${length}-coordinates.json`, document)
+          setMessage('Trình duyệt không hỗ trợ ghi đè; đã tải file JSON mới xuống.')
+          return
+        }
+        handle = await picker({
+          suggestedName: `${tone}-${shape}-${length}-coordinates.json`,
+          types: [{ description: 'VIBEU coordinates.json', accept: { 'application/json': ['.json'] } }],
+        })
+      }
+      const writable = await handle.createWritable()
+      await writable.write(content)
+      await writable.close()
+      sourceFileRef.current = { key, handle }
+      localStorage.setItem(`vibeu-geometry:${key}`, JSON.stringify(document))
+      setMessage(`Đã lưu ${handle.name} và bản nháp trình duyệt.`)
+    } catch (error) {
+      if (!(error instanceof DOMException && error.name === 'AbortError')) {
+        setMessage(error instanceof Error ? error.message : 'Không lưu được file JSON.')
+      }
     }
   }
 
@@ -622,6 +731,9 @@ export default function GeometryEditor() {
           <ToolButton title="Làm lại (Ctrl+Y)" disabled={!future.length} onClick={redo}><Redo2 size={18} /></ToolButton>
           <button type="button" onClick={saveDraft} className="flex h-10 items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 text-sm font-semibold hover:bg-white/10">
             <Save size={17} /> Lưu nháp
+          </button>
+          <button type="button" onClick={saveCoordinatesFile} className="flex h-10 items-center gap-2 rounded-xl border border-sky-400/30 bg-sky-400/10 px-3 text-sm font-semibold text-sky-100 hover:bg-sky-400/20">
+            <SaveAll size={17} /> Lưu lại file
           </button>
           <button type="button" onClick={exportCurrent} className="flex h-10 items-center gap-2 rounded-xl bg-gradient-to-r from-sky-500 to-fuchsia-500 px-4 text-sm font-bold text-white shadow-lg shadow-fuchsia-950/30 hover:brightness-110">
             <Download size={17} /> Xuất JSON
@@ -861,9 +973,14 @@ export default function GeometryEditor() {
               File xuất ra đặt tại:<br /><code className="mt-1 block break-all font-mono text-white">{destinationPath(tone, shape, length)}</code>
             </div>
             <button type="button" onClick={exportCurrent} className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-sky-500 to-fuchsia-500 py-2.5 text-sm font-bold"><Download size={16} /> Tải coordinates.json</button>
+            <button type="button" onClick={saveCoordinatesFile} className="flex w-full items-center justify-center gap-2 rounded-xl border border-sky-400/30 bg-sky-400/10 py-2.5 text-sm font-semibold text-sky-100 hover:bg-sky-400/20"><SaveAll size={16} /> Lưu lại file đang mở</button>
             <button type="button" onClick={copyCurrent} className="flex w-full items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/5 py-2.5 text-sm font-semibold hover:bg-white/10"><Clipboard size={16} /> Sao chép toàn bộ JSON</button>
-            <button type="button" onClick={() => importRef.current?.click()} className="flex w-full items-center justify-center gap-2 rounded-xl border border-dashed border-white/20 py-2.5 text-sm font-semibold text-slate-300 hover:border-fuchsia-400 hover:text-fuchsia-200"><Upload size={16} /> Nhập coordinates.json</button>
-            <input ref={importRef} type="file" accept="application/json,.json" className="hidden" onChange={(event) => event.target.files?.[0] && importCoordinates(event.target.files[0])} />
+            <button type="button" onClick={openCoordinatesFile} className="flex w-full items-center justify-center gap-2 rounded-xl border border-dashed border-white/20 py-2.5 text-sm font-semibold text-slate-300 hover:border-fuchsia-400 hover:text-fuchsia-200"><Upload size={16} /> Mở JSON và tự nhận diện</button>
+            <input ref={importRef} type="file" accept="application/json,.json" className="hidden" onChange={(event) => {
+              const file = event.target.files?.[0]
+              if (file) void importCoordinates(file)
+              event.currentTarget.value = ''
+            }} />
             <button type="button" onClick={resetVariant} className="flex w-full items-center justify-center gap-2 rounded-xl border border-rose-500/20 bg-rose-500/10 py-2.5 text-sm font-semibold text-rose-300 hover:bg-rose-500/20"><RotateCcw size={16} /> Khôi phục file gốc</button>
           </section>
         </aside>

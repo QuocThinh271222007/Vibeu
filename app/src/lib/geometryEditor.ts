@@ -1,11 +1,81 @@
 import type { FingerId, HandData, NailCoord } from '@/types/vibeu'
+import type { NailLength, NailShape, SkinToneId } from '@/types/vibeu'
 
 export interface GeometryPoint {
   x: number
   y: number
 }
 
+export interface GeometryEditorMetadata {
+  version: 1
+  tone: SkinToneId
+  shape: NailShape
+  length: NailLength
+  selectedFinger: FingerId
+  savedAt: string
+}
+
+export type GeometryEditorDocument = HandData & {
+  _vibeuGeometry?: GeometryEditorMetadata
+}
+
+export interface DetectedGeometryTarget {
+  tone: SkinToneId
+  shape: NailShape
+  length: NailLength
+  selectedFinger?: FingerId
+}
+
+const SKIN_TONES = new Set<SkinToneId>(['cozy', 'matcha'])
+const SHAPES = new Set<NailShape>(['oval', 'square', 'coffin', 'almond'])
+const LENGTHS = new Set<NailLength>(['S', 'M', 'L'])
+const FINGERS = new Set<FingerId>(['thumb', 'index', 'middle', 'ring', 'little'])
+
 const NUMBER = /-?\d+(?:\.\d+)?(?:e[+-]?\d+)?/gi
+
+export function geometryEditorDocument(
+  hand: HandData,
+  target: Omit<GeometryEditorMetadata, 'version' | 'savedAt'>,
+): GeometryEditorDocument {
+  return {
+    ...hand,
+    _vibeuGeometry: {
+      version: 1,
+      ...target,
+      savedAt: new Date().toISOString(),
+    },
+  }
+}
+
+/** Detects files exported by the editor and legacy files that still use the
+ * `<tone>-<shape>-<length>-coordinates.json` filename convention. */
+export function detectGeometryTarget(value: unknown, filename = ''): DetectedGeometryTarget | null {
+  if (value && typeof value === 'object') {
+    const metadata = (value as { _vibeuGeometry?: Partial<GeometryEditorMetadata> })._vibeuGeometry
+    const normalizedLength = metadata?.length?.toUpperCase() as NailLength | undefined
+    if (
+      metadata &&
+      SKIN_TONES.has(metadata.tone as SkinToneId) &&
+      SHAPES.has(metadata.shape as NailShape) &&
+      LENGTHS.has(normalizedLength as NailLength)
+    ) {
+      return {
+        tone: metadata.tone as SkinToneId,
+        shape: metadata.shape as NailShape,
+        length: normalizedLength as NailLength,
+        selectedFinger: FINGERS.has(metadata.selectedFinger as FingerId) ? metadata.selectedFinger as FingerId : undefined,
+      }
+    }
+  }
+
+  const match = filename.match(/(?:^|[-_])(cozy|matcha)[-_](oval|square|coffin|almond)[-_]([sml])(?:[-_.]|$)/i)
+  if (!match) return null
+  return {
+    tone: match[1].toLowerCase() as SkinToneId,
+    shape: match[2].toLowerCase() as NailShape,
+    length: match[3].toUpperCase() as NailLength,
+  }
+}
 
 export function parsePathPoints(path: string): GeometryPoint[] {
   const values = path.match(NUMBER)?.map(Number) ?? []
