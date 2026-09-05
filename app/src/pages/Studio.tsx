@@ -206,6 +206,7 @@ export default function Studio() {
                       <ShapeLengthTab
                         design={activeDesign}
                         skinTone={s.skinTone}
+                        fingers={s.fingers}
                         onShape={(shape, all) => s.setShape(s.selectedFinger, shape, all)}
                         onLength={(length, all) => s.setLength(s.selectedFinger, length, all)}
                       />

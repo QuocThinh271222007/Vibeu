@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import type { FingerDesign, NailLength, NailShape, SkinToneId } from '@/types/vibeu'
+import type { FingerDesign, FingerId, NailLength, NailShape, SkinToneId } from '@/types/vibeu'
 import { SHAPE_LABEL_VI } from '@/types/vibeu'
 import { availableLengthsForShape } from '@/data/handVariants'
+import { uniformShapeLength } from '@/lib/geometry'
 
 const SHAPES: NailShape[] = ['oval', 'square', 'coffin', 'almond']
 const LENGTHS: NailLength[] = ['S', 'M', 'L']
@@ -10,17 +11,24 @@ const LENGTHS: NailLength[] = ['S', 'M', 'L']
 export function ShapeLengthTab({
   design,
   skinTone,
+  fingers,
   onShape,
   onLength,
 }: {
   design: FingerDesign
   skinTone: SkinToneId
+  fingers: Record<FingerId, FingerDesign>
   onShape: (s: NailShape, applyToAll: boolean) => void
   onLength: (l: NailLength, applyToAll: boolean) => void
 }) {
-  const [applyToAll, setApplyToAll] = useState(false)
+  // Defaults to true: a whole-hand real-photo switch is what almost every user wants when
+  // touching shape/length (real manicures are uniform across the hand); per-finger mixing
+  // is the opt-out, not the default. Leaving this false by default made "change shape" look
+  // like a no-op for anyone who didn't notice the checkbox — see CLAUDE-REVIEW-BATCH1.md §8.
+  const [applyToAll, setApplyToAll] = useState(true)
   const availableLengths = availableLengthsForShape(skinTone, design.shape)
   const currentHasPhoto = availableLengths.includes(design.length)
+  const isUniform = Boolean(uniformShapeLength(fingers))
 
   return (
     <div className="space-y-7">
@@ -82,6 +90,13 @@ export function ShapeLengthTab({
             Form <strong>{SHAPE_LABEL_VI[design.shape]}</strong>, độ dài <strong>{design.length}</strong> chưa có ảnh tay thật.
             Studio vẫn lưu đúng lựa chọn này vào công thức, nhưng ảnh xem trước sẽ tạm hiển thị ảnh tay mặc định (Oval, M) để
             tránh làm méo/lệch hình móng thật.
+          </p>
+        )}
+        {currentHasPhoto && !isUniform && (
+          <p className="mt-2 rounded-xl bg-amber-50 p-2.5 text-xs text-amber-800">
+            Các ngón hiện chưa cùng form &amp; độ dài <strong>{SHAPE_LABEL_VI[design.shape]}, {design.length}</strong>, nên ảnh
+            xem trước vẫn giữ ảnh mặc định. Tick <strong>"Áp dụng cả 5 ngón"</strong> ở trên rồi chọn lại để cả bàn tay đổi
+            sang đúng ảnh thật.
           </p>
         )}
       </div>
