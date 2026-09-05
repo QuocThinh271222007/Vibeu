@@ -1,6 +1,6 @@
 import { imageToLocal } from '@/lib/geometry'
 import { getHandData, handBaseUrl } from '@/data/loaders'
-import { maskGrowPxFor } from '@/lib/nailEdgeTuning'
+import { maskFeatherPxFor, maskGrowPxFor } from '@/lib/nailEdgeTuning'
 import type { FingerId, NailCoord, NailLength, NailShape, SkinToneId } from '@/types/vibeu'
 
 /**
@@ -246,7 +246,12 @@ export function prepareNail(
   }
 
   const edge = new Float32Array(w * h)
-  const featherPx = Math.max(4.5, Math.min(w, h) * 0.035)
+  const featherPx = maskFeatherPxFor(
+    tone,
+    photoShape,
+    photoLength,
+    Math.max(4.5, Math.min(w, h) * 0.035),
+  )
   // Same ramp width as the original inward-only feather, just both bounds shifted
   // outward by growPx — when growPx is 0 this reduces exactly to the original
   // `smoothstep(0.65, featherPx, dist)` behaviour (dist === signedDist for inside pixels,

@@ -39,6 +39,26 @@ export const MASK_GROW_PX: Partial<Record<SkinToneId, Partial<Record<FingerId, n
  */
 const VARIANT_MASK_GROW_PX: Record<SkinToneId, number> = { cozy: 1.5, matcha: 1.5 }
 
+// Variants enter this set only after a five-finger, high-resolution screenshot pass.
+// Their paths sit on the photographed nail boundary, so the legacy 4.5px+ inward
+// feather would reveal a conspicuous ring of the source polish and make a correct path
+// look undersized.  A tight 1.5px antialias keeps the edge natural without moving it.
+const PIXEL_CALIBRATED_VARIANTS = new Set<string>([
+  'cozy:oval-S',
+  'cozy:square-S',
+  'cozy:coffin-S',
+])
+
+export function maskFeatherPxFor(
+  tone: SkinToneId | undefined,
+  photoShape: NailShape | undefined,
+  photoLength: NailLength | undefined,
+  fallbackPx: number,
+): number {
+  if (!tone || !photoShape || !photoLength) return fallbackPx
+  return PIXEL_CALIBRATED_VARIANTS.has(`${tone}:${photoShape}-${photoLength}`) ? 1.5 : fallbackPx
+}
+
 export function maskGrowPxFor(
   tone: SkinToneId | undefined,
   fingerId: FingerId,
