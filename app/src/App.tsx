@@ -15,6 +15,7 @@ import Auth from '@/pages/Auth'
 import ResetPassword from '@/pages/ResetPassword'
 import Settings from '@/pages/Settings'
 import SharedDesign from '@/pages/SharedDesign'
+import GeometryEditor from '@/pages/GeometryEditor'
 import AdminLayout from '@/pages/admin/AdminLayout'
 import AdminHome from '@/pages/admin/AdminHome'
 import AdminBlogList from '@/pages/admin/AdminBlogList'
@@ -87,6 +88,8 @@ export default function App() {
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/settings" element={<SiteLayout><Settings /></SiteLayout>} />
           <Route path="/r/:id" element={<SharedDesign />} />
+          {/* Internal calibration utility: intentionally outside SiteLayout and public navigation. */}
+          <Route path="/geometry-editor" element={<GeometryEditor />} />
           <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<AdminHome />} />
             <Route path="blog" element={<AdminBlogList />} />

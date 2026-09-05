@@ -1,0 +1,38 @@
+# VIBEU Nail Geometry Editor
+
+Internal visual tool for calibrating the five nail masks in every photographed hand asset. It produces the same `HandData`/`coordinates.json` contract consumed by Studio, so exported geometry does not need a conversion script.
+
+## Open it
+
+```bash
+cd app
+npm install
+npm run dev
+```
+
+Open `http://localhost:5173/geometry-editor`.
+
+The route is intentionally absent from the public navigation and is outside `SiteLayout`; maintenance mode and user authentication do not block calibration work.
+
+## Recommended pixel-calibration workflow
+
+1. Select skin tone, form, and length. The editor loads that asset's real `base.jpg` and `coordinates.json`.
+2. Select one finger, then use **Focus** and zoom to 400–800%.
+3. Use **Point mode (V)** to drag individual boundary nodes onto the photographic nail edge. Double-click an edge to add a node; `Delete` removes the selected node.
+4. Use **Move mode (M)** only when the whole mask is displaced. Use the numeric transform fields to adjust nail-local width, length, rotation, or sub-pixel translation without imposing one template on all fingers.
+5. Reduce mask opacity to compare the polygon against the cuticle and both sidewalls. Toggle the grid when checking single-pixel errors.
+6. Click **Save draft** before switching combinations. Drafts are stored per combination in browser local storage.
+7. Click **Export JSON** and replace the exact repository path shown in the right panel.
+
+## Precision controls
+
+- Arrow keys: move selected node, or the selected nail when no node is selected, by 1 px.
+- Shift + arrow: 10 px.
+- Alt + arrow: 0.1 px.
+- Snap steps: off, 0.1 px, 0.5 px, or 1 px.
+- Undo/redo: `Ctrl+Z`, `Ctrl+Y`, or `Ctrl+Shift+Z` (100-state history).
+- Middle-button drag or Alt-drag: pan without changing tools.
+- Mouse wheel: zoom from 50% to 1200%.
+
+`bbox`, `center`, normalized `axis`, and all `uvFrame` ranges are recalculated after every geometry edit. Imported JSON is validated for all five required finger IDs and valid polygon paths before it replaces the current document.
+
