@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Lock, Palette, PenLine, QrCode, Ruler, Sticker as StickerIcon, ZoomIn, ZoomOut } from 'lucide-react'
@@ -17,7 +17,11 @@ import { ResultView } from '@/components/studio/ResultView'
 import { Button } from '@/components/ui/Button'
 import { findTemplate } from '@/data/templates'
 import { getLockedTemplateView } from '@/lib/templateLock'
-import { FINGER_LABEL_VI } from '@/types/vibeu'
+import { FINGER_LABEL_VI, type NailLength, type NailShape, type SkinToneId } from '@/types/vibeu'
+
+const VALID_TONES = new Set<SkinToneId>(['cozy', 'matcha'])
+const VALID_SHAPES = new Set<NailShape>(['oval', 'square', 'coffin', 'almond'])
+const VALID_LENGTHS = new Set<NailLength>(['S', 'M', 'L'])
 
 const TABS: { id: StudioTab; label: string; icon: typeof Palette }[] = [
   { id: 'shape', label: 'Form & Độ dài', icon: Ruler },
@@ -40,6 +44,7 @@ export default function Studio() {
   const { presets } = useColorPresets()
   const presetsById = Object.fromEntries(presets.map((p) => [p.id, p]))
   const [zoomIndex, setZoomIndex] = useState(0)
+  const appliedVariantRef = useRef('')
   const zoom = ZOOM_LEVELS[zoomIndex]
 
   useEffect(() => {
@@ -49,6 +54,17 @@ export default function Studio() {
       if (tpl) s.loadTemplate(tpl)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [params])
+
+  useEffect(() => {
+    const tone = params.get('tone') as SkinToneId | null
+    const shape = params.get('shape') as NailShape | null
+    const length = params.get('length')?.toUpperCase() as NailLength | undefined
+    if (!tone || !shape || !length || !VALID_TONES.has(tone) || !VALID_SHAPES.has(shape) || !VALID_LENGTHS.has(length)) return
+    const requestKey = `${tone}:${shape}-${length}`
+    if (appliedVariantRef.current === requestKey) return
+    appliedVariantRef.current = requestKey
+    useStudioStore.getState().loadHandVariant(tone, shape, length)
   }, [params])
 
   useEffect(() => {

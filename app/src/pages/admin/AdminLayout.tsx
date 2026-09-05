@@ -1,5 +1,5 @@
-import { Link, NavLink, Navigate, Outlet } from 'react-router-dom'
-import { AlertTriangle, LayoutDashboard, Newspaper, QrCode, Settings, ShieldOff, Users2, Users, ArrowLeft } from 'lucide-react'
+import { Link, NavLink, Navigate, Outlet, useLocation } from 'react-router-dom'
+import { AlertTriangle, LayoutDashboard, Newspaper, QrCode, ScanLine, Settings, ShieldOff, Users2, Users, ArrowLeft } from 'lucide-react'
 import { Logo } from '@/components/ui/Logo'
 import { useAuthStore } from '@/store/authStore'
 import { isSupabaseConfigured } from '@/lib/supabaseClient'
@@ -9,12 +9,15 @@ const NAV = [
   { to: '/admin/blog', label: 'Blog', icon: Newspaper, end: false },
   { to: '/admin/community', label: 'Cộng đồng', icon: Users2, end: false },
   { to: '/admin/recipes', label: 'Công thức & QR', icon: QrCode, end: false },
+  { to: '/admin/geometry', label: 'Căn chỉnh móng', icon: ScanLine, end: false },
   { to: '/admin/users', label: 'Người dùng', icon: Users, end: false },
   { to: '/admin/settings', label: 'Cài đặt hệ thống', icon: Settings, end: false },
 ]
 
 export default function AdminLayout() {
   const { status, profile } = useAuthStore()
+  const { pathname } = useLocation()
+  const geometryEditor = pathname === '/admin/geometry'
 
   if (!isSupabaseConfigured) {
     return (
@@ -74,7 +77,7 @@ export default function AdminLayout() {
           <ArrowLeft size={17} /> Về trang chủ
         </Link>
       </aside>
-      <main className="flex-1 overflow-x-hidden p-6 sm:p-8">
+      <main className={geometryEditor ? 'min-w-0 flex-1 overflow-hidden' : 'flex-1 overflow-x-hidden p-6 sm:p-8'}>
         <Outlet />
       </main>
     </div>

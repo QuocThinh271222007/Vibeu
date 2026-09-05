@@ -63,6 +63,8 @@ Lưu ý: đăng bài Cộng đồng hiện chỉ được bảo vệ bằng rate
 
 **Site settings** — `/admin/settings` có 3 công tắc áp dụng ngay cho toàn site: đóng/mở đăng ký tài khoản mới, chế độ bảo trì (khách thấy trang bảo trì, admin vẫn dùng được bình thường), và bắt buộc captcha. Lưu trong bảng `site_settings` (đọc được bởi ai cũng được, chỉ admin sửa được).
 
+**Căn chỉnh geometry móng** — chạy migration `supabase/migrations/20260905_nail_geometry_variants.sql`, sau đó admin mở `/admin/geometry`. Công cụ liên kết trực tiếp với ảnh thật của 24 tổ hợp, cho chỉnh/làm mềm từng mask và publish lên bảng `nail_geometry_variants`. Studio ưu tiên bản publish và tự fallback về `public/assets/hands/**/coordinates.json` nếu backend chưa sẵn sàng. Chỉ admin được ghi; người dùng chỉ có quyền đọc geometry đã publish để render.
+
 **An toàn khác đã có sẵn:** không thể tự phong admin cho chính mình qua API (trigger `protect_profile_role`), không thể bỏ quyền admin của admin cuối cùng (tự khoá cả site), không thể tự sửa `likes_count`/`comments_count` để làm giả độ nổi tiếng, giới hạn loại file + dung lượng khi upload ảnh Cộng đồng (8MB) và ảnh đại diện (2MB).
 
 ## Cấu trúc

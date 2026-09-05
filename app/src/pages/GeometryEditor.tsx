@@ -1,9 +1,11 @@
 import {
   ChevronLeft,
+  CloudUpload,
   Clipboard,
   Download,
   Eye,
   EyeOff,
+  ExternalLink,
   FileJson,
   Focus,
   Grid3X3,
@@ -26,6 +28,8 @@ import {
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { handBaseUrl, getHandData } from '@/data/loaders'
+import { invalidateHandData } from '@/data/loaders'
+import { publishGeometryOverride } from '@/lib/geometryAdminApi'
 import {
   detectGeometryTarget,
   geometryEditorDocument,
@@ -50,6 +54,8 @@ import {
   type NailShape,
   type SkinToneId,
 } from '@/types/vibeu'
+import { invalidatePreparedHand } from '@/lib/nailLighting'
+import { useAuthStore } from '@/store/authStore'
 
 type ToolMode = 'points' | 'move' | 'pan'
 
@@ -194,7 +200,8 @@ function ToolButton({
   )
 }
 
-export default function GeometryEditor() {
+export default function GeometryEditor({ adminMode = false }: { adminMode?: boolean }) {
+  const profile = useAuthStore((state) => state.profile)
   const [tone, setTone] = useState<SkinToneId>('cozy')
   const [shape, setShape] = useState<NailShape>('oval')
   const [length, setLength] = useState<NailLength>('S')
@@ -215,6 +222,7 @@ export default function GeometryEditor() {
   const [snap, setSnap] = useState('0.5')
   const [transform, setTransform] = useState<TransformForm>(EMPTY_TRANSFORM)
   const [smoothStrength, setSmoothStrength] = useState('2')
+  const [publishing, setPublishing] = useState(false)
   const [customImage, setCustomImage] = useState<string | null>(null)
   const svgRef = useRef<SVGSVGElement>(null)
   const dragRef = useRef<DragState | null>(null)
@@ -644,6 +652,32 @@ export default function GeometryEditor() {
     }
   }
 
+  const publishToStudio = async () => {
+    if (!hand || !profile || profile.role !== 'admin') {
+      setMessage('Chỉ tài khoản admin mới được áp dụng geometry vào Studio.')
+      return
+    }
+    setPublishing(true)
+    const document = geometryEditorDocument(hand, { tone, shape, length, selectedFinger })
+    const { error } = await publishGeometryOverride({
+      tone,
+      shape,
+      length,
+      coordinates: document,
+      updatedBy: profile.id,
+    })
+    setPublishing(false)
+    if (error) {
+      setMessage(`Không thể áp dụng: ${error}`)
+      return
+    }
+    localStorage.setItem(`vibeu-geometry:${key}`, JSON.stringify(document))
+    invalidateHandData(tone, shape, length)
+    invalidatePreparedHand(tone, shape, length)
+    setBaseline(cloneHand(hand))
+    setMessage(`Đã publish ${TONES.find((item) => item.id === tone)?.label} · ${SHAPE_LABEL_VI[shape]}-${length}; Studio sẽ dùng geometry này ngay.`)
+  }
+
   const importImage = (file: File) => {
     if (customImage) URL.revokeObjectURL(customImage)
     setCustomImage(URL.createObjectURL(file))
@@ -715,7 +749,7 @@ export default function GeometryEditor() {
     <div className="flex h-screen min-h-[720px] flex-col overflow-hidden bg-slate-950 text-slate-100">
       <header className="flex h-16 shrink-0 items-center justify-between gap-4 border-b border-white/10 bg-slate-900 px-4">
         <div className="flex items-center gap-3">
-          <Link to="/studio" className="grid h-10 w-10 place-items-center rounded-xl border border-white/10 bg-white/5 text-slate-300 hover:bg-white/10">
+          <Link to={adminMode ? '/admin' : '/studio'} className="grid h-10 w-10 place-items-center rounded-xl border border-white/10 bg-white/5 text-slate-300 hover:bg-white/10">
             <ChevronLeft size={20} />
           </Link>
           <div>
@@ -735,6 +769,11 @@ export default function GeometryEditor() {
           <button type="button" onClick={saveCoordinatesFile} className="flex h-10 items-center gap-2 rounded-xl border border-sky-400/30 bg-sky-400/10 px-3 text-sm font-semibold text-sky-100 hover:bg-sky-400/20">
             <SaveAll size={17} /> Lưu lại file
           </button>
+          {adminMode && (
+            <button type="button" disabled={publishing} onClick={publishToStudio} className="flex h-10 items-center gap-2 rounded-xl bg-emerald-500 px-3 text-sm font-bold text-slate-950 shadow-lg shadow-emerald-950/30 hover:bg-emerald-400 disabled:opacity-50">
+              <CloudUpload size={17} /> {publishing ? 'Đang áp dụng…' : 'Lưu & áp dụng'}
+            </button>
+          )}
           <button type="button" onClick={exportCurrent} className="flex h-10 items-center gap-2 rounded-xl bg-gradient-to-r from-sky-500 to-fuchsia-500 px-4 text-sm font-bold text-white shadow-lg shadow-fuchsia-950/30 hover:brightness-110">
             <Download size={17} /> Xuất JSON
           </button>
@@ -974,6 +1013,12 @@ export default function GeometryEditor() {
             </div>
             <button type="button" onClick={exportCurrent} className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-sky-500 to-fuchsia-500 py-2.5 text-sm font-bold"><Download size={16} /> Tải coordinates.json</button>
             <button type="button" onClick={saveCoordinatesFile} className="flex w-full items-center justify-center gap-2 rounded-xl border border-sky-400/30 bg-sky-400/10 py-2.5 text-sm font-semibold text-sky-100 hover:bg-sky-400/20"><SaveAll size={16} /> Lưu lại file đang mở</button>
+            {adminMode && (
+              <>
+                <button type="button" disabled={publishing} onClick={publishToStudio} className="flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-400 py-2.5 text-sm font-black text-slate-950 hover:bg-emerald-300 disabled:opacity-50"><CloudUpload size={16} /> {publishing ? 'Đang áp dụng…' : 'Lưu & áp dụng vào Studio'}</button>
+                <Link to={`/studio?tone=${tone}&shape=${shape}&length=${length}`} className="flex w-full items-center justify-center gap-2 rounded-xl border border-emerald-400/30 bg-emerald-400/10 py-2.5 text-sm font-semibold text-emerald-100 hover:bg-emerald-400/20"><ExternalLink size={16} /> Render thử trong Studio</Link>
+              </>
+            )}
             <button type="button" onClick={copyCurrent} className="flex w-full items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/5 py-2.5 text-sm font-semibold hover:bg-white/10"><Clipboard size={16} /> Sao chép toàn bộ JSON</button>
             <button type="button" onClick={openCoordinatesFile} className="flex w-full items-center justify-center gap-2 rounded-xl border border-dashed border-white/20 py-2.5 text-sm font-semibold text-slate-300 hover:border-fuchsia-400 hover:text-fuchsia-200"><Upload size={16} /> Mở JSON và tự nhận diện</button>
             <input ref={importRef} type="file" accept="application/json,.json" className="hidden" onChange={(event) => {

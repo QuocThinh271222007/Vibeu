@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
+import { BrowserRouter, Navigate, Routes, Route, useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
 import { Wrench } from 'lucide-react'
 import { Header } from '@/components/layout/Header'
@@ -88,8 +88,7 @@ export default function App() {
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/settings" element={<SiteLayout><Settings /></SiteLayout>} />
           <Route path="/r/:id" element={<SharedDesign />} />
-          {/* Internal calibration utility: intentionally outside SiteLayout and public navigation. */}
-          <Route path="/geometry-editor" element={<GeometryEditor />} />
+          <Route path="/geometry-editor" element={<Navigate to="/admin/geometry" replace />} />
           <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<AdminHome />} />
             <Route path="blog" element={<AdminBlogList />} />
@@ -98,6 +97,7 @@ export default function App() {
             <Route path="community" element={<AdminCommunity />} />
             <Route path="users" element={<AdminUsers />} />
             <Route path="recipes" element={<AdminRecipes />} />
+            <Route path="geometry" element={<GeometryEditor adminMode />} />
             <Route path="settings" element={<AdminSettings />} />
           </Route>
         </Routes>

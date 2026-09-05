@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from 'react'
 import type { ColorPreset, DecalAsset, HandData, NailLength, NailShape, SkinToneId, StickerCategory } from '@/types/vibeu'
 import { handVariantSegment } from '@/data/handVariants'
+import { fetchGeometryOverride } from '@/lib/geometryAdminApi'
+import { validateHandData } from '@/lib/geometryEditor'
 
 interface ColorManifest {
   presets: ColorPreset[]
@@ -33,13 +35,35 @@ const handDataLoaders = new Map<string, () => Promise<HandData>>()
 // caches may otherwise keep serving an older coordinates.json at the same path even
 // after a deployment, making corrected masks appear unchanged in Studio.
 const HAND_ASSET_REVISION = '20260905-geometry-r4-matcha-fix'
-function getHandDataLoader(url: string): () => Promise<HandData> {
-  let loader = handDataLoaders.get(url)
+
+function getHandDataLoader(
+  key: string,
+  url: string,
+  tone: SkinToneId,
+  shape: NailShape,
+  length: NailLength,
+): () => Promise<HandData> {
+  let loader = handDataLoaders.get(key)
   if (!loader) {
-    loader = cachedFetch<HandData>(url)
-    handDataLoaders.set(url, loader)
+    const staticLoader = cachedFetch<HandData>(url)
+    loader = async () => {
+      const published = await fetchGeometryOverride(tone, shape, length)
+      if (published) {
+        try {
+          return validateHandData(published.coordinates)
+        } catch {
+          // A malformed remote override must never make Studio unusable.
+        }
+      }
+      return staticLoader()
+    }
+    handDataLoaders.set(key, loader)
   }
   return loader
+}
+
+export function invalidateHandData(tone: SkinToneId, shape: NailShape, length: NailLength): void {
+  handDataLoaders.delete(`${tone}:${shape}-${length}`)
 }
 
 /**
@@ -67,10 +91,12 @@ async function getDecalManifest(): Promise<DecalManifest> {
 /** `shape`/`length` only change anything when a matching hand-variants.ts entry exists;
  * otherwise this resolves the tone's default photo, exactly like before this existed. */
 export function getHandData(tone: SkinToneId, shape?: NailShape, length?: NailLength): Promise<HandData> {
-  const segment = handVariantSegment(tone, shape, length)
+  const resolvedShape = shape ?? 'oval'
+  const resolvedLength = length ?? 'M'
+  const segment = handVariantSegment(tone, resolvedShape, resolvedLength)
   const path = segment ? `/assets/hands/${tone}/${segment}/coordinates.json` : `/assets/hands/${tone}/coordinates.json`
   const url = `${path}?v=${HAND_ASSET_REVISION}`
-  return getHandDataLoader(url)()
+  return getHandDataLoader(`${tone}:${resolvedShape}-${resolvedLength}`, url, tone, resolvedShape, resolvedLength)()
 }
 
 function useAsync<T>(loader: () => Promise<T>, deps: unknown[]): { data: T | null; loading: boolean; error: boolean } {

@@ -59,7 +59,7 @@ export default function AdminHome() {
         <ul className="mt-2 list-disc space-y-1.5 pl-4 text-sm text-vibe-ink-soft">
           <li>Nội dung mẫu (Thư viện, một số bài Blog/Cộng đồng) được đóng gói sẵn trong mã nguồn — trang này quản lý phần dữ liệu động lưu trên Supabase.</li>
           <li>Để cấp quyền admin cho một tài khoản khác, vào tab "Người dùng" và đổi vai trò.</li>
-          <li>Thư viện mẫu nail (form/màu/hiệu ứng) vẫn được cấu hình trong mã nguồn, chưa có giao diện quản trị riêng.</li>
+          <li>Form và độ dài móng có thể căn chỉnh, làm mềm đường biên và publish trực tiếp sang Studio trong mục "Căn chỉnh móng".</li>
         </ul>
       </div>
     </div>

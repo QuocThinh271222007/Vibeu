@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { deleteDesign, listSavedDesigns, loadDesign, saveDesign, type SavedDesignMeta } from '@/lib/persistence'
 import { DEFAULT_LIGHT } from '@/lib/nailFill'
-import { FINGER_ORDER, type CustomGradient, type DecalAsset, type DrawStroke, type FingerDesign, type FingerId, type SkinToneId, type StickerInstance, type Template } from '@/types/vibeu'
+import { FINGER_ORDER, type CustomGradient, type DecalAsset, type DrawStroke, type FingerDesign, type FingerId, type NailLength, type NailShape, type SkinToneId, type StickerInstance, type Template } from '@/types/vibeu'
 
 const DEFAULT_PRESET_ID = 'cloud-candy'
 const MAX_HISTORY = 50
@@ -84,6 +84,7 @@ interface StudioState extends DesignSnapshot {
   setSkinTone: (tone: SkinToneId) => void
   selectFinger: (finger: FingerId) => void
   setActiveTab: (tab: StudioTab) => void
+  loadHandVariant: (tone: SkinToneId, shape: NailShape, length: NailLength) => void
   setShape: (finger: FingerId, shape: FingerDesign['shape'], applyToAll?: boolean) => void
   setLength: (finger: FingerId, length: FingerDesign['length'], applyToAll?: boolean) => void
   setPreset: (finger: FingerId, presetId: string, applyToAll?: boolean) => void
@@ -159,6 +160,19 @@ export const useStudioStore = create<StudioState>((set, get) => ({
   setSkinTone: (tone) => withHistory(set, () => ({ skinTone: tone })),
   selectFinger: (finger) => set({ selectedFinger: finger, selectedStickerInstance: null }),
   setActiveTab: (tab) => set({ activeTab: tab }),
+  loadHandVariant: (tone, shape, length) =>
+    withHistory(set, (s) => {
+      const next = { ...s.fingers }
+      for (const finger of FINGER_ORDER) next[finger] = { ...next[finger], shape, length }
+      return {
+        skinTone: tone,
+        fingers: next,
+        activeTemplateName: null,
+        activeTemplateId: null,
+        selectedStickerInstance: null,
+        view: 'design',
+      }
+    }),
 
   setShape: (finger, shape, applyToAll) =>
     withHistory(set, (s) => {

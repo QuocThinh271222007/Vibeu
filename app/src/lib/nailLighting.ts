@@ -291,6 +291,10 @@ function loadImagePixels(url: string, width: number, height: number): Promise<Im
 
 const preparedCache = new Map<string, Promise<Map<FingerId, PreparedNail>>>()
 
+export function invalidatePreparedHand(tone: SkinToneId, shape?: NailShape, length?: NailLength): void {
+  preparedCache.delete(handBaseUrl(tone, shape, length))
+}
+
 /**
  * Resolves the hand's own coordinates.json internally (via the same cached
  * fetch `useHandData` uses) instead of trusting a `hand` object passed in from

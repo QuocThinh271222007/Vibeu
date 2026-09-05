@@ -10,9 +10,9 @@ npm install
 npm run dev
 ```
 
-Open `http://localhost:5173/geometry-editor`.
+Sign in with an admin account and open `http://localhost:5173/admin/geometry`.
 
-The route is intentionally absent from the public navigation and is outside `SiteLayout`; maintenance mode and user authentication do not block calibration work.
+The editor is available from the Admin sidebar. `AdminLayout` enforces a signed-in profile with `role = 'admin'` before the tool is rendered.
 
 ## Recommended pixel-calibration workflow
 
@@ -31,6 +31,15 @@ The route is intentionally absent from the public navigation and is outside `Sit
 - **Open JSON and auto-detect** switches to the encoded hand combination and selected finger before loading the geometry. Legacy files are detected from the `<tone>-<shape>-<length>-coordinates.json` filename; files with neither metadata nor a standard filename stay on the current combination.
 - Imported geometry is immediately retained as that combination's browser draft.
 - **Save current file** overwrites the file opened through the native browser picker. When the File System Access API is unavailable, the editor safely falls back to downloading a new JSON file.
+
+## Publish directly to Studio
+
+1. Run `supabase/migrations/20260905_nail_geometry_variants.sql` once in the Supabase SQL Editor.
+2. In `/admin/geometry`, select or import a hand combination and calibrate its five paths.
+3. Click **Save & apply to Studio**. The row is upserted by `(tone, shape, length)`; RLS allows public reads but only an authenticated admin can write.
+4. Click **Render in Studio** to open `/studio?tone=…&shape=…&length=…`. Studio clears any locked template state, selects that whole-hand combination, and loads the published geometry.
+
+Studio always falls back to the repository `coordinates.json` when Supabase is not configured, the migration has not been applied, the request fails, or the remote payload is invalid. Publishing invalidates both the coordinate loader and prepared-lighting cache in the admin session, so the next Studio render uses the saved paths immediately.
 
 ## Precision controls
 

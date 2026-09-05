@@ -4,10 +4,16 @@ on:
   push:
     branches:
       - feat/nail-geometry-editor
+      - fix/vibeu-visual-asset-ux-corrective
   pull_request:
     paths:
       - 'app/src/pages/GeometryEditor.tsx'
       - 'app/src/lib/geometryEditor.ts'
+      - 'app/src/lib/geometryAdminApi.ts'
+      - 'app/src/data/loaders.ts'
+      - 'app/src/lib/nailLighting.ts'
+      - 'app/src/pages/Studio.tsx'
+      - 'app/src/store/studioStore.ts'
       - 'app/src/App.tsx'
 
 permissions:
@@ -29,13 +35,13 @@ jobs:
       - run: npm ci
       - run: npm run lint
       - run: npm run build
-      - name: Render editor screenshot
+      - name: Render Studio geometry preview
         run: |
           npm run preview -- --host 127.0.0.1 > /tmp/vibeu-geometry-preview.log 2>&1 &
           preview_pid=$!
           trap 'kill "$preview_pid"' EXIT
           for attempt in {1..30}; do
-            if curl --fail --silent http://127.0.0.1:4173/geometry-editor > /dev/null; then
+            if curl --fail --silent http://127.0.0.1:4173/studio > /dev/null; then
               break
             fi
             sleep 1
@@ -44,11 +50,11 @@ jobs:
             --hide-scrollbars --window-size=1920,1080 \
             --virtual-time-budget=10000 \
             --run-all-compositor-stages-before-draw \
-            --screenshot=geometry-editor.png \
-            http://127.0.0.1:4173/geometry-editor
-          test -s geometry-editor.png
+            --screenshot=studio-geometry-preview.png \
+            'http://127.0.0.1:4173/studio?tone=cozy&shape=oval&length=S'
+          test -s studio-geometry-preview.png
       - uses: actions/upload-artifact@v4
         with:
-          name: geometry-editor-screenshot
-          path: app/geometry-editor.png
+          name: studio-geometry-preview
+          path: app/studio-geometry-preview.png
           if-no-files-found: error
