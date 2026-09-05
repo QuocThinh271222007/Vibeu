@@ -47,6 +47,9 @@ const PIXEL_CALIBRATED_VARIANTS = new Set<string>([
   'cozy:oval-S',
   'cozy:square-S',
   'cozy:coffin-S',
+  'cozy:almond-S',
+  'cozy:square-M',
+  'cozy:coffin-M',
 ])
 
 export function maskFeatherPxFor(
