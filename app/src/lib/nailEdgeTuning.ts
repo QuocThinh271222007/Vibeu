@@ -55,6 +55,9 @@ const PIXEL_CALIBRATED_VARIANTS = new Set<string>([
   'cozy:square-L',
   'cozy:coffin-L',
   'cozy:almond-L',
+  'matcha:oval-S',
+  'matcha:square-S',
+  'matcha:coffin-S',
 ])
 
 // These three longer silhouettes retain a one-pixel source-polish rim after the
@@ -66,6 +69,9 @@ const PIXEL_CALIBRATED_GROW_PX: Partial<Record<string, number>> = {
   'cozy:square-L': 2.5,
   'cozy:coffin-L': 2.5,
   'cozy:almond-L': 2.5,
+  'matcha:oval-S': 2.5,
+  'matcha:square-S': 2.5,
+  'matcha:coffin-S': 2.5,
 }
 
 export function maskFeatherPxFor(
