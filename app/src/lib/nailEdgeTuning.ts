@@ -50,7 +50,19 @@ const PIXEL_CALIBRATED_VARIANTS = new Set<string>([
   'cozy:almond-S',
   'cozy:square-M',
   'cozy:coffin-M',
+  'cozy:almond-M',
+  'cozy:oval-L',
+  'cozy:square-L',
 ])
+
+// These three longer silhouettes retain a one-pixel source-polish rim after the
+// standard variant allowance.  The extra pixel was checked on every finger at 3x;
+// it reaches the photographed edge without crossing the cuticle or sidewall.
+const PIXEL_CALIBRATED_GROW_PX: Partial<Record<string, number>> = {
+  'cozy:almond-M': 2.5,
+  'cozy:oval-L': 2.5,
+  'cozy:square-L': 2.5,
+}
 
 export function maskFeatherPxFor(
   tone: SkinToneId | undefined,
@@ -70,6 +82,9 @@ export function maskGrowPxFor(
 ): number {
   if (!tone) return 0
   const isCalibratedVariant = photoShape != null && photoLength != null && !(photoShape === 'oval' && photoLength === 'M')
-  if (isCalibratedVariant) return VARIANT_MASK_GROW_PX[tone]
+  if (isCalibratedVariant) {
+    const variantKey = `${tone}:${photoShape}-${photoLength}`
+    return PIXEL_CALIBRATED_GROW_PX[variantKey] ?? VARIANT_MASK_GROW_PX[tone]
+  }
   return MASK_GROW_PX[tone]?.[fingerId] ?? 0
 }
