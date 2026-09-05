@@ -42,6 +42,8 @@ jobs:
           done
           google-chrome --headless --no-sandbox --disable-gpu \
             --hide-scrollbars --window-size=1920,1080 \
+            --virtual-time-budget=10000 \
+            --run-all-compositor-stages-before-draw \
             --screenshot=geometry-editor.png \
             http://127.0.0.1:4173/geometry-editor
           test -s geometry-editor.png
