@@ -29,6 +29,10 @@ const getStandardDecalManifest = cachedFetch<DecalManifest>('/assets/decals/mani
 const getPremiumDecalManifest = cachedFetch<DecalManifest>('/assets/decals/premium/manifest.json')
 
 const handDataLoaders = new Map<string, () => Promise<HandData>>()
+// Bump whenever hand photos/coordinates are recalibrated. Static hosts and browser
+// caches may otherwise keep serving an older coordinates.json at the same path even
+// after a deployment, making corrected masks appear unchanged in Studio.
+const HAND_ASSET_REVISION = '20260905-geometry-r3'
 function getHandDataLoader(url: string): () => Promise<HandData> {
   let loader = handDataLoaders.get(url)
   if (!loader) {
@@ -64,7 +68,8 @@ async function getDecalManifest(): Promise<DecalManifest> {
  * otherwise this resolves the tone's default photo, exactly like before this existed. */
 export function getHandData(tone: SkinToneId, shape?: NailShape, length?: NailLength): Promise<HandData> {
   const segment = handVariantSegment(tone, shape, length)
-  const url = segment ? `/assets/hands/${tone}/${segment}/coordinates.json` : `/assets/hands/${tone}/coordinates.json`
+  const path = segment ? `/assets/hands/${tone}/${segment}/coordinates.json` : `/assets/hands/${tone}/coordinates.json`
+  const url = `${path}?v=${HAND_ASSET_REVISION}`
   return getHandDataLoader(url)()
 }
 
@@ -156,7 +161,8 @@ export async function getMaterialPreviewUrl(effectId: string): Promise<string | 
 
 export function handBaseUrl(tone: SkinToneId, shape?: NailShape, length?: NailLength) {
   const segment = handVariantSegment(tone, shape, length)
-  return segment ? `/assets/hands/${tone}/${segment}/base.jpg` : `/assets/hands/${tone}/base.jpg`
+  const path = segment ? `/assets/hands/${tone}/${segment}/base.jpg` : `/assets/hands/${tone}/base.jpg`
+  return `${path}?v=${HAND_ASSET_REVISION}`
 }
 
 export async function getPresetById(id: string): Promise<ColorPreset | undefined> {
