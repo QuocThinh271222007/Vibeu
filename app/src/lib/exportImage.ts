@@ -134,7 +134,7 @@ export async function exportDesignPng(
     // growPx must match nailLighting.ts's buffer padding (nailEdgeTuning.ts is the single
     // source of truth) — otherwise the exported PNG would clip away pixels the live
     // preview shows.
-    const growPx = maskGrowPxFor(skinTone, nail.id)
+    const growPx = maskGrowPxFor(skinTone, nail.id, variant?.shape, variant?.length)
     const layer = document.createElement('canvas')
     layer.width = canvas.width
     layer.height = canvas.height

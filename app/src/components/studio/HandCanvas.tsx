@@ -262,6 +262,8 @@ export function HandCanvas({
             prepared={prepared!.get(nail.id)}
             iid={iid}
             skinTone={skinTone}
+            photoShape={variant?.shape}
+            photoLength={variant?.length}
             light={light}
             liveDrag={liveDrag && liveDrag.finger === nail.id ? liveDrag : null}
           />
@@ -476,6 +478,8 @@ function NailPaint({
   prepared,
   iid,
   skinTone,
+  photoShape,
+  photoLength,
   light,
   liveDrag,
 }: {
@@ -486,6 +490,8 @@ function NailPaint({
   prepared: PreparedNail | undefined
   iid: string
   skinTone: SkinToneId
+  photoShape: NailShape | undefined
+  photoLength: NailLength | undefined
   light: LightState
   liveDrag: LiveDragOverride | null
 }) {
@@ -568,7 +574,7 @@ function NailPaint({
   // pixel distance along the path's own local normal — a centroid-scaled transform was
   // tried first but over/under-grows anisotropically on a rotated or elongated nail
   // (visible on the thumb, which sits at a real angle in the photo).
-  const growPx = maskGrowPxFor(skinTone, nail.id)
+  const growPx = maskGrowPxFor(skinTone, nail.id, photoShape, photoLength)
 
   return (
     <g pointerEvents="none">

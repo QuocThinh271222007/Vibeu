@@ -1,4 +1,4 @@
-import type { FingerId, SkinToneId } from '@/types/vibeu'
+import type { FingerId, NailLength, NailShape, SkinToneId } from '@/types/vibeu'
 
 /**
  * Per-(tone, finger) outward growth of the paintable nail region, in image-space pixels
@@ -31,7 +31,22 @@ export const MASK_GROW_PX: Partial<Record<SkinToneId, Partial<Record<FingerId, n
   matcha: { thumb: 3, index: 3, middle: 3, ring: 3, little: 3 },
 }
 
-export function maskGrowPxFor(tone: SkinToneId | undefined, fingerId: FingerId): number {
+/**
+ * The calibrated real-photo variants already trace their visible nail edge.  Reusing the
+ * much larger correction measured for the original Oval-M photos makes long/square nails
+ * bleed onto skin (most visibly the cozy thumb).  Keep just a small anti-rim allowance for
+ * variant photos while preserving the proven Oval-M values byte-for-byte and visually.
+ */
+const VARIANT_MASK_GROW_PX: Record<SkinToneId, number> = { cozy: 1.5, matcha: 1.5 }
+
+export function maskGrowPxFor(
+  tone: SkinToneId | undefined,
+  fingerId: FingerId,
+  photoShape?: NailShape,
+  photoLength?: NailLength,
+): number {
   if (!tone) return 0
+  const isCalibratedVariant = photoShape != null && photoLength != null && !(photoShape === 'oval' && photoLength === 'M')
+  if (isCalibratedVariant) return VARIANT_MASK_GROW_PX[tone]
   return MASK_GROW_PX[tone]?.[fingerId] ?? 0
 }

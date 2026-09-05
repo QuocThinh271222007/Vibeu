@@ -76,14 +76,20 @@ function chamferDistanceInside(alpha: Uint8ClampedArray, w: number, h: number): 
 
 const EDGE_RADIUS_PX = 1.6
 
-export function prepareNail(nail: NailCoord, fullImage: ImageData, tone?: SkinToneId): PreparedNail {
+export function prepareNail(
+  nail: NailCoord,
+  fullImage: ImageData,
+  tone?: SkinToneId,
+  photoShape?: NailShape,
+  photoLength?: NailLength,
+): PreparedNail {
   // MASK_GROW_PX (nailEdgeTuning.ts) shifts the coverage ramp outward past the traced
   // path's own boundary. Without padding, the working buffer below is sized to the exact
   // traced bbox, so growth on any side where the path already sits close to that bbox edge
   // has nowhere to go and gets hard-clipped by the array bound — visible as a flat, unnatural
   // cut through the paint rather than a smooth outward extension. Padding the buffer by the
   // grow amount (plus slack) gives the chamfer distance field and photo sampling real room.
-  const growPx = maskGrowPxFor(tone, nail.id)
+  const growPx = maskGrowPxFor(tone, nail.id, photoShape, photoLength)
   const bufPad = growPx > 0 ? Math.ceil(growPx) + 4 : 0
   const rawX = Math.round(nail.bbox[0])
   const rawY = Math.round(nail.bbox[1])
@@ -298,7 +304,7 @@ export function getPreparedHand(tone: SkinToneId, shape?: NailShape, length?: Na
     cached = getHandData(tone, shape, length).then((hand) =>
       loadImagePixels(url, hand.width, hand.height).then((pixels) => {
         const map = new Map<FingerId, PreparedNail>()
-        for (const nail of hand.nails) map.set(nail.id, prepareNail(nail, pixels, tone))
+        for (const nail of hand.nails) map.set(nail.id, prepareNail(nail, pixels, tone, shape, length))
         return map
       }),
     )
