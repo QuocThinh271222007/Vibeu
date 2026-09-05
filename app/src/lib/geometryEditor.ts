@@ -151,3 +151,79 @@ export function rotateAxis(axis: [number, number], degrees: number): [number, nu
   const sin = Math.sin(radians)
   return normalize([axis[0] * cos - axis[1] * sin, axis[0] * sin + axis[1] * cos])
 }
+
+function signedArea(points: GeometryPoint[]): number {
+  let twiceArea = 0
+  for (let index = 0; index < points.length; index += 1) {
+    const point = points[index]
+    const next = points[(index + 1) % points.length]
+    twiceArea += point.x * next.y - next.x * point.y
+  }
+  return twiceArea / 2
+}
+
+function averageCenter(points: GeometryPoint[]): GeometryPoint {
+  return {
+    x: points.reduce((sum, point) => sum + point.x, 0) / points.length,
+    y: points.reduce((sum, point) => sum + point.y, 0) / points.length,
+  }
+}
+
+/** Uniformly samples a closed polygon by arc length before filtering. This prevents
+ * a dense hand-traced region from being smoothed more aggressively than a sparse one. */
+export function resampleClosedPath(points: GeometryPoint[], count: number): GeometryPoint[] {
+  if (points.length < 3) throw new Error('Một móng cần ít nhất 3 điểm.')
+  const lengths = points.map((point, index) => {
+    const next = points[(index + 1) % points.length]
+    return Math.hypot(next.x - point.x, next.y - point.y)
+  })
+  const perimeter = lengths.reduce((sum, value) => sum + value, 0)
+  if (perimeter <= 0) return points.map((point) => ({ ...point }))
+  const result: GeometryPoint[] = []
+  let segment = 0
+  let segmentStart = 0
+  for (let sample = 0; sample < count; sample += 1) {
+    const distance = (sample / count) * perimeter
+    while (segment < lengths.length - 1 && segmentStart + lengths[segment] < distance) {
+      segmentStart += lengths[segment]
+      segment += 1
+    }
+    const start = points[segment]
+    const end = points[(segment + 1) % points.length]
+    const t = lengths[segment] > 0 ? (distance - segmentStart) / lengths[segment] : 0
+    result.push({ x: start.x + (end.x - start.x) * t, y: start.y + (end.y - start.y) * t })
+  }
+  return result
+}
+
+/**
+ * Periodic low-pass geometry filter for hand-traced nail masks.
+ *
+ * Each pass applies a circular [1/4, 1/2, 1/4] Laplacian kernel. The original
+ * centroid and signed area are then restored, avoiding the positional drift and
+ * shrinkage caused by plain Chaikin/Laplacian smoothing.
+ */
+export function smoothClosedPath(points: GeometryPoint[], strength = 2, pointCount?: number): GeometryPoint[] {
+  const count = Math.max(24, Math.min(160, pointCount ?? Math.max(64, points.length)))
+  const originalCenter = averageCenter(points)
+  const originalArea = Math.abs(signedArea(points))
+  let current = resampleClosedPath(points, count)
+  const passes = Math.max(1, Math.min(8, Math.round(strength)))
+  for (let pass = 0; pass < passes; pass += 1) {
+    current = current.map((point, index, source) => {
+      const previous = source[(index - 1 + source.length) % source.length]
+      const next = source[(index + 1) % source.length]
+      return {
+        x: previous.x * 0.25 + point.x * 0.5 + next.x * 0.25,
+        y: previous.y * 0.25 + point.y * 0.5 + next.y * 0.25,
+      }
+    })
+  }
+  const smoothedCenter = averageCenter(current)
+  const smoothedArea = Math.abs(signedArea(current))
+  const areaScale = originalArea > 0 && smoothedArea > 0 ? Math.sqrt(originalArea / smoothedArea) : 1
+  return current.map((point) => ({
+    x: originalCenter.x + (point.x - smoothedCenter.x) * areaScale,
+    y: originalCenter.y + (point.y - smoothedCenter.y) * areaScale,
+  }))
+}

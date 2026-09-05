@@ -32,6 +32,7 @@ import {
   rebuildNail,
   replaceNailGeometry,
   rotateAxis,
+  smoothClosedPath,
   transformPoints,
   validateHandData,
   type GeometryPoint,
@@ -194,6 +195,7 @@ export default function GeometryEditor() {
   const [showGrid, setShowGrid] = useState(false)
   const [snap, setSnap] = useState('0.5')
   const [transform, setTransform] = useState<TransformForm>(EMPTY_TRANSFORM)
+  const [smoothStrength, setSmoothStrength] = useState('2')
   const [customImage, setCustomImage] = useState<string | null>(null)
   const svgRef = useRef<SVGSVGElement>(null)
   const dragRef = useRef<DragState | null>(null)
@@ -441,6 +443,28 @@ export default function GeometryEditor() {
     setTransform(EMPTY_TRANSFORM)
   }
 
+  const smoothFinger = () => {
+    if (!hand) return
+    const nextPoints = smoothClosedPath(selectedPoints, Number(smoothStrength) || 2)
+      .map((point) => ({ x: Number(point.x.toFixed(1)), y: Number(point.y.toFixed(1)) }))
+    pushChange(replaceNailGeometry(hand, selectedFinger, nextPoints))
+    setSelectedPoint(null)
+    setMessage(`Đã làm mượt ${FINGER_LABEL_VI[selectedFinger]} ở mức ${smoothStrength}, giữ nguyên tâm và diện tích.`)
+  }
+
+  const smoothAllFingers = () => {
+    if (!hand || !points) return
+    let next = hand
+    for (const finger of FINGER_ORDER) {
+      const smoothed = smoothClosedPath(points[finger], Number(smoothStrength) || 2)
+        .map((point) => ({ x: Number(point.x.toFixed(1)), y: Number(point.y.toFixed(1)) }))
+      next = replaceNailGeometry(next, finger, smoothed)
+    }
+    pushChange(next)
+    setSelectedPoint(null)
+    setMessage(`Đã làm mượt cả 5 móng ở mức ${smoothStrength}, giữ nguyên tâm và diện tích.`)
+  }
+
   const setAxis = (index: 0 | 1, value: string) => {
     if (!hand || !selectedNail || !Number.isFinite(Number(value))) return
     const axis: [number, number] = [...selectedNail.axis]
@@ -668,6 +692,22 @@ export default function GeometryEditor() {
               <div className="col-span-2"><Field label="Xoay (độ)" value={transform.rotation} onChange={(value) => setTransform((current) => ({ ...current, rotation: value }))} /></div>
             </div>
             <button type="button" onClick={applyTransform} className="w-full rounded-xl bg-white py-2.5 text-sm font-bold text-slate-900 hover:bg-fuchsia-100">Áp dụng cho {FINGER_LABEL_VI[selectedFinger]}</button>
+            <div className="rounded-xl border border-violet-400/20 bg-violet-500/10 p-3">
+              <div className="mb-2 flex items-center justify-between">
+                <span className="text-[11px] font-black uppercase tracking-wider text-violet-200">Làm mềm đường biên</span>
+                <select value={smoothStrength} onChange={(event) => setSmoothStrength(event.target.value)} className="rounded-lg border border-white/10 bg-slate-800 px-2 py-1 text-xs text-white outline-none">
+                  <option value="1">Nhẹ</option>
+                  <option value="2">Vừa</option>
+                  <option value="3">Mạnh</option>
+                  <option value="4">Rất mạnh</option>
+                </select>
+              </div>
+              <p className="mb-2 text-[10px] leading-relaxed text-violet-200/70">Lọc tuần hoàn và bù diện tích để đường cong mượt nhưng không co móng.</p>
+              <div className="grid grid-cols-2 gap-2">
+                <button type="button" onClick={smoothFinger} className="rounded-lg bg-violet-400/15 px-2 py-2 text-[11px] font-bold text-violet-100 hover:bg-violet-400/25">Ngón đang chọn</button>
+                <button type="button" onClick={smoothAllFingers} className="rounded-lg bg-violet-400 px-2 py-2 text-[11px] font-bold text-slate-950 hover:bg-violet-300">Cả 5 ngón</button>
+              </div>
+            </div>
             {selectedNail && (
               <div className="rounded-xl border border-white/10 bg-black/20 p-3">
                 <div className="mb-2 text-[10px] font-black uppercase tracking-wider text-slate-500">Trục dọc UV</div>

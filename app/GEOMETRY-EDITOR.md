@@ -20,9 +20,10 @@ The route is intentionally absent from the public navigation and is outside `Sit
 2. Select one finger, then use **Focus** and zoom to 400–800%.
 3. Use **Point mode (V)** to drag individual boundary nodes onto the photographic nail edge. Double-click an edge to add a node; `Delete` removes the selected node.
 4. Use **Move mode (M)** only when the whole mask is displaced. Use the numeric transform fields to adjust nail-local width, length, rotation, or sub-pixel translation without imposing one template on all fingers.
-5. Reduce mask opacity to compare the polygon against the cuticle and both sidewalls. Toggle the grid when checking single-pixel errors.
-6. Click **Save draft** before switching combinations. Drafts are stored per combination in browser local storage.
-7. Click **Export JSON** and replace the exact repository path shown in the right panel.
+5. After hand tracing, use **Smooth boundary** at Light or Medium strength. It resamples by closed-curve arc length, applies a periodic low-pass filter, then restores the original centroid and signed area so smoothing does not move or shrink the nail. The action is undoable and can target one finger or all five.
+6. Reduce mask opacity to compare the polygon against the cuticle and both sidewalls. Toggle the grid when checking single-pixel errors.
+7. Click **Save draft** before switching combinations. Drafts are stored per combination in browser local storage.
+8. Click **Export JSON** and replace the exact repository path shown in the right panel.
 
 ## Precision controls
 
@@ -35,4 +36,3 @@ The route is intentionally absent from the public navigation and is outside `Sit
 - Mouse wheel: zoom from 50% to 1200%.
 
 `bbox`, `center`, normalized `axis`, and all `uvFrame` ranges are recalculated after every geometry edit. Imported JSON is validated for all five required finger IDs and valid polygon paths before it replaces the current document.
-
