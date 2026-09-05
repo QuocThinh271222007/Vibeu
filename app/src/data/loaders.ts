@@ -32,7 +32,7 @@ const handDataLoaders = new Map<string, () => Promise<HandData>>()
 // Bump whenever hand photos/coordinates are recalibrated. Static hosts and browser
 // caches may otherwise keep serving an older coordinates.json at the same path even
 // after a deployment, making corrected masks appear unchanged in Studio.
-const HAND_ASSET_REVISION = '20260905-geometry-r3'
+const HAND_ASSET_REVISION = '20260905-geometry-r4-matcha-fix'
 function getHandDataLoader(url: string): () => Promise<HandData> {
   let loader = handDataLoaders.get(url)
   if (!loader) {
