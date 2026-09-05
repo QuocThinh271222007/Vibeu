@@ -29,4 +29,24 @@ jobs:
       - run: npm ci
       - run: npm run lint
       - run: npm run build
-
+      - name: Render editor screenshot
+        run: |
+          npm run preview -- --host 127.0.0.1 > /tmp/vibeu-geometry-preview.log 2>&1 &
+          preview_pid=$!
+          trap 'kill "$preview_pid"' EXIT
+          for attempt in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:4173/geometry-editor > /dev/null; then
+              break
+            fi
+            sleep 1
+          done
+          google-chrome --headless --no-sandbox --disable-gpu \
+            --hide-scrollbars --window-size=1920,1080 \
+            --screenshot=geometry-editor.png \
+            http://127.0.0.1:4173/geometry-editor
+          test -s geometry-editor.png
+      - uses: actions/upload-artifact@v4
+        with:
+          name: geometry-editor-screenshot
+          path: app/geometry-editor.png
+          if-no-files-found: error
