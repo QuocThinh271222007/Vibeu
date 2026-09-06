@@ -150,8 +150,7 @@ export default function Community() {
         </span>
         <h1 className="mt-3 font-display text-3xl font-semibold text-vibe-ink sm:text-4xl">Vibe hôm nay của mọi người</h1>
         <p className="mx-auto mt-3 max-w-md text-vibe-ink-soft">
-          Nơi khoe bộ nail bạn tự thiết kế trên VIBEU và xin vía từ mọi người — thích và đăng bài được ngay, admin duyệt trước khi hiện công khai.
-          Chưa có bình luận hay trang cá nhân riêng, nhưng bấm vào tên ai đó sẽ lọc ra đúng các bài của người ấy.
+          Nơi khoe bộ nail bạn tự thiết kế trên VIBEU và xin vía từ mọi người — thích và đăng bài được ngay.
         </p>
       </div>
 

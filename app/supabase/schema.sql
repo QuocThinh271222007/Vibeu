@@ -444,10 +444,17 @@ create table if not exists public.site_settings (
   maintenance_mode boolean not null default false,
   maintenance_message text not null default 'VIBEU đang bảo trì, quay lại sau ít phút nhé!',
   require_captcha boolean not null default false,
+  -- On (default): new community posts start hidden (community_posts.approved = false) until an
+  -- admin approves them — see /admin/community. Off: posts insert already approved, so they go
+  -- public immediately (still rate-limited) — see createCommunityPost's `approved` argument.
+  community_moderation boolean not null default true,
   updated_at timestamptz not null default now()
 );
 
 insert into public.site_settings (id) values (true) on conflict (id) do nothing;
+
+-- Added after the initial release — safe no-op if the column already exists.
+alter table public.site_settings add column if not exists community_moderation boolean not null default true;
 
 alter table public.site_settings enable row level security;
 
