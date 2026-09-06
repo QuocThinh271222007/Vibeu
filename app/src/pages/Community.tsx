@@ -51,7 +51,7 @@ export default function Community() {
         </span>
         <h1 className="mt-3 font-display text-3xl font-semibold text-vibe-ink sm:text-4xl">Vibe hôm nay của mọi người</h1>
         <p className="mx-auto mt-3 max-w-md text-vibe-ink-soft">
-          Mạng xã hội thu nhỏ của VIBEU — đăng bài, thích, bình luận, xem trang cá nhân của nhau. Admin duyệt bài trước khi hiện công khai.
+          Mạng xã hội thu nhỏ của VIBEU — đăng bài, thích, bình luận, xem trang cá nhân của nhau.
         </p>
       </div>
 

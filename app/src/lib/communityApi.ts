@@ -149,6 +149,9 @@ export interface NewCommunityPostInput {
   hashtags: string[]
   mediaUrl: string | null
   mediaAlt: string | null
+  /** Omit to use the DB column default (false — needs admin approval). Callers pass `true`
+   * only when the admin-controlled "Duyệt bài Cộng đồng" site setting is switched off. */
+  approved?: boolean
 }
 
 export async function createCommunityPost(input: NewCommunityPostInput): Promise<{ error: string | null }> {
@@ -160,6 +163,7 @@ export async function createCommunityPost(input: NewCommunityPostInput): Promise
     hashtags: input.hashtags,
     media_url: input.mediaUrl,
     media_alt: input.mediaAlt,
+    ...(input.approved !== undefined ? { approved: input.approved } : {}),
   })
   return { error: error ? friendlyDbError(error.message) : null }
 }

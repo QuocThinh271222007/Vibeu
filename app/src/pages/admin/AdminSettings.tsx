@@ -84,6 +84,12 @@ export default function AdminSettings() {
           label="Bắt buộc captcha khi đăng nhập/đăng ký"
           hint="Chỉ có tác dụng khi đã cấu hình Turnstile (xem trạng thái bên dưới). Tắt thì captcha vẫn hiện nhưng không bắt buộc."
         />
+        <Toggle
+          checked={settings.communityModeration}
+          onChange={(v) => save({ communityModeration: v })}
+          label="Duyệt bài Cộng đồng trước khi công khai"
+          hint="Bật (mặc định): bài mới chỉ tác giả thấy cho tới khi admin duyệt ở mục Cộng đồng. Tắt: bài đăng công khai ngay (vẫn có rate-limit chống spam)."
+        />
       </div>
 
       {settings.maintenanceMode && (

@@ -5,6 +5,9 @@ export interface SiteSettings {
   maintenanceMode: boolean
   maintenanceMessage: string
   requireCaptcha: boolean
+  /** true (default) = new community posts need admin approval before going public. false =
+   * posts go public immediately on creation (still rate-limited). */
+  communityModeration: boolean
 }
 
 const DEFAULTS: SiteSettings = {
@@ -12,6 +15,7 @@ const DEFAULTS: SiteSettings = {
   maintenanceMode: false,
   maintenanceMessage: 'VIBEU đang bảo trì, quay lại sau ít phút nhé!',
   requireCaptcha: false,
+  communityModeration: true,
 }
 
 export async function fetchSiteSettings(): Promise<SiteSettings> {
@@ -23,6 +27,7 @@ export async function fetchSiteSettings(): Promise<SiteSettings> {
     maintenanceMode: data.maintenance_mode,
     maintenanceMessage: data.maintenance_message,
     requireCaptcha: data.require_captcha,
+    communityModeration: data.community_moderation ?? true,
   }
 }
 
@@ -33,6 +38,7 @@ export async function updateSiteSettings(patch: Partial<SiteSettings>): Promise<
   if (patch.maintenanceMode !== undefined) row.maintenance_mode = patch.maintenanceMode
   if (patch.maintenanceMessage !== undefined) row.maintenance_message = patch.maintenanceMessage
   if (patch.requireCaptcha !== undefined) row.require_captcha = patch.requireCaptcha
+  if (patch.communityModeration !== undefined) row.community_moderation = patch.communityModeration
   const { error } = await supabase.from('site_settings').update(row).eq('id', true)
   return { error: error?.message ?? null }
 }

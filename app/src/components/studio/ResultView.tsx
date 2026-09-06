@@ -4,6 +4,7 @@ import { AlertTriangle, ArrowLeft, Check, Copy, Download, ImageDown, Send, Spark
 import { HandCanvas } from '@/components/studio/HandCanvas'
 import { Button } from '@/components/ui/Button'
 import { useColorPresets, useDecals } from '@/data/loaders'
+import { useSiteSettings } from '@/hooks/useSiteSettings'
 import { useStudioStore } from '@/store/studioStore'
 import { buildShareUrl, buildSpecRows, generateShareId } from '@/lib/recipe'
 import { downloadBlob, exportDesignPng } from '@/lib/exportImage'
@@ -41,6 +42,7 @@ export function ResultView({
   const activeTemplateId = useStudioStore((s) => s.activeTemplateId)
   const locked = getLockedTemplateView(activeTemplateId)
   const { profile } = useAuthStore()
+  const siteSettings = useSiteSettings()
   const navigate = useNavigate()
   const [toast, setToast] = useState<string | null>(null)
   const [posted, setPosted] = useState(false)
@@ -134,6 +136,7 @@ export function ResultView({
         flashToast(uploadError ?? 'Không tải được ảnh lên.')
         return
       }
+      const autoApproved = siteSettings ? !siteSettings.communityModeration : undefined
       const { error } = await createCommunityPost({
         userId: profile.id,
         templateId: activeTemplateId ?? null,
@@ -141,13 +144,14 @@ export function ResultView({
         hashtags: [],
         mediaUrl: url,
         mediaAlt: 'Ảnh bộ nail tự thiết kế trên VIBEU',
+        approved: autoApproved,
       })
       if (error) {
         flashToast(error)
         return
       }
       setPosted(true)
-      flashToast('Đã đăng lên Cộng đồng! Bài chờ admin duyệt trước khi công khai.')
+      flashToast(autoApproved ? 'Đã đăng lên Cộng đồng!' : 'Đã đăng lên Cộng đồng! Bài chờ admin duyệt trước khi công khai.')
       setTimeout(() => navigate('/community'), 1400)
     } catch {
       flashToast('Đăng bài thất bại, thử lại nhé.')
