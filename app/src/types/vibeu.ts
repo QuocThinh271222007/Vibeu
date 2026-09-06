@@ -181,9 +181,10 @@ export interface CustomGradient {
   end: [number, number]
 }
 
-/** One freehand brush stroke drawn directly on a nail — a simple vector polyline
- * (nail-local uv points, like StickerInstance.uv) rendered as an SVG path clipped to the
- * nail, not baked into the composeNail raster. */
+/** One freehand brush stroke drawn directly on a nail — a vector polyline (nail-local uv
+ * points, like StickerInstance.uv) rasterized into a DecalLayer and baked into the same
+ * composeNail/composeCharmLayer raster passes every other decal/charm goes through (see
+ * strokeRaster.ts) — not a flat unlit line floating on top of the finished render. */
 export interface DrawStroke {
   id: string
   points: [number, number][]
@@ -192,9 +193,11 @@ export interface DrawStroke {
   /** 0..1 — defaults to 1 for strokes saved before this field existed (see nailFill-adjacent
    * rendering in HandCanvas.tsx, which reads `stroke.opacity ?? 1`). */
   opacity?: number
-  /** 'multiply' blends the stroke into the lit polish underneath (looks like ink soaking in);
-   * 'normal' (default, for strokes saved before this field existed) sits flatly on top. */
-  blend?: 'normal' | 'multiply'
+  /** 'embedded' (default) — lit/curvature-warped/glossed exactly like paint+decals (Pass B/C
+   * in nailFill.ts), reads as ink sitting in the polish. 'raised' — composited on the shared
+   * hand-wide charm layer instead (unlit, free to overflow the nail edge), reads as a raised/
+   * embossed line, like real 3D gel nail art. */
+  render?: 'embedded' | 'raised'
 }
 
 export interface FingerDesign {

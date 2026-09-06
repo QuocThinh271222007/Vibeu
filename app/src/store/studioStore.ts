@@ -75,7 +75,7 @@ interface StudioState extends DesignSnapshot {
   brushColor: string
   /** 0..1 — see brushWidth/brushColor doc above, same "tool preference" treatment. */
   brushOpacity: number
-  brushBlend: 'normal' | 'multiply'
+  brushRender: 'embedded' | 'raised'
   /** Studio's "Ánh sáng" panel — a viewing/lighting preference, not part of the nail design
    * recipe itself (a template or saved design never specifies "how it was photographed"), so
    * — like debugMode — this is deliberately outside past/future undo history. Defaults match
@@ -103,7 +103,7 @@ interface StudioState extends DesignSnapshot {
   setStickerLocked: (finger: FingerId, instanceId: string, locked: boolean) => void
   reorderSticker: (finger: FingerId, instanceId: string, direction: 'up' | 'down') => void
   selectSticker: (instanceId: string | null) => void
-  addStroke: (finger: FingerId, points: [number, number][], color: string, width: number, opacity: number, blend: 'normal' | 'multiply') => void
+  addStroke: (finger: FingerId, points: [number, number][], color: string, width: number, opacity: number, render: 'embedded' | 'raised') => void
   clearStrokes: (finger: FingerId) => void
   undoLastStroke: (finger: FingerId) => void
   reset: () => void
@@ -116,7 +116,7 @@ interface StudioState extends DesignSnapshot {
   setBrushWidth: (w: number) => void
   setBrushColor: (c: string) => void
   setBrushOpacity: (o: number) => void
-  setBrushBlend: (b: 'normal' | 'multiply') => void
+  setBrushRender: (b: 'embedded' | 'raised') => void
   setLightExposure: (v: number) => void
   setLightStrength: (v: number) => void
   setLightAngleDeg: (v: number) => void
@@ -160,7 +160,7 @@ export const useStudioStore = create<StudioState>((set, get) => ({
   brushWidth: 4,
   brushColor: '#FF2D87',
   brushOpacity: 0.85,
-  brushBlend: 'multiply',
+  brushRender: 'embedded',
   lightExposure: DEFAULT_LIGHT.exposure,
   lightStrength: DEFAULT_LIGHT.strength,
   lightAngleDeg: DEFAULT_LIGHT.angle,
@@ -335,9 +335,9 @@ export const useStudioStore = create<StudioState>((set, get) => ({
 
   selectSticker: (instanceId) => set({ selectedStickerInstance: instanceId }),
 
-  addStroke: (finger, points, color, width, opacity, blend) =>
+  addStroke: (finger, points, color, width, opacity, render) =>
     withHistory(set, (s) => {
-      const stroke: DrawStroke = { id: nextStrokeId(), points, color, width, opacity, blend }
+      const stroke: DrawStroke = { id: nextStrokeId(), points, color, width, opacity, render }
       return {
         fingers: {
           ...s.fingers,
@@ -417,7 +417,7 @@ export const useStudioStore = create<StudioState>((set, get) => ({
   setBrushWidth: (w) => set({ brushWidth: w }),
   setBrushColor: (c) => set({ brushColor: c }),
   setBrushOpacity: (o) => set({ brushOpacity: o }),
-  setBrushBlend: (b) => set({ brushBlend: b }),
+  setBrushRender: (b) => set({ brushRender: b }),
 
   setLightExposure: (v) => set({ lightExposure: Math.min(0.25, Math.max(-0.2, v)) }),
   setLightStrength: (v) => set({ lightStrength: Math.min(1, Math.max(0, v)) }),

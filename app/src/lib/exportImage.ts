@@ -4,6 +4,7 @@ import { LENGTH_SCALE, lengthScaleMatrixValues, localToImage, nailWidthPx, shape
 import { buildMaterialConfig, buildPaintConfig, composeCharmLayer, composeNail, DEFAULT_LIGHT, hexToRgb01, type DecalLayer, type LightState } from '@/lib/nailFill'
 import { maskGrowPxFor } from '@/lib/nailEdgeTuning'
 import { getPreparedHand } from '@/lib/nailLighting'
+import { buildStrokeDecalLayers } from '@/lib/strokeRaster'
 import { FINGER_ORDER, type ColorPreset, type DecalAsset, type FingerDesign, type FingerId, type HandData, type NailCoord, type SkinToneId } from '@/types/vibeu'
 
 function loadImage(src: string): Promise<HTMLImageElement> {
@@ -122,8 +123,10 @@ export async function exportDesignPng(
     const paintCfg = buildPaintConfig(preset, design.customColor, design.customGradient)
     const materialCfg = buildMaterialConfig(preset, design.effect)
     const decalLayers = await buildDecalLayersForExport(nail, design, stickersById)
+    const embeddedStrokes = design.drawStrokes.filter((s) => (s.render ?? 'embedded') === 'embedded')
+    const allNailLayers = [...decalLayers, ...buildStrokeDecalLayers(nail, embeddedStrokes)]
     const seed = FINGER_ORDER.indexOf(nail.id)
-    const nailCanvas = composeNail(prepared, paintCfg, materialCfg, decalLayers, light, seed)
+    const nailCanvas = composeNail(prepared, paintCfg, materialCfg, allNailLayers, light, seed)
 
     // Composite this nail's content on a full-size scratch layer first, then mask it with
     // a RASTER clip (fill + stroke-dilated outline, unioned by alpha) before compositing
@@ -156,29 +159,6 @@ export async function exportDesignPng(
     layerCtx.transform(m.a, m.b, m.c, m.d, m.e, m.f)
     layerCtx.drawImage(nailCanvas, prepared.x, prepared.y)
     layerCtx.restore()
-
-    // Freehand strokes aren't length-scaled in the live preview either (they're siblings of,
-    // not inside, HandCanvas's length-matrix <g> — see strokePathD's callers) — drawn here in
-    // the same un-stretched image space, still inside the shape-trim clip from above, so a
-    // "Xuất ảnh PNG"/Community post export doesn't silently drop the user's own drawing.
-    for (const stroke of design.drawStrokes) {
-      layerCtx.save()
-      layerCtx.globalAlpha = stroke.opacity ?? 1
-      layerCtx.globalCompositeOperation = stroke.blend === 'multiply' ? 'multiply' : 'source-over'
-      layerCtx.strokeStyle = stroke.color
-      layerCtx.lineWidth = stroke.width
-      layerCtx.lineCap = 'round'
-      layerCtx.lineJoin = 'round'
-      layerCtx.beginPath()
-      stroke.points.forEach((p, i) => {
-        const [x, y] = localToImage(nail, p)
-        if (i === 0) layerCtx.moveTo(x, y)
-        else layerCtx.lineTo(x, y)
-      })
-      layerCtx.stroke()
-      layerCtx.restore()
-    }
-
     layerCtx.restore()
 
     const mask = document.createElement('canvas')
@@ -198,11 +178,14 @@ export async function exportDesignPng(
     ctx.drawImage(layer, 0, 0)
   }
 
-  // Charms render last, in one hand-wide unclipped pass on top of every nail's polish —
-  // same reasoning as CharmLayer in the live Studio preview (HandCanvas.tsx).
+  // Charms (and "raised"-mode draw strokes, same treatment) render last, in one hand-wide
+  // unclipped pass on top of every nail's polish — same reasoning as CharmLayer in the live
+  // Studio preview (HandCanvas.tsx).
   const charmLayers = await buildCharmLayersForExport(hand, fingers, stickersById)
-  if (charmLayers.length) {
-    const charmCanvas = composeCharmLayer(charmLayers, light, hand.width, hand.height)
+  const raisedStrokeLayers = hand.nails.flatMap((nail) => buildStrokeDecalLayers(nail, fingers[nail.id].drawStrokes.filter((s) => s.render === 'raised')))
+  const allCharmLayers = [...charmLayers, ...raisedStrokeLayers]
+  if (allCharmLayers.length) {
+    const charmCanvas = composeCharmLayer(allCharmLayers, light, hand.width, hand.height)
     ctx.drawImage(charmCanvas, 0, 0)
   }
 

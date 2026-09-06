@@ -28,6 +28,7 @@ import {
 import { getPreparedHand, type PreparedNail } from '@/lib/nailLighting'
 import { getResolvedDecalAsset, type ResolvedDecalAsset } from '@/lib/decalCache'
 import { clientToSvgPoint } from '@/lib/svgPoint'
+import { buildStrokeDecalLayers } from '@/lib/strokeRaster'
 import { useStudioStore } from '@/store/studioStore'
 import type { DecalAsset, FingerDesign, FingerId, NailCoord, NailLength, NailShape, SkinToneId, StickerInstance } from '@/types/vibeu'
 import { FINGER_ORDER } from '@/types/vibeu'
@@ -104,7 +105,6 @@ interface HandCanvasProps {
   brushWidth?: number
   brushColor?: string
   brushOpacity?: number
-  brushBlend?: 'normal' | 'multiply'
   onAddStroke?: (finger: FingerId, points: [number, number][]) => void
   className?: string
 }
@@ -130,7 +130,6 @@ export function HandCanvas({
   brushWidth = 4,
   brushColor = '#FF2D87',
   brushOpacity = 1,
-  brushBlend = 'normal',
   onAddStroke,
   className = '',
 }: HandCanvasProps) {
@@ -309,6 +308,10 @@ export function HandCanvas({
             />
           ))}
         {drawMode && liveStroke && liveStroke.points.length > 1 && (
+          // Cheap unlit approximation while the gesture is still in progress — re-running the
+          // full raster compositor on every pointermove would be far too slow. Swapped for the
+          // real lit/curvature-warped (or raised) bake the instant the stroke commits, exactly
+          // like TransientStickerPreview does for an in-progress sticker drag.
           <g clipPath={`url(#clip-real-${iid}-${liveStroke.finger})`} pointerEvents="none">
             <path
               d={strokePathD(hand.nails.find((n) => n.id === liveStroke.finger)!, liveStroke.points)}
@@ -318,7 +321,6 @@ export function HandCanvas({
               strokeOpacity={brushOpacity}
               strokeLinecap="round"
               strokeLinejoin="round"
-              style={{ mixBlendMode: brushBlend }}
             />
           </g>
         )}
@@ -564,10 +566,18 @@ function NailPaint({
     return layers
   }, [prepared, sortedStickers, stickersById, resolvedAssets, nail, liveDragInstanceId])
 
+  // "Embedded" draw strokes are rasterized and baked in right alongside the sticker decals
+  // above — same lit/curvature-warped Pass B treatment, same clear-coat gloss in Pass C — so
+  // hand-drawn nail art reads as real paint, not a flat line floating on top of the render.
+  // "Raised" strokes render on the hand-wide CharmLayer instead (see below).
+  const embeddedStrokes = useMemo(() => design.drawStrokes.filter((s) => (s.render ?? 'embedded') === 'embedded'), [design.drawStrokes])
+  const strokeLayers = useMemo(() => (prepared ? buildStrokeDecalLayers(nail, embeddedStrokes) : []), [prepared, embeddedStrokes, nail])
+  const allNailLayers = useMemo(() => [...decalLayers, ...strokeLayers], [decalLayers, strokeLayers])
+
   const dataUrl = useMemo(() => {
     if (!prepared || !paintCfg || !materialCfg) return null
-    return composeNail(prepared, paintCfg, materialCfg, decalLayers, light, seed).toDataURL()
-  }, [prepared, paintCfg, materialCfg, decalLayers, light, seed])
+    return composeNail(prepared, paintCfg, materialCfg, allNailLayers, light, seed).toDataURL()
+  }, [prepared, paintCfg, materialCfg, allNailLayers, light, seed])
 
   if (!preset || !prepared || !dataUrl) return null
   const uid = `${iid}-${nail.id}`
@@ -600,22 +610,6 @@ function NailPaint({
           <g transform={lengthMatrix}>
             <image href={dataUrl} x={prepared.x} y={prepared.y} width={prepared.w} height={prepared.h} preserveAspectRatio="none" />
           </g>
-          {design.drawStrokes.map((stroke) => (
-            <path
-              key={stroke.id}
-              d={strokePathD(nail, stroke.points)}
-              fill="none"
-              stroke={stroke.color}
-              strokeWidth={stroke.width}
-              strokeOpacity={stroke.opacity ?? 1}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              // 'multiply' (the default for new strokes) lets the nail's own lit/shaded pixels
-              // underneath show through the ink instead of sitting as a flat pasted-on line —
-              // strokes saved before this field existed keep their original flat 'normal' look.
-              style={{ mixBlendMode: stroke.blend ?? 'normal' }}
-            />
-          ))}
         </g>
       </g>
     </g>
@@ -688,9 +682,23 @@ function CharmLayer({
     return layers
   }, [charmInstances, stickersById, resolvedAssets])
 
+  // "Raised" draw strokes (DrawTab's "Nổi khối" choice) join the same hand-wide, unlit charm
+  // layer as raised stickers — free to overflow the nail edge, reads as embossed/3D nail art
+  // instead of paint sitting in the polish (that's "embedded" strokes, baked into NailPaint above).
+  const raisedStrokeLayers = useMemo(() => {
+    const layers: DecalLayer[] = []
+    for (const nail of hand.nails) {
+      const raised = fingers[nail.id].drawStrokes.filter((s) => s.render === 'raised')
+      layers.push(...buildStrokeDecalLayers(nail, raised))
+    }
+    return layers
+  }, [hand, fingers])
+
+  const allCharmLayers = useMemo(() => [...charmLayers, ...raisedStrokeLayers], [charmLayers, raisedStrokeLayers])
+
   const dataUrl = useMemo(
-    () => (charmLayers.length ? composeCharmLayer(charmLayers, light, hand.width, hand.height).toDataURL() : null),
-    [charmLayers, light, hand.width, hand.height],
+    () => (allCharmLayers.length ? composeCharmLayer(allCharmLayers, light, hand.width, hand.height).toDataURL() : null),
+    [allCharmLayers, light, hand.width, hand.height],
   )
 
   if (!dataUrl) return null
