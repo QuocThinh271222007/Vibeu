@@ -14,6 +14,7 @@ export interface TemplateRow {
   cover_src: string | null
   cover_alt: string | null
   cover_object_position: string | null
+  visible: boolean
   created_by: string | null
   created_at: string
 }
@@ -96,6 +97,14 @@ export async function updateTemplate(id: string, input: Partial<TemplateInput>):
 export async function deleteTemplate(id: string): Promise<{ error: string | null }> {
   if (!supabase) return { error: 'Chưa kết nối Supabase.' }
   const { error } = await supabase.from('templates').delete().eq('id', id)
+  return { error: error?.message ?? null }
+}
+
+/** Hiding is reversible and keeps the row (unlike delete) — it just drops out of the public
+ * Thư viện mẫu (RLS) until an admin un-hides it. */
+export async function setTemplateVisible(id: string, visible: boolean): Promise<{ error: string | null }> {
+  if (!supabase) return { error: 'Chưa kết nối Supabase.' }
+  const { error } = await supabase.from('templates').update({ visible }).eq('id', id)
   return { error: error?.message ?? null }
 }
 

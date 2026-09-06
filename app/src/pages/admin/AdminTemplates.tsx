@@ -1,10 +1,17 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Pencil, Trash2, Wand2, X } from 'lucide-react'
+import { Eye, EyeOff, Pencil, Trash2, Wand2, X } from 'lucide-react'
 import { TemplatePreviewMedia } from '@/components/studio/TemplatePreviewMedia'
 import { TEMPLATE_TAGS } from '@/data/templateTags'
 import { useToast } from '@/components/ui/Toast'
-import { deleteTemplate, fetchAllTemplatesAdmin, updateTemplate, uploadTemplateCover, type TemplateRow } from '@/lib/templatesApi'
+import {
+  deleteTemplate,
+  fetchAllTemplatesAdmin,
+  setTemplateVisible,
+  updateTemplate,
+  uploadTemplateCover,
+  type TemplateRow,
+} from '@/lib/templatesApi'
 import { useAuthStore } from '@/store/authStore'
 import type { Template } from '@/types/vibeu'
 
@@ -47,6 +54,16 @@ export default function AdminTemplates() {
     reload()
   }
 
+  async function handleToggleVisible(r: TemplateRow) {
+    const { error } = await setTemplateVisible(r.id, !r.visible)
+    if (error) {
+      push('error', error)
+      return
+    }
+    push('success', r.visible ? 'Đã ẩn mẫu khỏi Thư viện.' : 'Đã hiện lại mẫu.')
+    reload()
+  }
+
   return (
     <div>
       <div className="flex items-center justify-between">
@@ -68,9 +85,12 @@ export default function AdminTemplates() {
       ) : (
         <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {rows.map((r) => (
-            <div key={r.id} className="overflow-hidden rounded-2xl bg-white shadow-sm">
-              <div className="aspect-[2/3]">
+            <div key={r.id} className={`overflow-hidden rounded-2xl bg-white shadow-sm ${!r.visible ? 'opacity-50' : ''}`}>
+              <div className="relative aspect-[2/3]">
                 <TemplatePreviewMedia template={rowToTemplate(r)} className="h-full w-full" />
+                {!r.visible && (
+                  <span className="absolute left-2 top-2 rounded-full bg-black/60 px-2 py-0.5 text-[10px] font-semibold text-white">Đang ẩn</span>
+                )}
               </div>
               <div className="p-3">
                 <p className="truncate text-sm font-semibold text-vibe-ink">{r.name}</p>
@@ -78,15 +98,24 @@ export default function AdminTemplates() {
                 <div className="mt-2 flex gap-1.5">
                   <button
                     onClick={() => setEditing(r)}
+                    title="Sửa"
                     className="flex flex-1 items-center justify-center gap-1.5 rounded-full bg-vibe-cream py-1.5 text-xs font-semibold text-vibe-ink-soft hover:bg-vibe-ink hover:text-white"
                   >
-                    <Pencil size={13} /> Sửa
+                    <Pencil size={13} />
+                  </button>
+                  <button
+                    onClick={() => handleToggleVisible(r)}
+                    title={r.visible ? 'Ẩn khỏi Thư viện' : 'Hiện lại'}
+                    className="flex flex-1 items-center justify-center gap-1.5 rounded-full bg-vibe-cream py-1.5 text-xs font-semibold text-vibe-ink-soft hover:bg-amber-50 hover:text-amber-600"
+                  >
+                    {r.visible ? <Eye size={13} /> : <EyeOff size={13} />}
                   </button>
                   <button
                     onClick={() => handleDelete(r.id, r.name)}
+                    title="Xoá"
                     className="flex flex-1 items-center justify-center gap-1.5 rounded-full bg-vibe-cream py-1.5 text-xs font-semibold text-vibe-ink-soft hover:bg-red-50 hover:text-red-600"
                   >
-                    <Trash2 size={13} /> Xoá
+                    <Trash2 size={13} />
                   </button>
                 </div>
               </div>

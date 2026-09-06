@@ -1,13 +1,18 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Heart, Wand2 } from 'lucide-react'
+import { Camera, Heart, Wand2 } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { TemplatePreviewMedia } from '@/components/studio/TemplatePreviewMedia'
+import { resolveTemplatePreview } from '@/data/curatedPreviews'
 import type { Template } from '@/types/vibeu'
 
 export function TemplatePreviewCard({ template, index = 0 }: { template: Template; index?: number }) {
   const [saved, setSaved] = useState(false)
   const navigate = useNavigate()
+  // Same source of truth as getLockedTemplateView (templateLock.ts) — a curated cover photo
+  // means Studio opens this one locked (real photo, no editable tabs), not the live compositor.
+  const preview = resolveTemplatePreview(template)
+  const isLocked = preview?.type === 'curated' && Boolean(preview.image)
 
   return (
     <motion.article
@@ -25,6 +30,11 @@ export function TemplatePreviewCard({ template, index = 0 }: { template: Templat
           eager={index < 4}
         />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/10 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+        {isLocked && (
+          <span className="absolute left-3 top-3 flex items-center gap-1 rounded-full bg-black/55 px-2.5 py-1 text-[10px] font-semibold text-white backdrop-blur">
+            <Camera size={11} /> Ảnh thật
+          </span>
+        )}
         <button
           onClick={() => setSaved((s) => !s)}
           aria-label="Lưu mẫu"
@@ -41,7 +51,7 @@ export function TemplatePreviewCard({ template, index = 0 }: { template: Templat
           onClick={() => navigate(`/studio?template=${template.id}`)}
           className="mt-3 flex w-full items-center justify-center gap-1.5 rounded-full bg-vibe-cream py-2 text-xs font-semibold text-vibe-ink transition-colors group-hover:bg-vibe-pink group-hover:text-white"
         >
-          <Wand2 size={14} /> Dùng mẫu này
+          <Wand2 size={14} /> {isLocked ? 'Xem ảnh thật' : 'Dùng mẫu này'}
         </button>
       </div>
     </motion.article>

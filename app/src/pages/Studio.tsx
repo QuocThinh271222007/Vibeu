@@ -16,6 +16,7 @@ import { LightingPanel } from '@/components/studio/LightingPanel'
 import { ResultView } from '@/components/studio/ResultView'
 import { Button } from '@/components/ui/Button'
 import { findTemplateAsync } from '@/data/templates'
+import { fetchSavedDesign } from '@/lib/savedDesignsApi'
 import { getLockedTemplateView } from '@/lib/templateLock'
 import { FINGER_LABEL_VI, type NailLength, type NailShape, type SkinToneId } from '@/types/vibeu'
 
@@ -53,6 +54,19 @@ export default function Studio() {
     let alive = true
     findTemplateAsync(templateId).then((tpl) => {
       if (alive && tpl) s.loadTemplate(tpl)
+    })
+    return () => {
+      alive = false
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [params])
+
+  useEffect(() => {
+    const designId = params.get('design')
+    if (!designId) return
+    let alive = true
+    fetchSavedDesign(designId).then((d) => {
+      if (alive && d) s.loadSharedDesign({ skinTone: d.skinTone, fingers: d.fingers, customDecals: d.customDecals })
     })
     return () => {
       alive = false

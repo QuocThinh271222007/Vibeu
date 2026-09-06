@@ -356,6 +356,7 @@ create table if not exists public.templates (
   cover_src text,
   cover_alt text,
   cover_object_position text,
+  visible boolean not null default true,
   created_by uuid references public.profiles (id) on delete set null,
   created_at timestamptz not null default now()
 );
@@ -364,12 +365,18 @@ create table if not exists public.templates (
 alter table public.templates add column if not exists cover_src text;
 alter table public.templates add column if not exists cover_alt text;
 alter table public.templates add column if not exists cover_object_position text;
+alter table public.templates add column if not exists visible boolean not null default true;
 
 alter table public.templates enable row level security;
 
+-- Hidden templates (admin toggle in /admin/templates) stay fully visible to admins — everyone
+-- else only sees visible = true. Distinct from delete: hiding is reversible, keeps the row (and
+-- anything referencing its id, e.g. old QR codes/community posts) intact.
 drop policy if exists "Templates are viewable by everyone" on public.templates;
 create policy "Templates are viewable by everyone"
-  on public.templates for select using (true);
+  on public.templates for select using (
+    visible or exists (select 1 from public.profiles where id = auth.uid() and role = 'admin')
+  );
 
 drop policy if exists "Admins manage templates" on public.templates;
 create policy "Admins manage templates"
@@ -422,6 +429,43 @@ begin
   update public.shared_designs set view_count = view_count + 1 where id = design_id;
 end;
 $$ language plpgsql security definer set search_path = public;
+
+-- =========================================================================
+-- saved_designs — Studio's "Lưu/Mở" personal collection, one row per save. Distinct from
+-- shared_designs above: that one is an anonymous-ok, auto-named, ephemeral QR export; this one
+-- is a named, permanent, account-owned save — requires login (no owner to attach it to
+-- otherwise), and is what the "Bộ sưu tập" section on a user's profile page reads.
+-- =========================================================================
+create table if not exists public.saved_designs (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null references public.profiles (id) on delete cascade,
+  name text not null default 'Thiết kế chưa đặt tên',
+  skin_tone text not null check (skin_tone in ('cozy', 'matcha')),
+  fingers jsonb not null,
+  custom_decals jsonb not null default '[]'::jsonb,
+  created_at timestamptz not null default now()
+);
+
+create index if not exists saved_designs_user_id_idx on public.saved_designs (user_id, created_at desc);
+
+alter table public.saved_designs enable row level security;
+
+-- Public read (shown on the owner's public profile page, like a portfolio) — same "Bộ sưu tập
+-- is public" call as community posts. Write access is owner-only.
+drop policy if exists "Saved designs are viewable by everyone" on public.saved_designs;
+create policy "Saved designs are viewable by everyone"
+  on public.saved_designs for select using (true);
+
+drop policy if exists "Users can save their own designs" on public.saved_designs;
+create policy "Users can save their own designs"
+  on public.saved_designs for insert with check (auth.uid() = user_id);
+
+drop policy if exists "Owners or admins can delete saved designs" on public.saved_designs;
+create policy "Owners or admins can delete saved designs"
+  on public.saved_designs for delete using (
+    auth.uid() = user_id
+    or exists (select 1 from public.profiles where id = auth.uid() and role = 'admin')
+  );
 
 -- =========================================================================
 -- rate_limit_hits — generic per-user/per-action counter used by the triggers below to throttle
@@ -511,6 +555,19 @@ drop trigger if exists rate_limit_shared_designs_trigger on public.shared_design
 create trigger rate_limit_shared_designs_trigger
   before insert on public.shared_designs
   for each row execute procedure public.rate_limit_shared_designs();
+
+create or replace function public.rate_limit_saved_designs()
+returns trigger as $$
+begin
+  perform public.enforce_rate_limit('saved_design', 30, interval '1 hour');
+  return new;
+end;
+$$ language plpgsql security definer set search_path = public;
+
+drop trigger if exists rate_limit_saved_designs_trigger on public.saved_designs;
+create trigger rate_limit_saved_designs_trigger
+  before insert on public.saved_designs
+  for each row execute procedure public.rate_limit_saved_designs();
 
 -- =========================================================================
 -- site_settings — single-row table of admin-controlled site-wide toggles, read by every visitor

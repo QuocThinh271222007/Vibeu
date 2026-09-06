@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { deleteDesign, listSavedDesigns, loadDesign, saveDesign, type SavedDesignMeta } from '@/lib/persistence'
+import { createSavedDesign, deleteSavedDesign as deleteSavedDesignApi, fetchSavedDesigns, type SavedDesignRow } from '@/lib/savedDesignsApi'
 import { DEFAULT_LIGHT } from '@/lib/nailFill'
 import { FINGER_ORDER, type CustomGradient, type DecalAsset, type DrawStroke, type FingerDesign, type FingerId, type NailLength, type NailShape, type SkinToneId, type StickerInstance, type Template } from '@/types/vibeu'
 
@@ -64,7 +64,7 @@ interface StudioState extends DesignSnapshot {
   customDecals: DecalAsset[]
   past: DesignSnapshot[]
   future: DesignSnapshot[]
-  savedDesigns: SavedDesignMeta[]
+  savedDesigns: SavedDesignRow[]
   /** QA-only overlay (mask outline, pointer/uv readout, decal bounds, normal/roughness/Fresnel
    * views) — off by default, never part of the design/history so toggling it can't be undone. */
   debugMode: boolean
@@ -121,10 +121,10 @@ interface StudioState extends DesignSnapshot {
   setLightStrength: (v: number) => void
   setLightAngleDeg: (v: number) => void
   resetLighting: () => void
-  refreshSavedDesigns: () => void
-  saveCurrentDesign: (name: string) => void
+  refreshSavedDesigns: (userId: string) => Promise<void>
+  saveCurrentDesign: (userId: string, name: string) => Promise<{ error: string | null }>
   loadSavedDesign: (id: string) => void
-  deleteSavedDesign: (id: string) => void
+  deleteSavedDesign: (id: string) => Promise<{ error: string | null }>
   loadSharedDesign: (payload: { skinTone: SkinToneId; fingers: Record<FingerId, FingerDesign>; customDecals: DecalAsset[] }) => void
 }
 
@@ -155,7 +155,7 @@ export const useStudioStore = create<StudioState>((set, get) => ({
   customDecals: [],
   past: [],
   future: [],
-  savedDesigns: listSavedDesigns(),
+  savedDesigns: [],
   debugMode: false,
   brushWidth: 4,
   brushColor: '#FF2D87',
@@ -425,16 +425,23 @@ export const useStudioStore = create<StudioState>((set, get) => ({
   resetLighting: () =>
     set({ lightExposure: DEFAULT_LIGHT.exposure, lightStrength: DEFAULT_LIGHT.strength, lightAngleDeg: DEFAULT_LIGHT.angle }),
 
-  refreshSavedDesigns: () => set({ savedDesigns: listSavedDesigns() }),
+  refreshSavedDesigns: async (userId) => {
+    const list = await fetchSavedDesigns(userId)
+    set({ savedDesigns: list })
+  },
 
-  saveCurrentDesign: (name) => {
+  saveCurrentDesign: async (userId, name) => {
     const s = get()
-    saveDesign(name, s.skinTone, s.fingers, s.customDecals)
-    set({ savedDesigns: listSavedDesigns() })
+    const { error } = await createSavedDesign(userId, name, s.skinTone, s.fingers, s.customDecals)
+    if (!error) {
+      const list = await fetchSavedDesigns(userId)
+      set({ savedDesigns: list })
+    }
+    return { error }
   },
 
   loadSavedDesign: (id) => {
-    const found = loadDesign(id)
+    const found = get().savedDesigns.find((d) => d.id === id)
     if (!found) return
     withHistory(set, () => ({
       skinTone: found.skinTone,
@@ -447,9 +454,10 @@ export const useStudioStore = create<StudioState>((set, get) => ({
     }))
   },
 
-  deleteSavedDesign: (id) => {
-    deleteDesign(id)
-    set({ savedDesigns: listSavedDesigns() })
+  deleteSavedDesign: async (id) => {
+    const { error } = await deleteSavedDesignApi(id)
+    if (!error) set((s) => ({ savedDesigns: s.savedDesigns.filter((d) => d.id !== id) }))
+    return { error }
   },
 
   loadSharedDesign: (payload) =>

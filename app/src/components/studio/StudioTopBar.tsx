@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { ArrowLeft, Bug, ExternalLink, FolderOpen, LibraryBig, Redo2, RefreshCcw, Save, Trash2, Undo2 } from 'lucide-react'
 import { Logo } from '@/components/ui/Logo'
 import { TEMPLATE_TAGS } from '@/data/templateTags'
@@ -232,11 +232,44 @@ function SaveTemplatePanel({ onClose }: { onClose: () => void }) {
 }
 
 function SavePanel({ onClose }: { onClose: () => void }) {
+  const profile = useAuthStore((s) => s.profile)
   const [name, setName] = useState('')
+  const [saving, setSaving] = useState(false)
+  const [error, setError] = useState<string | null>(null)
   const savedDesigns = useStudioStore((s) => s.savedDesigns)
+  const refreshSavedDesigns = useStudioStore((s) => s.refreshSavedDesigns)
   const saveCurrentDesign = useStudioStore((s) => s.saveCurrentDesign)
   const loadSavedDesign = useStudioStore((s) => s.loadSavedDesign)
   const deleteSavedDesign = useStudioStore((s) => s.deleteSavedDesign)
+
+  useEffect(() => {
+    if (profile) refreshSavedDesigns(profile.id)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [profile?.id])
+
+  if (!profile) {
+    return (
+      <div className="absolute right-4 top-full z-20 mt-2 w-72 rounded-2xl border border-vibe-ink/10 bg-white p-4 text-center shadow-vibe-lg">
+        <p className="text-sm text-vibe-ink-soft">Đăng nhập để lưu thiết kế vào tài khoản — xem lại ở mọi thiết bị, hiện trong "Bộ sưu tập" ở trang cá nhân.</p>
+        <Link to="/auth?redirect=/studio" className="mt-3 inline-block rounded-full bg-vibe-ink px-4 py-1.5 text-xs font-semibold text-white">
+          Đăng nhập
+        </Link>
+      </div>
+    )
+  }
+
+  async function handleSave() {
+    if (!profile) return
+    setSaving(true)
+    setError(null)
+    const { error } = await saveCurrentDesign(profile.id, name)
+    setSaving(false)
+    if (error) {
+      setError(error)
+      return
+    }
+    setName('')
+  }
 
   return (
     <div className="absolute right-4 top-full z-20 mt-2 w-80 rounded-2xl border border-vibe-ink/10 bg-white p-4 shadow-vibe-lg">
@@ -247,16 +280,11 @@ function SavePanel({ onClose }: { onClose: () => void }) {
           placeholder="Tên thiết kế…"
           className="w-full rounded-full border-2 border-vibe-ink/10 px-3 py-1.5 text-sm outline-none focus:border-vibe-pink/50"
         />
-        <button
-          onClick={() => {
-            saveCurrentDesign(name)
-            setName('')
-          }}
-          className="shrink-0 rounded-full bg-vibe-ink px-3.5 py-1.5 text-sm font-semibold text-white"
-        >
-          Lưu
+        <button onClick={handleSave} disabled={saving} className="shrink-0 rounded-full bg-vibe-ink px-3.5 py-1.5 text-sm font-semibold text-white disabled:opacity-40">
+          {saving ? 'Đang lưu...' : 'Lưu'}
         </button>
       </div>
+      {error && <p className="mt-1.5 text-xs text-red-600">{error}</p>}
 
       <div className="mt-3 max-h-64 space-y-1.5 overflow-y-auto vibe-scrollbar">
         {savedDesigns.length === 0 && <p className="py-4 text-center text-xs text-vibe-ink-soft">Chưa có thiết kế nào được lưu.</p>}
@@ -264,7 +292,7 @@ function SavePanel({ onClose }: { onClose: () => void }) {
           <div key={d.id} className="flex items-center gap-2 rounded-xl bg-vibe-cream/60 px-3 py-2">
             <div className="min-w-0 flex-1">
               <p className="truncate text-xs font-semibold text-vibe-ink">{d.name}</p>
-              <p className="text-[10px] text-vibe-ink-soft">{new Date(d.savedAt).toLocaleString('vi-VN')}</p>
+              <p className="text-[10px] text-vibe-ink-soft">{new Date(d.createdAt).toLocaleString('vi-VN')}</p>
             </div>
             <button
               onClick={() => {
