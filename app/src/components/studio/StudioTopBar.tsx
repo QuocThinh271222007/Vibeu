@@ -36,14 +36,9 @@ export function StudioTopBar({
   const redo = useStudioStore((s) => s.redo)
   const debugMode = useStudioStore((s) => s.debugMode)
   const toggleDebugMode = useStudioStore((s) => s.toggleDebugMode)
-  const activeTemplateId = useStudioStore((s) => s.activeTemplateId)
   const [savePanelOpen, setSavePanelOpen] = useState(false)
   const [templatePanelOpen, setTemplatePanelOpen] = useState(false)
   const isAdmin = useAuthStore((s) => s.profile?.role === 'admin')
-  // "Lưu làm mẫu" always creates a brand-new template row — it can never update the one
-  // currently loaded — so it only makes sense (and only shows) for a from-scratch design,
-  // not while browsing/testing an existing template's recipe.
-  const canSaveAsTemplate = isAdmin && !activeTemplateId
 
   return (
     <div className="relative flex items-center justify-between gap-3 overflow-x-auto border-b border-vibe-ink/10 bg-white/80 px-4 py-3 backdrop-blur no-scrollbar">
@@ -107,7 +102,7 @@ export function StudioTopBar({
         >
           <Save size={15} /> <span className="hidden sm:inline">Lưu / Mở</span>
         </button>
-        {canSaveAsTemplate && (
+        {isAdmin && (
           <button
             onClick={() => setTemplatePanelOpen((v) => !v)}
             title="Lưu thiết kế hiện tại thành mẫu công khai trong Thư viện mẫu"
