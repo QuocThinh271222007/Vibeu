@@ -4,6 +4,7 @@ import { Check, Palette } from 'lucide-react'
 import { useColorPresets, colorSwatchUrl } from '@/data/loaders'
 import { ColorWheel } from '@/components/studio/ColorWheel'
 import { GradientEditor } from '@/components/studio/GradientEditor'
+import { HexColorInput } from '@/components/studio/HexColorInput'
 import { MaterialPreview } from '@/components/studio/MaterialPreview'
 import type { CustomGradient, EffectId, FingerDesign } from '@/types/vibeu'
 import { EFFECT_LABEL_VI } from '@/types/vibeu'
@@ -118,13 +119,14 @@ export function PaintTab({
         </div>
         <div className="flex flex-col items-center gap-2">
           <ColorWheel value={design.customColor ?? '#FF92F9'} onChange={onCustomColor} />
+          <HexColorInput value={design.customColor ?? '#FF92F9'} onChange={onCustomColor} />
           <div className="text-xs text-vibe-ink-soft">
             {design.customColor ? (
               <>
                 Màu tùy chỉnh: <span className="font-semibold text-vibe-ink">{design.customColor}</span>
               </>
             ) : (
-              'Chọn để ghi đè màu preset cho ngón này'
+              'Chọn hoặc nhập mã hex để ghi đè màu preset cho ngón này'
             )}
           </div>
         </div>

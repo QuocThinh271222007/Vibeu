@@ -86,13 +86,14 @@ export function Footer() {
         </div>
 
         <div>
-          <p className="font-display text-sm font-semibold text-vibe-ink">Chính sách &amp; Liên hệ</p>
+          <p className="font-display text-sm font-semibold text-vibe-ink">Liên hệ</p>
           <ul className="mt-4 space-y-2.5 text-sm text-vibe-ink-soft">
-            <li>Chính sách bảo mật (demo)</li>
-            <li>Điều khoản sử dụng (demo)</li>
-            <li className="pt-1">
-              <span className="block text-vibe-ink-soft/70">Bản demo giao diện — chưa có backend.</span>
+            <li>
+              <Link to="/about" className="transition-colors hover:text-vibe-pink-dark">
+                Về chúng tôi
+              </Link>
             </li>
+            <li>Nhắn tin qua Instagram/Facebook/Threads ở bên cạnh để được hỗ trợ.</li>
           </ul>
         </div>
       </div>

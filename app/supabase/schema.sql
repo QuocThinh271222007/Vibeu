@@ -106,7 +106,7 @@ create trigger protect_profile_role_trigger
 -- =========================================================================
 create table if not exists public.community_posts (
   id uuid primary key default gen_random_uuid(),
-  user_id uuid not null references public.profiles (id) on delete cascade,
+  user_id uuid references public.profiles (id) on delete cascade,
   template_id text,
   caption text not null default '',
   hashtags text[] not null default '{}',
@@ -114,14 +114,39 @@ create table if not exists public.community_posts (
   media_alt text,
   likes_count int not null default 0,
   comments_count int not null default 0,
+  featured boolean not null default false,
+  approved boolean not null default false,
+  guest_name text,
+  guest_handle text,
+  guest_avatar_color text,
   created_at timestamptz not null default now()
 );
+
+-- Added after the initial release — safe no-op if the column already exists.
+alter table public.community_posts add column if not exists featured boolean not null default false;
+
+-- Added for admin moderation: existing posts backfill as already-approved (default true), then the
+-- column default flips to false so every *new* post starts hidden until an admin approves it.
+alter table public.community_posts add column if not exists approved boolean not null default true;
+alter table public.community_posts alter column approved set default false;
+
+-- Added to migrate the old hardcoded demo posts (src/data/community.ts) into real rows the admin
+-- can edit/delete: those have no auth.users account behind them, so user_id must be nullable, and
+-- the guest_* columns stand in for the profiles join (display_name/handle/avatar_color) when null.
+alter table public.community_posts alter column user_id drop not null;
+alter table public.community_posts add column if not exists guest_name text;
+alter table public.community_posts add column if not exists guest_handle text;
+alter table public.community_posts add column if not exists guest_avatar_color text;
 
 alter table public.community_posts enable row level security;
 
 drop policy if exists "Community posts are viewable by everyone" on public.community_posts;
 create policy "Community posts are viewable by everyone"
-  on public.community_posts for select using (true);
+  on public.community_posts for select using (
+    approved
+    or auth.uid() = user_id
+    or exists (select 1 from public.profiles where id = auth.uid() and role = 'admin')
+  );
 
 drop policy if exists "Authenticated users can create their own posts" on public.community_posts;
 create policy "Authenticated users can create their own posts"
@@ -188,14 +213,21 @@ create trigger on_like_change
 -- directly (faking popularity), bypassing the trigger above. Non-admin changes to these two
 -- columns are silently reverted; only handle_like_change() (which reaches this table through a
 -- nested trigger call, detected via pg_trigger_depth() > 1) or an admin may change them.
+-- `featured` and `approved` get the same treatment: only an admin may pin or approve a post,
+-- never the owner (otherwise a user could just flip their own post's approved flag back to true).
 create or replace function public.protect_community_counts()
 returns trigger as $$
 begin
-  if (new.likes_count is distinct from old.likes_count or new.comments_count is distinct from old.comments_count)
+  if (new.likes_count is distinct from old.likes_count
+      or new.comments_count is distinct from old.comments_count
+      or new.featured is distinct from old.featured
+      or new.approved is distinct from old.approved)
      and pg_trigger_depth() <= 1
      and not exists (select 1 from public.profiles where id = auth.uid() and role = 'admin') then
     new.likes_count := old.likes_count;
     new.comments_count := old.comments_count;
+    new.featured := old.featured;
+    new.approved := old.approved;
   end if;
   return new;
 end;
@@ -237,6 +269,46 @@ create policy "Published posts are viewable by everyone"
 drop policy if exists "Admins manage blog posts" on public.blog_posts;
 create policy "Admins manage blog posts"
   on public.blog_posts for all using (
+    exists (select 1 from public.profiles where id = auth.uid() and role = 'admin')
+  ) with check (
+    exists (select 1 from public.profiles where id = auth.uid() and role = 'admin')
+  );
+
+-- =========================================================================
+-- templates — Thư viện mẫu. Public read (Library/Studio "Dùng mẫu này"),
+-- admin-only write. `fingers` is the same Record<FingerId, FingerDesign>
+-- shape Studio's own store uses, saved verbatim via "Lưu làm mẫu" — no
+-- separate visual builder needed. cover_src is optional: a template with none
+-- renders live via HandCanvas (TemplatePreviewMedia.tsx) instead of a photo.
+-- =========================================================================
+create table if not exists public.templates (
+  id text primary key,
+  name text not null,
+  hashtag text not null default '',
+  tags text[] not null default '{}',
+  skin_tone text not null default 'cozy',
+  fingers jsonb not null,
+  cover_src text,
+  cover_alt text,
+  cover_object_position text,
+  created_by uuid references public.profiles (id) on delete set null,
+  created_at timestamptz not null default now()
+);
+
+-- Added after the initial release — safe no-op if the columns already exist.
+alter table public.templates add column if not exists cover_src text;
+alter table public.templates add column if not exists cover_alt text;
+alter table public.templates add column if not exists cover_object_position text;
+
+alter table public.templates enable row level security;
+
+drop policy if exists "Templates are viewable by everyone" on public.templates;
+create policy "Templates are viewable by everyone"
+  on public.templates for select using (true);
+
+drop policy if exists "Admins manage templates" on public.templates;
+create policy "Admins manage templates"
+  on public.templates for all using (
     exists (select 1 from public.profiles where id = auth.uid() and role = 'admin')
   ) with check (
     exists (select 1 from public.profiles where id = auth.uid() and role = 'admin')
@@ -407,6 +479,52 @@ create policy "Authenticated users can upload community media"
 drop policy if exists "Owners can delete their community media" on storage.objects;
 create policy "Owners can delete their community media"
   on storage.objects for delete using (bucket_id = 'community-media' and owner = auth.uid());
+
+-- =========================================================================
+-- Storage bucket for blog cover images — admin-only, since blog_posts itself is.
+-- =========================================================================
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values ('blog-covers', 'blog-covers', true, 8388608, array['image/png', 'image/jpeg', 'image/webp', 'image/gif'])
+on conflict (id) do update set file_size_limit = excluded.file_size_limit, allowed_mime_types = excluded.allowed_mime_types;
+
+drop policy if exists "Public read blog covers" on storage.objects;
+create policy "Public read blog covers"
+  on storage.objects for select using (bucket_id = 'blog-covers');
+
+drop policy if exists "Admins can upload blog covers" on storage.objects;
+create policy "Admins can upload blog covers"
+  on storage.objects for insert with check (
+    bucket_id = 'blog-covers' and exists (select 1 from public.profiles where id = auth.uid() and role = 'admin')
+  );
+
+drop policy if exists "Admins can delete blog covers" on storage.objects;
+create policy "Admins can delete blog covers"
+  on storage.objects for delete using (
+    bucket_id = 'blog-covers' and exists (select 1 from public.profiles where id = auth.uid() and role = 'admin')
+  );
+
+-- =========================================================================
+-- Storage bucket for template cover photos — admin-only, since templates itself is.
+-- =========================================================================
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values ('template-covers', 'template-covers', true, 8388608, array['image/png', 'image/jpeg', 'image/webp', 'image/gif'])
+on conflict (id) do update set file_size_limit = excluded.file_size_limit, allowed_mime_types = excluded.allowed_mime_types;
+
+drop policy if exists "Public read template covers" on storage.objects;
+create policy "Public read template covers"
+  on storage.objects for select using (bucket_id = 'template-covers');
+
+drop policy if exists "Admins can upload template covers" on storage.objects;
+create policy "Admins can upload template covers"
+  on storage.objects for insert with check (
+    bucket_id = 'template-covers' and exists (select 1 from public.profiles where id = auth.uid() and role = 'admin')
+  );
+
+drop policy if exists "Admins can delete template covers" on storage.objects;
+create policy "Admins can delete template covers"
+  on storage.objects for delete using (
+    bucket_id = 'template-covers' and exists (select 1 from public.profiles where id = auth.uid() and role = 'admin')
+  );
 
 -- =========================================================================
 -- Storage bucket for profile avatars.

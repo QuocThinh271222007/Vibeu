@@ -1,25 +1,14 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { ArrowLeft, Save } from 'lucide-react'
+import { ArrowLeft, Save, Upload } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import type { BlogCategory } from '@/data/blog'
 import { BLOG_CATEGORY_LABEL } from '@/data/blog'
-import { createBlogPost, fetchBlogPostByIdAdmin, updateBlogPost, type BlogPostInput } from '@/lib/blogApi'
+import { createBlogPost, fetchBlogPostByIdAdmin, updateBlogPost, uploadBlogCover, type BlogPostInput } from '@/lib/blogApi'
+import { slugify } from '@/lib/slug'
 import { useAuthStore } from '@/store/authStore'
 
 const CATEGORIES: BlogCategory[] = ['tips', 'trend', 'care']
-
-const COMBINING_DIACRITICS = new RegExp('[\\u0300-\\u036f]', 'g')
-
-function slugify(s: string): string {
-  return s
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(COMBINING_DIACRITICS, '')
-    .replace(/đ/g, 'd')
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '')
-}
 
 const EMPTY: BlogPostInput = {
   slug: '',
@@ -44,6 +33,7 @@ export default function AdminBlogEditor() {
   const [slugTouched, setSlugTouched] = useState(false)
   const [loading, setLoading] = useState(!isNew)
   const [saving, setSaving] = useState(false)
+  const [uploading, setUploading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
@@ -74,6 +64,19 @@ export default function AdminBlogEditor() {
 
   function handleTitleChange(title: string) {
     setForm((f) => ({ ...f, title, slug: slugTouched ? f.slug : slugify(title) }))
+  }
+
+  async function handleCoverFile(file: File) {
+    if (!profile) return
+    setUploading(true)
+    setError(null)
+    const { url, error } = await uploadBlogCover(file, profile.id)
+    setUploading(false)
+    if (error) {
+      setError(error)
+      return
+    }
+    setForm((f) => ({ ...f, coverSrc: url }))
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -178,13 +181,31 @@ export default function AdminBlogEditor() {
         </Field>
 
         <div className="grid grid-cols-2 gap-4">
-          <Field label="Ảnh bìa (URL, tuỳ chọn)">
-            <input
-              value={form.coverSrc ?? ''}
-              onChange={(e) => setForm((f) => ({ ...f, coverSrc: e.target.value || null }))}
-              placeholder="/assets/blog/... hoặc https://..."
-              className="w-full rounded-xl border-2 border-vibe-ink/10 px-3.5 py-2.5 text-sm outline-none focus:border-vibe-pink/50"
-            />
+          <Field label="Ảnh bìa (tải lên hoặc dán URL)">
+            <div className="flex items-center gap-2">
+              <input
+                value={form.coverSrc ?? ''}
+                onChange={(e) => setForm((f) => ({ ...f, coverSrc: e.target.value || null }))}
+                placeholder="/assets/blog/... hoặc https://..."
+                className="w-full rounded-xl border-2 border-vibe-ink/10 px-3.5 py-2.5 text-sm outline-none focus:border-vibe-pink/50"
+              />
+              <label className="flex shrink-0 cursor-pointer items-center gap-1.5 rounded-xl border-2 border-vibe-ink/10 px-3 py-2.5 text-xs font-semibold text-vibe-ink-soft hover:border-vibe-pink/40 hover:text-vibe-ink">
+                <Upload size={14} />
+                {uploading ? 'Đang tải...' : 'Tải ảnh'}
+                <input
+                  type="file"
+                  accept="image/png,image/jpeg,image/webp,image/gif"
+                  className="hidden"
+                  disabled={uploading}
+                  onChange={(e) => {
+                    const file = e.target.files?.[0]
+                    if (file) handleCoverFile(file)
+                    e.target.value = ''
+                  }}
+                />
+              </label>
+            </div>
+            {form.coverSrc && <img src={form.coverSrc} alt="" className="mt-2 h-24 w-full rounded-lg object-cover" />}
           </Field>
           <Field label="Mô tả ảnh bìa (alt)">
             <input

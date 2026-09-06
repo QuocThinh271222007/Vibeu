@@ -27,14 +27,23 @@ export interface RemoteCommunityPost {
   likes: number
   comments: number
   media: { src: string; alt: string } | null
-  authorId: string
+  authorId: string | null
   createdAt: string
   likedByMe: boolean
+  featured: boolean
+  approved: boolean
+}
+
+export interface CommunityPostAdminInput {
+  caption: string
+  hashtags: string[]
+  mediaUrl: string | null
+  mediaAlt: string | null
 }
 
 interface CommunityPostRow {
   id: string
-  user_id: string
+  user_id: string | null
   template_id: string | null
   caption: string
   hashtags: string[]
@@ -42,6 +51,11 @@ interface CommunityPostRow {
   media_alt: string | null
   likes_count: number
   comments_count: number
+  featured: boolean
+  approved: boolean
+  guest_name: string | null
+  guest_handle: string | null
+  guest_avatar_color: string | null
   created_at: string
   profiles: { display_name: string; handle: string | null; avatar_color: string; avatar_url: string | null } | null
 }
@@ -58,14 +72,14 @@ function timeAgoVi(iso: string): string {
 }
 
 function mapRow(row: CommunityPostRow, likedPostIds: Set<string>): RemoteCommunityPost {
-  const name = row.profiles?.display_name ?? 'Thành viên VIBEU'
+  const name = row.profiles?.display_name ?? row.guest_name ?? 'Thành viên VIBEU'
   return {
     id: row.id,
     templateId: row.template_id,
     userName: name,
-    handle: row.profiles?.handle ?? '@vibeu',
+    handle: row.profiles?.handle ?? row.guest_handle ?? '@vibeu',
     avatarInitial: name.trim().charAt(0).toUpperCase() || 'V',
-    avatarColor: row.profiles?.avatar_color ?? '#90B8EB',
+    avatarColor: row.profiles?.avatar_color ?? row.guest_avatar_color ?? '#90B8EB',
     avatarUrl: row.profiles?.avatar_url ?? null,
     timeAgo: timeAgoVi(row.created_at),
     caption: row.caption,
@@ -76,6 +90,8 @@ function mapRow(row: CommunityPostRow, likedPostIds: Set<string>): RemoteCommuni
     authorId: row.user_id,
     createdAt: row.created_at,
     likedByMe: likedPostIds.has(row.id),
+    featured: row.featured,
+    approved: row.approved,
   }
 }
 
@@ -84,6 +100,7 @@ export async function fetchCommunityPosts(currentUserId: string | null): Promise
   const { data, error } = await supabase
     .from('community_posts')
     .select('*, profiles(display_name, handle, avatar_color, avatar_url)')
+    .order('featured', { ascending: false })
     .order('created_at', { ascending: false })
   if (error || !data) return []
 
@@ -142,6 +159,28 @@ export async function setCommunityLike(postId: string, userId: string, liked: bo
   }
   const { error } = await supabase.from('community_likes').delete().eq('post_id', postId).eq('user_id', userId)
   return { error: error?.message ?? null }
+}
+
+/** Admin-only edit of a post's content — used for migrated demo posts, which have no real owner. */
+export async function updateCommunityPost(id: string, input: CommunityPostAdminInput): Promise<{ error: string | null }> {
+  if (!supabase) return { error: 'Chưa kết nối Supabase.' }
+  const { error } = await supabase
+    .from('community_posts')
+    .update({ caption: input.caption, hashtags: input.hashtags, media_url: input.mediaUrl, media_alt: input.mediaAlt })
+    .eq('id', id)
+  return { error: error ? friendlyDbError(error.message) : null }
+}
+
+export async function setFeatured(id: string, featured: boolean): Promise<{ error: string | null }> {
+  if (!supabase) return { error: 'Chưa kết nối Supabase.' }
+  const { error } = await supabase.from('community_posts').update({ featured }).eq('id', id)
+  return { error: error ? friendlyDbError(error.message) : null }
+}
+
+export async function setApproved(id: string, approved: boolean): Promise<{ error: string | null }> {
+  if (!supabase) return { error: 'Chưa kết nối Supabase.' }
+  const { error } = await supabase.from('community_posts').update({ approved }).eq('id', id)
+  return { error: error ? friendlyDbError(error.message) : null }
 }
 
 export async function deleteCommunityPost(id: string): Promise<{ error: string | null }> {

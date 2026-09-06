@@ -1,5 +1,8 @@
 import type { BlogCategory, BlogPost } from '@/data/blog'
-import { supabase } from '@/lib/supabaseClient'
+import { BLOG_COVERS_BUCKET, supabase } from '@/lib/supabaseClient'
+
+const ALLOWED_COVER_TYPES = ['image/png', 'image/jpeg', 'image/webp', 'image/gif']
+const MAX_COVER_BYTES = 8 * 1024 * 1024
 
 export interface BlogPostRow {
   id: string
@@ -115,4 +118,20 @@ export async function deleteBlogPost(id: string): Promise<{ error: string | null
   if (!supabase) return { error: 'Chưa kết nối Supabase.' }
   const { error } = await supabase.from('blog_posts').delete().eq('id', id)
   return { error: error?.message ?? null }
+}
+
+export async function uploadBlogCover(file: File, adminId: string): Promise<{ url: string | null; error: string | null }> {
+  if (!supabase) return { url: null, error: 'Chưa kết nối Supabase.' }
+  if (!ALLOWED_COVER_TYPES.includes(file.type)) {
+    return { url: null, error: 'Chỉ nhận ảnh PNG, JPEG, WebP hoặc GIF.' }
+  }
+  if (file.size > MAX_COVER_BYTES) {
+    return { url: null, error: 'Ảnh vượt quá 8MB, hãy chọn ảnh nhẹ hơn.' }
+  }
+  const ext = file.name.split('.').pop() || 'jpg'
+  const path = `${adminId}/${Date.now()}.${ext}`
+  const { error } = await supabase.storage.from(BLOG_COVERS_BUCKET).upload(path, file, { upsert: false })
+  if (error) return { url: null, error: error.message }
+  const { data } = supabase.storage.from(BLOG_COVERS_BUCKET).getPublicUrl(path)
+  return { url: data.publicUrl, error: null }
 }

@@ -103,6 +103,8 @@ interface HandCanvasProps {
   drawMode?: boolean
   brushWidth?: number
   brushColor?: string
+  brushOpacity?: number
+  brushBlend?: 'normal' | 'multiply'
   onAddStroke?: (finger: FingerId, points: [number, number][]) => void
   className?: string
 }
@@ -127,6 +129,8 @@ export function HandCanvas({
   drawMode = false,
   brushWidth = 4,
   brushColor = '#FF2D87',
+  brushOpacity = 1,
+  brushBlend = 'normal',
   onAddStroke,
   className = '',
 }: HandCanvasProps) {
@@ -311,8 +315,10 @@ export function HandCanvas({
               fill="none"
               stroke={brushColor}
               strokeWidth={brushWidth}
+              strokeOpacity={brushOpacity}
               strokeLinecap="round"
               strokeLinejoin="round"
+              style={{ mixBlendMode: brushBlend }}
             />
           </g>
         )}
@@ -601,8 +607,13 @@ function NailPaint({
               fill="none"
               stroke={stroke.color}
               strokeWidth={stroke.width}
+              strokeOpacity={stroke.opacity ?? 1}
               strokeLinecap="round"
               strokeLinejoin="round"
+              // 'multiply' (the default for new strokes) lets the nail's own lit/shaded pixels
+              // underneath show through the ink instead of sitting as a flat pasted-on line —
+              // strokes saved before this field existed keep their original flat 'normal' look.
+              style={{ mixBlendMode: stroke.blend ?? 'normal' }}
             />
           ))}
         </g>

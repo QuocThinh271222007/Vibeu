@@ -37,7 +37,18 @@ export interface HandData {
   nails: NailCoord[]
 }
 
-export type PaintMode = 'linear' | 'radial' | 'aurora' | 'solid' | 'ombre' | 'french' | 'marble' | 'watercolor' | 'tortoiseshell' | 'bleed'
+export type PaintMode =
+  | 'linear'
+  | 'radial'
+  | 'aurora'
+  | 'solid'
+  | 'ombre'
+  | 'french'
+  | 'marble'
+  | 'watercolor'
+  | 'tortoiseshell'
+  | 'bleed'
+  | 'speckle'
 
 export interface PaintStop {
   at: number
@@ -102,6 +113,12 @@ export const SHAPE_LABEL_VI: Record<NailShape, string> = {
 }
 
 export type NailLength = 'S' | 'M' | 'L'
+
+export const LENGTH_LABEL_VI: Record<NailLength, string> = {
+  S: 'Ngắn',
+  M: 'Vừa',
+  L: 'Dài',
+}
 
 export type DecalLayerType = 'decal' | 'foil' | 'raised'
 
@@ -172,6 +189,12 @@ export interface DrawStroke {
   points: [number, number][]
   color: string
   width: number
+  /** 0..1 — defaults to 1 for strokes saved before this field existed (see nailFill-adjacent
+   * rendering in HandCanvas.tsx, which reads `stroke.opacity ?? 1`). */
+  opacity?: number
+  /** 'multiply' blends the stroke into the lit polish underneath (looks like ink soaking in);
+   * 'normal' (default, for strokes saved before this field existed) sits flatly on top. */
+  blend?: 'normal' | 'multiply'
 }
 
 export interface FingerDesign {

@@ -3,6 +3,7 @@ import type { ColorPreset, DecalAsset, HandData, NailLength, NailShape, SkinTone
 import { handVariantSegment } from '@/data/handVariants'
 import { fetchGeometryOverride } from '@/lib/geometryAdminApi'
 import { validateHandData } from '@/lib/geometryEditor'
+import { getAllTemplates, getAllTemplatesAsync } from '@/data/templates'
 
 interface ColorManifest {
   presets: ColorPreset[]
@@ -144,6 +145,23 @@ export function useDecalsById(customDecals: DecalAsset[]): Record<string, DecalA
 export function useHandData(tone: SkinToneId, shape?: NailShape, length?: NailLength) {
   const { data, loading, error } = useAsync(() => getHandData(tone, shape, length), [tone, shape, length])
   return { hand: data, loading, error }
+}
+
+/** Static seed templates + admin-created ones from Supabase (see data/templates.ts). Seeds with
+ * the static list synchronously (so the Library never flashes empty) and re-renders once the
+ * Supabase fetch of admin-created templates resolves. */
+export function useTemplates() {
+  const [templates, setTemplates] = useState(getAllTemplates)
+  useEffect(() => {
+    let alive = true
+    getAllTemplatesAsync().then((list) => {
+      if (alive) setTemplates(list)
+    })
+    return () => {
+      alive = false
+    }
+  }, [])
+  return { templates }
 }
 
 export function decalAssetUrl(path: string) {

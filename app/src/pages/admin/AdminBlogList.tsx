@@ -4,7 +4,6 @@ import { Pencil, Plus, Trash2 } from 'lucide-react'
 import { BLOG_CATEGORY_LABEL } from '@/data/blog'
 import { useToast } from '@/components/ui/Toast'
 import { deleteBlogPost, fetchAllBlogPostsAdmin, type BlogPostRow } from '@/lib/blogApi'
-import { BLOG_POSTS } from '@/data/blog'
 
 export default function AdminBlogList() {
   const { push } = useToast()
@@ -37,7 +36,7 @@ export default function AdminBlogList() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="font-display text-2xl font-semibold text-vibe-ink">Blog</h1>
-          <p className="mt-1 text-sm text-vibe-ink-soft">Bài viết đăng từ trang quản trị. Xuất hiện trên /blog cùng các bài biên tập sẵn.</p>
+          <p className="mt-1 text-sm text-vibe-ink-soft">Toàn bộ bài viết trên /blog, kể cả các bài biên tập sẵn ban đầu — sửa/xoá được tại đây.</p>
         </div>
         <Link to="/admin/blog/new" className="flex items-center gap-1.5 rounded-full bg-vibe-ink px-4 py-2 text-sm font-semibold text-white">
           <Plus size={16} /> Bài viết mới
@@ -94,16 +93,6 @@ export default function AdminBlogList() {
             )}
           </tbody>
         </table>
-      </div>
-
-      <div className="mt-6 rounded-2xl bg-white p-5 shadow-sm">
-        <p className="font-display text-sm font-semibold text-vibe-ink">Bài viết biên tập sẵn ({BLOG_POSTS.length})</p>
-        <p className="mt-1 text-sm text-vibe-ink-soft">Nằm trong mã nguồn (src/data/blog.ts), chưa chỉnh sửa được từ giao diện này.</p>
-        <ul className="mt-2 space-y-1 text-sm text-vibe-ink-soft">
-          {BLOG_POSTS.map((p) => (
-            <li key={p.slug}>· {p.title}</li>
-          ))}
-        </ul>
       </div>
     </div>
   )

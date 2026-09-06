@@ -13,3 +13,5 @@ export const isSupabaseConfigured = Boolean(url && anonKey)
 export const supabase: SupabaseClient | null = isSupabaseConfigured ? createClient(url!, anonKey!) : null
 
 export const COMMUNITY_MEDIA_BUCKET = 'community-media'
+export const BLOG_COVERS_BUCKET = 'blog-covers'
+export const TEMPLATE_COVERS_BUCKET = 'template-covers'

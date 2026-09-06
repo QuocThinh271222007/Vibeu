@@ -2,7 +2,7 @@ import { useRef, useState } from 'react'
 import { ImagePlus, Loader2, Sparkles } from 'lucide-react'
 import { Avatar } from '@/components/ui/Avatar'
 import { Button } from '@/components/ui/Button'
-import { TEMPLATES } from '@/data/templates'
+import { useTemplates } from '@/data/loaders'
 import { createCommunityPost, uploadCommunityMedia } from '@/lib/communityApi'
 import type { Profile } from '@/store/authStore'
 
@@ -15,7 +15,8 @@ function parseHashtags(raw: string): string[] {
 }
 
 export function NewPostComposer({ profile, onCreated }: { profile: Profile; onCreated: () => void }) {
-  const [templateId, setTemplateId] = useState(TEMPLATES[0]?.id ?? '')
+  const { templates } = useTemplates()
+  const [templateId, setTemplateId] = useState('')
   const [caption, setCaption] = useState('')
   const [hashtags, setHashtags] = useState('')
   const [file, setFile] = useState<File | null>(null)
@@ -53,7 +54,7 @@ export function NewPostComposer({ profile, onCreated }: { profile: Profile; onCr
 
     const { error: createError } = await createCommunityPost({
       userId: profile.id,
-      templateId: templateId || null,
+      templateId: templateId || templates[0]?.id || null,
       caption: caption.trim(),
       hashtags: parseHashtags(hashtags),
       mediaUrl,
@@ -91,11 +92,11 @@ export function NewPostComposer({ profile, onCreated }: { profile: Profile; onCr
 
       <div className="mt-2.5 flex flex-wrap gap-2.5">
         <select
-          value={templateId}
+          value={templateId || templates[0]?.id || ''}
           onChange={(e) => setTemplateId(e.target.value)}
           className="rounded-full border-2 border-vibe-ink/10 bg-white px-3.5 py-2 text-xs font-medium text-vibe-ink outline-none focus:border-vibe-pink/50"
         >
-          {TEMPLATES.map((t) => (
+          {templates.map((t) => (
             <option key={t.id} value={t.id}>
               {t.name}
             </option>

@@ -2,7 +2,7 @@ import type { PreparedNail } from '@/lib/nailLighting'
 import type { ColorPreset, CustomGradient, EffectId } from '@/types/vibeu'
 
 export interface PaintConfig {
-  mode: 'linear' | 'radial' | 'aurora' | 'solid' | 'ombre' | 'french' | 'marble' | 'watercolor' | 'tortoiseshell' | 'bleed'
+  mode: 'linear' | 'radial' | 'aurora' | 'solid' | 'ombre' | 'french' | 'marble' | 'watercolor' | 'tortoiseshell' | 'bleed' | 'speckle'
   stops: { at: number; color: string }[]
   start: [number, number]
   end: [number, number]
@@ -522,6 +522,21 @@ export function composeNail(
       const warpX = (fbm(xx * 0.02, yy * 0.02, seed * 41, 2) - 0.5) * 40
       const warpY = (fbm(xx * 0.02 + 50, yy * 0.02 + 50, seed * 43, 2) - 0.5) * 40
       t = fbm((xx + warpX) * 0.03, (yy + warpY) * 0.03, seed * 53, 4)
+    } else if (paint.mode === 'speckle') {
+      // "Đốm confetti": scatter small round flecks of the last stop's color over the first
+      // stop's base — a coarse per-cell hash (not fbm) picks which cells get a fleck, then a
+      // jittered in-cell distance check turns each chosen cell into a soft round dot instead
+      // of a hard square, so it reads as dip-powder/confetti rather than a checkerboard.
+      const cell = 6
+      const cx = Math.floor(xx / cell)
+      const cy = Math.floor(yy / cell)
+      if (hash(cx, cy, seed * 19 + 3) > 0.8) {
+        const jx = (cx + hash(cx, cy, seed * 23 + 7)) * cell
+        const jy = (cy + hash(cx, cy, seed * 29 + 11)) * cell
+        t = Math.hypot(xx - jx, yy - jy) < cell * 0.55 ? 1 : 0
+      } else {
+        t = 0
+      }
     }
     let color: [number, number, number] = solidColor ?? sample!(clamp(t))
 

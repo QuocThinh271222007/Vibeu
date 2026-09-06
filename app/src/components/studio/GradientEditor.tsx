@@ -1,11 +1,22 @@
 import { useRef, useState } from 'react'
 import { ArrowLeftRight, Plus, Trash2 } from 'lucide-react'
+import { HexColorInput } from '@/components/studio/HexColorInput'
 import type { CustomGradient, PaintMode, PaintStop } from '@/types/vibeu'
 
 const DIRECTIONS: { label: string; start: [number, number]; end: [number, number] }[] = [
   { label: '↓ Dọc', start: [0.5, 0], end: [0.5, 1] },
   { label: '↘ Chéo', start: [0.15, 0.15], end: [0.85, 0.85] },
   { label: '→ Ngang', start: [0, 0.5], end: [1, 0.5] },
+]
+
+/** Radial mode's "direction" is a center point + radius, not an angle — `start` is the
+ * center and the distance from `start` to `end` is the radius (see nailFill.ts's
+ * `paint.mode === 'radial'` branch); only the distance matters, so `end` can point any way. */
+const RADIAL_CENTERS: { label: string; pos: [number, number] }[] = [
+  { label: 'Chính giữa', pos: [0.5, 0.5] },
+  { label: 'Gốc móng', pos: [0.5, 0.2] },
+  { label: 'Đầu móng', pos: [0.5, 0.8] },
+  { label: 'Lệch trái', pos: [0.28, 0.5] },
 ]
 
 /** Default base/tip split for a fresh switch into French mode — a nude base band, a hard
@@ -37,6 +48,7 @@ const PATTERN_BUTTONS: { mode: PaintMode; label: string }[] = [
   { mode: 'watercolor', label: 'Màu nước' },
   { mode: 'tortoiseshell', label: 'Đồi mồi' },
   { mode: 'bleed', label: 'Loang màu' },
+  { mode: 'speckle', label: 'Đốm confetti' },
 ]
 
 function sortStops(stops: PaintStop[]): PaintStop[] {
@@ -193,13 +205,14 @@ export function GradientEditor({
       </div>
 
       {active.mode === 'solid' ? (
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <input
             type="color"
             value={active.stops[0]?.color ?? '#ffffff'}
             onChange={(e) => commit({ stops: [{ at: 0, color: e.target.value }] })}
             className="h-9 w-12 cursor-pointer rounded-lg border border-vibe-ink/10"
           />
+          <HexColorInput value={active.stops[0]?.color ?? '#ffffff'} onChange={(hex) => commit({ stops: [{ at: 0, color: hex }] })} />
           <span className="text-[11px] text-vibe-ink-soft">Một màu duy nhất, phủ đều cả móng.</span>
         </div>
       ) : (
@@ -243,13 +256,14 @@ export function GradientEditor({
             ))}
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <input
               type="color"
               value={active.stops[selected]?.color ?? '#ffffff'}
               onChange={(e) => updateStopColor(selected, e.target.value)}
               className="h-8 w-10 cursor-pointer rounded-lg border border-vibe-ink/10"
             />
+            <HexColorInput value={active.stops[selected]?.color ?? '#ffffff'} onChange={(hex) => updateStopColor(selected, hex)} />
             <span className="text-[11px] text-vibe-ink-soft">
               Điểm {selected + 1}/{active.stops.length} · {Math.round((active.stops[selected]?.at ?? 0) * 100)}%
             </span>
@@ -299,6 +313,43 @@ export function GradientEditor({
             <span className="w-9 shrink-0 text-right text-[11px] tabular-nums text-vibe-ink-soft">
               {Math.round(startEndToAngle(active.start, active.end))}°
             </span>
+          </div>
+        </>
+      )}
+
+      {active.mode === 'radial' && (
+        <>
+          <div className="flex flex-wrap gap-1.5">
+            {RADIAL_CENTERS.map((c) => {
+              const radius = Math.hypot(active.end[0] - active.start[0], active.end[1] - active.start[1]) || 0.4
+              const isActive = Math.hypot(active.start[0] - c.pos[0], active.start[1] - c.pos[1]) < 0.01
+              return (
+                <button
+                  key={c.label}
+                  onClick={() => commit({ start: c.pos, end: [c.pos[0], c.pos[1] + radius] })}
+                  className={`rounded-full border-2 px-2.5 py-1 text-[11px] font-semibold ${
+                    isActive ? 'border-vibe-blue-dark bg-vibe-blue/15 text-vibe-ink' : 'border-vibe-ink/10 text-vibe-ink-soft hover:border-vibe-pink/40'
+                  }`}
+                >
+                  {c.label}
+                </button>
+              )
+            })}
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-[11px] font-semibold text-vibe-ink-soft">Bán kính</span>
+            <input
+              type="range"
+              min={0.15}
+              max={0.9}
+              step={0.01}
+              value={Math.hypot(active.end[0] - active.start[0], active.end[1] - active.start[1])}
+              onChange={(e) => {
+                const radius = Number(e.target.value)
+                commit({ end: [active.start[0], active.start[1] + radius] })
+              }}
+              className="h-2 flex-1 accent-vibe-pink-dark"
+            />
           </div>
         </>
       )}

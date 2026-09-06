@@ -42,7 +42,7 @@ export default function Blog() {
         <h1 className="mt-3 font-display text-3xl font-semibold text-vibe-ink sm:text-4xl">Mẹo đẹp & cảm hứng làm nail</h1>
       </div>
 
-      <div className="mt-8 flex justify-center gap-2">
+      <div className="mt-8 flex flex-wrap justify-center gap-2">
         {CATS.map((c) => (
           <Chip key={c} active={cat === c} onClick={() => setCat(c)}>
             {c === 'all' ? 'Tất cả' : BLOG_CATEGORY_LABEL[c]}

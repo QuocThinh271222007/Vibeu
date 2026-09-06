@@ -151,9 +151,34 @@ export async function exportDesignPng(
       trimPath.closePath()
       layerCtx.clip(trimPath)
     }
+    layerCtx.save()
     const m = lengthScaleMatrixValues(nail, LENGTH_SCALE[design.length])
     layerCtx.transform(m.a, m.b, m.c, m.d, m.e, m.f)
     layerCtx.drawImage(nailCanvas, prepared.x, prepared.y)
+    layerCtx.restore()
+
+    // Freehand strokes aren't length-scaled in the live preview either (they're siblings of,
+    // not inside, HandCanvas's length-matrix <g> — see strokePathD's callers) — drawn here in
+    // the same un-stretched image space, still inside the shape-trim clip from above, so a
+    // "Xuất ảnh PNG"/Community post export doesn't silently drop the user's own drawing.
+    for (const stroke of design.drawStrokes) {
+      layerCtx.save()
+      layerCtx.globalAlpha = stroke.opacity ?? 1
+      layerCtx.globalCompositeOperation = stroke.blend === 'multiply' ? 'multiply' : 'source-over'
+      layerCtx.strokeStyle = stroke.color
+      layerCtx.lineWidth = stroke.width
+      layerCtx.lineCap = 'round'
+      layerCtx.lineJoin = 'round'
+      layerCtx.beginPath()
+      stroke.points.forEach((p, i) => {
+        const [x, y] = localToImage(nail, p)
+        if (i === 0) layerCtx.moveTo(x, y)
+        else layerCtx.lineTo(x, y)
+      })
+      layerCtx.stroke()
+      layerCtx.restore()
+    }
+
     layerCtx.restore()
 
     const mask = document.createElement('canvas')

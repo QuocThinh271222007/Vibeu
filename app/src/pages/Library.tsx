@@ -4,33 +4,25 @@ import { Chip } from '@/components/ui/Chip'
 import { ScrollableRow } from '@/components/ui/ScrollableRow'
 import { TemplatePreviewCard } from '@/components/studio/TemplatePreviewCard'
 import { curatedPreviewRank } from '@/data/curatedPreviews'
-import { TEMPLATES } from '@/data/templates'
+import { useTemplates } from '@/data/loaders'
+import { TEMPLATE_TAGS } from '@/data/templateTags'
 
-const FILTERS = [
-  { id: 'all', label: 'Tất cả' },
-  { id: 'zodiac', label: '12 Cung Hoàng Đạo' },
-  { id: 'season-x', label: 'Mùa Xuân' },
-  { id: 'season-h', label: 'Mùa Hạ' },
-  { id: 'season-t', label: 'Mùa Thu' },
-  { id: 'season-d', label: 'Mùa Đông' },
-  { id: 'y2k', label: 'Y2K' },
-  { id: 'minimalist', label: 'Minimalist' },
-  { id: 'tone', label: 'Tone màu' },
-]
+const FILTERS = [{ id: 'all', label: 'Tất cả' }, ...TEMPLATE_TAGS]
 
 export default function Library() {
   const [filter, setFilter] = useState('all')
   const [query, setQuery] = useState('')
+  const { templates: allTemplates } = useTemplates()
 
   const templates = useMemo(() => {
-    let list = TEMPLATES
+    let list = allTemplates
     if (filter !== 'all') list = list.filter((t) => t.tags.includes(filter))
     if (query.trim()) {
       const q = query.trim().toLowerCase()
       list = list.filter((t) => t.name.toLowerCase().includes(q) || t.hashtag.toLowerCase().includes(q))
     }
     return [...list].sort((a, b) => curatedPreviewRank(a) - curatedPreviewRank(b))
-  }, [filter, query])
+  }, [allTemplates, filter, query])
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
@@ -38,7 +30,7 @@ export default function Library() {
         <span className="inline-flex items-center gap-1.5 rounded-full bg-vibe-cream px-3.5 py-1 text-xs font-semibold uppercase tracking-wide text-vibe-pink-dark">
           Thư viện mẫu
         </span>
-        <h1 className="mt-3 font-display text-3xl font-semibold text-vibe-ink sm:text-4xl">{TEMPLATES.length}+ mẫu nail chất lượng cao</h1>
+        <h1 className="mt-3 font-display text-3xl font-semibold text-vibe-ink sm:text-4xl">{allTemplates.length}+ mẫu nail chất lượng cao</h1>
         <p className="mx-auto mt-3 max-w-xl text-vibe-ink-soft">Tìm cảm hứng và dùng ngay trong Studio — hoặc lưu vào tủ đồ để dành cho dịp khác.</p>
       </div>
 

@@ -2,14 +2,15 @@ import { useNavigate } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
 import { SectionHeading } from '@/components/home/WhyUs'
 import { TemplatePreviewCard } from '@/components/studio/TemplatePreviewCard'
-import { TEMPLATES } from '@/data/templates'
+import { useTemplates } from '@/data/loaders'
 import { Button } from '@/components/ui/Button'
 
 const FEATURED_IDS = ['strawberry-lace-dream', 'gemini-sparkle', 'xuan-cherry-blossom', 'minimalist-nude']
 
 export function SuggestedDesigns() {
   const navigate = useNavigate()
-  const templates = FEATURED_IDS.map((id) => TEMPLATES.find((t) => t.id === id)).filter((t): t is NonNullable<typeof t> => Boolean(t))
+  const { templates: allTemplates } = useTemplates()
+  const templates = FEATURED_IDS.map((id) => allTemplates.find((t) => t.id === id)).filter((t): t is NonNullable<typeof t> => Boolean(t))
 
   return (
     <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">

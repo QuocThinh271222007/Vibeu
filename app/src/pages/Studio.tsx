@@ -15,7 +15,7 @@ import { LayersPanel } from '@/components/studio/LayersPanel'
 import { LightingPanel } from '@/components/studio/LightingPanel'
 import { ResultView } from '@/components/studio/ResultView'
 import { Button } from '@/components/ui/Button'
-import { findTemplate } from '@/data/templates'
+import { findTemplateAsync } from '@/data/templates'
 import { getLockedTemplateView } from '@/lib/templateLock'
 import { FINGER_LABEL_VI, type NailLength, type NailShape, type SkinToneId } from '@/types/vibeu'
 
@@ -49,9 +49,13 @@ export default function Studio() {
 
   useEffect(() => {
     const templateId = params.get('template')
-    if (templateId) {
-      const tpl = findTemplate(templateId)
-      if (tpl) s.loadTemplate(tpl)
+    if (!templateId) return
+    let alive = true
+    findTemplateAsync(templateId).then((tpl) => {
+      if (alive && tpl) s.loadTemplate(tpl)
+    })
+    return () => {
+      alive = false
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params])
@@ -66,6 +70,13 @@ export default function Studio() {
     appliedVariantRef.current = requestKey
     useStudioStore.getState().loadHandVariant(tone, shape, length)
   }, [params])
+
+  // Freehand drawing needs more on-screen precision than a mouse gives at the default zoom
+  // (unlike a stylus) — bump zoom up when entering Draw, but never fight a zoom the user
+  // already picked themselves, and never zoom back out again when they leave the tab.
+  useEffect(() => {
+    if (s.activeTab === 'draw') setZoomIndex((i) => Math.max(i, 2))
+  }, [s.activeTab])
 
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
@@ -149,7 +160,9 @@ export default function Studio() {
                 drawMode={s.activeTab === 'draw'}
                 brushWidth={s.brushWidth}
                 brushColor={s.brushColor}
-                onAddStroke={(finger, points) => s.addStroke(finger, points, s.brushColor, s.brushWidth)}
+                brushOpacity={s.brushOpacity}
+                brushBlend={s.brushBlend}
+                onAddStroke={(finger, points) => s.addStroke(finger, points, s.brushColor, s.brushWidth, s.brushOpacity, s.brushBlend)}
               />
             )}
           </div>
@@ -246,9 +259,14 @@ export default function Studio() {
                       <DrawTab
                         brushWidth={s.brushWidth}
                         brushColor={s.brushColor}
+                        brushOpacity={s.brushOpacity}
+                        brushBlend={s.brushBlend}
                         hasStrokes={activeDesign.drawStrokes.length > 0}
                         onBrushWidth={s.setBrushWidth}
                         onBrushColor={s.setBrushColor}
+                        onBrushOpacity={s.setBrushOpacity}
+                        onBrushBlend={s.setBrushBlend}
+                        onUndoLast={() => s.undoLastStroke(s.selectedFinger)}
                         onClear={() => s.clearStrokes(s.selectedFinger)}
                       />
                     )}

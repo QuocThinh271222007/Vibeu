@@ -1,6 +1,6 @@
 # VIBEU — Demo Web App
 
-Dựng theo mô tả trong `Ý tưởng.docx`. Thư viện mẫu nail (20 mẫu, form/màu/hiệu ứng) vẫn là dữ liệu tĩnh trong `src/data/`. Đăng nhập, đăng bài Cộng đồng, và Blog do admin quản lý nay chạy trên **Supabase** (Postgres + Auth + Storage) — xem phần "Cấu hình Supabase" bên dưới. Không cấu hình thì app tự chạy ở "chế độ demo": vẫn xem được toàn bộ nội dung mẫu, nhưng đăng nhập/đăng bài/`/admin` sẽ hiện thông báo yêu cầu kết nối thay vì báo lỗi.
+Dựng theo mô tả trong `Ý tưởng.docx`. Thư viện mẫu, bài Blog và bài Cộng đồng (kể cả bộ nội dung khởi tạo ban đầu — 21 mẫu, 6 bài blog, 15 bài cộng đồng) đều là dữ liệu thật trên **Supabase** (Postgres + Auth + Storage), sửa/xoá được từ `/admin` — xem phần "Cấu hình Supabase" bên dưới. Không cấu hình Supabase thì Thư viện mẫu/Blog/Cộng đồng sẽ trống (không còn nội dung tĩnh đóng gói sẵn trong code), còn đăng nhập/đăng bài/`/admin` hiện thông báo yêu cầu kết nối thay vì báo lỗi.
 
 ## Chạy thử
 
@@ -13,16 +13,17 @@ npm run build    # build production vào dist/
 ## Cấu hình Supabase
 
 1. Tạo project miễn phí tại [supabase.com](https://supabase.com).
-2. Vào **SQL Editor**, dán toàn bộ nội dung `supabase/schema.sql` và chạy — tạo bảng `profiles`, `community_posts`, `community_likes`, `blog_posts`, RLS policies, và bucket Storage `community-media`.
-3. Copy `.env.example` thành `.env.local`, điền `VITE_SUPABASE_URL` và `VITE_SUPABASE_ANON_KEY` (Project Settings → API).
-4. Đăng ký một tài khoản qua `/auth`, sau đó trong SQL Editor chạy:
+2. Vào **SQL Editor**, dán toàn bộ nội dung `supabase/schema.sql` và chạy — tạo bảng `profiles`, `community_posts`, `community_likes`, `blog_posts`, `templates`, RLS policies, và các bucket Storage (`community-media`, `blog-covers`, `template-covers`, `avatars`).
+3. Vẫn trong **SQL Editor**, chạy tiếp `supabase/migrations/20260906_seed_static_content.sql` — nạp 21 mẫu / 6 bài blog / 15 bài cộng đồng ban đầu thành các dòng thật trong Supabase (một lần, an toàn chạy lại nhiều lần).
+4. Copy `.env.example` thành `.env.local`, điền `VITE_SUPABASE_URL` và `VITE_SUPABASE_ANON_KEY` (Project Settings → API).
+5. Đăng ký một tài khoản qua `/auth`, sau đó trong SQL Editor chạy:
    ```sql
    update public.profiles set role = 'admin' where email = 'ban@example.com';
    ```
    để mở khoá `/admin`.
-5. `npm run dev` lại — Header sẽ hiện avatar thật, Cộng đồng cho đăng bài, `/admin` dùng được.
+6. `npm run dev` lại — Header sẽ hiện avatar thật, Cộng đồng cho đăng bài, `/admin` dùng được.
 
-**Những gì đã nối Supabase:** đăng ký/đăng nhập (email+mật khẩu) kèm quên mật khẩu/đặt lại mật khẩu và gửi lại email xác nhận, trang `/settings` (đổi tên hiển thị/handle/ảnh đại diện/mật khẩu), đăng bài + thích bài trên Cộng đồng (kèm upload ảnh thật, có rate limit chống spam), trang `/admin` (Blog CRUD, kiểm duyệt bài Cộng đồng, cấp quyền admin cho user, xem công thức đã xuất qua QR, công tắc cấu hình toàn site). **Chưa đụng tới** (theo yêu cầu): form móng và độ dài móng trong Studio vẫn dùng dữ liệu tĩnh như cũ.
+**Những gì đã nối Supabase:** đăng ký/đăng nhập (email+mật khẩu) kèm quên mật khẩu/đặt lại mật khẩu và gửi lại email xác nhận, trang `/settings` (đổi tên hiển thị/handle/ảnh đại diện/mật khẩu), đăng bài + thích bài trên Cộng đồng (kèm upload ảnh thật, có rate limit chống spam, và cần admin duyệt mới công khai), Thư viện mẫu (kể cả 21 mẫu ban đầu — sửa tên/thẻ/ảnh bìa hoặc xoá từ `/admin/templates`), trang `/admin` (Blog CRUD kể cả bài biên tập sẵn, kiểm duyệt + sửa bài Cộng đồng kể cả bài demo ban đầu, cấp quyền admin cho user, xem công thức đã xuất qua QR, công tắc cấu hình toàn site). **Chưa đụng tới** (theo yêu cầu): form móng và độ dài móng trong Studio vẫn dùng dữ liệu tĩnh như cũ.
 
 Sau khi cập nhật `supabase/schema.sql` (thêm bảng/cột mới), **chạy lại toàn bộ file trong SQL Editor** — mọi câu lệnh đều idempotent (an toàn chạy lại nhiều lần), không cần tách riêng phần mới.
 
@@ -65,6 +66,8 @@ Lưu ý: đăng bài Cộng đồng hiện chỉ được bảo vệ bằng rate
 
 **Căn chỉnh geometry móng** — chạy migration `supabase/migrations/20260905_nail_geometry_variants.sql`, sau đó admin mở `/admin/geometry`. Công cụ liên kết trực tiếp với ảnh thật của 24 tổ hợp, cho chỉnh/làm mềm từng mask và publish lên bảng `nail_geometry_variants`. Studio ưu tiên bản publish và tự fallback về `public/assets/hands/**/coordinates.json` nếu backend chưa sẵn sàng. Chỉ admin được ghi; người dùng chỉ có quyền đọc geometry đã publish để render.
 
+**Thư viện mẫu** — mọi mẫu (kể cả 21 mẫu ban đầu, sau khi chạy `20260906_seed_static_content.sql`) là các dòng trong bảng `templates` trên Supabase, quản lý (sửa tên/thẻ/ảnh bìa, xoá) tại `/admin/templates`. Trong Studio, tài khoản admin có thêm nút "Lưu làm mẫu" ở góc trên để tạo mẫu mới: thiết kế xong, đặt tên/hashtag/tag rồi lưu thẳng vào bảng, hiện công khai ở `/library` ngay lập tức. Không bắt buộc ảnh bìa — mẫu không có ảnh (`cover_src` null) tự render trực tiếp từ công thức (`HandCanvas`); admin có thể tải ảnh bìa riêng lên bucket `template-covers` từ `/admin/templates`.
+
 **An toàn khác đã có sẵn:** không thể tự phong admin cho chính mình qua API (trigger `protect_profile_role`), không thể bỏ quyền admin của admin cuối cùng (tự khoá cả site), không thể tự sửa `likes_count`/`comments_count` để làm giả độ nổi tiếng, giới hạn loại file + dung lượng khi upload ảnh Cộng đồng (8MB) và ảnh đại diện (2MB).
 
 ## Cấu trúc
@@ -77,8 +80,9 @@ src/
     community/  NewPostComposer (đăng bài Cộng đồng, chỉ hiện khi đã đăng nhập)
     studio/     HandCanvas (engine vẽ nail + kéo/xoay/scale charm), các tab công cụ, Result/QR
     ui/         Button, Chip, Logo, Avatar, Toast, Captcha (Turnstile) dùng chung
-  data/         color/sticker manifest loader, 20 mẫu thiết kế, bài cộng đồng/blog "biên tập sẵn"
-  hooks/        useBlogPosts (gộp bài blog tĩnh + bài đăng từ /admin), useSiteSettings
+  data/         color/sticker manifest loader; templates/blog/community giờ chỉ còn type + mảng
+                rỗng ở đây (nội dung thật nằm trên Supabase, xem templatesApi/blogApi/communityApi)
+  hooks/        useBlogPosts (gộp mảng rỗng ở trên + bài từ Supabase), useSiteSettings
   lib/          toán học UV/hình học móng, gradient theo hiệu ứng sơn, QR, recipe, captcha,
                 supabaseClient/communityApi/blogApi/adminApi/profileApi/siteSettingsApi/shareApi
                 (lớp gọi Supabase)

@@ -11,6 +11,7 @@ import { DEFAULT_LIGHT } from '@/lib/nailFill'
 import { useQrCode } from '@/lib/useQrCode'
 import { collectUsedCustomDecals, encodeSharedDesign, type SharedDesignPayload } from '@/lib/designCodec'
 import { saveSharedDesign } from '@/lib/shareApi'
+import { createCommunityPost, uploadCommunityMedia } from '@/lib/communityApi'
 import { isSupabaseConfigured } from '@/lib/supabaseClient'
 import { useAuthStore } from '@/store/authStore'
 import { getLockedTemplateView } from '@/lib/templateLock'
@@ -44,6 +45,7 @@ export function ResultView({
   const [toast, setToast] = useState<string | null>(null)
   const [posted, setPosted] = useState(false)
   const [exporting, setExporting] = useState(false)
+  const [posting, setPosting] = useState(false)
 
   const shareId = useMemo(() => generateShareId(), [])
   const [shareUrl, setShareUrl] = useState<string | null>(null)
@@ -103,10 +105,55 @@ export function ResultView({
     flashToast('Đã sao chép liên kết!')
   }
 
-  function postToForum() {
-    setPosted(true)
-    flashToast('Đã đăng lên diễn đàn!')
-    setTimeout(() => navigate('/community'), 1100)
+  async function postToForum() {
+    if (!isSupabaseConfigured) {
+      flashToast('Chưa kết nối Supabase, không thể đăng bài.')
+      return
+    }
+    if (!profile) {
+      flashToast('Đăng nhập để đăng lên Cộng đồng.')
+      navigate('/auth?redirect=/studio')
+      return
+    }
+    setPosting(true)
+    try {
+      // The community feed needs a real image per post — a locked template already has one
+      // (its curated cover photo); a from-scratch design has none, so render one from the
+      // exact same compositor "Xuất ảnh PNG" uses, instead of leaving the post photo-less.
+      const blob = locked
+        ? await fetch(locked.image).then((r) => r.blob())
+        : await exportDesignPng(skinTone, fingers, presetsById, stickersById, {
+            ...DEFAULT_LIGHT,
+            exposure: lightExposure,
+            strength: lightStrength,
+            angle: lightAngleDeg,
+          })
+      const file = new File([blob], `vibeu-nail-design-${Date.now()}.png`, { type: blob.type || 'image/png' })
+      const { url, error: uploadError } = await uploadCommunityMedia(file, profile.id)
+      if (uploadError || !url) {
+        flashToast(uploadError ?? 'Không tải được ảnh lên.')
+        return
+      }
+      const { error } = await createCommunityPost({
+        userId: profile.id,
+        templateId: activeTemplateId ?? null,
+        caption: 'Bộ nail mình vừa tự thiết kế trên VIBEU Studio ✨',
+        hashtags: [],
+        mediaUrl: url,
+        mediaAlt: 'Ảnh bộ nail tự thiết kế trên VIBEU',
+      })
+      if (error) {
+        flashToast(error)
+        return
+      }
+      setPosted(true)
+      flashToast('Đã đăng lên Cộng đồng! Bài chờ admin duyệt trước khi công khai.')
+      setTimeout(() => navigate('/community'), 1400)
+    } catch {
+      flashToast('Đăng bài thất bại, thử lại nhé.')
+    } finally {
+      setPosting(false)
+    }
   }
 
   async function exportPng() {
@@ -176,6 +223,7 @@ export function ResultView({
                     <p className="text-vibe-ink-soft">
                       {r.colorLabel} · {r.effectLabel}
                       {r.charmNames.length > 0 && <> · Charm: {r.charmNames.join(', ')}</>}
+                      {r.drawNote && <> · {r.drawNote}</>}
                     </p>
                   </div>
                 </div>
@@ -207,8 +255,8 @@ export function ResultView({
             <Button variant="secondary" onClick={exportPng} disabled={exporting}>
               <ImageDown size={18} /> {exporting ? 'Đang xuất ảnh…' : 'Xuất ảnh PNG (sạch)'}
             </Button>
-            <Button className="sm:col-span-2" onClick={postToForum} disabled={posted}>
-              {posted ? <Check size={18} /> : <Send size={18} />} Đăng lên Diễn đàn
+            <Button className="sm:col-span-2" onClick={postToForum} disabled={posted || posting}>
+              {posted ? <Check size={18} /> : <Send size={18} />} {posting ? 'Đang đăng...' : posted ? 'Đã đăng lên Cộng đồng' : 'Đăng lên Cộng đồng'}
             </Button>
           </div>
         </div>
