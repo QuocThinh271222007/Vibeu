@@ -117,15 +117,17 @@ export function StudioTopBar({
         >
           <RefreshCcw size={15} /> <span className="hidden sm:inline">Reset</span>
         </button>
-        <button
-          onClick={toggleDebugMode}
-          title="Chế độ debug (QA only): viền mask, tọa độ con trỏ, khung decal, chế độ xem normal/roughness/Fresnel"
-          className={`hidden items-center gap-1.5 rounded-full border-2 px-3.5 py-2 text-sm font-medium transition-colors sm:flex ${
-            debugMode ? 'border-amber-500 bg-amber-50 text-amber-700' : 'border-vibe-ink/10 text-vibe-ink-soft hover:border-amber-400/50 hover:text-vibe-ink'
-          }`}
-        >
-          <Bug size={15} /> <span className="hidden sm:inline">Debug</span>
-        </button>
+        {isAdmin && (
+          <button
+            onClick={toggleDebugMode}
+            title="Chế độ debug (QA only): viền mask, tọa độ con trỏ, khung decal, chế độ xem normal/roughness/Fresnel"
+            className={`hidden items-center gap-1.5 rounded-full border-2 px-3.5 py-2 text-sm font-medium transition-colors sm:flex ${
+              debugMode ? 'border-amber-500 bg-amber-50 text-amber-700' : 'border-vibe-ink/10 text-vibe-ink-soft hover:border-amber-400/50 hover:text-vibe-ink'
+            }`}
+          >
+            <Bug size={15} /> <span className="hidden sm:inline">Debug</span>
+          </button>
+        )}
       </div>
 
       {savePanelOpen && <SavePanel onClose={() => setSavePanelOpen(false)} />}
