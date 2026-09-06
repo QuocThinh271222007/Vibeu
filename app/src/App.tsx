@@ -15,6 +15,8 @@ import { useSiteSettings } from '@/hooks/useSiteSettings'
 const Studio = lazy(() => import('@/pages/Studio'))
 const Library = lazy(() => import('@/pages/Library'))
 const Community = lazy(() => import('@/pages/Community'))
+const CommunityPost = lazy(() => import('@/pages/CommunityPost'))
+const CommunityProfile = lazy(() => import('@/pages/CommunityProfile'))
 const Blog = lazy(() => import('@/pages/Blog'))
 const BlogPost = lazy(() => import('@/pages/BlogPost'))
 const About = lazy(() => import('@/pages/About'))
@@ -96,6 +98,8 @@ export default function App() {
           />
           <Route path="/library" element={<SiteLayout><Library /></SiteLayout>} />
           <Route path="/community" element={<SiteLayout><Community /></SiteLayout>} />
+          <Route path="/community/:id" element={<SiteLayout><CommunityPost /></SiteLayout>} />
+          <Route path="/u/:id" element={<SiteLayout><CommunityProfile /></SiteLayout>} />
           <Route path="/blog" element={<SiteLayout><Blog /></SiteLayout>} />
           <Route path="/blog/:slug" element={<SiteLayout><BlogPost /></SiteLayout>} />
           <Route path="/about" element={<SiteLayout><About /></SiteLayout>} />

@@ -4,6 +4,36 @@ const AVATAR_BUCKET = 'avatars'
 const ALLOWED_AVATAR_TYPES = ['image/png', 'image/jpeg', 'image/webp']
 const MAX_AVATAR_BYTES = 2 * 1024 * 1024
 
+/** Only the fields safe to show on someone else's public profile page — never email. */
+export interface PublicProfile {
+  id: string
+  displayName: string
+  handle: string | null
+  avatarColor: string
+  avatarUrl: string | null
+  role: 'user' | 'admin'
+  createdAt: string
+}
+
+export async function fetchPublicProfile(userId: string): Promise<PublicProfile | null> {
+  if (!supabase) return null
+  const { data, error } = await supabase
+    .from('profiles')
+    .select('id, display_name, handle, avatar_color, avatar_url, role, created_at')
+    .eq('id', userId)
+    .maybeSingle()
+  if (error || !data) return null
+  return {
+    id: data.id,
+    displayName: data.display_name,
+    handle: data.handle,
+    avatarColor: data.avatar_color,
+    avatarUrl: data.avatar_url,
+    role: data.role,
+    createdAt: data.created_at,
+  }
+}
+
 export interface ProfileUpdateInput {
   displayName?: string
   handle?: string | null

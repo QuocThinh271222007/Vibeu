@@ -238,6 +238,71 @@ create trigger protect_community_counts_trigger
   before update on public.community_posts
   for each row execute procedure public.protect_community_counts();
 
+-- Indexes for the query patterns the social-network UI actually runs: a user's own post
+-- history (profile page), newest-first feed, and hashtag search — full table scans before this.
+create index if not exists community_posts_user_id_idx on public.community_posts (user_id);
+create index if not exists community_posts_created_at_idx on public.community_posts (created_at desc);
+create index if not exists community_posts_hashtags_idx on public.community_posts using gin (hashtags);
+
+-- =========================================================================
+-- community_comments — real threaded-by-post comments (the old comments_count column used
+-- to have no writer at all; this is what actually populates it now).
+-- =========================================================================
+create table if not exists public.community_comments (
+  id uuid primary key default gen_random_uuid(),
+  post_id uuid not null references public.community_posts (id) on delete cascade,
+  user_id uuid not null references public.profiles (id) on delete cascade,
+  content text not null,
+  created_at timestamptz not null default now()
+);
+
+create index if not exists community_comments_post_id_idx on public.community_comments (post_id, created_at);
+
+alter table public.community_comments enable row level security;
+
+drop policy if exists "Comments are viewable if the post is" on public.community_comments;
+create policy "Comments are viewable if the post is"
+  on public.community_comments for select using (
+    exists (
+      select 1 from public.community_posts p
+      where p.id = post_id
+        and (p.approved or p.user_id = auth.uid() or exists (select 1 from public.profiles where id = auth.uid() and role = 'admin'))
+    )
+  );
+
+drop policy if exists "Authenticated users can comment as themselves" on public.community_comments;
+create policy "Authenticated users can comment as themselves"
+  on public.community_comments for insert with check (auth.uid() = user_id);
+
+drop policy if exists "Owners or admins can delete comments" on public.community_comments;
+create policy "Owners or admins can delete comments"
+  on public.community_comments for delete using (
+    auth.uid() = user_id
+    or exists (select 1 from public.profiles where id = auth.uid() and role = 'admin')
+  );
+
+-- Mirrors handle_like_change below — keeps community_posts.comments_count in sync without a
+-- round-trip from the client, and without needing comments to be updatable (no update policy
+-- exists, so a comment's content and its post/author are immutable once posted).
+create or replace function public.handle_comment_change()
+returns trigger as $$
+begin
+  if (tg_op = 'INSERT') then
+    update public.community_posts set comments_count = comments_count + 1 where id = new.post_id;
+    return new;
+  elsif (tg_op = 'DELETE') then
+    update public.community_posts set comments_count = greatest(0, comments_count - 1) where id = old.post_id;
+    return old;
+  end if;
+  return null;
+end;
+$$ language plpgsql security definer set search_path = public;
+
+drop trigger if exists on_comment_change on public.community_comments;
+create trigger on_comment_change
+  after insert or delete on public.community_comments
+  for each row execute procedure public.handle_comment_change();
+
 -- =========================================================================
 -- blog_posts — editorial posts, created/edited only from /admin.
 -- =========================================================================
@@ -420,6 +485,19 @@ drop trigger if exists rate_limit_community_likes_trigger on public.community_li
 create trigger rate_limit_community_likes_trigger
   before insert on public.community_likes
   for each row execute procedure public.rate_limit_community_likes();
+
+create or replace function public.rate_limit_community_comments()
+returns trigger as $$
+begin
+  perform public.enforce_rate_limit('community_comment', 20, interval '10 minutes');
+  return new;
+end;
+$$ language plpgsql security definer set search_path = public;
+
+drop trigger if exists rate_limit_community_comments_trigger on public.community_comments;
+create trigger rate_limit_community_comments_trigger
+  before insert on public.community_comments
+  for each row execute procedure public.rate_limit_community_comments();
 
 create or replace function public.rate_limit_shared_designs()
 returns trigger as $$
