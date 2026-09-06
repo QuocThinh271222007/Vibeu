@@ -1,12 +1,14 @@
-import { useRef, useState } from 'react'
-import { Navigate } from 'react-router-dom'
+import { useEffect, useRef, useState } from 'react'
+import { Link, Navigate } from 'react-router-dom'
 import { AlertCircle, Camera, LogOut, ShieldCheck } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Avatar } from '@/components/ui/Avatar'
 import { useToast } from '@/components/ui/Toast'
+import { SavedDesignThumb } from '@/components/studio/SavedDesignThumb'
 import { useAuthStore } from '@/store/authStore'
 import { isSupabaseConfigured } from '@/lib/supabaseClient'
 import { updateProfile, uploadAvatar } from '@/lib/profileApi'
+import { fetchSavedDesigns, type SavedDesignRow } from '@/lib/savedDesignsApi'
 
 const AVATAR_COLORS = ['#90B8EB', '#FF92F9', '#FFD879', '#8CCABD', '#B6A6E5', '#F4B094']
 
@@ -25,6 +27,19 @@ export default function Settings() {
   const [confirmPassword, setConfirmPassword] = useState('')
   const [passwordError, setPasswordError] = useState<string | null>(null)
   const [savingPassword, setSavingPassword] = useState(false)
+
+  const [designs, setDesigns] = useState<SavedDesignRow[]>([])
+  const [loadingDesigns, setLoadingDesigns] = useState(true)
+
+  function reloadDesigns() {
+    if (!profile) return
+    fetchSavedDesigns(profile.id).then((list) => {
+      setDesigns(list)
+      setLoadingDesigns(false)
+    })
+  }
+
+  useEffect(reloadDesigns, [profile?.id])
 
   if (!isSupabaseConfigured) {
     return (
@@ -213,6 +228,29 @@ export default function Settings() {
           </Button>
         </div>
       </form>
+
+      <div className="mt-6 rounded-[1.75rem] bg-white p-6 shadow-[0_10px_30px_-18px_rgba(80,50,120,0.3)]">
+        <div className="flex items-center justify-between">
+          <p className="font-display text-base font-semibold text-vibe-ink">Bộ sưu tập ({designs.length})</p>
+          <Link to={`/u/${profile.id}`} className="text-xs font-semibold text-vibe-blue-dark hover:underline">
+            Xem trang cá nhân
+          </Link>
+        </div>
+        <p className="mt-1 text-xs text-vibe-ink-soft">Thiết kế bạn đã lưu ở Studio bằng nút "Lưu / Mở" — nhấn vào để mở lại, xoá nếu không cần nữa.</p>
+        {loadingDesigns ? (
+          <p className="mt-4 text-center text-xs text-vibe-ink-soft">Đang tải...</p>
+        ) : designs.length === 0 ? (
+          <p className="mt-4 rounded-2xl bg-vibe-cream/60 p-5 text-center text-xs text-vibe-ink-soft">
+            Chưa có thiết kế nào — vào Studio, thiết kế xong bấm "Lưu / Mở" để lưu vào đây.
+          </p>
+        ) : (
+          <div className="mt-4 grid grid-cols-3 gap-2.5 sm:grid-cols-4">
+            {designs.map((d) => (
+              <SavedDesignThumb key={d.id} design={d} canDelete onDeleted={reloadDesigns} />
+            ))}
+          </div>
+        )}
+      </div>
 
       <div className="mt-6 flex items-center justify-between rounded-[1.75rem] bg-white p-6 shadow-[0_10px_30px_-18px_rgba(80,50,120,0.3)]">
         <div className="flex items-center gap-2 text-sm text-vibe-ink-soft">

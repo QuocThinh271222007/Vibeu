@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { ArrowLeft, ShieldCheck, Trash2 } from 'lucide-react'
+import { ArrowLeft, ShieldCheck } from 'lucide-react'
 import { HandCanvas } from '@/components/studio/HandCanvas'
+import { SavedDesignThumb } from '@/components/studio/SavedDesignThumb'
 import { Avatar } from '@/components/ui/Avatar'
-import { useToast } from '@/components/ui/Toast'
 import { findTemplate } from '@/data/templates'
 import { fingersFromTemplate } from '@/lib/templateUtils'
 import { fetchPostsByAuthor, type RemoteCommunityPost } from '@/lib/communityApi'
 import { fetchPublicProfile, type PublicProfile } from '@/lib/profileApi'
-import { deleteSavedDesign, fetchSavedDesigns, type SavedDesignRow } from '@/lib/savedDesignsApi'
+import { fetchSavedDesigns, type SavedDesignRow } from '@/lib/savedDesignsApi'
 import { useAuthStore } from '@/store/authStore'
 
 function PostThumb({ post }: { post: RemoteCommunityPost }) {
@@ -23,39 +23,6 @@ function PostThumb({ post }: { post: RemoteCommunityPost }) {
       ) : null}
       {!post.approved && (
         <span className="absolute left-1.5 top-1.5 rounded-full bg-amber-100 px-2 py-0.5 text-[9px] font-semibold text-amber-700">Chờ duyệt</span>
-      )}
-    </Link>
-  )
-}
-
-function DesignThumb({ design, canDelete, onDeleted }: { design: SavedDesignRow; canDelete: boolean; onDeleted: () => void }) {
-  const { push } = useToast()
-
-  async function handleDelete(e: React.MouseEvent) {
-    e.preventDefault()
-    if (!confirm(`Xoá thiết kế "${design.name}"?`)) return
-    const { error } = await deleteSavedDesign(design.id)
-    if (error) {
-      push('error', error)
-      return
-    }
-    onDeleted()
-  }
-
-  return (
-    <Link to={`/studio?design=${design.id}`} className="group relative block aspect-[4/5] overflow-hidden rounded-2xl bg-vibe-cream">
-      <HandCanvas skinTone={design.skinTone} fingers={design.fingers} className="pointer-events-none rounded-none" />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent px-2.5 pb-2 pt-6">
-        <p className="truncate text-[11px] font-medium text-white">{design.name}</p>
-      </div>
-      {canDelete && (
-        <button
-          onClick={handleDelete}
-          title="Xoá thiết kế"
-          className="absolute right-1.5 top-1.5 grid h-7 w-7 place-items-center rounded-full bg-black/50 text-white opacity-0 transition-opacity hover:bg-red-500 group-hover:opacity-100"
-        >
-          <Trash2 size={13} />
-        </button>
       )}
     </Link>
   )
@@ -164,7 +131,7 @@ export default function CommunityProfile() {
             ) : (
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }} className="grid grid-cols-2 gap-3 sm:grid-cols-3">
                 {designs.map((d) => (
-                  <DesignThumb key={d.id} design={d} canDelete={viewer?.id === profile.id} onDeleted={reload} />
+                  <SavedDesignThumb key={d.id} design={d} canDelete={viewer?.id === profile.id} onDeleted={reload} />
                 ))}
               </motion.div>
             )}
