@@ -54,7 +54,7 @@ export function NewPostComposer({ profile, onCreated }: { profile: Profile; onCr
 
     const { error: createError } = await createCommunityPost({
       userId: profile.id,
-      templateId: templateId || templates[0]?.id || null,
+      templateId: templateId || null,
       caption: caption.trim(),
       hashtags: parseHashtags(hashtags),
       mediaUrl,
@@ -92,13 +92,15 @@ export function NewPostComposer({ profile, onCreated }: { profile: Profile; onCr
 
       <div className="mt-2.5 flex flex-wrap gap-2.5">
         <select
-          value={templateId || templates[0]?.id || ''}
+          value={templateId}
           onChange={(e) => setTemplateId(e.target.value)}
+          title="Chỉ để gắn nhãn mẫu bạn dùng làm nền — bỏ trống nếu đây là thiết kế riêng của bạn, không dựa theo mẫu nào."
           className="rounded-full border-2 border-vibe-ink/10 bg-white px-3.5 py-2 text-xs font-medium text-vibe-ink outline-none focus:border-vibe-pink/50"
         >
+          <option value="">Thiết kế riêng (không theo mẫu)</option>
           {templates.map((t) => (
             <option key={t.id} value={t.id}>
-              {t.name}
+              Theo mẫu: {t.name}
             </option>
           ))}
         </select>
