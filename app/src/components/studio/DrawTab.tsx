@@ -8,33 +8,33 @@ const BRUSH_SIZES: { width: number; label: string }[] = [
   { width: 12, label: 'Siêu đậm' },
 ]
 
-const BRUSH_BLENDS: { id: 'normal' | 'multiply'; label: string; hint: string }[] = [
-  { id: 'multiply', label: 'Hoà màu', hint: 'Nét vẽ hoà vào lớp sơn bên dưới, giống mực thấm vào móng.' },
-  { id: 'normal', label: 'Nổi khối', hint: 'Nét vẽ phủ đè lên trên, rõ khối như vẽ nổi/đắp đá.' },
+const BRUSH_RENDER_MODES: { id: 'embedded' | 'raised'; label: string; hint: string }[] = [
+  { id: 'embedded', label: 'Chìm trong sơn', hint: 'Nét vẽ được chiếu sáng, đổ bóng và lên bóng y hệt lớp sơn — như vẽ tay dưới lớp phủ bóng thật.' },
+  { id: 'raised', label: 'Nổi khối', hint: 'Nét vẽ nổi hẳn trên bề mặt, không bắt sáng theo móng — giống đắp gel 3D hoặc đính đá nổi.' },
 ]
 
 export function DrawTab({
   brushWidth,
   brushColor,
   brushOpacity,
-  brushBlend,
+  brushRender,
   hasStrokes,
   onBrushWidth,
   onBrushColor,
   onBrushOpacity,
-  onBrushBlend,
+  onBrushRender,
   onUndoLast,
   onClear,
 }: {
   brushWidth: number
   brushColor: string
   brushOpacity: number
-  brushBlend: 'normal' | 'multiply'
+  brushRender: 'embedded' | 'raised'
   hasStrokes: boolean
   onBrushWidth: (w: number) => void
   onBrushColor: (c: string) => void
   onBrushOpacity: (o: number) => void
-  onBrushBlend: (b: 'normal' | 'multiply') => void
+  onBrushRender: (b: 'embedded' | 'raised') => void
   onUndoLast: () => void
   onClear: () => void
 }) {
@@ -90,13 +90,13 @@ export function DrawTab({
       <div>
         <p className="mb-3 text-sm font-semibold text-vibe-ink">Kiểu nét</p>
         <div className="grid grid-cols-2 gap-2.5">
-          {BRUSH_BLENDS.map((b) => (
+          {BRUSH_RENDER_MODES.map((b) => (
             <button
               key={b.id}
-              onClick={() => onBrushBlend(b.id)}
+              onClick={() => onBrushRender(b.id)}
               title={b.hint}
               className={`rounded-2xl border-2 px-3 py-2.5 text-left text-xs font-semibold transition-colors ${
-                brushBlend === b.id ? 'border-vibe-pink-dark bg-vibe-pink/10 text-vibe-ink' : 'border-vibe-ink/10 bg-white text-vibe-ink-soft hover:border-vibe-pink/30'
+                brushRender === b.id ? 'border-vibe-pink-dark bg-vibe-pink/10 text-vibe-ink' : 'border-vibe-ink/10 bg-white text-vibe-ink-soft hover:border-vibe-pink/30'
               }`}
             >
               {b.label}

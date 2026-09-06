@@ -161,8 +161,7 @@ export default function Studio() {
                 brushWidth={s.brushWidth}
                 brushColor={s.brushColor}
                 brushOpacity={s.brushOpacity}
-                brushBlend={s.brushBlend}
-                onAddStroke={(finger, points) => s.addStroke(finger, points, s.brushColor, s.brushWidth, s.brushOpacity, s.brushBlend)}
+                onAddStroke={(finger, points) => s.addStroke(finger, points, s.brushColor, s.brushWidth, s.brushOpacity, s.brushRender)}
               />
             )}
           </div>
@@ -260,12 +259,12 @@ export default function Studio() {
                         brushWidth={s.brushWidth}
                         brushColor={s.brushColor}
                         brushOpacity={s.brushOpacity}
-                        brushBlend={s.brushBlend}
+                        brushRender={s.brushRender}
                         hasStrokes={activeDesign.drawStrokes.length > 0}
                         onBrushWidth={s.setBrushWidth}
                         onBrushColor={s.setBrushColor}
                         onBrushOpacity={s.setBrushOpacity}
-                        onBrushBlend={s.setBrushBlend}
+                        onBrushRender={s.setBrushRender}
                         onUndoLast={() => s.undoLastStroke(s.selectedFinger)}
                         onClear={() => s.clearStrokes(s.selectedFinger)}
                       />
