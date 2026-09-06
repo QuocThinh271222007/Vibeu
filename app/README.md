@@ -1,4 +1,4 @@
-# VIBEU — Demo Web App
+# VIBEU — Studio thiết kế nail 3D số
 
 Dựng theo mô tả trong `Ý tưởng.docx`. Thư viện mẫu, bài Blog và bài Cộng đồng (kể cả bộ nội dung khởi tạo ban đầu — 21 mẫu, 6 bài blog, 15 bài cộng đồng) đều là dữ liệu thật trên **Supabase** (Postgres + Auth + Storage), sửa/xoá được từ `/admin` — xem phần "Cấu hình Supabase" bên dưới. Không cấu hình Supabase thì Thư viện mẫu/Blog/Cộng đồng sẽ trống (không còn nội dung tĩnh đóng gói sẵn trong code), còn đăng nhập/đăng bài/`/admin` hiện thông báo yêu cầu kết nối thay vì báo lỗi.
 
