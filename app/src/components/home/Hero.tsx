@@ -1,16 +1,15 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
 import { ArrowRight, PlayCircle, Sparkles } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { TemplatePreviewMedia } from '@/components/studio/TemplatePreviewMedia'
-import { useDecals } from '@/data/loaders'
-import { findTemplate } from '@/data/templates'
+import { useDecals, useTemplates } from '@/data/loaders'
 
-const SHOWCASE = [
-  { id: findTemplate('gemini-sparkle')!, rotate: -9, x: -58, y: 40, z: 10, delay: 0 },
-  { id: findTemplate('strawberry-lace-dream')!, rotate: 4, x: 22, y: -14, z: 30, delay: 0.6 },
-  { id: findTemplate('xuan-cherry-blossom')!, rotate: 13, x: 102, y: 52, z: 20, delay: 1.2 },
+const SHOWCASE_META = [
+  { templateId: 'gemini-sparkle', rotate: -9, x: -58, y: 40, z: 10, delay: 0 },
+  { templateId: 'strawberry-lace-dream', rotate: 4, x: 22, y: -14, z: 30, delay: 0.6 },
+  { templateId: 'xuan-cherry-blossom', rotate: 13, x: 102, y: 52, z: 20, delay: 1.2 },
 ]
 
 /** How far (px) the non-hovered cards dodge away from the hovered one. */
@@ -19,8 +18,19 @@ const DODGE_DISTANCE = 46
 export function Hero() {
   const navigate = useNavigate()
   const { decals } = useDecals()
+  const { templates } = useTemplates()
+  // Templates now only ever come from Supabase (see data/templates.ts) — never available
+  // synchronously on first module load — so this has to be a hook-driven lookup that
+  // re-renders once the fetch resolves, not a module-level constant computed at import time
+  // (that was reading `undefined` and crashing the whole page before this fix).
+  const SHOWCASE = useMemo(() => {
+    const byId = Object.fromEntries(templates.map((t) => [t.id, t]))
+    return SHOWCASE_META.map((m) => ({ ...m, template: byId[m.templateId] })).filter(
+      (s): s is typeof s & { template: NonNullable<typeof s.template> } => Boolean(s.template),
+    )
+  }, [templates])
   const [hoveredId, setHoveredId] = useState<string | null>(null)
-  const hoveredCard = SHOWCASE.find((s) => s.id.id === hoveredId)
+  const hoveredCard = SHOWCASE.find((s) => s.template.id === hoveredId)
 
   return (
     <section className="relative overflow-hidden pb-20 pt-10 sm:pt-16">
@@ -67,7 +77,7 @@ export function Hero() {
 
         <div className="relative mx-auto h-[480px] w-full max-w-lg lg:h-[560px]">
           {SHOWCASE.map((s) => {
-            const isHovered = hoveredId === s.id.id
+            const isHovered = hoveredId === s.template.id
             const isOtherHovered = hoveredId !== null && !isHovered
 
             // When another card is hovered, dodge directly away from it so the hovered
@@ -84,7 +94,7 @@ export function Hero() {
 
             return (
               <motion.div
-                key={s.id.id}
+                key={s.template.id}
                 initial={{ opacity: 0, scale: 0.85, rotate: s.rotate - 6 }}
                 animate={{
                   opacity: isOtherHovered ? 0.7 : 1,
@@ -101,12 +111,12 @@ export function Hero() {
                   animate={{ y: [0, -12, 0] }}
                   whileHover={{ y: -28, scale: 1.08, transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] } }}
                   transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut', delay: s.delay }}
-                  onHoverStart={() => setHoveredId(s.id.id)}
+                  onHoverStart={() => setHoveredId(s.template.id)}
                   onHoverEnd={() => setHoveredId(null)}
                   className="relative cursor-pointer overflow-hidden rounded-[1.5rem] border-4 border-white bg-white shadow-vibe-lg transition-shadow duration-300 hover:shadow-[0_40px_70px_-20px_rgba(80,50,120,0.5)]"
                 >
                   <TemplatePreviewMedia
-                    template={s.id}
+                    template={s.template}
                     className="aspect-[2/3] w-full"
                     imageClassName="scale-[1.01]"
                     eager
@@ -118,7 +128,7 @@ export function Hero() {
                       it into the frame keeps it attached and upright regardless of the stack's
                       transform. */}
                   <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 via-black/25 to-transparent px-3 pb-2 pt-6">
-                    <p className="truncate text-center font-display text-xs font-semibold text-white">{s.id.name}</p>
+                    <p className="truncate text-center font-display text-xs font-semibold text-white">{s.template.name}</p>
                   </div>
                 </motion.div>
               </motion.div>
