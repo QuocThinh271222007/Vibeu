@@ -113,8 +113,11 @@ export function ResultView({
       return
     }
     if (!profile) {
+      // navigate() unmounts this component immediately, so firing it in the same tick as the
+      // toast meant the toast never actually got a chance to paint — the button just looked
+      // like it silently redirected for no reason. Let the message show first.
       flashToast('Đăng nhập để đăng lên Cộng đồng.')
-      navigate('/auth?redirect=/studio')
+      setTimeout(() => navigate('/auth?redirect=/studio'), 1100)
       return
     }
     setPosting(true)
