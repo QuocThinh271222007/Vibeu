@@ -41,97 +41,107 @@ export function StudioTopBar({
   const isAdmin = useAuthStore((s) => s.profile?.role === 'admin')
 
   return (
-    <div className="relative flex items-center justify-between gap-3 overflow-x-auto border-b border-vibe-ink/10 bg-white/80 px-4 py-3 backdrop-blur no-scrollbar">
-      <div className="flex shrink-0 items-center gap-3">
-        <button
-          onClick={() => navigate('/')}
-          className="flex shrink-0 items-center gap-1.5 rounded-full bg-vibe-cream px-3.5 py-2 text-sm font-semibold text-vibe-ink transition-colors hover:bg-vibe-pink hover:text-white"
-        >
-          <ArrowLeft size={16} /> <span className="hidden sm:inline">Quay lại</span>
-        </button>
-        <div className="hidden sm:block">
-          <Logo />
+    // The row below needs overflow-x-auto for narrow screens, but overflow-x set on an element
+    // computes its overflow-y to 'auto' too (CSS overflow spec) — that silently clipped the
+    // absolutely-positioned dropdown panels (top-full) below it, so they toggled open in state
+    // but never became visible. Splitting the scroll container from this positioning root fixes
+    // that: the panels anchor here, outside the clipped element, and render uncropped.
+    // z-30: this bar's own backdrop-blur makes it a stacking context, so the panels' z-20 only
+    // wins locally — without an explicit z-index here, DOM order alone decided against it,
+    // letting the (also backdrop-blur'd) properties panel below paint over the dropdowns.
+    <div className="relative z-30 border-b border-vibe-ink/10 bg-white/80 backdrop-blur">
+      <div className="flex items-center justify-between gap-3 overflow-x-auto px-4 py-3 no-scrollbar">
+        <div className="flex shrink-0 items-center gap-3">
+          <button
+            onClick={() => navigate('/')}
+            className="flex shrink-0 items-center gap-1.5 rounded-full bg-vibe-cream px-3.5 py-2 text-sm font-semibold text-vibe-ink transition-colors hover:bg-vibe-pink hover:text-white"
+          >
+            <ArrowLeft size={16} /> <span className="hidden sm:inline">Quay lại</span>
+          </button>
+          <div className="hidden sm:block">
+            <Logo />
+          </div>
+          <div className="ml-1 flex items-center gap-1 rounded-full bg-vibe-cream p-1">
+            <button
+              onClick={undo}
+              disabled={past.length === 0}
+              title="Hoàn tác (Ctrl+Z)"
+              className="grid h-8 w-8 place-items-center rounded-full text-vibe-ink-soft transition-colors hover:bg-white hover:text-vibe-ink disabled:opacity-30"
+            >
+              <Undo2 size={15} />
+            </button>
+            <button
+              onClick={redo}
+              disabled={future.length === 0}
+              title="Làm lại (Ctrl+Shift+Z)"
+              className="grid h-8 w-8 place-items-center rounded-full text-vibe-ink-soft transition-colors hover:bg-white hover:text-vibe-ink disabled:opacity-30"
+            >
+              <Redo2 size={15} />
+            </button>
+          </div>
         </div>
-        <div className="ml-1 flex items-center gap-1 rounded-full bg-vibe-cream p-1">
-          <button
-            onClick={undo}
-            disabled={past.length === 0}
-            title="Hoàn tác (Ctrl+Z)"
-            className="grid h-8 w-8 place-items-center rounded-full text-vibe-ink-soft transition-colors hover:bg-white hover:text-vibe-ink disabled:opacity-30"
-          >
-            <Undo2 size={15} />
-          </button>
-          <button
-            onClick={redo}
-            disabled={future.length === 0}
-            title="Làm lại (Ctrl+Shift+Z)"
-            className="grid h-8 w-8 place-items-center rounded-full text-vibe-ink-soft transition-colors hover:bg-white hover:text-vibe-ink disabled:opacity-30"
-          >
-            <Redo2 size={15} />
-          </button>
+  
+        <div className="flex shrink-0 items-center gap-2 rounded-full bg-vibe-cream p-1">
+          {SKIN_TONES.map((t) => (
+            <button
+              key={t.id}
+              onClick={() => onSkinTone(t.id)}
+              className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${
+                skinTone === t.id ? 'bg-white shadow-sm text-vibe-ink' : 'text-vibe-ink-soft'
+              }`}
+            >
+              <span className="h-4 w-4 rounded-full border border-black/10" style={{ background: t.swatch }} />
+              Da {t.label}
+            </button>
+          ))}
         </div>
-      </div>
-
-      <div className="flex shrink-0 items-center gap-2 rounded-full bg-vibe-cream p-1">
-        {SKIN_TONES.map((t) => (
-          <button
-            key={t.id}
-            onClick={() => onSkinTone(t.id)}
-            className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${
-              skinTone === t.id ? 'bg-white shadow-sm text-vibe-ink' : 'text-vibe-ink-soft'
-            }`}
+  
+        <div className="flex shrink-0 items-center gap-2">
+          <a
+            href="https://shopee.vn"
+            target="_blank"
+            rel="noreferrer"
+            className="hidden items-center gap-1.5 rounded-full border-2 border-vibe-ink/10 px-3.5 py-2 text-sm font-medium text-vibe-ink-soft transition-colors hover:border-vibe-blue/50 hover:text-vibe-ink sm:flex"
           >
-            <span className="h-4 w-4 rounded-full border border-black/10" style={{ background: t.swatch }} />
-            Da {t.label}
-          </button>
-        ))}
-      </div>
-
-      <div className="flex shrink-0 items-center gap-2">
-        <a
-          href="https://shopee.vn"
-          target="_blank"
-          rel="noreferrer"
-          className="hidden items-center gap-1.5 rounded-full border-2 border-vibe-ink/10 px-3.5 py-2 text-sm font-medium text-vibe-ink-soft transition-colors hover:border-vibe-blue/50 hover:text-vibe-ink sm:flex"
-        >
-          Shopee <ExternalLink size={14} />
-        </a>
-        <button
-          onClick={() => setSavePanelOpen((v) => !v)}
-          className="flex items-center gap-1.5 rounded-full border-2 border-vibe-ink/10 px-3.5 py-2 text-sm font-medium text-vibe-ink-soft transition-colors hover:border-vibe-blue/50 hover:text-vibe-ink"
-        >
-          <Save size={15} /> <span className="hidden sm:inline">Lưu / Mở</span>
-        </button>
-        {isAdmin && (
+            Shopee <ExternalLink size={14} />
+          </a>
           <button
-            onClick={() => setTemplatePanelOpen((v) => !v)}
-            title="Lưu thiết kế hiện tại thành mẫu công khai trong Thư viện mẫu"
-            className={`flex items-center gap-1.5 rounded-full border-2 px-3.5 py-2 text-sm font-medium transition-colors ${
-              templatePanelOpen
-                ? 'border-vibe-pink/60 bg-vibe-pink/5 text-vibe-pink-dark'
-                : 'border-vibe-ink/10 text-vibe-ink-soft hover:border-vibe-pink/40 hover:text-vibe-ink'
-            }`}
+            onClick={() => setSavePanelOpen((v) => !v)}
+            className="flex items-center gap-1.5 rounded-full border-2 border-vibe-ink/10 px-3.5 py-2 text-sm font-medium text-vibe-ink-soft transition-colors hover:border-vibe-blue/50 hover:text-vibe-ink"
           >
-            <LibraryBig size={15} /> <span className="hidden sm:inline">Lưu làm mẫu</span>
+            <Save size={15} /> <span className="hidden sm:inline">Lưu / Mở</span>
           </button>
-        )}
-        <button
-          onClick={onReset}
-          className="flex items-center gap-1.5 rounded-full border-2 border-vibe-ink/10 px-3.5 py-2 text-sm font-medium text-vibe-ink-soft transition-colors hover:border-vibe-pink/50 hover:text-vibe-ink"
-        >
-          <RefreshCcw size={15} /> <span className="hidden sm:inline">Reset</span>
-        </button>
-        {isAdmin && (
+          {isAdmin && (
+            <button
+              onClick={() => setTemplatePanelOpen((v) => !v)}
+              title="Lưu thiết kế hiện tại thành mẫu công khai trong Thư viện mẫu"
+              className={`flex items-center gap-1.5 rounded-full border-2 px-3.5 py-2 text-sm font-medium transition-colors ${
+                templatePanelOpen
+                  ? 'border-vibe-pink/60 bg-vibe-pink/5 text-vibe-pink-dark'
+                  : 'border-vibe-ink/10 text-vibe-ink-soft hover:border-vibe-pink/40 hover:text-vibe-ink'
+              }`}
+            >
+              <LibraryBig size={15} /> <span className="hidden sm:inline">Lưu làm mẫu</span>
+            </button>
+          )}
           <button
-            onClick={toggleDebugMode}
-            title="Chế độ debug (QA only): viền mask, tọa độ con trỏ, khung decal, chế độ xem normal/roughness/Fresnel"
-            className={`hidden items-center gap-1.5 rounded-full border-2 px-3.5 py-2 text-sm font-medium transition-colors sm:flex ${
-              debugMode ? 'border-amber-500 bg-amber-50 text-amber-700' : 'border-vibe-ink/10 text-vibe-ink-soft hover:border-amber-400/50 hover:text-vibe-ink'
-            }`}
+            onClick={onReset}
+            className="flex items-center gap-1.5 rounded-full border-2 border-vibe-ink/10 px-3.5 py-2 text-sm font-medium text-vibe-ink-soft transition-colors hover:border-vibe-pink/50 hover:text-vibe-ink"
           >
-            <Bug size={15} /> <span className="hidden sm:inline">Debug</span>
+            <RefreshCcw size={15} /> <span className="hidden sm:inline">Reset</span>
           </button>
-        )}
+          {isAdmin && (
+            <button
+              onClick={toggleDebugMode}
+              title="Chế độ debug (QA only): viền mask, tọa độ con trỏ, khung decal, chế độ xem normal/roughness/Fresnel"
+              className={`hidden items-center gap-1.5 rounded-full border-2 px-3.5 py-2 text-sm font-medium transition-colors sm:flex ${
+                debugMode ? 'border-amber-500 bg-amber-50 text-amber-700' : 'border-vibe-ink/10 text-vibe-ink-soft hover:border-amber-400/50 hover:text-vibe-ink'
+              }`}
+            >
+              <Bug size={15} /> <span className="hidden sm:inline">Debug</span>
+            </button>
+          )}
+        </div>
       </div>
 
       {savePanelOpen && <SavePanel onClose={() => setSavePanelOpen(false)} />}
