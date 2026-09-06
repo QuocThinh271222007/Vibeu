@@ -111,7 +111,11 @@ export function StudioTopBar({
           <button
             onClick={() => setTemplatePanelOpen((v) => !v)}
             title="Lưu thiết kế hiện tại thành mẫu công khai trong Thư viện mẫu"
-            className="flex items-center gap-1.5 rounded-full border-2 border-vibe-pink/30 bg-vibe-pink/5 px-3.5 py-2 text-sm font-medium text-vibe-pink-dark transition-colors hover:border-vibe-pink/60"
+            className={`flex items-center gap-1.5 rounded-full border-2 px-3.5 py-2 text-sm font-medium transition-colors ${
+              templatePanelOpen
+                ? 'border-vibe-pink/60 bg-vibe-pink/5 text-vibe-pink-dark'
+                : 'border-vibe-ink/10 text-vibe-ink-soft hover:border-vibe-pink/40 hover:text-vibe-ink'
+            }`}
           >
             <LibraryBig size={15} /> <span className="hidden sm:inline">Lưu làm mẫu</span>
           </button>

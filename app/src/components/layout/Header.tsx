@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import { LogOut, Menu, Settings, Shield, User, X } from 'lucide-react'
+import { LibraryBig, LogOut, Menu, Settings, Shield, User, X } from 'lucide-react'
 import { Logo } from '@/components/ui/Logo'
 import { Button } from '@/components/ui/Button'
 import { Avatar } from '@/components/ui/Avatar'
@@ -86,6 +86,13 @@ export function Header() {
                             <Shield size={16} /> Trang quản trị
                           </Link>
                         )}
+                        <Link
+                          to={`/u/${profile.id}?tab=collection`}
+                          onClick={() => setAccountOpen(false)}
+                          className="flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-medium text-vibe-ink hover:bg-vibe-cream"
+                        >
+                          <LibraryBig size={16} /> Bộ sưu tập
+                        </Link>
                         <Link
                           to="/settings"
                           onClick={() => setAccountOpen(false)}
@@ -174,6 +181,15 @@ export function Header() {
                         <Shield size={16} /> Trang quản trị
                       </Button>
                     )}
+                    <Button
+                      variant="secondary"
+                      onClick={() => {
+                        setMobileOpen(false)
+                        navigate(`/u/${profile.id}?tab=collection`)
+                      }}
+                    >
+                      <LibraryBig size={16} /> Bộ sưu tập
+                    </Button>
                     <Button
                       variant="secondary"
                       onClick={() => {

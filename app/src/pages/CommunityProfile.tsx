@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useSearchParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowLeft, ShieldCheck } from 'lucide-react'
 import { HandCanvas } from '@/components/studio/HandCanvas'
@@ -30,11 +30,12 @@ function PostThumb({ post }: { post: RemoteCommunityPost }) {
 
 export default function CommunityProfile() {
   const { id } = useParams<{ id: string }>()
+  const [searchParams] = useSearchParams()
   const { profile: viewer } = useAuthStore()
   const [profile, setProfile] = useState<PublicProfile | null>(null)
   const [posts, setPosts] = useState<RemoteCommunityPost[]>([])
   const [designs, setDesigns] = useState<SavedDesignRow[]>([])
-  const [tab, setTab] = useState<'posts' | 'collection'>('posts')
+  const [tab, setTab] = useState<'posts' | 'collection'>(searchParams.get('tab') === 'collection' ? 'collection' : 'posts')
   const [loading, setLoading] = useState(true)
   const [notFound, setNotFound] = useState(false)
 
