@@ -3,7 +3,6 @@ import { ImagePlus, Loader2, Sparkles } from 'lucide-react'
 import { Avatar } from '@/components/ui/Avatar'
 import { Button } from '@/components/ui/Button'
 import { useTemplates } from '@/data/loaders'
-import { useSiteSettings } from '@/hooks/useSiteSettings'
 import { createCommunityPost, uploadCommunityMedia } from '@/lib/communityApi'
 import type { Profile } from '@/store/authStore'
 
@@ -17,7 +16,6 @@ function parseHashtags(raw: string): string[] {
 
 export function NewPostComposer({ profile, onCreated }: { profile: Profile; onCreated: () => void }) {
   const { templates } = useTemplates()
-  const settings = useSiteSettings()
   const [templateId, setTemplateId] = useState('')
   const [caption, setCaption] = useState('')
   const [hashtags, setHashtags] = useState('')
@@ -61,7 +59,6 @@ export function NewPostComposer({ profile, onCreated }: { profile: Profile; onCr
       hashtags: parseHashtags(hashtags),
       mediaUrl,
       mediaAlt,
-      approved: settings ? !settings.communityModeration : undefined,
     })
     setSubmitting(false)
     if (createError) {

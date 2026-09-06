@@ -136,7 +136,9 @@ export function ResultView({
         flashToast(uploadError ?? 'Không tải được ảnh lên.')
         return
       }
-      const autoApproved = siteSettings ? !siteSettings.communityModeration : undefined
+      // The server (set_community_post_approved trigger) makes the real call — this only
+      // predicts it for the toast text below, so it must mirror that trigger's logic exactly.
+      const autoApproved = profile.role === 'admin' || (siteSettings ? !siteSettings.communityModeration : false)
       const { error } = await createCommunityPost({
         userId: profile.id,
         templateId: activeTemplateId ?? null,
@@ -144,7 +146,6 @@ export function ResultView({
         hashtags: [],
         mediaUrl: url,
         mediaAlt: 'Ảnh bộ nail tự thiết kế trên VIBEU',
-        approved: autoApproved,
       })
       if (error) {
         flashToast(error)

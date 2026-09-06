@@ -238,6 +238,27 @@ create trigger protect_community_counts_trigger
   before update on public.community_posts
   for each row execute procedure public.protect_community_counts();
 
+-- The insert policy above only checks auth.uid() = user_id — nothing stops a client from also
+-- setting approved: true directly in the insert payload (the app's UI never does, but a raw API
+-- call could). This decides `approved` server-side instead, ignoring whatever the client sent:
+-- admins always publish immediately; everyone else follows the site-wide moderation toggle.
+create or replace function public.set_community_post_approved()
+returns trigger as $$
+begin
+  if exists (select 1 from public.profiles where id = new.user_id and role = 'admin') then
+    new.approved := true;
+  else
+    new.approved := not coalesce((select community_moderation from public.site_settings where id = true), true);
+  end if;
+  return new;
+end;
+$$ language plpgsql security definer set search_path = public;
+
+drop trigger if exists set_community_post_approved_trigger on public.community_posts;
+create trigger set_community_post_approved_trigger
+  before insert on public.community_posts
+  for each row execute procedure public.set_community_post_approved();
+
 -- Indexes for the query patterns the social-network UI actually runs: a user's own post
 -- history (profile page), newest-first feed, and hashtag search — full table scans before this.
 create index if not exists community_posts_user_id_idx on public.community_posts (user_id);
