@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { motion } from 'framer-motion'
 import type { FingerDesign, FingerId, NailLength, NailShape, SkinToneId } from '@/types/vibeu'
 import { SHAPE_LABEL_VI } from '@/types/vibeu'
@@ -21,32 +20,19 @@ export function ShapeLengthTab({
   onShape: (s: NailShape, applyToAll: boolean) => void
   onLength: (l: NailLength, applyToAll: boolean) => void
 }) {
-  // Defaults to true: a whole-hand real-photo switch is what almost every user wants when
-  // touching shape/length (real manicures are uniform across the hand); per-finger mixing
-  // is the opt-out, not the default. Leaving this false by default made "change shape" look
-  // like a no-op for anyone who didn't notice the checkbox — see CLAUDE-REVIEW-BATCH1.md §8.
-  const [applyToAll, setApplyToAll] = useState(true)
   const availableLengths = availableLengthsForShape(skinTone, design.shape)
   const currentHasPhoto = availableLengths.includes(design.length)
   const isUniform = Boolean(uniformShapeLength(fingers))
 
   return (
     <div className="space-y-7">
-      <div className="flex items-center justify-between">
-        <p className="text-xs text-vibe-ink-soft">Chọn ngón đang chỉnh ở khung bên, hoặc áp dụng cho cả bộ:</p>
-        <label className="flex shrink-0 items-center gap-1.5 text-xs text-vibe-ink-soft">
-          <input type="checkbox" checked={applyToAll} onChange={(e) => setApplyToAll(e.target.checked)} className="accent-vibe-pink-dark" />
-          Áp dụng cả 5 ngón
-        </label>
-      </div>
-
       <div>
         <p className="mb-3 text-sm font-semibold text-vibe-ink">Form móng</p>
         <div className="grid grid-cols-4 gap-2.5">
           {SHAPES.map((s) => (
             <button
               key={s}
-              onClick={() => onShape(s, applyToAll)}
+              onClick={() => onShape(s, true)}
               className={`flex flex-col items-center gap-1.5 rounded-2xl border-2 py-3 transition-colors ${
                 design.shape === s ? 'border-vibe-pink-dark bg-vibe-pink/10' : 'border-vibe-ink/10 bg-white hover:border-vibe-pink/30'
               }`}
@@ -62,7 +48,7 @@ export function ShapeLengthTab({
         <p className="mb-3 text-sm font-semibold text-vibe-ink">Độ dài</p>
         <div className="relative flex rounded-full bg-vibe-cream p-1">
           {LENGTHS.map((l) => (
-            <button key={l} onClick={() => onLength(l, applyToAll)} className="relative z-10 flex-1 py-2.5 text-sm font-semibold">
+            <button key={l} onClick={() => onLength(l, true)} className="relative z-10 flex-1 py-2.5 text-sm font-semibold">
               {design.length === l && (
                 <motion.span
                   layoutId="length-pill"
@@ -94,9 +80,9 @@ export function ShapeLengthTab({
         )}
         {currentHasPhoto && !isUniform && (
           <p className="mt-2 rounded-xl bg-amber-50 p-2.5 text-xs text-amber-800">
-            Các ngón hiện chưa cùng form &amp; độ dài <strong>{SHAPE_LABEL_VI[design.shape]}, {design.length}</strong>, nên ảnh
-            xem trước vẫn giữ ảnh mặc định. Tick <strong>"Áp dụng cả 5 ngón"</strong> ở trên rồi chọn lại để cả bàn tay đổi
-            sang đúng ảnh thật.
+            Các ngón hiện chưa cùng form &amp; độ dài <strong>{SHAPE_LABEL_VI[design.shape]}, {design.length}</strong> (thiết kế cũ hoặc
+            mẫu có sẵn), nên ảnh xem trước vẫn giữ ảnh mặc định. Chọn lại form hoặc độ dài ở trên để đồng bộ cả bàn tay và
+            đổi sang đúng ảnh thật.
           </p>
         )}
       </div>

@@ -13,7 +13,10 @@
   --color-vibe-ink: #2c2740;
   --color-vibe-ink-soft: #5b5470;
 
-  --font-display: "Fredoka", "Inter", ui-rounded, sans-serif;
+  /* Baloo 2 replaces Fredoka (2026-09-07): Fredoka's Vietnamese diacritics render crowded/
+     misaligned on its tall x-height at display sizes — Baloo 2 is the same playful-rounded
+     family used across Vietnamese consumer apps precisely because it sets dấu cleanly. */
+  --font-display: "Baloo 2", "Inter", ui-rounded, sans-serif;
   --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
 
   --shadow-vibe: 0 12px 32px -12px rgba(144, 90, 200, 0.28);
