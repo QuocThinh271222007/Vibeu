@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Lock, Palette, PenLine, QrCode, Ruler, Sticker as StickerIcon, ZoomIn, ZoomOut } from 'lucide-react'
+import { ChevronUp, Lock, Palette, PenLine, QrCode, Ruler, Sticker as StickerIcon, ZoomIn, ZoomOut } from 'lucide-react'
 import { useStudioStore, type StudioTab } from '@/store/studioStore'
 import { useColorPresets } from '@/data/loaders'
 import { HandCanvas } from '@/components/studio/HandCanvas'
@@ -45,6 +45,11 @@ export default function Studio() {
   const { presets } = useColorPresets()
   const presetsById = Object.fromEntries(presets.map((p) => [p.id, p]))
   const [zoomIndex, setZoomIndex] = useState(0)
+  // Mobile only (see the docked toggle bar below): the tools panel (tabs + settings + the
+  // export button) is docked off-screen behind a toggle instead of sitting inline in the
+  // page flow, so the canvas is fully reachable without scrolling past a wall of controls.
+  // Desktop keeps its always-visible sidebar regardless of this.
+  const [mobileToolsOpen, setMobileToolsOpen] = useState(false)
   const appliedVariantRef = useRef('')
   const zoom = ZOOM_LEVELS[zoomIndex]
 
@@ -129,13 +134,105 @@ export default function Studio() {
 
   const activeDesign = s.fingers[s.selectedFinger]
   const locked = getLockedTemplateView(s.activeTemplateId)
+  const activeTabMeta = TABS.find((t) => t.id === s.activeTab) ?? TABS[0]
+
+  // Shared between the always-visible desktop sidebar and the mobile docked sheet below —
+  // same tabs/settings/export button either way, only the wrapping container differs.
+  const toolsPanelContent = (
+    <>
+      {locked ? (
+        <div className="flex flex-1 flex-col items-center justify-center gap-3 p-8 text-center">
+          <span className="grid h-12 w-12 place-items-center rounded-full bg-vibe-pink/15 text-vibe-pink-dark">
+            <Lock size={22} />
+          </span>
+          <p className="font-display text-base font-semibold text-vibe-ink">Đây là thiết kế mẫu có sẵn</p>
+          <p className="text-sm font-medium text-vibe-ink-soft">Không thể chỉnh sửa.</p>
+          <p className="max-w-xs text-sm text-vibe-ink-soft">
+            Bạn vẫn có thể xuất công thức &amp; mã QR để mang ra tiệm, hoặc bấm "Reset" ở trên để tự do sáng tạo từ đầu.
+          </p>
+        </div>
+      ) : (
+        <>
+          <div className="flex border-b border-vibe-ink/10">
+            {TABS.map((t) => (
+              <button
+                key={t.id}
+                onClick={() => s.setActiveTab(t.id)}
+                className={`relative flex flex-1 flex-col items-center gap-1 py-3 text-[11px] font-semibold transition-colors sm:text-xs ${
+                  s.activeTab === t.id ? 'text-vibe-pink-dark' : 'text-vibe-ink-soft'
+                }`}
+              >
+                <t.icon size={18} />
+                {t.label}
+                {s.activeTab === t.id && <motion.span layoutId="tab-underline" className="absolute inset-x-4 bottom-0 h-0.5 rounded-full bg-vibe-pink-dark" />}
+              </button>
+            ))}
+          </div>
+
+          <div className="min-h-0 flex-1 overflow-y-auto p-5 vibe-scrollbar">
+            <AnimatePresence mode="wait">
+              <motion.div key={s.activeTab} initial={{ opacity: 0, x: 8 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -8 }} transition={{ duration: 0.2 }}>
+                {s.activeTab === 'shape' && (
+                  <ShapeLengthTab
+                    design={activeDesign}
+                    skinTone={s.skinTone}
+                    fingers={s.fingers}
+                    onShape={(shape, all) => s.setShape(s.selectedFinger, shape, all)}
+                    onLength={(length, all) => s.setLength(s.selectedFinger, length, all)}
+                  />
+                )}
+                {s.activeTab === 'paint' && (
+                  <PaintTab
+                    design={activeDesign}
+                    onPreset={(id, all) => s.setPreset(s.selectedFinger, id, all)}
+                    onEffect={(effect, all) => s.setEffect(s.selectedFinger, effect, all)}
+                    onCustomColor={(hex, all) => s.setCustomColor(s.selectedFinger, hex, all)}
+                    onCustomGradient={(g, all) => s.setCustomGradient(s.selectedFinger, g, all)}
+                  />
+                )}
+                {s.activeTab === 'charms' && (
+                  <div className="space-y-5">
+                    {activeDesign.stickers.length > 0 && <LayersPanel finger={s.selectedFinger} />}
+                    <DecalLibrary
+                      onAdd={(decalId, all) => (all ? s.addStickerToAllFingers(decalId) : s.addSticker(s.selectedFinger, decalId))}
+                    />
+                  </div>
+                )}
+                {s.activeTab === 'draw' && (
+                  <DrawTab
+                    brushWidth={s.brushWidth}
+                    brushColor={s.brushColor}
+                    brushOpacity={s.brushOpacity}
+                    brushRender={s.brushRender}
+                    hasStrokes={activeDesign.drawStrokes.length > 0}
+                    onBrushWidth={s.setBrushWidth}
+                    onBrushColor={s.setBrushColor}
+                    onBrushOpacity={s.setBrushOpacity}
+                    onBrushRender={s.setBrushRender}
+                    onUndoLast={() => s.undoLastStroke(s.selectedFinger)}
+                    onClear={() => s.clearStrokes(s.selectedFinger)}
+                  />
+                )}
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </>
+      )}
+
+      <div className="border-t border-vibe-ink/10 p-4">
+        <Button className="w-full" size="lg" onClick={s.goToResult}>
+          <QrCode size={20} /> Xuất công thức &amp; Mã QR
+        </Button>
+      </div>
+    </>
+  )
 
   return (
     <div className="flex min-h-screen flex-col bg-vibe-cream lg:h-screen lg:min-h-0">
       <StudioTopBar skinTone={s.skinTone} onSkinTone={s.setSkinTone} onReset={s.reset} />
 
       <div className="flex flex-1 flex-col lg:min-h-0 lg:flex-row lg:overflow-hidden">
-        <div className="flex flex-col items-center gap-4 px-4 py-5 sm:px-8 lg:flex-1 lg:overflow-y-auto">
+        <div className="flex flex-col items-center gap-4 px-4 pb-24 pt-5 sm:px-8 lg:flex-1 lg:overflow-y-auto lg:pb-5">
           {s.activeTemplateName && (
             <div className="flex flex-wrap items-center justify-center gap-2">
               <span className="rounded-full bg-white px-3.5 py-1 text-xs font-semibold text-vibe-pink-dark shadow-sm">
@@ -211,93 +308,46 @@ export default function Studio() {
           )}
         </div>
 
-        <div className="flex flex-col border-t border-vibe-ink/10 bg-white/80 backdrop-blur lg:min-h-0 lg:w-[420px] lg:border-l lg:border-t-0">
-          {locked ? (
-            <div className="flex flex-1 flex-col items-center justify-center gap-3 p-8 text-center">
-              <span className="grid h-12 w-12 place-items-center rounded-full bg-vibe-pink/15 text-vibe-pink-dark">
-                <Lock size={22} />
-              </span>
-              <p className="font-display text-base font-semibold text-vibe-ink">Đây là thiết kế mẫu có sẵn</p>
-              <p className="text-sm font-medium text-vibe-ink-soft">Không thể chỉnh sửa.</p>
-              <p className="max-w-xs text-sm text-vibe-ink-soft">
-                Bạn vẫn có thể xuất công thức &amp; mã QR để mang ra tiệm, hoặc bấm "Reset" ở trên để tự do sáng tạo từ đầu.
-              </p>
-            </div>
-          ) : (
-            <>
-              <div className="flex border-b border-vibe-ink/10">
-                {TABS.map((t) => (
-                  <button
-                    key={t.id}
-                    onClick={() => s.setActiveTab(t.id)}
-                    className={`relative flex flex-1 flex-col items-center gap-1 py-3 text-[11px] font-semibold transition-colors sm:text-xs ${
-                      s.activeTab === t.id ? 'text-vibe-pink-dark' : 'text-vibe-ink-soft'
-                    }`}
-                  >
-                    <t.icon size={18} />
-                    {t.label}
-                    {s.activeTab === t.id && <motion.span layoutId="tab-underline" className="absolute inset-x-4 bottom-0 h-0.5 rounded-full bg-vibe-pink-dark" />}
-                  </button>
-                ))}
-              </div>
-
-              <div className="p-5 vibe-scrollbar lg:flex-1 lg:overflow-y-auto">
-                <AnimatePresence mode="wait">
-                  <motion.div key={s.activeTab} initial={{ opacity: 0, x: 8 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -8 }} transition={{ duration: 0.2 }}>
-                    {s.activeTab === 'shape' && (
-                      <ShapeLengthTab
-                        design={activeDesign}
-                        skinTone={s.skinTone}
-                        fingers={s.fingers}
-                        onShape={(shape, all) => s.setShape(s.selectedFinger, shape, all)}
-                        onLength={(length, all) => s.setLength(s.selectedFinger, length, all)}
-                      />
-                    )}
-                    {s.activeTab === 'paint' && (
-                      <PaintTab
-                        design={activeDesign}
-                        onPreset={(id, all) => s.setPreset(s.selectedFinger, id, all)}
-                        onEffect={(effect, all) => s.setEffect(s.selectedFinger, effect, all)}
-                        onCustomColor={(hex, all) => s.setCustomColor(s.selectedFinger, hex, all)}
-                        onCustomGradient={(g, all) => s.setCustomGradient(s.selectedFinger, g, all)}
-                      />
-                    )}
-                    {s.activeTab === 'charms' && (
-                      <div className="space-y-5">
-                        {activeDesign.stickers.length > 0 && <LayersPanel finger={s.selectedFinger} />}
-                        <DecalLibrary
-                          onAdd={(decalId, all) => (all ? s.addStickerToAllFingers(decalId) : s.addSticker(s.selectedFinger, decalId))}
-                        />
-                      </div>
-                    )}
-                    {s.activeTab === 'draw' && (
-                      <DrawTab
-                        brushWidth={s.brushWidth}
-                        brushColor={s.brushColor}
-                        brushOpacity={s.brushOpacity}
-                        brushRender={s.brushRender}
-                        hasStrokes={activeDesign.drawStrokes.length > 0}
-                        onBrushWidth={s.setBrushWidth}
-                        onBrushColor={s.setBrushColor}
-                        onBrushOpacity={s.setBrushOpacity}
-                        onBrushRender={s.setBrushRender}
-                        onUndoLast={() => s.undoLastStroke(s.selectedFinger)}
-                        onClear={() => s.clearStrokes(s.selectedFinger)}
-                      />
-                    )}
-                  </motion.div>
-                </AnimatePresence>
-              </div>
-            </>
-          )}
-
-          <div className="border-t border-vibe-ink/10 p-4">
-            <Button className="w-full" size="lg" onClick={s.goToResult}>
-              <QrCode size={20} /> Xuất công thức &amp; Mã QR
-            </Button>
-          </div>
+        {/* Desktop: same panel, always visible as a static sidebar. */}
+        <div className="hidden bg-white/80 backdrop-blur lg:flex lg:min-h-0 lg:w-[420px] lg:flex-col lg:border-l lg:border-vibe-ink/10">
+          {toolsPanelContent}
         </div>
       </div>
+
+      {/* Mobile: the same panel docked off-screen behind a toggle bar instead of sitting
+          inline in the page flow — tap to slide the tools sheet up over the canvas, tap
+          again (or the backdrop) to tuck it away. */}
+      <button
+        onClick={() => setMobileToolsOpen((v) => !v)}
+        className="fixed inset-x-0 bottom-0 z-40 flex h-14 items-center justify-center gap-2 border-t border-vibe-ink/10 bg-white text-sm font-semibold text-vibe-ink shadow-[0_-8px_24px_-16px_rgba(80,50,120,0.35)] lg:hidden"
+      >
+        {locked ? <Lock size={16} className="text-vibe-pink-dark" /> : <activeTabMeta.icon size={16} className="text-vibe-pink-dark" />}
+        {locked ? 'Thông tin thiết kế mẫu' : `Công cụ: ${activeTabMeta.label}`}
+        <ChevronUp size={16} className={`transition-transform ${mobileToolsOpen ? 'rotate-180' : ''}`} />
+      </button>
+
+      <AnimatePresence>
+        {mobileToolsOpen && (
+          <>
+            <motion.div
+              className="fixed inset-0 z-30 bg-vibe-ink/30 lg:hidden"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setMobileToolsOpen(false)}
+            />
+            <motion.div
+              initial={{ y: '100%' }}
+              animate={{ y: 0 }}
+              exit={{ y: '100%' }}
+              transition={{ type: 'spring', stiffness: 320, damping: 32 }}
+              className="fixed inset-x-0 bottom-14 z-40 flex max-h-[70vh] flex-col overflow-hidden rounded-t-[1.75rem] border-t border-vibe-ink/10 bg-white shadow-2xl lg:hidden"
+            >
+              {toolsPanelContent}
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </div>
   )
 }
