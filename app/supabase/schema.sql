@@ -453,16 +453,20 @@ $$ language plpgsql security definer set search_path = public;
 
 -- =========================================================================
 -- site_feedback — the "Góp ý dự án" card on the Về chúng tôi page. Anyone (logged in or not)
--- can drop a note; only admins can read them back (via the Supabase table editor for now —
--- no dedicated admin UI yet, same low-key treatment rate_limit_hits gets).
+-- can drop a note; only admins can read them back, from the dedicated /admin/feedback page.
 -- =========================================================================
 create table if not exists public.site_feedback (
   id uuid primary key default gen_random_uuid(),
   user_id uuid references public.profiles (id) on delete set null,
   name text not null,
   message text not null,
+  -- Admin has "noted"/read this one — set from /admin/feedback, never by the sender.
+  acknowledged boolean not null default false,
   created_at timestamptz not null default now()
 );
+
+-- Added after the initial release — safe no-op if the column already exists.
+alter table public.site_feedback add column if not exists acknowledged boolean not null default false;
 
 alter table public.site_feedback enable row level security;
 
@@ -476,6 +480,12 @@ create policy "Anyone can send feedback"
 drop policy if exists "Admins can read feedback" on public.site_feedback;
 create policy "Admins can read feedback"
   on public.site_feedback for select using (
+    exists (select 1 from public.profiles where id = auth.uid() and role = 'admin')
+  );
+
+drop policy if exists "Admins can update feedback" on public.site_feedback;
+create policy "Admins can update feedback"
+  on public.site_feedback for update using (
     exists (select 1 from public.profiles where id = auth.uid() and role = 'admin')
   );
 
