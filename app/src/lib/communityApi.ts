@@ -105,7 +105,7 @@ export async function fetchCommunityPosts(currentUserId: string | null): Promise
   if (!supabase) return []
   const { data, error } = await supabase
     .from('community_posts')
-    .select('*, profiles(display_name, handle, avatar_color, avatar_url)')
+    .select('*, profiles!community_posts_user_id_fkey(display_name, handle, avatar_color, avatar_url)')
     .order('featured', { ascending: false })
     .order('created_at', { ascending: false })
   if (error || !data) return []
@@ -119,7 +119,7 @@ export async function fetchCommunityPost(id: string, currentUserId: string | nul
   if (!supabase) return null
   const { data, error } = await supabase
     .from('community_posts')
-    .select('*, profiles(display_name, handle, avatar_color, avatar_url)')
+    .select('*, profiles!community_posts_user_id_fkey(display_name, handle, avatar_color, avatar_url)')
     .eq('id', id)
     .maybeSingle()
   if (error || !data) return null
@@ -134,7 +134,7 @@ export async function fetchPostsByAuthor(authorId: string, currentUserId: string
   if (!supabase) return []
   const { data, error } = await supabase
     .from('community_posts')
-    .select('*, profiles(display_name, handle, avatar_color, avatar_url)')
+    .select('*, profiles!community_posts_user_id_fkey(display_name, handle, avatar_color, avatar_url)')
     .eq('user_id', authorId)
     .order('created_at', { ascending: false })
   if (error || !data) return []
