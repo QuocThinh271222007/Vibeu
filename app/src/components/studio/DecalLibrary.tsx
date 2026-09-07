@@ -18,7 +18,7 @@ function assetKind(d: DecalAsset): KindFilter {
   return d.layerType === 'raised' ? 'charm' : 'sticker'
 }
 
-export function DecalLibrary({ onAdd }: { onAdd: (decalId: string) => void }) {
+export function DecalLibrary({ onAdd }: { onAdd: (decalId: string, applyToAll: boolean) => void }) {
   const { decals, categories, loading } = useDecals()
   const customDecals = useStudioStore((s) => s.customDecals)
   const addCustomDecal = useStudioStore((s) => s.addCustomDecal)
@@ -27,6 +27,7 @@ export function DecalLibrary({ onAdd }: { onAdd: (decalId: string) => void }) {
   const [kind, setKind] = useState<KindFilter>('all')
   const [query, setQuery] = useState('')
   const [uploadError, setUploadError] = useState<string | null>(null)
+  const [applyToAll, setApplyToAll] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const allDecals = useMemo(() => [...decals, ...customDecals], [decals, customDecals])
@@ -65,6 +66,11 @@ export function DecalLibrary({ onAdd }: { onAdd: (decalId: string) => void }) {
 
   return (
     <div className="space-y-4">
+      <label className="flex items-center gap-1.5 rounded-2xl bg-vibe-cream/60 px-3.5 py-2.5 text-xs font-semibold text-vibe-ink-soft">
+        <input type="checkbox" checked={applyToAll} onChange={(e) => setApplyToAll(e.target.checked)} className="accent-vibe-pink-dark" />
+        Gắn cả 5 ngón cùng lúc
+      </label>
+
       <label className="flex items-center gap-2 rounded-full border-2 border-vibe-ink/10 bg-white px-4 py-2.5">
         <Search size={16} className="text-vibe-ink-soft" />
         <input
@@ -150,7 +156,7 @@ export function DecalLibrary({ onAdd }: { onAdd: (decalId: string) => void }) {
       ) : (
         <div className="grid max-h-[420px] grid-cols-4 gap-2.5 overflow-y-auto pr-1 vibe-scrollbar sm:grid-cols-5">
           {filtered.map((d) => (
-            <DecalButton key={d.id} decal={d} onAdd={onAdd} />
+            <DecalButton key={d.id} decal={d} onAdd={(id) => onAdd(id, applyToAll)} />
           ))}
           {filtered.length === 0 && <p className="col-span-full py-8 text-center text-sm text-vibe-ink-soft">Không tìm thấy decal phù hợp.</p>}
         </div>

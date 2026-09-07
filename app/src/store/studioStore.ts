@@ -91,10 +91,11 @@ interface StudioState extends DesignSnapshot {
   setShape: (finger: FingerId, shape: FingerDesign['shape'], applyToAll?: boolean) => void
   setLength: (finger: FingerId, length: FingerDesign['length'], applyToAll?: boolean) => void
   setPreset: (finger: FingerId, presetId: string, applyToAll?: boolean) => void
-  setCustomColor: (finger: FingerId, hex: string | null) => void
-  setCustomGradient: (finger: FingerId, gradient: CustomGradient | null) => void
-  setEffect: (finger: FingerId, effect: FingerDesign['effect']) => void
+  setCustomColor: (finger: FingerId, hex: string | null, applyToAll?: boolean) => void
+  setCustomGradient: (finger: FingerId, gradient: CustomGradient | null, applyToAll?: boolean) => void
+  setEffect: (finger: FingerId, effect: FingerDesign['effect'], applyToAll?: boolean) => void
   addSticker: (finger: FingerId, stickerId: string, uv?: [number, number]) => void
+  addStickerToAllFingers: (stickerId: string) => void
   addCustomDecal: (asset: DecalAsset) => void
   updateSticker: (finger: FingerId, instanceId: string, patch: Partial<StickerInstance>) => void
   removeSticker: (finger: FingerId, instanceId: string) => void
@@ -212,18 +213,39 @@ export const useStudioStore = create<StudioState>((set, get) => ({
       return { fingers: { ...s.fingers, [finger]: { ...s.fingers[finger], presetId, customColor: null, customGradient: null } } }
     }),
 
-  setCustomColor: (finger, hex) =>
-    withHistory(set, (s) => ({
-      fingers: { ...s.fingers, [finger]: { ...s.fingers[finger], customColor: hex, customGradient: hex ? null : s.fingers[finger].customGradient } },
-    })),
+  setCustomColor: (finger, hex, applyToAll) =>
+    withHistory(set, (s) => {
+      if (applyToAll) {
+        const next = { ...s.fingers }
+        for (const f of FINGER_ORDER) next[f] = { ...next[f], customColor: hex, customGradient: hex ? null : next[f].customGradient }
+        return { fingers: next }
+      }
+      return {
+        fingers: { ...s.fingers, [finger]: { ...s.fingers[finger], customColor: hex, customGradient: hex ? null : s.fingers[finger].customGradient } },
+      }
+    }),
 
-  setCustomGradient: (finger, gradient) =>
-    withHistory(set, (s) => ({
-      fingers: { ...s.fingers, [finger]: { ...s.fingers[finger], customGradient: gradient, customColor: gradient ? null : s.fingers[finger].customColor } },
-    })),
+  setCustomGradient: (finger, gradient, applyToAll) =>
+    withHistory(set, (s) => {
+      if (applyToAll) {
+        const next = { ...s.fingers }
+        for (const f of FINGER_ORDER) next[f] = { ...next[f], customGradient: gradient, customColor: gradient ? null : next[f].customColor }
+        return { fingers: next }
+      }
+      return {
+        fingers: { ...s.fingers, [finger]: { ...s.fingers[finger], customGradient: gradient, customColor: gradient ? null : s.fingers[finger].customColor } },
+      }
+    }),
 
-  setEffect: (finger, effect) =>
-    withHistory(set, (s) => ({ fingers: { ...s.fingers, [finger]: { ...s.fingers[finger], effect } } })),
+  setEffect: (finger, effect, applyToAll) =>
+    withHistory(set, (s) => {
+      if (applyToAll) {
+        const next = { ...s.fingers }
+        for (const f of FINGER_ORDER) next[f] = { ...next[f], effect }
+        return { fingers: next }
+      }
+      return { fingers: { ...s.fingers, [finger]: { ...s.fingers[finger], effect } } }
+    }),
 
   addSticker: (finger, stickerId, uv) =>
     withHistory(set, (s) => {
@@ -249,6 +271,34 @@ export const useStudioStore = create<StudioState>((set, get) => ({
         selectedStickerInstance: instance.instanceId,
         selectedFinger: finger,
       }
+    }),
+
+  addStickerToAllFingers: (stickerId) =>
+    withHistory(set, (s) => {
+      const next = { ...s.fingers }
+      let selectedInstanceId: string | null = null
+      for (const f of FINGER_ORDER) {
+        const existing = next[f].stickers
+        // uv is nail-local (0..1 in that finger's own uvFrame), not a raw pixel coordinate, so the
+        // same centered uv already lands correctly on every finger's nail regardless of that
+        // finger's actual position in coordinates.json / nail_geometry_variants — see localToImage.
+        const instance: StickerInstance = {
+          instanceId: nextInstanceId(),
+          stickerId,
+          uv: [0.5, 0.48],
+          scale: 1,
+          rotation: 0,
+          flipX: false,
+          opacity: 1,
+          tint: null,
+          visible: true,
+          locked: false,
+          z: existing.length,
+        }
+        next[f] = { ...next[f], stickers: [...existing, instance] }
+        if (f === s.selectedFinger) selectedInstanceId = instance.instanceId
+      }
+      return { fingers: next, selectedStickerInstance: selectedInstanceId }
     }),
 
   addCustomDecal: (asset) => set((s) => ({ customDecals: [...s.customDecals.filter((d) => d.id !== asset.id), asset] })),

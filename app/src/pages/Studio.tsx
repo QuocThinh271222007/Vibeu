@@ -257,15 +257,17 @@ export default function Studio() {
                       <PaintTab
                         design={activeDesign}
                         onPreset={(id, all) => s.setPreset(s.selectedFinger, id, all)}
-                        onEffect={(effect) => s.setEffect(s.selectedFinger, effect)}
-                        onCustomColor={(hex) => s.setCustomColor(s.selectedFinger, hex)}
-                        onCustomGradient={(g) => s.setCustomGradient(s.selectedFinger, g)}
+                        onEffect={(effect, all) => s.setEffect(s.selectedFinger, effect, all)}
+                        onCustomColor={(hex, all) => s.setCustomColor(s.selectedFinger, hex, all)}
+                        onCustomGradient={(g, all) => s.setCustomGradient(s.selectedFinger, g, all)}
                       />
                     )}
                     {s.activeTab === 'charms' && (
                       <div className="space-y-5">
                         {activeDesign.stickers.length > 0 && <LayersPanel finger={s.selectedFinger} />}
-                        <DecalLibrary onAdd={(decalId) => s.addSticker(s.selectedFinger, decalId)} />
+                        <DecalLibrary
+                          onAdd={(decalId, all) => (all ? s.addStickerToAllFingers(decalId) : s.addSticker(s.selectedFinger, decalId))}
+                        />
                       </div>
                     )}
                     {s.activeTab === 'draw' && (

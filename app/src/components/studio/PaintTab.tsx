@@ -20,9 +20,9 @@ export function PaintTab({
 }: {
   design: FingerDesign
   onPreset: (id: string, applyToAll: boolean) => void
-  onEffect: (e: EffectId) => void
-  onCustomColor: (hex: string | null) => void
-  onCustomGradient: (g: CustomGradient | null) => void
+  onEffect: (e: EffectId, applyToAll: boolean) => void
+  onCustomColor: (hex: string | null, applyToAll: boolean) => void
+  onCustomGradient: (g: CustomGradient | null, applyToAll: boolean) => void
 }) {
   const { presets, loading } = useColorPresets()
   const [applyToAll, setApplyToAll] = useState(false)
@@ -30,6 +30,11 @@ export function PaintTab({
 
   return (
     <div className="space-y-7">
+      <label className="flex items-center gap-1.5 rounded-2xl bg-vibe-cream/60 px-3.5 py-2.5 text-xs font-semibold text-vibe-ink-soft">
+        <input type="checkbox" checked={applyToAll} onChange={(e) => setApplyToAll(e.target.checked)} className="accent-vibe-pink-dark" />
+        Sơn cả 5 ngón cùng lúc
+      </label>
+
       <div>
         <p className="mb-3 text-sm font-semibold text-vibe-ink">Hiệu ứng màu sơn</p>
         <div className="grid grid-cols-3 gap-2.5 sm:grid-cols-4">
@@ -38,7 +43,7 @@ export function PaintTab({
             return (
               <button
                 key={e}
-                onClick={() => onEffect(e)}
+                onClick={() => onEffect(e, applyToAll)}
                 aria-pressed={active}
                 className={`group flex flex-col items-center gap-1.5 rounded-2xl border-2 p-1.5 pb-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vibe-blue-dark focus-visible:ring-offset-2 ${
                   active ? 'border-vibe-blue-dark bg-vibe-blue/15' : 'border-vibe-ink/10 bg-white hover:border-vibe-blue/30'
@@ -56,13 +61,7 @@ export function PaintTab({
       </div>
 
       <div>
-        <div className="mb-3 flex items-center justify-between">
-          <p className="text-sm font-semibold text-vibe-ink">Bảng phối màu ({presets.length})</p>
-          <label className="flex items-center gap-1.5 text-xs text-vibe-ink-soft">
-            <input type="checkbox" checked={applyToAll} onChange={(e) => setApplyToAll(e.target.checked)} className="accent-vibe-pink-dark" />
-            Áp dụng cả 5 ngón
-          </label>
-        </div>
+        <p className="mb-3 text-sm font-semibold text-vibe-ink">Bảng phối màu ({presets.length})</p>
 
         {loading ? (
           <div className="grid grid-cols-5 gap-2.5">
@@ -102,7 +101,7 @@ export function PaintTab({
         <GradientEditor
           gradient={design.customGradient}
           fallback={currentPreset.paint}
-          onChange={onCustomGradient}
+          onChange={(g) => onCustomGradient(g, applyToAll)}
         />
       )}
 
@@ -112,14 +111,14 @@ export function PaintTab({
             <Palette size={15} /> Tùy chỉnh riêng
           </p>
           {design.customColor && (
-            <button onClick={() => onCustomColor(null)} className="text-xs font-semibold text-vibe-pink-dark underline-offset-2 hover:underline">
+            <button onClick={() => onCustomColor(null, applyToAll)} className="text-xs font-semibold text-vibe-pink-dark underline-offset-2 hover:underline">
               Xoá
             </button>
           )}
         </div>
         <div className="flex flex-col items-center gap-2">
-          <ColorWheel value={design.customColor ?? '#FF92F9'} onChange={onCustomColor} />
-          <HexColorInput value={design.customColor ?? '#FF92F9'} onChange={onCustomColor} />
+          <ColorWheel value={design.customColor ?? '#FF92F9'} onChange={(hex) => onCustomColor(hex, applyToAll)} />
+          <HexColorInput value={design.customColor ?? '#FF92F9'} onChange={(hex) => onCustomColor(hex, applyToAll)} />
           <div className="text-xs text-vibe-ink-soft">
             {design.customColor ? (
               <>
