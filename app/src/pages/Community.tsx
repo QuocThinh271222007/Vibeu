@@ -85,6 +85,14 @@ export default function Community() {
 
         {allHashtags.length > 0 && (
           <div className="mb-6 flex flex-wrap gap-1.5">
+            <button
+              onClick={() => setHashtagFilter(null)}
+              className={`rounded-full border-2 px-3 py-1 text-xs font-medium transition-colors ${
+                hashtagFilter === null ? 'border-vibe-blue-dark bg-vibe-blue/15 text-vibe-ink' : 'border-vibe-ink/10 text-vibe-ink-soft hover:border-vibe-blue/40'
+              }`}
+            >
+              Tất cả
+            </button>
             {allHashtags.map((h) => (
               <button
                 key={h}
