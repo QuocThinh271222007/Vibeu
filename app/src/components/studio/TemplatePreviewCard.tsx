@@ -15,7 +15,7 @@ export function TemplatePreviewCard({ template, index = 0 }: { template: Templat
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.45, delay: Math.min(index, 7) * 0.035, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -6 }}
-      className="group overflow-hidden rounded-[1.75rem] bg-white shadow-[0_10px_30px_-16px_rgba(80,50,120,0.25)] transition-shadow hover:shadow-vibe-lg"
+      className="group overflow-hidden rounded-[1.75rem] bg-vibe-highlight shadow-[0_10px_30px_-16px_rgba(80,50,120,0.25)] transition-shadow hover:shadow-vibe-lg"
     >
       <div className="relative aspect-[2/3] overflow-hidden">
         <TemplatePreviewMedia

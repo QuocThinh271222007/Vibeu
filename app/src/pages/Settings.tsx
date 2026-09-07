@@ -128,7 +128,7 @@ export default function Settings() {
       <h1 className="font-display text-3xl font-semibold text-vibe-ink">Cài đặt tài khoản</h1>
       <p className="mt-1.5 text-sm text-vibe-ink-soft">Quản lý hồ sơ và bảo mật tài khoản VIBEU của bạn.</p>
 
-      <form onSubmit={handleSaveProfile} className="mt-8 rounded-[1.75rem] bg-white p-6 shadow-[0_10px_30px_-18px_rgba(80,50,120,0.3)]">
+      <form onSubmit={handleSaveProfile} className="mt-8 rounded-[1.75rem] bg-vibe-highlight p-6 shadow-[0_10px_30px_-18px_rgba(80,50,120,0.3)]">
         <p className="font-display text-base font-semibold text-vibe-ink">Hồ sơ</p>
 
         <div className="mt-4 flex items-center gap-4">
@@ -199,7 +199,7 @@ export default function Settings() {
         </div>
       </form>
 
-      <form onSubmit={handleChangePassword} className="mt-6 rounded-[1.75rem] bg-white p-6 shadow-[0_10px_30px_-18px_rgba(80,50,120,0.3)]">
+      <form onSubmit={handleChangePassword} className="mt-6 rounded-[1.75rem] bg-vibe-highlight p-6 shadow-[0_10px_30px_-18px_rgba(80,50,120,0.3)]">
         <p className="font-display text-base font-semibold text-vibe-ink">Đổi mật khẩu</p>
         <label className="mt-4 block text-xs font-medium text-vibe-ink-soft">Mật khẩu mới</label>
         <input
@@ -229,7 +229,7 @@ export default function Settings() {
         </div>
       </form>
 
-      <div className="mt-6 rounded-[1.75rem] bg-white p-6 shadow-[0_10px_30px_-18px_rgba(80,50,120,0.3)]">
+      <div className="mt-6 rounded-[1.75rem] bg-vibe-highlight p-6 shadow-[0_10px_30px_-18px_rgba(80,50,120,0.3)]">
         <div className="flex items-center justify-between">
           <p className="font-display text-base font-semibold text-vibe-ink">Bộ sưu tập ({designs.length})</p>
           <Link to={`/u/${profile.id}`} className="text-xs font-semibold text-vibe-blue-dark hover:underline">
@@ -252,7 +252,7 @@ export default function Settings() {
         )}
       </div>
 
-      <div className="mt-6 flex items-center justify-between rounded-[1.75rem] bg-white p-6 shadow-[0_10px_30px_-18px_rgba(80,50,120,0.3)]">
+      <div className="mt-6 flex items-center justify-between rounded-[1.75rem] bg-vibe-highlight p-6 shadow-[0_10px_30px_-18px_rgba(80,50,120,0.3)]">
         <div className="flex items-center gap-2 text-sm text-vibe-ink-soft">
           {profile.role === 'admin' && (
             <span className="flex items-center gap-1 rounded-full bg-vibe-pink/10 px-2.5 py-1 text-xs font-medium text-vibe-pink-dark">

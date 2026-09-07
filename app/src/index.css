@@ -12,6 +12,11 @@
   --color-vibe-white: #ffffff;
   --color-vibe-ink: #2c2740;
   --color-vibe-ink-soft: #5b5470;
+  /* Page backdrop (2026-09-07 redesign): a cool neutral base with a faint diagonal stripe of
+     vibe-blue laid over it, instead of the flat cream body background. Card/frame surfaces that
+     sit on top of that backdrop use --color-vibe-highlight so they still read as "raised". */
+  --color-vibe-bg: #f1f5f9;
+  --color-vibe-highlight: #fffbf2;
 
   /* Baloo 2 replaces Fredoka (2026-09-07): Fredoka's Vietnamese diacritics render crowded/
      misaligned on its tall x-height at display sizes — Baloo 2 is the same playful-rounded
@@ -52,7 +57,14 @@
   }
   body {
     font-family: var(--font-body);
-    background-color: var(--color-vibe-cream);
+    background-color: var(--color-vibe-bg);
+    background-image: repeating-linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--color-vibe-blue) 22%, transparent) 0px,
+      color-mix(in srgb, var(--color-vibe-blue) 22%, transparent) 18px,
+      transparent 18px,
+      transparent 54px
+    );
     color: var(--color-vibe-ink);
     -webkit-font-smoothing: antialiased;
   }

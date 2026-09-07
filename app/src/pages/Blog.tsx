@@ -57,7 +57,7 @@ export default function Blog() {
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="mt-10">
             <Link
               to={`/blog/${featured.slug}`}
-              className="group grid overflow-hidden rounded-[2rem] bg-white shadow-[0_10px_30px_-18px_rgba(80,50,120,0.3)] sm:grid-cols-2"
+              className="group grid overflow-hidden rounded-[2rem] bg-vibe-highlight shadow-[0_10px_30px_-18px_rgba(80,50,120,0.3)] sm:grid-cols-2"
             >
               <BlogCoverMedia post={featured} className="aspect-video overflow-hidden sm:aspect-auto" />
               <div className="flex flex-col justify-center p-7 sm:p-9">
@@ -72,7 +72,7 @@ export default function Blog() {
           <div className="mt-10 space-y-3">
             {rest.map((p, i) => (
               <motion.div key={p.slug} initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: i * 0.05 }}>
-                <Link to={`/blog/${p.slug}`} className="group flex items-center gap-4 rounded-2xl bg-white p-3.5 shadow-sm transition-shadow hover:shadow-vibe">
+                <Link to={`/blog/${p.slug}`} className="group flex items-center gap-4 rounded-2xl bg-vibe-highlight p-3.5 shadow-sm transition-shadow hover:shadow-vibe">
                   <BlogCoverMedia post={p} className="h-16 w-16 shrink-0 overflow-hidden rounded-xl" compact />
                   <div className="min-w-0 flex-1">
                     <p className="truncate font-display text-sm font-semibold text-vibe-ink group-hover:text-vibe-pink-dark">{p.title}</p>

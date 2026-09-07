@@ -68,14 +68,14 @@ export default function CommunityProfile() {
       </Link>
 
       {loading ? (
-        <div className="animate-pulse rounded-[1.75rem] bg-white p-6 shadow-sm">
+        <div className="animate-pulse rounded-[1.75rem] bg-vibe-highlight p-6 shadow-sm">
           <div className="h-16 w-16 rounded-full bg-vibe-cream" />
         </div>
       ) : notFound || !profile ? (
-        <p className="rounded-2xl bg-white p-8 text-center text-sm text-vibe-ink-soft shadow-sm">Không tìm thấy người dùng này.</p>
+        <p className="rounded-2xl bg-vibe-highlight p-8 text-center text-sm text-vibe-ink-soft shadow-sm">Không tìm thấy người dùng này.</p>
       ) : (
         <>
-          <div className="flex flex-wrap items-center gap-4 rounded-[1.75rem] bg-white p-6 shadow-[0_10px_30px_-18px_rgba(80,50,120,0.3)]">
+          <div className="flex flex-wrap items-center gap-4 rounded-[1.75rem] bg-vibe-highlight p-6 shadow-[0_10px_30px_-18px_rgba(80,50,120,0.3)]">
             <Avatar name={profile.displayName} color={profile.avatarColor} url={profile.avatarUrl} size={72} />
             <div className="min-w-0 flex-1">
               <p className="flex items-center gap-1.5 font-display text-lg font-semibold text-vibe-ink">
@@ -117,7 +117,7 @@ export default function CommunityProfile() {
           <div className="mt-4">
             {tab === 'posts' ? (
               posts.length === 0 ? (
-                <p className="rounded-2xl bg-white p-6 text-center text-sm text-vibe-ink-soft shadow-sm">Chưa có bài đăng nào.</p>
+                <p className="rounded-2xl bg-vibe-highlight p-6 text-center text-sm text-vibe-ink-soft shadow-sm">Chưa có bài đăng nào.</p>
               ) : (
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }} className="grid grid-cols-2 gap-3 sm:grid-cols-3">
                   {posts.map((p) => (
@@ -126,7 +126,7 @@ export default function CommunityProfile() {
                 </motion.div>
               )
             ) : designs.length === 0 ? (
-              <p className="rounded-2xl bg-white p-6 text-center text-sm text-vibe-ink-soft shadow-sm">
+              <p className="rounded-2xl bg-vibe-highlight p-6 text-center text-sm text-vibe-ink-soft shadow-sm">
                 Chưa có thiết kế nào — lưu lại ở Studio bằng nút "Lưu / Mở" để hiện ở đây.
               </p>
             ) : (

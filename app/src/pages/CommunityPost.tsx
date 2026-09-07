@@ -87,7 +87,7 @@ export default function CommunityPost() {
       {loading ? (
         <PostCardSkeleton />
       ) : notFound || !post ? (
-        <p className="rounded-2xl bg-white p-8 text-center text-sm text-vibe-ink-soft shadow-sm">
+        <p className="rounded-2xl bg-vibe-highlight p-8 text-center text-sm text-vibe-ink-soft shadow-sm">
           Không tìm thấy bài đăng này — có thể đã bị xoá hoặc chưa được duyệt công khai.
         </p>
       ) : (
@@ -100,7 +100,7 @@ export default function CommunityPost() {
             onChanged={() => navigate('/community')}
           />
 
-          <div className="mt-6 rounded-[1.75rem] bg-white p-5 shadow-[0_10px_30px_-18px_rgba(80,50,120,0.3)] sm:p-6">
+          <div className="mt-6 rounded-[1.75rem] bg-vibe-highlight p-5 shadow-[0_10px_30px_-18px_rgba(80,50,120,0.3)] sm:p-6">
             <p className="mb-4 font-display text-sm font-semibold text-vibe-ink">Bình luận ({comments.length})</p>
 
             {profile ? (

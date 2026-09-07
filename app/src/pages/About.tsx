@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Compass, Gem, Sparkles, Target, Users, Wrench } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { SectionHeading } from '@/components/home/WhyUs'
+import { ContactSection } from '@/components/about/ContactSection'
 
 const VALUES = [
   { icon: Sparkles, title: 'Sáng tạo không giới hạn', desc: 'Mỗi người một vibe riêng, không có khuôn mẫu cố định.' },
@@ -31,7 +32,7 @@ export default function About() {
       </section>
 
       <section className="mx-auto mt-10 max-w-3xl px-4 sm:px-6">
-        <div className="space-y-5 rounded-[2rem] bg-white p-7 text-[15px] leading-relaxed text-vibe-ink/90 shadow-[0_10px_30px_-18px_rgba(80,50,120,0.3)] sm:p-10">
+        <div className="space-y-5 rounded-[2rem] bg-vibe-highlight p-7 text-[15px] leading-relaxed text-vibe-ink/90 shadow-[0_10px_30px_-18px_rgba(80,50,120,0.3)] sm:p-10">
           <p>
             VIBEU ra đời từ mong muốn giúp mỗi người tự tạo nên bộ nail mang đậm cá tính của mình. Chúng mình nhận ra rằng việc tìm một mẫu nail thật sự phù hợp thường mất nhiều thời gian, trong khi khách hàng lại khó hình dung kết quả cuối cùng trước khi đến tiệm.
           </p>
@@ -83,7 +84,7 @@ export default function About() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-40px' }}
               transition={{ duration: 0.45, delay: i * 0.08 }}
-              className="rounded-[1.5rem] bg-white p-6 text-center shadow-[0_10px_30px_-18px_rgba(80,50,120,0.3)]"
+              className="rounded-[1.5rem] bg-vibe-highlight p-6 text-center shadow-[0_10px_30px_-18px_rgba(80,50,120,0.3)]"
             >
               <div className="mx-auto grid h-12 w-12 place-items-center rounded-full bg-vibe-cream">
                 <v.icon size={22} className="text-vibe-pink-dark" />
@@ -103,7 +104,9 @@ export default function About() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-3xl px-4 pb-24 text-center sm:px-6">
+      <ContactSection />
+
+      <section className="mx-auto max-w-3xl px-4 pb-24 pt-16 text-center sm:px-6">
         <Button size="lg" onClick={() => navigate('/studio')}>
           Bắt đầu thiết kế ngay
         </Button>

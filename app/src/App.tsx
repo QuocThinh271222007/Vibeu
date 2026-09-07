@@ -20,6 +20,7 @@ const CommunityProfile = lazy(() => import('@/pages/CommunityProfile'))
 const Blog = lazy(() => import('@/pages/Blog'))
 const BlogPost = lazy(() => import('@/pages/BlogPost'))
 const About = lazy(() => import('@/pages/About'))
+const Policy = lazy(() => import('@/pages/Policy'))
 const Auth = lazy(() => import('@/pages/Auth'))
 const ResetPassword = lazy(() => import('@/pages/ResetPassword'))
 const Settings = lazy(() => import('@/pages/Settings'))
@@ -46,7 +47,7 @@ function ScrollToTop() {
 function MaintenanceNotice({ message }: { message: string }) {
   return (
     <div className="grid min-h-screen place-items-center bg-vibe-cream px-4">
-      <div className="max-w-sm rounded-[2rem] bg-white p-8 text-center shadow-vibe-lg">
+      <div className="max-w-sm rounded-[2rem] bg-vibe-highlight p-8 text-center shadow-vibe-lg">
         <div className="mx-auto mb-4 grid h-14 w-14 place-items-center rounded-2xl bg-vibe-cream">
           <Wrench size={28} className="text-vibe-pink-dark" />
         </div>
@@ -103,6 +104,7 @@ export default function App() {
           <Route path="/blog" element={<SiteLayout><Blog /></SiteLayout>} />
           <Route path="/blog/:slug" element={<SiteLayout><BlogPost /></SiteLayout>} />
           <Route path="/about" element={<SiteLayout><About /></SiteLayout>} />
+          <Route path="/chinh-sach" element={<SiteLayout><Policy /></SiteLayout>} />
           <Route
             path="/auth"
             element={

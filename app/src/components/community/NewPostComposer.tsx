@@ -72,7 +72,7 @@ export function NewPostComposer({ profile, onCreated }: { profile: Profile; onCr
   return (
     <form
       onSubmit={handleSubmit}
-      className="mb-6 rounded-[1.75rem] bg-white p-5 shadow-[0_10px_30px_-18px_rgba(80,50,120,0.3)]"
+      className="mb-6 rounded-[1.75rem] bg-vibe-highlight p-5 shadow-[0_10px_30px_-18px_rgba(80,50,120,0.3)]"
     >
       <div className="flex items-center gap-3">
         <Avatar name={profile.displayName} color={profile.avatarColor} url={profile.avatarUrl} size={40} />

@@ -452,6 +452,53 @@ end;
 $$ language plpgsql security definer set search_path = public;
 
 -- =========================================================================
+-- site_feedback — the "Góp ý dự án" card on the Về chúng tôi page. Anyone (logged in or not)
+-- can drop a note; only admins can read them back (via the Supabase table editor for now —
+-- no dedicated admin UI yet, same low-key treatment rate_limit_hits gets).
+-- =========================================================================
+create table if not exists public.site_feedback (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid references public.profiles (id) on delete set null,
+  name text not null,
+  message text not null,
+  created_at timestamptz not null default now()
+);
+
+alter table public.site_feedback enable row level security;
+
+-- Write-only from the client's point of view: anyone can drop a note, nobody but an admin
+-- can read the list back (matches a real contact form's expectations — the sender doesn't
+-- get to browse everyone else's messages).
+drop policy if exists "Anyone can send feedback" on public.site_feedback;
+create policy "Anyone can send feedback"
+  on public.site_feedback for insert with check (user_id is null or user_id = auth.uid());
+
+drop policy if exists "Admins can read feedback" on public.site_feedback;
+create policy "Admins can read feedback"
+  on public.site_feedback for select using (
+    exists (select 1 from public.profiles where id = auth.uid() and role = 'admin')
+  );
+
+drop policy if exists "Admins can delete feedback" on public.site_feedback;
+create policy "Admins can delete feedback"
+  on public.site_feedback for delete using (
+    exists (select 1 from public.profiles where id = auth.uid() and role = 'admin')
+  );
+
+create or replace function public.rate_limit_site_feedback()
+returns trigger as $$
+begin
+  perform public.enforce_rate_limit('site_feedback', 5, interval '10 minutes');
+  return new;
+end;
+$$ language plpgsql security definer set search_path = public;
+
+drop trigger if exists rate_limit_site_feedback_trigger on public.site_feedback;
+create trigger rate_limit_site_feedback_trigger
+  before insert on public.site_feedback
+  for each row execute procedure public.rate_limit_site_feedback();
+
+-- =========================================================================
 -- saved_designs — Studio's "Lưu/Mở" personal collection, one row per save. Distinct from
 -- shared_designs above: that one is an anonymous-ok, auto-named, ephemeral QR export; this one
 -- is a named, permanent, account-owned save — requires login (no owner to attach it to

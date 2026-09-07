@@ -75,7 +75,7 @@ export function Header() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -6 }}
                         transition={{ duration: 0.15 }}
-                        className="absolute right-0 top-[calc(100%+8px)] z-[96] w-48 overflow-hidden rounded-2xl bg-white p-1.5 shadow-vibe-lg"
+                        className="absolute right-0 top-[calc(100%+8px)] z-[96] w-48 overflow-hidden rounded-2xl bg-vibe-highlight p-1.5 shadow-vibe-lg"
                       >
                         {profile.role === 'admin' && (
                           <Link

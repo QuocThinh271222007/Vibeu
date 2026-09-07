@@ -76,7 +76,7 @@ export function staticToFeedItem(p: (typeof COMMUNITY_POSTS)[number]): FeedItem 
 
 export function PostCardSkeleton() {
   return (
-    <div className="animate-pulse overflow-hidden rounded-[1.75rem] bg-white shadow-[0_10px_30px_-18px_rgba(80,50,120,0.3)]">
+    <div className="animate-pulse overflow-hidden rounded-[1.75rem] bg-vibe-highlight shadow-[0_10px_30px_-18px_rgba(80,50,120,0.3)]">
       <div className="flex items-center gap-3 p-4">
         <div className="h-10 w-10 shrink-0 rounded-full bg-vibe-cream" />
         <div className="flex-1 space-y-1.5">
@@ -194,7 +194,7 @@ export function PostCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-40px' }}
       transition={{ duration: 0.45, delay: (index % 5) * 0.05 }}
-      className={`overflow-hidden rounded-[1.75rem] bg-white shadow-[0_10px_30px_-18px_rgba(80,50,120,0.3)] transition-shadow ${
+      className={`overflow-hidden rounded-[1.75rem] bg-vibe-highlight shadow-[0_10px_30px_-18px_rgba(80,50,120,0.3)] transition-shadow ${
         highlighted ? 'ring-2 ring-vibe-pink-dark' : ''
       }`}
     >

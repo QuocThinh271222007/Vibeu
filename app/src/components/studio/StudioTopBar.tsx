@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { ArrowLeft, Bug, ExternalLink, FolderOpen, LibraryBig, Redo2, RefreshCcw, Save, Trash2, Undo2 } from 'lucide-react'
+import { ArrowLeft, Bug, FolderOpen, LibraryBig, Redo2, RefreshCcw, Save, Trash2, Undo2 } from 'lucide-react'
 import { Logo } from '@/components/ui/Logo'
 import { TEMPLATE_TAGS } from '@/data/templateTags'
 import { createTemplate, templateIdExists } from '@/lib/templatesApi'
@@ -97,14 +97,6 @@ export function StudioTopBar({
         </div>
   
         <div className="flex shrink-0 items-center gap-2">
-          <a
-            href="https://shopee.vn"
-            target="_blank"
-            rel="noreferrer"
-            className="hidden items-center gap-1.5 rounded-full border-2 border-vibe-ink/10 px-3.5 py-2 text-sm font-medium text-vibe-ink-soft transition-colors hover:border-vibe-blue/50 hover:text-vibe-ink sm:flex"
-          >
-            Shopee <ExternalLink size={14} />
-          </a>
           <button
             onClick={() => setSavePanelOpen((v) => !v)}
             className="flex items-center gap-1.5 rounded-full border-2 border-vibe-ink/10 px-3.5 py-2 text-sm font-medium text-vibe-ink-soft transition-colors hover:border-vibe-blue/50 hover:text-vibe-ink"

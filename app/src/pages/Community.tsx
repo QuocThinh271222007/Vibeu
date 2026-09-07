@@ -61,7 +61,7 @@ export default function Community() {
         ) : (
           <Link
             to="/auth?redirect=/community"
-            className="mb-6 flex items-center gap-3 rounded-[1.75rem] bg-white p-5 shadow-[0_10px_30px_-18px_rgba(80,50,120,0.3)] transition-shadow hover:shadow-vibe"
+            className="mb-6 flex items-center gap-3 rounded-[1.75rem] bg-vibe-highlight p-5 shadow-[0_10px_30px_-18px_rgba(80,50,120,0.3)] transition-shadow hover:shadow-vibe"
           >
             <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-vibe-pink/10 text-vibe-pink-dark">
               <Sparkles size={18} />
@@ -111,7 +111,7 @@ export default function Community() {
           {loading ? (
             Array.from({ length: 3 }).map((_, i) => <PostCardSkeleton key={i} />)
           ) : filtered.length === 0 ? (
-            <p className="rounded-2xl bg-white p-6 text-center text-sm text-vibe-ink-soft shadow-sm">Không có bài đăng nào khớp bộ lọc.</p>
+            <p className="rounded-2xl bg-vibe-highlight p-6 text-center text-sm text-vibe-ink-soft shadow-sm">Không có bài đăng nào khớp bộ lọc.</p>
           ) : (
             filtered.map((post, i) => (
               <PostCard

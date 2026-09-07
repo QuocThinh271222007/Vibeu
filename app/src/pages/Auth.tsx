@@ -163,7 +163,7 @@ export default function Auth() {
             <Logo />
           </div>
 
-          <div className="rounded-[2rem] bg-white p-7 shadow-vibe-lg sm:p-8">
+          <div className="rounded-[2rem] bg-vibe-highlight p-7 shadow-vibe-lg sm:p-8">
             {!isSupabaseConfigured && (
               <div className="mb-5 flex items-start gap-2 rounded-2xl bg-amber-50 p-3 text-xs text-amber-800">
                 <AlertCircle size={15} className="mt-0.5 shrink-0" />

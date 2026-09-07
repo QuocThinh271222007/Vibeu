@@ -99,7 +99,7 @@ export default function SharedDesign() {
   if (state === 'not-found' || !payload) {
     return (
       <div className="grid min-h-screen place-items-center bg-vibe-cream px-4">
-        <div className="max-w-sm rounded-[2rem] bg-white p-8 text-center shadow-vibe-lg">
+        <div className="max-w-sm rounded-[2rem] bg-vibe-highlight p-8 text-center shadow-vibe-lg">
           <div className="mx-auto mb-4 grid h-14 w-14 place-items-center rounded-2xl bg-vibe-cream">
             <AlertTriangle size={28} className="text-amber-500" />
           </div>
@@ -133,7 +133,7 @@ export default function SharedDesign() {
               <p className="mt-1 text-sm text-vibe-ink-soft">Bản thiết kế được mở lại chính xác từ mã QR — dùng bảng dưới đây để pha màu và lên form.</p>
             </div>
 
-            <div className="rounded-[1.75rem] bg-white p-5 shadow-[0_10px_30px_-18px_rgba(80,50,120,0.3)] sm:p-6">
+            <div className="rounded-[1.75rem] bg-vibe-highlight p-5 shadow-[0_10px_30px_-18px_rgba(80,50,120,0.3)] sm:p-6">
               <p className="mb-4 font-display text-sm font-semibold text-vibe-ink">Bảng thông số kỹ thuật</p>
               <div className="space-y-3">
                 {rows.map((r) => (

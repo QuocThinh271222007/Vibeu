@@ -76,7 +76,7 @@ export default function BlogPost() {
           <p className="mb-4 font-display text-sm font-semibold text-vibe-ink">Bài viết liên quan</p>
           <div className="grid gap-3 sm:grid-cols-3">
             {related.map((r) => (
-              <Link key={r.slug} to={`/blog/${r.slug}`} className="rounded-2xl bg-white p-4 shadow-sm transition-shadow hover:shadow-vibe">
+              <Link key={r.slug} to={`/blog/${r.slug}`} className="rounded-2xl bg-vibe-highlight p-4 shadow-sm transition-shadow hover:shadow-vibe">
                 <CoverMedia post={r} className="h-12 w-12 overflow-hidden rounded-xl" compact />
                 <p className="mt-2.5 line-clamp-2 text-sm font-semibold text-vibe-ink">{r.title}</p>
               </Link>
