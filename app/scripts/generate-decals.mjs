@@ -138,7 +138,14 @@ function add(category, categoryVi, id, name, nameVi, tags, tintable, layerType, 
 
 // --- Floral ---
 const FLORAL = 'floral'
-const FLORAL_VI = 'Hoa lá'
+// Label broadened (2026-09-08) so this id also covers the premium pack's floral/fruit
+// illustrations (previously its own separate 'florals-fruits' category) — category filtering
+// was otherwise split by tier (picking "Hoa lá" could never surface a premium item). The five
+// _VI labels touched this way are: FLORAL_VI, HEART_VI, BOW_VI, GEM_VI (CEL_VI needed no
+// change, already generic). Keep in sync if the manifest is ever regenerated from scratch —
+// public/assets/decals/premium/manifest.json's matching decals were repointed at these same
+// standard category ids by hand this session.
+const FLORAL_VI = 'Hoa & trái cây'
 add(FLORAL, FLORAL_VI, 'daisy-round', 'Round Daisy', 'Hoa cúc tròn', ['flower', 'daisy', 'floral'], false, 'decal', flower({ petals: 8, petalLen: 32, petalWidth: 13, petalColor: '#ffffff', petalStroke: '#e8dcc0', centerColor: '#f6c945' }))
 add(FLORAL, FLORAL_VI, 'daisy-thin', 'Thin-petal Daisy', 'Hoa cúc cánh mảnh', ['flower', 'daisy', 'floral'], false, 'decal', flower({ petals: 12, petalLen: 36, petalWidth: 7, petalColor: '#fff4fb', centerColor: '#e8a33d' }))
 add(FLORAL, FLORAL_VI, 'sakura', 'Cherry Blossom', 'Hoa anh đào', ['flower', 'sakura', 'spring'], false, 'decal', flower({ petals: 5, petalLen: 30, petalWidth: 20, petalColor: '#f7a8c4', centerColor: '#fde3ee', centerR: 6 }))
@@ -154,7 +161,7 @@ add(FLORAL, FLORAL_VI, 'daisy-chain', 'Ditsy Flower Trio', 'Chùm hoa nhỏ', ['
 
 // --- Hearts / Love ---
 const HEART = 'hearts'
-const HEART_VI = 'Trái tim'
+const HEART_VI = 'Trái tim & Valentine' // broadened to absorb premium's 'valentine-love' — see FLORAL_VI
 add(HEART, HEART_VI, 'heart-solid', 'Solid Heart', 'Trái tim đầy', ['heart', 'love'], true, 'decal', heartPath({ color: '#e8547b' }))
 add(HEART, HEART_VI, 'heart-outline', 'Heart Outline', 'Trái tim viền', ['heart', 'love', 'outline'], true, 'decal', heartOutline({ color: '#e8547b' }))
 add(HEART, HEART_VI, 'heart-double', 'Double Heart', 'Đôi trái tim', ['heart', 'love'], true, 'decal', heartPath({ color: '#f28ba6', cx: 38, cy: 42, scale: 0.62 }) + heartPath({ color: '#e8547b', cx: 62, cy: 58, scale: 0.62 }))
@@ -201,7 +208,7 @@ add(BUG, BUG_VI, 'snail', 'Snail', 'Ốc sên', ['snail', 'bug', 'cute'], false,
 
 // --- Bows / ribbon ---
 const BOW = 'bows'
-const BOW_VI = 'Nơ & ruy băng'
+const BOW_VI = 'Nơ & phụ kiện coquette' // broadened to absorb premium's 'coquette-charms' — see FLORAL_VI
 function bowSvg({ color, skinny = false, tails = false }) {
   const loopRy = skinny ? 12 : 20
   let body = `<ellipse cx="28" cy="42" rx="24" ry="${loopRy}" fill="${color}" transform="rotate(-18 28 42)"/><ellipse cx="72" cy="42" rx="24" ry="${loopRy}" fill="${color}" transform="rotate(18 72 42)"/><circle cx="50" cy="45" r="10" fill="${color}"/>`
@@ -386,7 +393,7 @@ add(TXT, TXT_VI, 'love-script-swirl', 'Love Script Swirl', 'Nét chữ tình yê
 
 // --- Gems / rhinestone flat outline ---
 const GEM = 'gems'
-const GEM_VI = 'Đá & ngọc trai'
+const GEM_VI = 'Đá quý & Charm đá quý' // broadened to absorb premium's 'gem-charms' — see FLORAL_VI
 add(GEM, GEM_VI, 'gem-round', 'Round Gem Outline', 'Đá tròn viền facet', ['gem', 'rhinestone', 'flat'], false, 'decal', gemFacets({ shape: 'round', color: '#cdeaff', stroke: '#6fb8e0' }))
 add(GEM, GEM_VI, 'gem-marquise', 'Marquise Gem Outline', 'Đá marquise viền facet', ['gem', 'rhinestone', 'flat'], false, 'decal', gemFacets({ shape: 'marquise', color: '#f7d9ec', stroke: '#d68fc0' }))
 add(GEM, GEM_VI, 'gem-oval', 'Oval Gem Outline', 'Đá oval viền facet', ['gem', 'rhinestone', 'flat'], false, 'decal', gemFacets({ shape: 'oval', color: '#e3f7d9', stroke: '#8fc06f' }))

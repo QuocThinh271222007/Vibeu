@@ -5,18 +5,18 @@
   "categories": [
     {
       "id": "floral",
-      "nameVi": "Hoa lá",
-      "count": 12
+      "nameVi": "Hoa & trái cây",
+      "count": 36
     },
     {
       "id": "hearts",
-      "nameVi": "Trái tim",
-      "count": 8
+      "nameVi": "Trái tim & Valentine",
+      "count": 35
     },
     {
       "id": "celestial",
       "nameVi": "Ngôi sao & mặt trăng",
-      "count": 10
+      "count": 34
     },
     {
       "id": "butterfly",
@@ -25,8 +25,8 @@
     },
     {
       "id": "bows",
-      "nameVi": "Nơ & ruy băng",
-      "count": 7
+      "nameVi": "Nơ & phụ kiện coquette",
+      "count": 31
     },
     {
       "id": "animal-print",
@@ -60,8 +60,8 @@
     },
     {
       "id": "gems",
-      "nameVi": "Đá & ngọc trai",
-      "count": 7
+      "nameVi": "Đá quý & Charm đá quý",
+      "count": 105
     },
     {
       "id": "misc",
@@ -75,7 +75,7 @@
       "name": "Round Daisy",
       "nameVi": "Hoa cúc tròn",
       "category": "floral",
-      "categoryVi": "Hoa lá",
+      "categoryVi": "Hoa & trái cây",
       "path": "svg/floral/daisy-round.svg",
       "viewBox": [
         100,
@@ -103,7 +103,7 @@
       "name": "Thin-petal Daisy",
       "nameVi": "Hoa cúc cánh mảnh",
       "category": "floral",
-      "categoryVi": "Hoa lá",
+      "categoryVi": "Hoa & trái cây",
       "path": "svg/floral/daisy-thin.svg",
       "viewBox": [
         100,
@@ -131,7 +131,7 @@
       "name": "Cherry Blossom",
       "nameVi": "Hoa anh đào",
       "category": "floral",
-      "categoryVi": "Hoa lá",
+      "categoryVi": "Hoa & trái cây",
       "path": "svg/floral/sakura.svg",
       "viewBox": [
         100,
@@ -159,7 +159,7 @@
       "name": "Poppy",
       "nameVi": "Hoa anh túc",
       "category": "floral",
-      "categoryVi": "Hoa lá",
+      "categoryVi": "Hoa & trái cây",
       "path": "svg/floral/poppy.svg",
       "viewBox": [
         100,
@@ -187,7 +187,7 @@
       "name": "Sunflower",
       "nameVi": "Hoa hướng dương",
       "category": "floral",
-      "categoryVi": "Hoa lá",
+      "categoryVi": "Hoa & trái cây",
       "path": "svg/floral/sunflower.svg",
       "viewBox": [
         100,
@@ -215,7 +215,7 @@
       "name": "Forget-me-not Cluster",
       "nameVi": "Cụm hoa lưu ly",
       "category": "floral",
-      "categoryVi": "Hoa lá",
+      "categoryVi": "Hoa & trái cây",
       "path": "svg/floral/forget-me-not.svg",
       "viewBox": [
         100,
@@ -243,7 +243,7 @@
       "name": "Hibiscus",
       "nameVi": "Hoa dâm bụt",
       "category": "floral",
-      "categoryVi": "Hoa lá",
+      "categoryVi": "Hoa & trái cây",
       "path": "svg/floral/hibiscus.svg",
       "viewBox": [
         100,
@@ -271,7 +271,7 @@
       "name": "Tulip",
       "nameVi": "Hoa tulip",
       "category": "floral",
-      "categoryVi": "Hoa lá",
+      "categoryVi": "Hoa & trái cây",
       "path": "svg/floral/tulip.svg",
       "viewBox": [
         100,
@@ -298,7 +298,7 @@
       "name": "Rose Swirl",
       "nameVi": "Hoa hồng xoáy",
       "category": "floral",
-      "categoryVi": "Hoa lá",
+      "categoryVi": "Hoa & trái cây",
       "path": "svg/floral/rose-swirl.svg",
       "viewBox": [
         100,
@@ -325,7 +325,7 @@
       "name": "Orchid",
       "nameVi": "Hoa lan",
       "category": "floral",
-      "categoryVi": "Hoa lá",
+      "categoryVi": "Hoa & trái cây",
       "path": "svg/floral/orchid.svg",
       "viewBox": [
         100,
@@ -352,7 +352,7 @@
       "name": "Leaf Sprig",
       "nameVi": "Cành lá",
       "category": "floral",
-      "categoryVi": "Hoa lá",
+      "categoryVi": "Hoa & trái cây",
       "path": "svg/floral/leaf-sprig.svg",
       "viewBox": [
         100,
@@ -380,7 +380,7 @@
       "name": "Ditsy Flower Trio",
       "nameVi": "Chùm hoa nhỏ",
       "category": "floral",
-      "categoryVi": "Hoa lá",
+      "categoryVi": "Hoa & trái cây",
       "path": "svg/floral/daisy-chain.svg",
       "viewBox": [
         100,
@@ -407,7 +407,7 @@
       "name": "Solid Heart",
       "nameVi": "Trái tim đầy",
       "category": "hearts",
-      "categoryVi": "Trái tim",
+      "categoryVi": "Trái tim & Valentine",
       "path": "svg/hearts/heart-solid.svg",
       "viewBox": [
         100,
@@ -434,7 +434,7 @@
       "name": "Heart Outline",
       "nameVi": "Trái tim viền",
       "category": "hearts",
-      "categoryVi": "Trái tim",
+      "categoryVi": "Trái tim & Valentine",
       "path": "svg/hearts/heart-outline.svg",
       "viewBox": [
         100,
@@ -462,7 +462,7 @@
       "name": "Double Heart",
       "nameVi": "Đôi trái tim",
       "category": "hearts",
-      "categoryVi": "Trái tim",
+      "categoryVi": "Trái tim & Valentine",
       "path": "svg/hearts/heart-double.svg",
       "viewBox": [
         100,
@@ -489,7 +489,7 @@
       "name": "Heart with Arrow",
       "nameVi": "Tim mũi tên",
       "category": "hearts",
-      "categoryVi": "Trái tim",
+      "categoryVi": "Trái tim & Valentine",
       "path": "svg/hearts/heart-arrow.svg",
       "viewBox": [
         100,
@@ -517,7 +517,7 @@
       "name": "Lace-trim Heart",
       "nameVi": "Tim viền ren",
       "category": "hearts",
-      "categoryVi": "Trái tim",
+      "categoryVi": "Trái tim & Valentine",
       "path": "svg/hearts/heart-lace.svg",
       "viewBox": [
         100,
@@ -545,7 +545,7 @@
       "name": "Winged Heart",
       "nameVi": "Tim cánh thiên thần",
       "category": "hearts",
-      "categoryVi": "Trái tim",
+      "categoryVi": "Trái tim & Valentine",
       "path": "svg/hearts/heart-wings.svg",
       "viewBox": [
         100,
@@ -573,7 +573,7 @@
       "name": "Broken Heart",
       "nameVi": "Trái tim vỡ",
       "category": "hearts",
-      "categoryVi": "Trái tim",
+      "categoryVi": "Trái tim & Valentine",
       "path": "svg/hearts/heart-broken.svg",
       "viewBox": [
         100,
@@ -600,7 +600,7 @@
       "name": "Love Knot",
       "nameVi": "Nút thắt tình yêu",
       "category": "hearts",
-      "categoryVi": "Trái tim",
+      "categoryVi": "Trái tim & Valentine",
       "path": "svg/hearts/love-knot.svg",
       "viewBox": [
         100,
@@ -1115,7 +1115,7 @@
       "name": "Classic Bow",
       "nameVi": "Nơ cổ điển",
       "category": "bows",
-      "categoryVi": "Nơ & ruy băng",
+      "categoryVi": "Nơ & phụ kiện coquette",
       "path": "svg/bows/bow-classic.svg",
       "viewBox": [
         100,
@@ -1142,7 +1142,7 @@
       "name": "Skinny Bow",
       "nameVi": "Nơ mảnh",
       "category": "bows",
-      "categoryVi": "Nơ & ruy băng",
+      "categoryVi": "Nơ & phụ kiện coquette",
       "path": "svg/bows/bow-skinny.svg",
       "viewBox": [
         100,
@@ -1169,7 +1169,7 @@
       "name": "Bow with Tails",
       "nameVi": "Nơ có dải",
       "category": "bows",
-      "categoryVi": "Nơ & ruy băng",
+      "categoryVi": "Nơ & phụ kiện coquette",
       "path": "svg/bows/bow-tails.svg",
       "viewBox": [
         100,
@@ -1196,7 +1196,7 @@
       "name": "Ribbon Curl",
       "nameVi": "Ruy băng xoăn",
       "category": "bows",
-      "categoryVi": "Nơ & ruy băng",
+      "categoryVi": "Nơ & phụ kiện coquette",
       "path": "svg/bows/ribbon-curl.svg",
       "viewBox": [
         100,
@@ -1223,7 +1223,7 @@
       "name": "Ribbon Banner",
       "nameVi": "Dải băng ngang",
       "category": "bows",
-      "categoryVi": "Nơ & ruy băng",
+      "categoryVi": "Nơ & phụ kiện coquette",
       "path": "svg/bows/ribbon-banner.svg",
       "viewBox": [
         100,
@@ -1250,7 +1250,7 @@
       "name": "Double-loop Bow",
       "nameVi": "Nơ hai tầng",
       "category": "bows",
-      "categoryVi": "Nơ & ruy băng",
+      "categoryVi": "Nơ & phụ kiện coquette",
       "path": "svg/bows/bow-double.svg",
       "viewBox": [
         100,
@@ -1277,7 +1277,7 @@
       "name": "Coquette Bow (Raised)",
       "nameVi": "Nơ coquette nổi",
       "category": "bows",
-      "categoryVi": "Nơ & ruy băng",
+      "categoryVi": "Nơ & phụ kiện coquette",
       "path": "svg/bows/coquette-bow-raised.svg",
       "viewBox": [
         100,
@@ -2964,7 +2964,7 @@
       "name": "Round Gem Outline",
       "nameVi": "Đá tròn viền facet",
       "category": "gems",
-      "categoryVi": "Đá & ngọc trai",
+      "categoryVi": "Đá quý & Charm đá quý",
       "path": "svg/gems/gem-round.svg",
       "viewBox": [
         100,
@@ -2992,7 +2992,7 @@
       "name": "Marquise Gem Outline",
       "nameVi": "Đá marquise viền facet",
       "category": "gems",
-      "categoryVi": "Đá & ngọc trai",
+      "categoryVi": "Đá quý & Charm đá quý",
       "path": "svg/gems/gem-marquise.svg",
       "viewBox": [
         100,
@@ -3020,7 +3020,7 @@
       "name": "Oval Gem Outline",
       "nameVi": "Đá oval viền facet",
       "category": "gems",
-      "categoryVi": "Đá & ngọc trai",
+      "categoryVi": "Đá quý & Charm đá quý",
       "path": "svg/gems/gem-oval.svg",
       "viewBox": [
         100,
@@ -3048,7 +3048,7 @@
       "name": "Heart Gem Outline",
       "nameVi": "Đá trái tim viền facet",
       "category": "gems",
-      "categoryVi": "Đá & ngọc trai",
+      "categoryVi": "Đá quý & Charm đá quý",
       "path": "svg/gems/gem-heart.svg",
       "viewBox": [
         100,
@@ -3076,7 +3076,7 @@
       "name": "Gem Cluster (3)",
       "nameVi": "Cụm 3 viên đá",
       "category": "gems",
-      "categoryVi": "Đá & ngọc trai",
+      "categoryVi": "Đá quý & Charm đá quý",
       "path": "svg/gems/gem-cluster.svg",
       "viewBox": [
         100,
@@ -3105,7 +3105,7 @@
       "name": "Teardrop Gem Outline",
       "nameVi": "Đá giọt nước viền facet",
       "category": "gems",
-      "categoryVi": "Đá & ngọc trai",
+      "categoryVi": "Đá quý & Charm đá quý",
       "path": "svg/gems/gem-teardrop.svg",
       "viewBox": [
         100,
@@ -3133,7 +3133,7 @@
       "name": "Pearl Dome",
       "nameVi": "Ngọc trai nổi",
       "category": "gems",
-      "categoryVi": "Đá & ngọc trai",
+      "categoryVi": "Đá quý & Charm đá quý",
       "path": "svg/gems/pearl-dome.svg",
       "viewBox": [
         100,
