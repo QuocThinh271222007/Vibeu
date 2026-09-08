@@ -85,11 +85,14 @@ export function ContactSection() {
       </motion.div>
 
       <motion.div
+        id="gop-y"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay: 0.1 }}
-        className="rounded-[1.75rem] bg-vibe-highlight p-7 shadow-[0_10px_30px_-18px_rgba(80,50,120,0.3)]"
+        // scroll-mt clears the sticky header when the footer's "Gửi câu hỏi cho chúng tôi"
+        // link jumps straight here via #gop-y (see ScrollToTop in App.tsx).
+        className="scroll-mt-28 rounded-[1.75rem] bg-vibe-highlight p-7 shadow-[0_10px_30px_-18px_rgba(80,50,120,0.3)]"
       >
         <span className="inline-flex items-center rounded-full bg-vibe-yellow/40 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-vibe-yellow-dark">
           Góp ý dự án

@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { ArrowUpRight, Mail, MessageCircleQuestion } from 'lucide-react'
 import { Logo } from '@/components/ui/Logo'
 import { FacebookGlyph, InstagramGlyph, ThreadsGlyph } from '@/components/ui/SocialGlyphs'
 
@@ -17,6 +18,14 @@ const SOCIALS = [
   { href: 'https://www.instagram.com/vibe_u_art', icon: InstagramGlyph, label: 'Instagram' },
   { href: 'https://www.threads.com/@vibe_u_art', icon: ThreadsGlyph, label: 'Threads' },
   { href: 'https://www.facebook.com/people/Vibeu-Art/61593942691951/', icon: FacebookGlyph, label: 'Facebook' },
+]
+
+// Same three real channels as SOCIALS/ContactSection, just as an icon+label list here
+// instead of icon-only buttons.
+const CONTACT_CHANNELS = [
+  { icon: Mail, label: 'vibeu.nail.vn@gmail.com', href: 'mailto:vibeu.nail.vn@gmail.com' },
+  { icon: FacebookGlyph, label: 'Vibeu Art', href: 'https://www.facebook.com/people/Vibeu-Art/61593942691951/' },
+  { icon: InstagramGlyph, label: '@vibe_u_art', href: 'https://www.instagram.com/vibe_u_art' },
 ]
 
 export function Footer() {
@@ -60,25 +69,37 @@ export function Footer() {
 
         <div>
           <p className="font-display text-sm font-semibold text-vibe-ink">Liên hệ</p>
-          <ul className="mt-4 space-y-2.5 text-sm text-vibe-ink-soft">
-            <li>
-              <Link to="/about" className="transition-colors hover:text-vibe-pink-dark">
-                Về chúng tôi
-              </Link>
-            </li>
-            <li>Nhắn tin qua Instagram/Facebook/Threads ở bên cạnh để được hỗ trợ.</li>
-            {LEGAL_LINKS.map((l) => (
-              <li key={l.to}>
-                <Link to={l.to} className="transition-colors hover:text-vibe-pink-dark">
-                  {l.label}
-                </Link>
+          <ul className="mt-4 space-y-2.5">
+            {CONTACT_CHANNELS.map((c) => (
+              <li key={c.label}>
+                <a
+                  href={c.href}
+                  target={c.href.startsWith('mailto:') ? undefined : '_blank'}
+                  rel={c.href.startsWith('mailto:') ? undefined : 'noreferrer'}
+                  className="flex items-center gap-2 text-sm text-vibe-ink-soft transition-colors hover:text-vibe-pink-dark"
+                >
+                  <c.icon size={15} className="shrink-0" />
+                  {c.label}
+                </a>
               </li>
             ))}
           </ul>
+          <Link
+            to="/about#gop-y"
+            className="mt-4 inline-flex items-center gap-1.5 rounded-full border-2 border-vibe-ink/10 bg-white px-3.5 py-2 text-xs font-semibold text-vibe-ink transition-colors hover:border-vibe-pink/40 hover:text-vibe-pink-dark"
+          >
+            <MessageCircleQuestion size={14} /> Gửi câu hỏi cho chúng tôi <ArrowUpRight size={13} />
+          </Link>
         </div>
       </div>
-      <div className="relative border-t border-vibe-ink/5 py-5 text-center text-xs text-vibe-ink-soft/70">
-        © {new Date().getFullYear()} VIBEU. Sáng tạo không giới hạn — Chính xác nhờ công nghệ.
+      <div className="relative flex flex-col items-center gap-2 border-t border-vibe-ink/5 py-5 text-center text-xs text-vibe-ink-soft/70 sm:flex-row sm:justify-center sm:gap-4">
+        <span>© {new Date().getFullYear()} VIBEU. Sáng tạo không giới hạn — Chính xác nhờ công nghệ.</span>
+        <span className="hidden sm:inline">·</span>
+        {LEGAL_LINKS.map((l) => (
+          <Link key={l.to} to={l.to} className="font-medium text-vibe-ink-soft/80 transition-colors hover:text-vibe-pink-dark">
+            {l.label}
+          </Link>
+        ))}
       </div>
     </footer>
   )

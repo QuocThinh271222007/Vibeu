@@ -38,10 +38,26 @@ const AdminRecipes = lazy(() => import('@/pages/admin/AdminRecipes'))
 const AdminSettings = lazy(() => import('@/pages/admin/AdminSettings'))
 
 function ScrollToTop() {
-  const { pathname } = useLocation()
+  const { pathname, hash } = useLocation()
   useEffect(() => {
+    if (hash) {
+      // The target (e.g. the footer's "Gửi câu hỏi cho chúng tôi" -> /about#gop-y) lives on
+      // a lazy-loaded route's page component, which may not have mounted yet the instant the
+      // location changes — poll briefly instead of giving up after one missed getElementById.
+      let attempts = 0
+      const tryScroll = () => {
+        const el = document.getElementById(hash.slice(1))
+        if (el) {
+          el.scrollIntoView({ behavior: 'instant' as ScrollBehavior })
+        } else if (attempts++ < 20) {
+          setTimeout(tryScroll, 100)
+        }
+      }
+      tryScroll()
+      return
+    }
     window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior })
-  }, [pathname])
+  }, [pathname, hash])
   return null
 }
 

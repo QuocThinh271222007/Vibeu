@@ -2,9 +2,9 @@
  * trademark reasons), shared by the footer and the "Liên hệ" contact card so both point at the
  * exact same glyphs instead of drifting duplicates. */
 
-export function InstagramGlyph() {
+export function InstagramGlyph({ size = 17, className }: { size?: number; className?: string }) {
   return (
-    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className}>
       <rect x="3" y="3" width="18" height="18" rx="5" />
       <circle cx="12" cy="12" r="4" />
       <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
@@ -12,9 +12,9 @@ export function InstagramGlyph() {
   )
 }
 
-export function FacebookGlyph() {
+export function FacebookGlyph({ size = 17, className }: { size?: number; className?: string }) {
   return (
-    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className}>
       <path d="M15 4h-2a4 4 0 0 0-4 4v3H7v4h2v7h4v-7h3l1-4h-4V8a1 1 0 0 1 1-1h3z" />
     </svg>
   )
