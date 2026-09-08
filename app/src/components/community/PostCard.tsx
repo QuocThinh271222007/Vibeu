@@ -138,6 +138,13 @@ export function PostCard({
   }
 
   async function toggleLike() {
+    // A guest tapping the heart on a real post used to still flip it pink and bump the
+    // counter locally with no persistence and no explanation — it silently reset on the
+    // next load. Gate it the same way the comment box already does instead of faking it.
+    if (post.isRemote && !currentUserId) {
+      push('error', 'Đăng nhập để thích bài đăng.')
+      return
+    }
     const next = !liked
     setLiked(next)
     setLikeCount((c) => (next ? c + 1 : c - 1))
