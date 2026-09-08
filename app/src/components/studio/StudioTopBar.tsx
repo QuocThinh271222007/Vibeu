@@ -3,7 +3,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import { ArrowLeft, Bug, FolderOpen, LibraryBig, Redo2, RefreshCcw, Save, Trash2, Undo2 } from 'lucide-react'
 import { Logo } from '@/components/ui/Logo'
 import { TEMPLATE_TAGS } from '@/data/templateTags'
-import { createTemplate, templateIdExists } from '@/lib/templatesApi'
+import { invalidateTemplates } from '@/data/templates'
+import { createTemplate, templateIdExists, uploadTemplateCover } from '@/lib/templatesApi'
 import { slugify } from '@/lib/slug'
 import { useAuthStore } from '@/store/authStore'
 import { useStudioStore } from '@/store/studioStore'
@@ -149,12 +150,28 @@ function SaveTemplatePanel({ onClose }: { onClose: () => void }) {
   const [name, setName] = useState('')
   const [hashtag, setHashtag] = useState('')
   const [tags, setTags] = useState<string[]>([])
+  const [coverSrc, setCoverSrc] = useState<string | null>(null)
+  const [coverAlt, setCoverAlt] = useState('')
+  const [uploading, setUploading] = useState(false)
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [done, setDone] = useState(false)
 
   function toggleTag(id: string) {
     setTags((t) => (t.includes(id) ? t.filter((x) => x !== id) : [...t, id]))
+  }
+
+  async function handleCoverFile(file: File | null) {
+    if (!file || !profile) return
+    setUploading(true)
+    setError(null)
+    const { url, error } = await uploadTemplateCover(file, profile.id)
+    setUploading(false)
+    if (error) {
+      setError(error)
+      return
+    }
+    setCoverSrc(url)
   }
 
   async function handleSave() {
@@ -170,12 +187,25 @@ function SaveTemplatePanel({ onClose }: { onClose: () => void }) {
       id = `${slugify(name)}-${suffix}`
       suffix += 1
     }
-    const { error } = await createTemplate(id, { name: name.trim(), hashtag, tags, skinTone, fingers }, profile.id)
+    const { error } = await createTemplate(
+      id,
+      {
+        name: name.trim(),
+        hashtag,
+        tags,
+        skinTone,
+        fingers,
+        coverSrc,
+        coverAlt: coverSrc ? coverAlt.trim() || name.trim() : null,
+      },
+      profile.id,
+    )
     setSaving(false)
     if (error) {
       setError(error)
       return
     }
+    void invalidateTemplates()
     setDone(true)
   }
 
@@ -191,7 +221,37 @@ function SaveTemplatePanel({ onClose }: { onClose: () => void }) {
       ) : (
         <>
           <p className="text-sm font-semibold text-vibe-ink">Lưu thiết kế hiện tại làm mẫu</p>
-          <p className="mt-1 text-xs text-vibe-ink-soft">Mẫu sẽ hiện công khai ở Thư viện mẫu, dùng ảnh render trực tiếp (không cần ảnh bìa).</p>
+          <p className="mt-1 text-xs text-vibe-ink-soft">Mẫu sẽ hiện công khai ở Thư viện mẫu. Không tải ảnh thì dùng ảnh render trực tiếp từ thiết kế này.</p>
+
+          {coverSrc && (
+            <div className="mt-3 overflow-hidden rounded-xl bg-vibe-cream" style={{ aspectRatio: '2 / 1.4' }}>
+              <img src={coverSrc} alt={coverAlt || name} className="h-full w-full object-cover" />
+            </div>
+          )}
+          <label className="mt-3 block">
+            <span className="text-xs font-medium text-vibe-ink-soft">{uploading ? 'Đang tải ảnh...' : 'Ảnh bìa thật (tuỳ chọn)'}</span>
+            <input
+              type="file"
+              accept="image/*"
+              disabled={uploading}
+              onChange={(e) => handleCoverFile(e.target.files?.[0] ?? null)}
+              className="mt-1 w-full text-xs"
+            />
+          </label>
+          {coverSrc && (
+            <>
+              <input
+                value={coverAlt}
+                onChange={(e) => setCoverAlt(e.target.value)}
+                placeholder="Mô tả ảnh bìa (alt text)…"
+                className="mt-2 w-full rounded-full border-2 border-vibe-ink/10 px-3 py-1.5 text-sm outline-none focus:border-vibe-pink/50"
+              />
+              <button type="button" onClick={() => setCoverSrc(null)} className="mt-1 text-xs font-medium text-vibe-ink-soft underline">
+                Bỏ ảnh bìa, dùng render trực tiếp
+              </button>
+            </>
+          )}
+
           <input
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -225,7 +285,7 @@ function SaveTemplatePanel({ onClose }: { onClose: () => void }) {
             </button>
             <button
               onClick={handleSave}
-              disabled={!name.trim() || saving}
+              disabled={!name.trim() || saving || uploading}
               className="rounded-full bg-vibe-ink px-3.5 py-1.5 text-xs font-semibold text-white disabled:opacity-40"
             >
               {saving ? 'Đang lưu...' : 'Lưu mẫu'}

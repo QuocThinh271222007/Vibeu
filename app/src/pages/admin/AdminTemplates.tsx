@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Eye, EyeOff, Pencil, Trash2, Wand2, X } from 'lucide-react'
 import { TemplatePreviewMedia } from '@/components/studio/TemplatePreviewMedia'
+import { invalidateTemplates } from '@/data/templates'
 import { TEMPLATE_TAGS } from '@/data/templateTags'
 import { useToast } from '@/components/ui/Toast'
 import {
@@ -50,6 +51,7 @@ export default function AdminTemplates() {
       push('error', error)
       return
     }
+    void invalidateTemplates()
     push('success', 'Đã xoá mẫu.')
     reload()
   }
@@ -60,6 +62,7 @@ export default function AdminTemplates() {
       push('error', error)
       return
     }
+    void invalidateTemplates()
     push('success', r.visible ? 'Đã ẩn mẫu khỏi Thư viện.' : 'Đã hiện lại mẫu.')
     reload()
   }
@@ -181,6 +184,7 @@ function EditTemplateModal({ row, onClose, onSaved }: { row: TemplateRow; onClos
       push('error', error)
       return
     }
+    void invalidateTemplates()
     push('success', 'Đã lưu thay đổi.')
     onSaved()
   }

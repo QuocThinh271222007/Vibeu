@@ -23,6 +23,17 @@ function loadRemoteTemplates(): Promise<Template[]> {
 // import it near app start), so the sync lookups below are warm well before they're likely needed.
 void loadRemoteTemplates()
 
+/** Drops the memoized fetch and starts a new one immediately. Without this, a template
+ * created/edited/deleted/hidden via /admin/templates or Studio's "Lưu làm mẫu" never showed up
+ * (or never disappeared) anywhere else in the same tab — remoteTemplatesPromise resolves once
+ * and every future getAllTemplatesAsync()/findTemplateAsync() call just returned that same
+ * stale promise, so even navigating fresh to /library or reopening Studio still read the old
+ * list until a full page reload. Call this right after any mutation succeeds. */
+export function invalidateTemplates(): Promise<Template[]> {
+  remoteTemplatesPromise = null
+  return loadRemoteTemplates()
+}
+
 export function getAllTemplates(): Template[] {
   return remoteTemplates
 }
