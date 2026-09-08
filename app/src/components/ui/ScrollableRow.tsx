@@ -36,20 +36,28 @@ export function ScrollableRow({ className = '', children }: { className?: string
     const el = ref.current
     if (!el) return
     drag.current = { active: true, startX: e.clientX, startScroll: el.scrollLeft, moved: false }
-    try {
-      el.setPointerCapture(e.pointerId)
-    } catch {
-      // Some pointer sources (synthetic events, certain touch/pen edge cases) have no
-      // active pointer to capture — dragging still works via bubbled pointermove/up.
-    }
+    // Pointer capture is NOT grabbed here on down — capturing immediately retargets the
+    // eventual click event to this row instead of whatever chip/button the pointer landed
+    // on (a Chromium pointer-capture quirk), which silently broke every click inside a
+    // ScrollableRow (user report: "danh mục thư viện charm ko hoạt động, click không đổi
+    // danh mục theo click"). Capture is deferred to onPointerMove, once an actual drag is
+    // detected, so a plain tap/click still reaches its real target normally.
   }
 
   const onPointerMove = (e: React.PointerEvent) => {
     const el = ref.current
     if (!el || !drag.current.active) return
     const dx = e.clientX - drag.current.startX
-    if (Math.abs(dx) > 3) drag.current.moved = true
-    el.scrollLeft = drag.current.startScroll - dx
+    if (!drag.current.moved && Math.abs(dx) > 3) {
+      drag.current.moved = true
+      try {
+        el.setPointerCapture(e.pointerId)
+      } catch {
+        // Some pointer sources (synthetic events, certain touch/pen edge cases) have no
+        // active pointer to capture — dragging still works via bubbled pointermove/up.
+      }
+    }
+    if (drag.current.moved) el.scrollLeft = drag.current.startScroll - dx
   }
 
   const endDrag = () => {
