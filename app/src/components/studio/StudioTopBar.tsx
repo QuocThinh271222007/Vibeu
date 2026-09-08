@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { ArrowLeft, Bug, FolderOpen, LibraryBig, Redo2, RefreshCcw, Save, Trash2, Undo2 } from 'lucide-react'
+import { ArrowLeft, Bug, FolderOpen, ImagePlus, LibraryBig, Redo2, RefreshCcw, Save, Trash2, Undo2 } from 'lucide-react'
 import { Logo } from '@/components/ui/Logo'
 import { TEMPLATE_TAGS } from '@/data/templateTags'
 import { invalidateTemplates } from '@/data/templates'
@@ -156,6 +156,7 @@ function SaveTemplatePanel({ onClose }: { onClose: () => void }) {
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [done, setDone] = useState(false)
+  const coverInputRef = useRef<HTMLInputElement>(null)
 
   function toggleTag(id: string) {
     setTags((t) => (t.includes(id) ? t.filter((x) => x !== id) : [...t, id]))
@@ -228,16 +229,22 @@ function SaveTemplatePanel({ onClose }: { onClose: () => void }) {
               <img src={coverSrc} alt={coverAlt || name} className="h-full w-full object-cover" />
             </div>
           )}
-          <label className="mt-3 block">
-            <span className="text-xs font-medium text-vibe-ink-soft">{uploading ? 'Đang tải ảnh...' : 'Ảnh bìa thật (tuỳ chọn)'}</span>
-            <input
-              type="file"
-              accept="image/*"
-              disabled={uploading}
-              onChange={(e) => handleCoverFile(e.target.files?.[0] ?? null)}
-              className="mt-1 w-full text-xs"
-            />
-          </label>
+          <input
+            ref={coverInputRef}
+            type="file"
+            accept="image/*"
+            disabled={uploading}
+            onChange={(e) => handleCoverFile(e.target.files?.[0] ?? null)}
+            className="hidden"
+          />
+          <button
+            type="button"
+            onClick={() => coverInputRef.current?.click()}
+            disabled={uploading}
+            className="mt-3 flex w-full items-center justify-center gap-1.5 rounded-2xl border-2 border-dashed border-vibe-blue/50 bg-vibe-blue/10 py-2.5 text-xs font-semibold text-vibe-blue-dark transition-colors hover:border-vibe-blue hover:bg-vibe-blue/15 disabled:opacity-60"
+          >
+            <ImagePlus size={15} /> {uploading ? 'Đang tải ảnh...' : coverSrc ? 'Đổi ảnh bìa thật' : 'Tải ảnh bìa thật (tuỳ chọn)'}
+          </button>
           {coverSrc && (
             <>
               <input
