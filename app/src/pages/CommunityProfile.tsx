@@ -7,7 +7,7 @@ import { SavedDesignThumb } from '@/components/studio/SavedDesignThumb'
 import { Avatar } from '@/components/ui/Avatar'
 import { findTemplate } from '@/data/templates'
 import { fingersFromTemplate } from '@/lib/templateUtils'
-import { fetchPostsByAuthor, type RemoteCommunityPost } from '@/lib/communityApi'
+import { fetchLikedPosts, fetchPostsByAuthor, type RemoteCommunityPost } from '@/lib/communityApi'
 import { fetchPublicProfile, type PublicProfile } from '@/lib/profileApi'
 import { fetchSavedDesigns, type SavedDesignRow } from '@/lib/savedDesignsApi'
 import { useAuthStore } from '@/store/authStore'
@@ -35,7 +35,9 @@ export default function CommunityProfile() {
   const [profile, setProfile] = useState<PublicProfile | null>(null)
   const [posts, setPosts] = useState<RemoteCommunityPost[]>([])
   const [designs, setDesigns] = useState<SavedDesignRow[]>([])
-  const [tab, setTab] = useState<'posts' | 'collection'>(searchParams.get('tab') === 'collection' ? 'collection' : 'posts')
+  const [favorites, setFavorites] = useState<RemoteCommunityPost[]>([])
+  const initialTab = searchParams.get('tab') === 'collection' ? 'collection' : searchParams.get('tab') === 'favorites' ? 'favorites' : 'posts'
+  const [tab, setTab] = useState<'posts' | 'collection' | 'favorites'>(initialTab)
   const [loading, setLoading] = useState(true)
   const [notFound, setNotFound] = useState(false)
 
@@ -43,7 +45,12 @@ export default function CommunityProfile() {
     if (!id) return
     setLoading(true)
     setNotFound(false)
-    Promise.all([fetchPublicProfile(id), fetchPostsByAuthor(id, viewer?.id ?? null), fetchSavedDesigns(id)]).then(([p, postList, designList]) => {
+    Promise.all([
+      fetchPublicProfile(id),
+      fetchPostsByAuthor(id, viewer?.id ?? null),
+      fetchSavedDesigns(id),
+      fetchLikedPosts(id, viewer?.id ?? null),
+    ]).then(([p, postList, designList, favoriteList]) => {
       if (!p) {
         setNotFound(true)
         setLoading(false)
@@ -52,6 +59,7 @@ export default function CommunityProfile() {
       setProfile(p)
       setPosts(postList)
       setDesigns(designList)
+      setFavorites(favoriteList)
       setLoading(false)
     })
   }
@@ -88,7 +96,7 @@ export default function CommunityProfile() {
               </p>
               <p className="text-sm text-vibe-ink-soft">{profile.handle ?? '@vibeu'}</p>
               <p className="mt-1 text-xs text-vibe-ink-soft">
-                {posts.length} bài đăng · {designs.length} thiết kế · Tham gia{' '}
+                {posts.length} bài đăng · {designs.length} thiết kế · {favorites.length} yêu thích · Tham gia{' '}
                 {new Date(profile.createdAt).toLocaleDateString('vi-VN', { month: 'long', year: 'numeric' })}
               </p>
             </div>
@@ -112,11 +120,17 @@ export default function CommunityProfile() {
             >
               Bộ sưu tập ({designs.length})
             </button>
+            <button
+              onClick={() => setTab('favorites')}
+              className={`flex-1 rounded-full py-2 text-sm font-semibold transition-colors ${tab === 'favorites' ? 'bg-white text-vibe-ink shadow-sm' : 'text-vibe-ink-soft'}`}
+            >
+              Yêu thích ({favorites.length})
+            </button>
           </div>
 
           <div className="mt-4">
-            {tab === 'posts' ? (
-              posts.length === 0 ? (
+            {tab === 'posts' &&
+              (posts.length === 0 ? (
                 <p className="rounded-2xl bg-vibe-highlight p-6 text-center text-sm text-vibe-ink-soft shadow-sm">Chưa có bài đăng nào.</p>
               ) : (
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }} className="grid grid-cols-2 gap-3 sm:grid-cols-3">
@@ -124,18 +138,33 @@ export default function CommunityProfile() {
                     <PostThumb key={p.id} post={p} />
                   ))}
                 </motion.div>
-              )
-            ) : designs.length === 0 ? (
-              <p className="rounded-2xl bg-vibe-highlight p-6 text-center text-sm text-vibe-ink-soft shadow-sm">
-                Chưa có thiết kế nào — lưu lại ở Studio bằng nút "Lưu / Mở" để hiện ở đây.
-              </p>
-            ) : (
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }} className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-                {designs.map((d) => (
-                  <SavedDesignThumb key={d.id} design={d} canDelete={viewer?.id === profile.id} onDeleted={reload} />
-                ))}
-              </motion.div>
-            )}
+              ))}
+
+            {tab === 'collection' &&
+              (designs.length === 0 ? (
+                <p className="rounded-2xl bg-vibe-highlight p-6 text-center text-sm text-vibe-ink-soft shadow-sm">
+                  Chưa có thiết kế nào — lưu lại ở Studio bằng nút "Lưu / Mở" để hiện ở đây.
+                </p>
+              ) : (
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }} className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+                  {designs.map((d) => (
+                    <SavedDesignThumb key={d.id} design={d} canDelete={viewer?.id === profile.id} onDeleted={reload} />
+                  ))}
+                </motion.div>
+              ))}
+
+            {tab === 'favorites' &&
+              (favorites.length === 0 ? (
+                <p className="rounded-2xl bg-vibe-highlight p-6 text-center text-sm text-vibe-ink-soft shadow-sm">
+                  Chưa thích bài đăng nào — bấm ♥ trên bài đăng ở Cộng đồng để lưu vào đây.
+                </p>
+              ) : (
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }} className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+                  {favorites.map((p) => (
+                    <PostThumb key={p.id} post={p} />
+                  ))}
+                </motion.div>
+              ))}
           </div>
         </>
       )}

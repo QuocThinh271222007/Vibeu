@@ -142,6 +142,29 @@ export async function fetchPostsByAuthor(authorId: string, currentUserId: string
   return (data as unknown as CommunityPostRow[]).map((row) => mapRow(row, likedPostIds))
 }
 
+interface CommunityLikeRow {
+  created_at: string
+  community_posts: CommunityPostRow | null
+}
+
+/** Posts a user has liked (heart tapped in PostCard), newest-liked-first — the "Yêu thích" tab
+ * on their profile. RLS on community_likes is public-read, but the embedded community_posts
+ * still goes through community_posts' own RLS — an unapproved post the viewer can't see comes
+ * back with community_posts: null, so those are filtered out rather than crashing on them. */
+export async function fetchLikedPosts(userId: string, currentUserId: string | null): Promise<RemoteCommunityPost[]> {
+  if (!supabase) return []
+  const { data, error } = await supabase
+    .from('community_likes')
+    .select('created_at, community_posts(*, profiles!community_posts_user_id_fkey(display_name, handle, avatar_color, avatar_url))')
+    .eq('user_id', userId)
+    .order('created_at', { ascending: false })
+  if (error || !data) return []
+  const likedPostIds = await likedPostIdsFor(currentUserId)
+  return (data as unknown as CommunityLikeRow[])
+    .filter((row): row is CommunityLikeRow & { community_posts: CommunityPostRow } => row.community_posts !== null)
+    .map((row) => mapRow(row.community_posts, likedPostIds))
+}
+
 export interface NewCommunityPostInput {
   userId: string
   templateId: string | null
