@@ -103,6 +103,22 @@ export default function BlogPost() {
           <p className="mt-5 font-display text-lg leading-relaxed text-vibe-ink">{post.excerpt}</p>
         )}
 
+        {/* Bài viết liên quan: the writing template lists this right after the Sapo, before
+            the body content — not as a "see also" appendix at the end of the page. */}
+        {related.length > 0 && (
+          <div className="mt-8 rounded-2xl bg-vibe-highlight/60 p-4">
+            <p className="mb-3 font-display text-sm font-semibold text-vibe-ink">Bài viết liên quan</p>
+            <div className="grid gap-3 sm:grid-cols-3">
+              {related.map((r) => (
+                <Link key={r.slug} to={`/blog/${r.slug}`} className="flex items-center gap-2.5 rounded-xl bg-white/70 p-2.5 shadow-sm transition-shadow hover:shadow-vibe">
+                  <CoverMedia post={r} className="h-10 w-10 shrink-0 overflow-hidden rounded-lg" compact />
+                  <p className="line-clamp-2 text-xs font-semibold text-vibe-ink">{r.title}</p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
+
         <div className="mt-8 space-y-4 text-[15px] leading-relaxed text-vibe-ink/90">
           {post.contentBlocks.length > 0
             ? post.contentBlocks.map((block, i) => {
@@ -152,20 +168,6 @@ export default function BlogPost() {
           <Logo className="mx-auto mt-3 justify-center" />
         </div>
       </motion.div>
-
-      {related.length > 0 && (
-        <div className="mt-14 border-t border-vibe-ink/10 pt-8">
-          <p className="mb-4 font-display text-sm font-semibold text-vibe-ink">Bài viết liên quan</p>
-          <div className="grid gap-3 sm:grid-cols-3">
-            {related.map((r) => (
-              <Link key={r.slug} to={`/blog/${r.slug}`} className="rounded-2xl bg-vibe-highlight p-4 shadow-sm transition-shadow hover:shadow-vibe">
-                <CoverMedia post={r} className="h-12 w-12 overflow-hidden rounded-xl" compact />
-                <p className="mt-2.5 line-clamp-2 text-sm font-semibold text-vibe-ink">{r.title}</p>
-              </Link>
-            ))}
-          </div>
-        </div>
-      )}
     </div>
   )
 }
