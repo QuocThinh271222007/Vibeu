@@ -6,6 +6,7 @@ import { TemplatePreviewCard } from '@/components/studio/TemplatePreviewCard'
 import { curatedPreviewRank } from '@/data/curatedPreviews'
 import { useTemplates } from '@/data/loaders'
 import { TEMPLATE_TAGS } from '@/data/templateTags'
+import { PageMeta } from '@/components/seo/PageMeta'
 
 const FILTERS = [{ id: 'all', label: 'Tất cả' }, ...TEMPLATE_TAGS]
 
@@ -26,6 +27,11 @@ export default function Library() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+      <PageMeta
+        title="Thư viện mẫu nail"
+        description="Hàng trăm mẫu nail được tuyển chọn theo cung hoàng đạo, mùa, xu hướng — dùng ngay trong Studio hoặc lưu lại để dành cho dịp khác."
+        canonicalPath="/library"
+      />
       <div className="text-center">
         <span className="inline-flex items-center gap-1.5 rounded-full bg-vibe-cream px-3.5 py-1 text-xs font-semibold uppercase tracking-wide text-vibe-pink-dark">
           Thư viện mẫu

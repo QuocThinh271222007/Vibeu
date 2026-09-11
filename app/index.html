@@ -4,12 +4,43 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="/assets/brand/logo-mark.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="VIBEU — Studio thiết kế nail 3D số. Tự chọn form, phối màu gel thạch, đính charm và xuất công thức, mã QR mang ra tiệm hoàn toàn miễn phí." />
+    <!-- No static <meta name="description"> here on purpose: every real page renders its own
+         via <PageMeta> (src/components/seo/PageMeta.tsx), which React 19 hoists into <head>.
+         Unlike <title> (a true DOM singleton the browser only ever has one of, so a page's own
+         <title> cleanly replaces this file's), <meta name="description"> tags don't dedupe
+         against each other — a static one here would keep sitting alongside every page's real
+         one, and document.querySelector (and most crawlers) would just read whichever comes
+         first in source order, which is this static one. A page with no <PageMeta> of its own
+         (a handful of logged-in-only utility pages) simply has no description meta for now,
+         rather than every page showing this same wrong one. -->
     <meta name="theme-color" content="#FFF7DA" />
+    <!-- No static canonical link either, same reasoning as the description above — confirmed
+         live that <PageMeta>'s per-page <link rel="canonical"> correctly takes over with no
+         static default competing against it. -->
+    <meta name="google-site-verification" content="%VITE_GSC_VERIFICATION%" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://dozhgjmjqkxhfpsesmus.supabase.co" />
     <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <title>VIBEU — Thiết kế nail của riêng bạn</title>
+    <!-- Google Analytics (GA4) — inert until VITE_GA_MEASUREMENT_ID is set in .env.local (Vite
+         substitutes %VITE_X% placeholders from env at build time). Nothing loads, no network
+         request fires, while it's empty. -->
+    <script>
+      var VIBEU_GA_ID = '%VITE_GA_MEASUREMENT_ID%'
+      if (VIBEU_GA_ID) {
+        var gaScript = document.createElement('script')
+        gaScript.async = true
+        gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=' + VIBEU_GA_ID
+        document.head.appendChild(gaScript)
+        window.dataLayer = window.dataLayer || []
+        function gtag() {
+          window.dataLayer.push(arguments)
+        }
+        gtag('js', new Date())
+        gtag('config', VIBEU_GA_ID)
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>

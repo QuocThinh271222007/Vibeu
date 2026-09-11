@@ -4,6 +4,7 @@ import { Compass, Gem, Sparkles, Target, Users, Wrench } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { SectionHeading } from '@/components/home/WhyUs'
 import { ContactSection } from '@/components/about/ContactSection'
+import { PageMeta } from '@/components/seo/PageMeta'
 
 const VALUES = [
   { icon: Sparkles, title: 'Sáng tạo không giới hạn', desc: 'Mỗi người một vibe riêng, không có khuôn mẫu cố định.' },
@@ -17,6 +18,11 @@ export default function About() {
 
   return (
     <div className="overflow-hidden">
+      <PageMeta
+        title="Về chúng tôi"
+        description="VIBEU là studio sáng tạo số giúp bạn tự thiết kế bộ nail mang đậm cá tính riêng — tìm hiểu tầm nhìn, sứ mệnh và cách liên hệ với đội ngũ VIBEU."
+        canonicalPath="/about"
+      />
       <section className="mx-auto max-w-4xl px-4 pt-16 text-center sm:px-6">
         <span className="inline-flex items-center gap-1.5 rounded-full bg-vibe-cream px-3.5 py-1 text-xs font-semibold uppercase tracking-wide text-vibe-pink-dark">
           Về chúng tôi

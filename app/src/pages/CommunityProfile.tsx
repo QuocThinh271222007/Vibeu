@@ -9,6 +9,7 @@ import { findTemplate } from '@/data/templates'
 import { fingersFromTemplate } from '@/lib/templateUtils'
 import { fetchLikedPosts, fetchPostsByAuthor, type RemoteCommunityPost } from '@/lib/communityApi'
 import { fetchPublicProfile, type PublicProfile } from '@/lib/profileApi'
+import { PageMeta } from '@/components/seo/PageMeta'
 import { fetchSavedDesigns, type SavedDesignRow } from '@/lib/savedDesignsApi'
 import { useAuthStore } from '@/store/authStore'
 
@@ -83,6 +84,12 @@ export default function CommunityProfile() {
         <p className="rounded-2xl bg-vibe-highlight p-8 text-center text-sm text-vibe-ink-soft shadow-sm">Không tìm thấy người dùng này.</p>
       ) : (
         <>
+          <PageMeta
+            title={profile.displayName}
+            description={`Trang cá nhân của ${profile.displayName} trên VIBEU — ${posts.length} bài đăng, ${designs.length} thiết kế.`}
+            canonicalPath={`/u/${profile.id}`}
+            image={profile.avatarUrl ?? undefined}
+          />
           <div className="flex flex-wrap items-center gap-4 rounded-[1.75rem] bg-vibe-highlight p-6 shadow-[0_10px_30px_-18px_rgba(80,50,120,0.3)]">
             <Avatar name={profile.displayName} color={profile.avatarColor} url={profile.avatarUrl} size={72} />
             <div className="min-w-0 flex-1">

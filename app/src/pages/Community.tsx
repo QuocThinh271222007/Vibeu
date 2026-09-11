@@ -7,6 +7,7 @@ import { COMMUNITY_POSTS } from '@/data/community'
 import { fetchCommunityPosts } from '@/lib/communityApi'
 import { isSupabaseConfigured } from '@/lib/supabaseClient'
 import { useAuthStore } from '@/store/authStore'
+import { PageMeta } from '@/components/seo/PageMeta'
 
 export default function Community() {
   const { status, profile } = useAuthStore()
@@ -45,6 +46,11 @@ export default function Community() {
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-14 sm:px-6">
+      <PageMeta
+        title="Cộng đồng"
+        description="Xem bộ nail của cộng đồng VIBEU, thích, bình luận và chia sẻ thiết kế bạn vừa hoàn thành từ Studio."
+        canonicalPath="/community"
+      />
       <div className="text-center">
         <span className="inline-flex items-center gap-1.5 rounded-full bg-vibe-cream px-3.5 py-1 text-xs font-semibold uppercase tracking-wide text-vibe-pink-dark">
           Cộng đồng

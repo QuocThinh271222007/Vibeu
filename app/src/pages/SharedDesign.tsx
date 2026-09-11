@@ -11,6 +11,7 @@ import { downloadBlob, exportDesignPng } from '@/lib/exportImage'
 import { DEFAULT_LIGHT } from '@/lib/nailFill'
 import { useStudioStore } from '@/store/studioStore'
 import { isSupabaseConfigured } from '@/lib/supabaseClient'
+import { PageMeta } from '@/components/seo/PageMeta'
 
 type LoadState = 'loading' | 'found' | 'not-found'
 
@@ -117,6 +118,11 @@ export default function SharedDesign() {
 
   return (
     <div className="min-h-screen bg-vibe-cream">
+      <PageMeta
+        title="Công thức làm móng"
+        description="Bảng thông số kỹ thuật thiết kế nail từ VIBEU — mở lại chính xác từ mã QR, dùng để pha màu và lên form tại tiệm."
+        canonicalPath={`/r/${id}`}
+      />
       <div className="mx-auto max-w-6xl px-4 pb-16 pt-8 sm:px-6">
         <button onClick={() => navigate('/')} className="mb-6 flex items-center gap-1.5 text-sm font-semibold text-vibe-ink-soft hover:text-vibe-ink">
           <ArrowLeft size={16} /> Về trang chủ VIBEU

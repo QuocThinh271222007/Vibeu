@@ -13,6 +13,7 @@ import { DrawTab } from '@/components/studio/DrawTab'
 import { DecalLibrary } from '@/components/studio/DecalLibrary'
 import { LayersPanel } from '@/components/studio/LayersPanel'
 import { LightingPanel } from '@/components/studio/LightingPanel'
+import { PageMeta } from '@/components/seo/PageMeta'
 import { ResultView } from '@/components/studio/ResultView'
 import { Button } from '@/components/ui/Button'
 import { findTemplateAsync } from '@/data/templates'
@@ -127,6 +128,7 @@ export default function Studio() {
   if (s.view === 'result') {
     return (
       <div className="min-h-screen bg-vibe-cream">
+        <PageMeta title="Công thức & Mã QR" description="Xuất công thức làm nail và mã QR để mang ra tiệm." canonicalPath="/studio" />
         <ResultView skinTone={s.skinTone} fingers={s.fingers} onBack={s.backToDesign} />
       </div>
     )
@@ -229,6 +231,11 @@ export default function Studio() {
 
   return (
     <div className="flex min-h-screen flex-col bg-vibe-cream lg:h-screen lg:min-h-0">
+      <PageMeta
+        title={s.activeTemplateName ? `Studio — ${s.activeTemplateName}` : 'Nail Studio'}
+        description="Tự thiết kế bộ nail của riêng bạn: chọn form móng, phối màu, đính charm 3D và xuất công thức mang ra tiệm."
+        canonicalPath="/studio"
+      />
       <StudioTopBar skinTone={s.skinTone} onSkinTone={s.setSkinTone} onReset={s.reset} />
 
       <div className="flex flex-1 flex-col lg:min-h-0 lg:flex-row lg:overflow-hidden">

@@ -137,6 +137,9 @@ export function Hero() {
                       className="aspect-[2/3] w-full"
                       imageClassName="scale-[1.01]"
                       eager
+                      // The front-most card (highest z in SHOWCASE_META) is this page's likely
+                      // LCP element.
+                      priority={s.z === Math.max(...SHOWCASE_META.map((m) => m.z))}
                     />
                     {/* Caption lives inside the card's own clipped frame — as a sibling outside
                         this rotated/offset motion.div it would inherit the same rotate+translate

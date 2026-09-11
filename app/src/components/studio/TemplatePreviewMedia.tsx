@@ -9,6 +9,9 @@ interface TemplatePreviewMediaProps {
   className?: string
   imageClassName?: string
   eager?: boolean
+  /** Hints the browser this is the page's likely LCP element — use on at most one image per
+   * page (the first/most prominent card), not every eager one. Implies eager. */
+  priority?: boolean
 }
 
 /**
@@ -24,6 +27,7 @@ export function TemplatePreviewMedia({
   className = '',
   imageClassName = '',
   eager = false,
+  priority = false,
 }: TemplatePreviewMediaProps) {
   const [curatedFailed, setCuratedFailed] = useState(false)
   const preview = resolveTemplatePreview(template)
@@ -37,7 +41,8 @@ export function TemplatePreviewMedia({
           alt={preview!.alt ?? template.name}
           className={`h-full w-full object-cover ${imageClassName}`}
           style={{ objectPosition: preview!.objectPosition ?? 'center center' }}
-          loading={eager ? 'eager' : 'lazy'}
+          loading={eager || priority ? 'eager' : 'lazy'}
+          fetchPriority={priority ? 'high' : undefined}
           decoding="async"
           draggable={false}
           onError={() => setCuratedFailed(true)}

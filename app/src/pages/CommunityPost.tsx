@@ -12,6 +12,7 @@ import {
   type CommunityComment,
 } from '@/lib/communityApi'
 import { useAuthStore } from '@/store/authStore'
+import { PageMeta } from '@/components/seo/PageMeta'
 
 export default function CommunityPost() {
   const { id } = useParams<{ id: string }>()
@@ -92,6 +93,13 @@ export default function CommunityPost() {
         </p>
       ) : (
         <>
+          <PageMeta
+            title={`Bài đăng của ${post.userName}`}
+            description={post.caption.slice(0, 150) || `Xem thiết kế nail của ${post.userName} trên VIBEU.`}
+            canonicalPath={`/community/${id}`}
+            image={post.media?.src}
+            type="article"
+          />
           <PostCard
             post={post}
             currentUserId={profile?.id ?? null}

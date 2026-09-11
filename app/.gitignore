@@ -13,6 +13,10 @@ dist-ssr
 *.local
 .env
 
+# Regenerated on every build by scripts/generate-sitemap.mjs — committing it would just be
+# stale-the-moment-it's-merged churn (blog/community content moves faster than commits do).
+public/sitemap.xml
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

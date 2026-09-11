@@ -5,8 +5,9 @@ import { Chip } from '@/components/ui/Chip'
 import { MediaPlaceholder } from '@/components/ui/MediaPlaceholder'
 import { BLOG_CATEGORY_LABEL, type BlogCategory, type BlogPost } from '@/data/blog'
 import { useBlogPosts } from '@/hooks/useBlogPosts'
+import { PageMeta } from '@/components/seo/PageMeta'
 
-function BlogCoverMedia({ post, className, compact = false }: { post: BlogPost; className: string; compact?: boolean }) {
+function BlogCoverMedia({ post, className, compact = false, priority = false }: { post: BlogPost; className: string; compact?: boolean; priority?: boolean }) {
   return (
     <div className={className} style={{ background: post.cover ? undefined : `${post.accentColor}22` }}>
       {post.cover ? (
@@ -15,7 +16,9 @@ function BlogCoverMedia({ post, className, compact = false }: { post: BlogPost; 
           alt={post.cover.alt}
           className="h-full w-full object-cover"
           style={{ objectPosition: post.cover.objectPosition ?? 'center center' }}
-          loading="lazy"
+          // The featured post's cover is this page's likely LCP element.
+          loading={priority ? 'eager' : 'lazy'}
+          fetchPriority={priority ? 'high' : undefined}
         />
       ) : (
         <MediaPlaceholder className="h-full w-full" compact={compact} />
@@ -35,6 +38,11 @@ export default function Blog() {
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-14 sm:px-6">
+      <PageMeta
+        title="Blog"
+        description="Mẹo làm đẹp, trend móng mới và hướng dẫn dưỡng nail từ đội ngũ VIBEU."
+        canonicalPath="/blog"
+      />
       <div className="text-center">
         <span className="inline-flex items-center gap-1.5 rounded-full bg-vibe-cream px-3.5 py-1 text-xs font-semibold uppercase tracking-wide text-vibe-pink-dark">
           Blog
@@ -59,7 +67,7 @@ export default function Blog() {
               to={`/blog/${featured.slug}`}
               className="group grid overflow-hidden rounded-[2rem] bg-vibe-highlight shadow-[0_10px_30px_-18px_rgba(80,50,120,0.3)] sm:grid-cols-2"
             >
-              <BlogCoverMedia post={featured} className="aspect-video overflow-hidden sm:aspect-auto" />
+              <BlogCoverMedia post={featured} className="aspect-video overflow-hidden sm:aspect-auto" priority />
               <div className="flex flex-col justify-center p-7 sm:p-9">
                 <span className="text-xs font-semibold uppercase tracking-wide text-vibe-pink-dark">{BLOG_CATEGORY_LABEL[featured.category]}</span>
                 <h2 className="mt-2 font-display text-2xl font-semibold text-vibe-ink transition-colors group-hover:text-vibe-pink-dark">{featured.title}</h2>

@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { ShieldCheck } from 'lucide-react'
+import { PageMeta } from '@/components/seo/PageMeta'
 
 const SECTIONS = [
   {
@@ -23,6 +24,11 @@ const SECTIONS = [
 export default function Policy() {
   return (
     <div className="overflow-hidden">
+      <PageMeta
+        title="Chính sách bảo mật"
+        description="Chính sách bảo mật và quyền riêng tư của VIBEU: dữ liệu thu thập, quyền sở hữu thiết kế, nơi lưu trữ và quyền của người dùng."
+        canonicalPath="/chinh-sach"
+      />
       <section className="mx-auto max-w-3xl px-4 pt-16 text-center sm:px-6">
         <span className="inline-flex items-center gap-1.5 rounded-full bg-vibe-cream px-3.5 py-1 text-xs font-semibold uppercase tracking-wide text-vibe-pink-dark">
           <ShieldCheck size={13} /> Chính sách
