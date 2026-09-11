@@ -4,6 +4,12 @@ import { DEFAULT_LIGHT } from '@/lib/nailFill'
 import { FINGER_ORDER, type CustomGradient, type DecalAsset, type DrawStroke, type FingerDesign, type FingerId, type NailLength, type NailShape, type SkinToneId, type StickerInstance, type Template } from '@/types/vibeu'
 
 const DEFAULT_PRESET_ID = 'cloud-candy'
+// Every preset in colors/manifest.json is a gradient/pattern (linear, radial, or aurora — no
+// preset uses paint.mode 'solid'), so a fresh design used to always start on a rainbow gradient
+// even though the "Màu đơn" color wheel's own handle already sat on this exact pink by default.
+// Starting fingers with this as customColor makes the actual first paint match what that picker
+// already implied, and gives new users a plain, easy default instead of a busy gradient.
+const DEFAULT_SOLID_COLOR = '#FF92F9'
 const MAX_HISTORY = 50
 
 function defaultFinger(): FingerDesign {
@@ -11,7 +17,7 @@ function defaultFinger(): FingerDesign {
     shape: 'oval',
     length: 'M',
     presetId: DEFAULT_PRESET_ID,
-    customColor: null,
+    customColor: DEFAULT_SOLID_COLOR,
     customGradient: null,
     effect: 'gel',
     stickers: [],

@@ -60,6 +60,29 @@ export function PaintTab({
         </div>
       </div>
 
+      <div className="space-y-3 rounded-2xl border-2 border-vibe-blue/30 bg-vibe-blue/5 p-3.5">
+        <div className="flex items-center justify-between">
+          <p className="flex items-center gap-1.5 text-sm font-semibold text-vibe-ink">
+            <Palette size={15} /> Màu đơn
+          </p>
+          {design.customColor && (
+            <button onClick={() => onCustomColor(null, applyToAll)} className="text-[11px] font-semibold text-vibe-pink-dark hover:underline">
+              Dùng bảng phối màu
+            </button>
+          )}
+        </div>
+        <p className="text-[11px] text-vibe-ink-soft">Một màu duy nhất, phủ đều cả móng — tách riêng khỏi các gradient/hoạ tiết bên dưới.</p>
+        <div className="flex flex-col items-center gap-2">
+          <ColorWheel value={design.customColor ?? '#FF92F9'} onChange={(hex) => onCustomColor(hex, applyToAll)} />
+          <HexColorInput value={design.customColor ?? '#FF92F9'} onChange={(hex) => onCustomColor(hex, applyToAll)} />
+          {design.customColor && (
+            <div className="text-xs text-vibe-ink-soft">
+              Màu hiện tại: <span className="font-semibold text-vibe-ink">{design.customColor}</span>
+            </div>
+          )}
+        </div>
+      </div>
+
       <div>
         <p className="mb-3 text-sm font-semibold text-vibe-ink">Bảng phối màu ({presets.length})</p>
 
@@ -104,32 +127,6 @@ export function PaintTab({
           onChange={(g) => onCustomGradient(g, applyToAll)}
         />
       )}
-
-      <div>
-        <div className="mb-3 flex items-center justify-between">
-          <p className="flex items-center gap-1.5 text-sm font-semibold text-vibe-ink">
-            <Palette size={15} /> Tùy chỉnh riêng
-          </p>
-          {design.customColor && (
-            <button onClick={() => onCustomColor(null, applyToAll)} className="text-xs font-semibold text-vibe-pink-dark underline-offset-2 hover:underline">
-              Xoá
-            </button>
-          )}
-        </div>
-        <div className="flex flex-col items-center gap-2">
-          <ColorWheel value={design.customColor ?? '#FF92F9'} onChange={(hex) => onCustomColor(hex, applyToAll)} />
-          <HexColorInput value={design.customColor ?? '#FF92F9'} onChange={(hex) => onCustomColor(hex, applyToAll)} />
-          <div className="text-xs text-vibe-ink-soft">
-            {design.customColor ? (
-              <>
-                Màu tùy chỉnh: <span className="font-semibold text-vibe-ink">{design.customColor}</span>
-              </>
-            ) : (
-              'Chọn hoặc nhập mã hex để ghi đè màu preset cho ngón này'
-            )}
-          </div>
-        </div>
-      </div>
     </div>
   )
 }

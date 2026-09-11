@@ -30,8 +30,12 @@ const FRENCH_DEFAULT_STOPS: PaintStop[] = [
   { at: 1, color: '#FFFFFF' },
 ]
 
+// 'solid' used to be a mode button here too, but it duplicated (and could silently conflict
+// with — customColor wins over customGradient in buildPaintConfig, so picking "Đơn sắc" here
+// while a customColor was already set had zero visible effect) the dedicated "Màu đơn" section
+// in PaintTab.tsx. Solid color now lives only there; this editor is gradients/patterns only.
+// Still rendered below if a legacy saved design's customGradient somehow has mode 'solid'.
 const MODE_BUTTONS: { mode: PaintMode; label: string }[] = [
-  { mode: 'solid', label: 'Đơn sắc' },
   { mode: 'ombre', label: 'Ombre' },
   { mode: 'linear', label: 'Gradient' },
   { mode: 'radial', label: 'Tròn' },
