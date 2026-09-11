@@ -4,8 +4,9 @@ import { ArrowLeft } from 'lucide-react'
 import { MediaPlaceholder } from '@/components/ui/MediaPlaceholder'
 import { BLOG_CATEGORY_LABEL, findBlogPost, relatedPosts, type BlogPost as BlogPostType } from '@/data/blog'
 import { useBlogPosts } from '@/hooks/useBlogPosts'
+import { PageMeta } from '@/components/seo/PageMeta'
 
-function CoverMedia({ post, className, compact = false }: { post: BlogPostType; className: string; compact?: boolean }) {
+function CoverMedia({ post, className, compact = false, priority = false }: { post: BlogPostType; className: string; compact?: boolean; priority?: boolean }) {
   return (
     <div className={className} style={{ background: post.cover ? undefined : `${post.accentColor}22` }}>
       {post.cover ? (
@@ -14,7 +15,10 @@ function CoverMedia({ post, className, compact = false }: { post: BlogPostType; 
           alt={post.cover.alt}
           className="h-full w-full object-cover"
           style={{ objectPosition: post.cover.objectPosition ?? 'center center' }}
-          loading="lazy"
+          // The single post's own cover is this page's likely LCP element — eager + high
+          // priority instead of lazy (lazy-loading the LCP image only delays it).
+          loading={priority ? 'eager' : 'lazy'}
+          fetchPriority={priority ? 'high' : undefined}
         />
       ) : (
         <MediaPlaceholder className="h-full w-full" compact={compact} />
@@ -34,15 +38,36 @@ export default function BlogPost() {
   }
 
   const related = relatedPosts(post.slug, posts)
+  const keywords = [post.primaryKeyword, post.secondaryKeyword].filter(Boolean).join(', ')
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: post.title,
+    description: post.metaDescription || post.excerpt,
+    image: post.cover?.src,
+    datePublished: post.date,
+    author: { '@type': 'Organization', name: 'VIBEU' },
+    publisher: { '@type': 'Organization', name: 'VIBEU' },
+  }
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-14 sm:px-6">
+      <PageMeta
+        title={post.title}
+        description={post.metaDescription || post.excerpt}
+        canonicalPath={`/blog/${post.slug}`}
+        image={post.cover?.src}
+        type="article"
+      />
+      {keywords && <meta name="keywords" content={keywords} />}
+      <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
+
       <Link to="/blog" className="inline-flex items-center gap-1.5 text-sm font-semibold text-vibe-ink-soft transition-colors hover:text-vibe-pink-dark">
         <ArrowLeft size={16} /> Quay lại Blog
       </Link>
 
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-        <CoverMedia post={post} className="mt-6 aspect-[21/9] overflow-hidden rounded-[2rem] shadow-vibe" />
+        <CoverMedia post={post} className="mt-6 aspect-[21/9] overflow-hidden rounded-[2rem] shadow-vibe" priority />
         {post.cover?.credit && (
           <p className="mt-1.5 text-right text-[11px] text-vibe-ink-soft/60">
             Ảnh:{' '}
@@ -65,9 +90,42 @@ export default function BlogPost() {
         </p>
 
         <div className="mt-8 space-y-4 text-[15px] leading-relaxed text-vibe-ink/90">
-          {post.content.map((p, i) => (
-            <p key={i}>{p}</p>
-          ))}
+          {post.contentBlocks.length > 0
+            ? post.contentBlocks.map((block, i) => {
+                if (block.type === 'heading2') {
+                  return (
+                    <h2 key={i} className="!mt-10 font-display text-xl font-semibold text-vibe-ink">
+                      {block.text}
+                    </h2>
+                  )
+                }
+                if (block.type === 'heading3') {
+                  return (
+                    <h3 key={i} className="!mt-6 font-display text-base font-semibold text-vibe-ink">
+                      {block.text}
+                    </h3>
+                  )
+                }
+                if (block.type === 'image') {
+                  if (!block.src) return null
+                  return (
+                    <figure key={i} className="!my-6">
+                      <img
+                        src={block.src}
+                        alt={block.alt}
+                        loading="lazy"
+                        decoding="async"
+                        className="w-full rounded-2xl object-cover"
+                      />
+                      {block.caption && <figcaption className="mt-2 text-center text-xs text-vibe-ink-soft">{block.caption}</figcaption>}
+                    </figure>
+                  )
+                }
+                return <p key={i}>{block.text}</p>
+              })
+            : // Posts saved before content_blocks existed (or before the DB backfill has run) —
+              // same plain-paragraph rendering this page always used, so nothing regresses.
+              post.content.map((p, i) => <p key={i}>{p}</p>)}
         </div>
       </motion.div>
 

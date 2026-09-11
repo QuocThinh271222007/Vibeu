@@ -1,4 +1,4 @@
-import type { BlogCategory, BlogPost } from '@/data/blog'
+import type { BlogCategory, BlogPost, ContentBlock } from '@/data/blog'
 import { BLOG_COVERS_BUCKET, supabase } from '@/lib/supabaseClient'
 
 const ALLOWED_COVER_TYPES = ['image/png', 'image/jpeg', 'image/webp', 'image/gif']
@@ -11,6 +11,10 @@ export interface BlogPostRow {
   category: BlogCategory
   excerpt: string
   content: string[]
+  content_blocks: ContentBlock[]
+  meta_description: string
+  primary_keyword: string
+  secondary_keyword: string
   accent_color: string
   cover_src: string | null
   cover_alt: string | null
@@ -32,6 +36,10 @@ function mapRowToPost(row: BlogPostRow): BlogPost {
     date: row.created_at.slice(0, 10),
     readMinutes: row.read_minutes,
     content: row.content,
+    contentBlocks: row.content_blocks ?? [],
+    metaDescription: row.meta_description ?? '',
+    primaryKeyword: row.primary_keyword ?? '',
+    secondaryKeyword: row.secondary_keyword ?? '',
   }
 }
 
@@ -68,6 +76,10 @@ export interface BlogPostInput {
   category: BlogCategory
   excerpt: string
   content: string[]
+  contentBlocks: ContentBlock[]
+  metaDescription: string
+  primaryKeyword: string
+  secondaryKeyword: string
   accentColor: string
   coverSrc: string | null
   coverAlt: string | null
@@ -83,6 +95,10 @@ export async function createBlogPost(input: BlogPostInput, authorId: string): Pr
     category: input.category,
     excerpt: input.excerpt,
     content: input.content,
+    content_blocks: input.contentBlocks,
+    meta_description: input.metaDescription,
+    primary_keyword: input.primaryKeyword,
+    secondary_keyword: input.secondaryKeyword,
     accent_color: input.accentColor,
     cover_src: input.coverSrc,
     cover_alt: input.coverAlt,
@@ -103,6 +119,10 @@ export async function updateBlogPost(id: string, input: BlogPostInput): Promise<
       category: input.category,
       excerpt: input.excerpt,
       content: input.content,
+      content_blocks: input.contentBlocks,
+      meta_description: input.metaDescription,
+      primary_keyword: input.primaryKeyword,
+      secondary_keyword: input.secondaryKeyword,
       accent_color: input.accentColor,
       cover_src: input.coverSrc,
       cover_alt: input.coverAlt,

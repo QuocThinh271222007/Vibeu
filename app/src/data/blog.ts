@@ -18,6 +18,12 @@ export interface BlogCover {
   sourceUrl?: string
 }
 
+/** Ordered rich content a post is built from — see AdminBlogEditor.tsx's block editor and
+ * BlogPost.tsx's renderer. Headings are h2/h3 only; the post title itself is the page's h1. */
+export type ContentBlock =
+  | { type: 'heading2' | 'heading3' | 'paragraph'; text: string }
+  | { type: 'image'; src: string; alt: string; caption?: string }
+
 export interface BlogPost {
   slug: string
   title: string
@@ -28,7 +34,16 @@ export interface BlogPost {
   cover?: BlogCover
   date: string
   readMinutes: number
+  /** Plain-text mirror of contentBlocks' paragraph/heading text — kept for any post that
+   * predates contentBlocks; BlogPost.tsx only falls back to this when contentBlocks is empty. */
   content: string[]
+  contentBlocks: ContentBlock[]
+  /** SEO fields from the content team's writing template (meta description 120-150 chars,
+   * primary/secondary keyword) — metaDescription feeds <meta name="description">, both
+   * keywords feed <meta name="keywords"> on the post page. Never rendered as visible copy. */
+  metaDescription: string
+  primaryKeyword: string
+  secondaryKeyword: string
 }
 
 // The original editorial posts have been migrated into Supabase rows (see

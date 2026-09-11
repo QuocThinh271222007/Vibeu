@@ -334,6 +334,13 @@ create table if not exists public.blog_posts (
   category text not null default 'tips' check (category in ('tips', 'trend', 'care')),
   excerpt text not null default '',
   content text[] not null default '{}',
+  -- Ordered rich content: [{type:'paragraph'|'heading2'|'heading3', text} | {type:'image', src, alt, caption}].
+  -- `content` (above) is kept as a plain-text mirror (paragraph/heading text only) for any
+  -- simple text search, but content_blocks is what BlogPost.tsx actually renders.
+  content_blocks jsonb not null default '[]'::jsonb,
+  meta_description text not null default '',
+  primary_keyword text not null default '',
+  secondary_keyword text not null default '',
   accent_color text not null default '#B6C7EA',
   cover_src text,
   cover_alt text,
@@ -343,6 +350,19 @@ create table if not exists public.blog_posts (
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
+
+-- Added after the initial release — safe no-op if the columns already exist.
+alter table public.blog_posts add column if not exists content_blocks jsonb not null default '[]'::jsonb;
+alter table public.blog_posts add column if not exists meta_description text not null default '';
+alter table public.blog_posts add column if not exists primary_keyword text not null default '';
+alter table public.blog_posts add column if not exists secondary_keyword text not null default '';
+
+-- One-time backfill: turn each existing plain paragraph into a paragraph block, so posts
+-- written before content_blocks existed still render via the new block-based path.
+update public.blog_posts set content_blocks = (
+  select coalesce(jsonb_agg(jsonb_build_object('type', 'paragraph', 'text', p)), '[]'::jsonb)
+  from unnest(content) as p
+) where content_blocks = '[]'::jsonb and coalesce(array_length(content, 1), 0) > 0;
 
 alter table public.blog_posts enable row level security;
 
