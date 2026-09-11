@@ -10,6 +10,11 @@ const DEFAULT_PRESET_ID = 'cloud-candy'
 // Starting fingers with this as customColor makes the actual first paint match what that picker
 // already implied, and gives new users a plain, easy default instead of a busy gradient.
 const DEFAULT_SOLID_COLOR = '#FF92F9'
+// "Trong suốt" (clear) is nearly all translucency (see MATERIAL_PROFILES.clear in nailFill.ts),
+// so the chosen pigment barely shows through anyway — this is just a natural, warm nude-pink
+// nail tone so a first-time pick of this effect doesn't default to whatever loud color was
+// selected before switching to it.
+const NATURAL_NAIL_COLOR = '#E7B3A0'
 const MAX_HISTORY = 50
 
 function defaultFinger(): FingerDesign {
@@ -245,12 +250,15 @@ export const useStudioStore = create<StudioState>((set, get) => ({
 
   setEffect: (finger, effect, applyToAll) =>
     withHistory(set, (s) => {
+      // Picking "Trong suốt" defaults the pigment to a natural nail tone rather than
+      // whatever loud preset/color was active before — see NATURAL_NAIL_COLOR above.
+      const colorPatch = effect === 'clear' ? { customColor: NATURAL_NAIL_COLOR, customGradient: null } : {}
       if (applyToAll) {
         const next = { ...s.fingers }
-        for (const f of FINGER_ORDER) next[f] = { ...next[f], effect }
+        for (const f of FINGER_ORDER) next[f] = { ...next[f], effect, ...colorPatch }
         return { fingers: next }
       }
-      return { fingers: { ...s.fingers, [finger]: { ...s.fingers[finger], effect } } }
+      return { fingers: { ...s.fingers, [finger]: { ...s.fingers[finger], effect, ...colorPatch } } }
     }),
 
   addSticker: (finger, stickerId, uv) =>

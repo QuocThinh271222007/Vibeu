@@ -135,6 +135,27 @@ const MATERIAL_PROFILES: Record<EffectId, NailMaterialProfile> = {
     iridescence: 0,
     catEyeStrength: 0,
   },
+  // Fully clear coat: almost no pigment coverage (translucency far above jelly's 0.45), so
+  // the composited result is nearly all `srcColor` — the synthetic neutral nail substrate
+  // prepareNail() builds from the real photo's luminance (see nailLighting.ts), never the
+  // real photo's literal chroma. That's what lets this read as "your natural nail, glossy"
+  // regardless of which stock hand photo it's rendered against, rather than an arbitrary
+  // real nail bed color showing through. Glossy/low-roughness like gel — clear polish is wet
+  // and shiny, not matte.
+  clear: {
+    roughness: 0.14,
+    fresnelF0: 0.05,
+    clearcoat: 0.9,
+    clearcoatRoughness: 0.06,
+    metallic: 0,
+    translucency: 0.78,
+    microNormalStrength: 0.04,
+    roughnessVariation: 0.02,
+    environmentReflection: 0.16,
+    glitterDensity: 0,
+    iridescence: 0,
+    catEyeStrength: 0,
+  },
   matte: {
     roughness: 0.78,
     fresnelF0: 0.025,

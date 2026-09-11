@@ -9,7 +9,7 @@ import { MaterialPreview } from '@/components/studio/MaterialPreview'
 import type { CustomGradient, EffectId, FingerDesign } from '@/types/vibeu'
 import { EFFECT_LABEL_VI } from '@/types/vibeu'
 
-const EFFECTS: EffectId[] = ['gel', 'jelly', 'matte', 'catEye', 'glitter', 'chrome', 'holo', 'glazed', 'velvet']
+const EFFECTS: EffectId[] = ['gel', 'jelly', 'clear', 'matte', 'catEye', 'glitter', 'chrome', 'holo', 'glazed', 'velvet']
 
 export function PaintTab({
   design,

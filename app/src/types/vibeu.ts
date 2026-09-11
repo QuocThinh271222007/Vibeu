@@ -89,11 +89,12 @@ export interface ColorPreset {
   }
 }
 
-export type EffectId = 'gel' | 'jelly' | 'catEye' | 'chrome' | 'matte' | 'glitter' | 'holo' | 'glazed' | 'velvet'
+export type EffectId = 'gel' | 'jelly' | 'clear' | 'catEye' | 'chrome' | 'matte' | 'glitter' | 'holo' | 'glazed' | 'velvet'
 
 export const EFFECT_LABEL_VI: Record<EffectId, string> = {
   gel: 'Sơn Gel',
   jelly: 'Sơn thạch',
+  clear: 'Trong suốt',
   catEye: 'Mắt mèo',
   chrome: 'Chrome',
   matte: 'Lì (Matte)',
