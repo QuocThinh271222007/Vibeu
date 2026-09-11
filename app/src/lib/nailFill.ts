@@ -104,6 +104,12 @@ export interface NailMaterialProfile {
   glitterDensity: number
   iridescence: number // 0..1 strength of the holographic hue shift
   catEyeStrength: number
+  /** 0..1 — how strongly the translucent base leans toward this specific nail's own measured
+   * warmth (g.photoTint) around a bare-nail-bed pink anchor, plus subtle organic mottling,
+   * instead of the flat neutral substrate every other material uses. 0 for everything except
+   * 'clear', where a uniform pale tint alone read as a flat sticker rather than real skin
+   * showing through. */
+  skinSim: number
 }
 
 const MATERIAL_PROFILES: Record<EffectId, NailMaterialProfile> = {
@@ -120,6 +126,7 @@ const MATERIAL_PROFILES: Record<EffectId, NailMaterialProfile> = {
     glitterDensity: 0,
     iridescence: 0,
     catEyeStrength: 0,
+    skinSim: 0,
   },
   jelly: {
     roughness: 0.22,
@@ -134,6 +141,7 @@ const MATERIAL_PROFILES: Record<EffectId, NailMaterialProfile> = {
     glitterDensity: 0,
     iridescence: 0,
     catEyeStrength: 0,
+    skinSim: 0,
   },
   // Fully clear coat: almost no pigment coverage (translucency far above jelly's 0.45), so
   // the composited result is nearly all `srcColor` — the synthetic neutral nail substrate
@@ -155,6 +163,7 @@ const MATERIAL_PROFILES: Record<EffectId, NailMaterialProfile> = {
     glitterDensity: 0,
     iridescence: 0,
     catEyeStrength: 0,
+    skinSim: 0.7,
   },
   matte: {
     roughness: 0.78,
@@ -169,6 +178,7 @@ const MATERIAL_PROFILES: Record<EffectId, NailMaterialProfile> = {
     glitterDensity: 0,
     iridescence: 0,
     catEyeStrength: 0,
+    skinSim: 0,
   },
   chrome: {
     roughness: 0.05,
@@ -183,6 +193,7 @@ const MATERIAL_PROFILES: Record<EffectId, NailMaterialProfile> = {
     glitterDensity: 0,
     iridescence: 0,
     catEyeStrength: 0,
+    skinSim: 0,
   },
   glitter: {
     roughness: 0.32,
@@ -197,6 +208,7 @@ const MATERIAL_PROFILES: Record<EffectId, NailMaterialProfile> = {
     glitterDensity: 0.55,
     iridescence: 0,
     catEyeStrength: 0,
+    skinSim: 0,
   },
   holo: {
     roughness: 0.14,
@@ -211,6 +223,7 @@ const MATERIAL_PROFILES: Record<EffectId, NailMaterialProfile> = {
     glitterDensity: 0,
     iridescence: 0.55,
     catEyeStrength: 0,
+    skinSim: 0,
   },
   catEye: {
     roughness: 0.18,
@@ -225,6 +238,7 @@ const MATERIAL_PROFILES: Record<EffectId, NailMaterialProfile> = {
     glitterDensity: 0.2,
     iridescence: 0,
     catEyeStrength: 1,
+    skinSim: 0,
   },
   // "Glazed donut" nails: a sheer, milky base under an extra-strong, extra-glossy topcoat —
   // very low roughness for a sharp "wet glass" highlight, moderate translucency so the milky
@@ -243,6 +257,7 @@ const MATERIAL_PROFILES: Record<EffectId, NailMaterialProfile> = {
     glitterDensity: 0,
     iridescence: 0.08,
     catEyeStrength: 0,
+    skinSim: 0,
   },
   // Velvet/magnetic-flock: fully diffuse, near-zero specular/clearcoat (fabric-like, no
   // shine at all), with strong micro-normal + roughness variation so light scatters in a
@@ -260,6 +275,7 @@ const MATERIAL_PROFILES: Record<EffectId, NailMaterialProfile> = {
     glitterDensity: 0,
     iridescence: 0,
     catEyeStrength: 0,
+    skinSim: 0,
   },
 }
 
@@ -603,7 +619,29 @@ export function composeNail(
     // "opaque colour rectangle" dropped on top of the photo.
     const tipDensity = profile.translucency > 0.01 ? 0.78 + 0.22 * smoothstep01(0.15, 0.75, v) : 1
     const opacity = clamp(paint.opacity * (1 - profile.translucency) * tipDensity)
-    const srcColor: [number, number, number] = [g.source[k * 4] / 255, g.source[k * 4 + 1] / 255, g.source[k * 4 + 2] / 255]
+    let srcColor: [number, number, number] = [g.source[k * 4] / 255, g.source[k * 4 + 1] / 255, g.source[k * 4 + 2] / 255]
+
+    if (profile.skinSim > 0) {
+      // `source` bakes a fixed neutral chroma ratio (0.95/0.92/0.90, see nailLighting.ts)
+      // times a per-pixel highlight/shadow `detail` factor — recover that factor so the
+      // real photographic shading survives, then recolor it toward this specific nail's own
+      // measured warmth/brightness (g.photoTint/photoAmbient) around a believable bare-nail-bed
+      // pink anchor, instead of the flat neutral tone every other material blends toward. Two
+      // noise layers (soft low-freq blotches + a finer capillary-like layer) keep it from
+      // reading as a uniform sticker of colour, the way real skin never is.
+      const detail = srcColor[0] / 0.95
+      const blotch = fbm(xx * 0.05, yy * 0.05, seed * 77 + 5, 2) - 0.5
+      const capillary = fbm(xx * 0.22, yy * 0.22, seed * 83 + 9, 2) - 0.5
+      const variation = blotch * 0.1 + capillary * 0.045
+      const anchor: [number, number, number] = [0.84, 0.7, 0.68]
+      const skinBase: [number, number, number] = [
+        clamp((anchor[0] * (0.9 + 0.1 * g.photoTint[0]) + variation) * detail),
+        clamp((anchor[1] * (0.9 + 0.1 * g.photoTint[1]) + variation * 0.6) * detail),
+        clamp((anchor[2] * (0.9 + 0.1 * g.photoTint[2]) + variation * 0.5) * detail),
+      ]
+      srcColor = mix3(srcColor, skinBase, profile.skinSim)
+    }
+
     color = mix3(srcColor, color, opacity)
 
     work[k * 3] = color[0]
