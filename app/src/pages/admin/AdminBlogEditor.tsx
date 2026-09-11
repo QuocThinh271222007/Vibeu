@@ -4,7 +4,7 @@ import { ArrowDown, ArrowLeft, ArrowUp, Heading2, Heading3, ImagePlus, Pilcrow, 
 import { Button } from '@/components/ui/Button'
 import type { BlogCategory, ContentBlock } from '@/data/blog'
 import { BLOG_CATEGORY_LABEL } from '@/data/blog'
-import { createBlogPost, fetchBlogPostByIdAdmin, updateBlogPost, uploadBlogCover, type BlogPostInput } from '@/lib/blogApi'
+import { createBlogPost, DEFAULT_CREDIT_LINE, fetchBlogPostByIdAdmin, updateBlogPost, uploadBlogCover, type BlogPostInput } from '@/lib/blogApi'
 import { slugify } from '@/lib/slug'
 import { useAuthStore } from '@/store/authStore'
 
@@ -22,6 +22,7 @@ const EMPTY: BlogPostInput = {
   metaDescription: '',
   primaryKeyword: '',
   secondaryKeyword: '',
+  creditLine: DEFAULT_CREDIT_LINE,
   accentColor: '#B6C7EA',
   coverSrc: null,
   coverAlt: null,
@@ -163,6 +164,7 @@ export default function AdminBlogEditor() {
         metaDescription: row.meta_description ?? '',
         primaryKeyword: row.primary_keyword ?? '',
         secondaryKeyword: row.secondary_keyword ?? '',
+        creditLine: row.credit_line ?? DEFAULT_CREDIT_LINE,
         accentColor: row.accent_color,
         coverSrc: row.cover_src,
         coverAlt: row.cover_alt,
@@ -426,6 +428,14 @@ export default function AdminBlogEditor() {
             </div>
           </Field>
         </div>
+
+        <Field label="Dòng credit cuối bài (chữ ký, hiện ở cuối trang)">
+          <input
+            value={form.creditLine}
+            onChange={(e) => setForm((f) => ({ ...f, creditLine: e.target.value }))}
+            className="w-full rounded-xl border-2 border-vibe-ink/10 px-3.5 py-2.5 text-sm outline-none focus:border-vibe-pink/50"
+          />
+        </Field>
 
         <label className="flex items-center gap-2.5 text-sm font-medium text-vibe-ink">
           <input

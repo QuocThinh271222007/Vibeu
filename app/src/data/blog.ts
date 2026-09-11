@@ -44,6 +44,9 @@ export interface BlogPost {
   metaDescription: string
   primaryKeyword: string
   secondaryKeyword: string
+  /** Closing credit line per the writing template ("Bài viết và hình ảnh được thực hiện bởi
+   * VIBEU") — editable per post from the admin editor, rendered as the page's last line. */
+  creditLine: string
 }
 
 // The original editorial posts have been migrated into Supabase rows (see

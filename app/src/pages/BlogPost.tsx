@@ -165,13 +165,12 @@ export default function BlogPost() {
         </div>
 
         {/* Credit/signature line the writing template asks every post to close with
-            ("Bài viết và hình ảnh được thực hiện bởi [doanh nghiệp]" + a signature) — VIBEU is
-            always the one producing these, so this is a fixed footer rather than a per-post
-            field. */}
-        <div className="mt-10 border-t border-vibe-ink/10 pt-6 text-center">
-          <p className="text-xs text-vibe-ink-soft">Bài viết và hình ảnh được thực hiện bởi VIBEU</p>
-          <div className="mx-auto mt-3 h-px w-16 bg-vibe-ink/10" />
-          <Logo className="mx-auto mt-3 justify-center" />
+            ("Bài viết và hình ảnh được thực hiện bởi [doanh nghiệp]" + a signature) — editable
+            per post from the admin editor (post.creditLine), right-aligned per request. */}
+        <div className="mt-10 border-t border-vibe-ink/10 pt-6 text-right">
+          <p className="text-xs text-vibe-ink-soft">{post.creditLine}</p>
+          <div className="ml-auto mt-3 h-px w-16 bg-vibe-ink/10" />
+          <Logo className="ml-auto mt-3 justify-end" />
         </div>
       </motion.div>
     </div>

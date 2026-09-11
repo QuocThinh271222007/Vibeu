@@ -341,6 +341,10 @@ create table if not exists public.blog_posts (
   meta_description text not null default '',
   primary_keyword text not null default '',
   secondary_keyword text not null default '',
+  -- Closing credit line per the writing template ("Bài viết và hình ảnh được thực hiện bởi
+  -- [tên doanh nghiệp]") — editable per post since a future post could credit a different
+  -- photographer/collaborator, though every post today keeps the same VIBEU default.
+  credit_line text not null default 'Bài viết và hình ảnh được thực hiện bởi VIBEU',
   accent_color text not null default '#B6C7EA',
   cover_src text,
   cover_alt text,
@@ -356,6 +360,7 @@ alter table public.blog_posts add column if not exists content_blocks jsonb not 
 alter table public.blog_posts add column if not exists meta_description text not null default '';
 alter table public.blog_posts add column if not exists primary_keyword text not null default '';
 alter table public.blog_posts add column if not exists secondary_keyword text not null default '';
+alter table public.blog_posts add column if not exists credit_line text not null default 'Bài viết và hình ảnh được thực hiện bởi VIBEU';
 
 -- One-time backfill: turn each existing plain paragraph into a paragraph block, so posts
 -- written before content_blocks existed still render via the new block-based path.
