@@ -68,26 +68,6 @@ export default function BlogPost() {
       </Link>
 
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-        <CoverMedia post={post} className="mt-6 aspect-[21/9] overflow-hidden rounded-[2rem] shadow-vibe" priority />
-        {/* Visible caption for the featured image — per the writing template ("Caption ảnh
-            chứa KW chính"), not just an invisible alt attribute. Falls back to the photo
-            credit line when there's no cover (nothing to caption). */}
-        {post.cover?.alt && (
-          <p className="mt-1.5 text-center text-xs text-vibe-ink-soft/70">{post.cover.alt}</p>
-        )}
-        {post.cover?.credit && (
-          <p className="mt-1 text-right text-[11px] text-vibe-ink-soft/60">
-            Ảnh:{' '}
-            {post.cover.sourceUrl ? (
-              <a href={post.cover.sourceUrl} target="_blank" rel="noreferrer" className="underline hover:text-vibe-ink-soft">
-                {post.cover.credit}
-              </a>
-            ) : (
-              post.cover.credit
-            )}
-          </p>
-        )}
-
         <span className="mt-6 inline-block text-xs font-semibold uppercase tracking-wide text-vibe-pink-dark">
           {BLOG_CATEGORY_LABEL[post.category]}
         </span>
@@ -117,6 +97,32 @@ export default function BlogPost() {
               ))}
             </div>
           </div>
+        )}
+
+        {/* ORDER OVERRIDE (2026-09-11, explicit client directive): Template bai SEO.docx lists
+            the featured image + caption AFTER Sapo/Bai viet lien quan, not before the title —
+            the opposite of standard blog convention (cover image first, above the fold, before
+            any text). Both we and the client agree the conventional order reads better, but the
+            client wants the docx's literal order followed regardless, so this block was moved
+            down here from right after the opening <motion.div> (where it originally sat, first,
+            before the category/title/date group above).
+            TO REVERT: move this whole block (through the closing </div> before "mt-8
+            space-y-4") back up to immediately after <motion.div ...>, above the category span. */}
+        <CoverMedia post={post} className="mt-8 aspect-[21/9] overflow-hidden rounded-[2rem] shadow-vibe" priority />
+        {post.cover?.alt && (
+          <p className="mt-1.5 text-center text-xs text-vibe-ink-soft/70">{post.cover.alt}</p>
+        )}
+        {post.cover?.credit && (
+          <p className="mt-1 text-right text-[11px] text-vibe-ink-soft/60">
+            Ảnh:{' '}
+            {post.cover.sourceUrl ? (
+              <a href={post.cover.sourceUrl} target="_blank" rel="noreferrer" className="underline hover:text-vibe-ink-soft">
+                {post.cover.credit}
+              </a>
+            ) : (
+              post.cover.credit
+            )}
+          </p>
         )}
 
         <div className="mt-8 space-y-4 text-[15px] leading-relaxed text-vibe-ink/90">
