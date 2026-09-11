@@ -1,6 +1,7 @@
 import { Link, useParams, Navigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowLeft } from 'lucide-react'
+import { Logo } from '@/components/ui/Logo'
 import { MediaPlaceholder } from '@/components/ui/MediaPlaceholder'
 import { BLOG_CATEGORY_LABEL, findBlogPost, relatedPosts, type BlogPost as BlogPostType } from '@/data/blog'
 import { useBlogPosts } from '@/hooks/useBlogPosts'
@@ -139,6 +140,16 @@ export default function BlogPost() {
             : // Posts saved before content_blocks existed (or before the DB backfill has run) —
               // same plain-paragraph rendering this page always used, so nothing regresses.
               post.content.map((p, i) => <p key={i}>{p}</p>)}
+        </div>
+
+        {/* Credit/signature line the writing template asks every post to close with
+            ("Bài viết và hình ảnh được thực hiện bởi [doanh nghiệp]" + a signature) — VIBEU is
+            always the one producing these, so this is a fixed footer rather than a per-post
+            field. */}
+        <div className="mt-10 border-t border-vibe-ink/10 pt-6 text-center">
+          <p className="text-xs text-vibe-ink-soft">Bài viết và hình ảnh được thực hiện bởi VIBEU</p>
+          <div className="mx-auto mt-3 h-px w-16 bg-vibe-ink/10" />
+          <Logo className="mx-auto mt-3 justify-center" />
         </div>
       </motion.div>
 
