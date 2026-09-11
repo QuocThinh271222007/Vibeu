@@ -68,8 +68,14 @@ export default function BlogPost() {
 
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
         <CoverMedia post={post} className="mt-6 aspect-[21/9] overflow-hidden rounded-[2rem] shadow-vibe" priority />
+        {/* Visible caption for the featured image — per the writing template ("Caption ảnh
+            chứa KW chính"), not just an invisible alt attribute. Falls back to the photo
+            credit line when there's no cover (nothing to caption). */}
+        {post.cover?.alt && (
+          <p className="mt-1.5 text-center text-xs text-vibe-ink-soft/70">{post.cover.alt}</p>
+        )}
         {post.cover?.credit && (
-          <p className="mt-1.5 text-right text-[11px] text-vibe-ink-soft/60">
+          <p className="mt-1 text-right text-[11px] text-vibe-ink-soft/60">
             Ảnh:{' '}
             {post.cover.sourceUrl ? (
               <a href={post.cover.sourceUrl} target="_blank" rel="noreferrer" className="underline hover:text-vibe-ink-soft">
@@ -88,6 +94,13 @@ export default function BlogPost() {
         <p className="mt-3 text-sm text-vibe-ink-soft">
           {new Date(post.date).toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' })} · {post.readMinutes} phút đọc
         </p>
+
+        {/* Sapo: "đoạn mở đầu dẫn dắt người đọc đến nội dung chính" per the writing template —
+            this is meant to be read on the article page itself, not just used as the listing
+            page's preview blurb (which is all it did before). */}
+        {post.excerpt && (
+          <p className="mt-5 font-display text-lg leading-relaxed text-vibe-ink">{post.excerpt}</p>
+        )}
 
         <div className="mt-8 space-y-4 text-[15px] leading-relaxed text-vibe-ink/90">
           {post.contentBlocks.length > 0
