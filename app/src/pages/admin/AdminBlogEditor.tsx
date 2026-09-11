@@ -54,6 +54,74 @@ function RangeHint({ value, min, max, unit }: { value: number; min: number; max:
   )
 }
 
+/** Max-only counter — for the H2-without-H3 case, the template only gives a ceiling (500 từ),
+ * no minimum. */
+function MaxHint({ value, max, unit }: { value: number; max: number; unit: string }) {
+  const over = value > max
+  return (
+    <span className={`text-[11px] font-medium ${over ? 'text-amber-600' : 'text-vibe-ink-soft'}`}>
+      {value} {unit} (tối đa {max})
+    </span>
+  )
+}
+
+function normalizeForSearch(s: string): string {
+  return s.toLocaleLowerCase('vi-VN')
+}
+
+function containsKeyword(text: string, keyword: string): boolean {
+  return normalizeForSearch(text).includes(normalizeForSearch(keyword.trim()))
+}
+
+/** Detects an all-caps title ("KHÔNG VIẾT HOA TOÀN BỘ" per the writing template) — ignores
+ * short titles/acronyms where a couple of capital letters is normal. */
+function isShoutingCase(title: string): boolean {
+  const letters = title.replace(/[^\p{L}]/gu, '')
+  if (letters.length < 6) return false
+  return letters === letters.toLocaleUpperCase('vi-VN') && letters !== letters.toLocaleLowerCase('vi-VN')
+}
+
+/** Small green/grey badge for "contains keyword X" checks scattered through the template
+ * (title, meta description, sapo, headings, captions). Renders nothing until a keyword is set,
+ * since there's nothing to check yet. */
+function KeywordHint({ text, keyword, label }: { text: string; keyword: string; label: string }) {
+  if (!keyword.trim()) return null
+  const ok = containsKeyword(text, keyword)
+  return <span className={`text-[11px] font-medium ${ok ? 'text-emerald-600' : 'text-vibe-ink-soft/60'}`}>{ok ? '✓' : '—'} {label}</span>
+}
+
+type ParagraphGuidance =
+  | { kind: 'h2-only'; max: number }
+  | { kind: 'h2-lead-in'; min: number; max: number; keyword: 'primary' }
+  | { kind: 'h3-body'; min: number; max: number; keyword: 'secondary' }
+  | null
+
+/** Which word-count/keyword rule applies to a paragraph block, based on the nearest heading
+ * above it — the writing template gives a different target depending on whether that heading is
+ * an H2 with no H3 children (≤500 từ), an H2 that leads into an H3 (100-200 từ, KW chính), or an
+ * H3 itself (150-200 từ, KW phụ). */
+function paragraphGuidance(blocks: ContentBlock[], index: number): ParagraphGuidance {
+  let headingIdx = -1
+  for (let i = index - 1; i >= 0; i--) {
+    if (blocks[i].type === 'heading2' || blocks[i].type === 'heading3') {
+      headingIdx = i
+      break
+    }
+  }
+  if (headingIdx === -1) return null
+  const heading = blocks[headingIdx]
+  if (heading.type === 'heading3') return { kind: 'h3-body', min: 150, max: 200, keyword: 'secondary' }
+  let hasH3 = false
+  for (let i = headingIdx + 1; i < blocks.length; i++) {
+    if (blocks[i].type === 'heading2') break
+    if (blocks[i].type === 'heading3') {
+      hasH3 = true
+      break
+    }
+  }
+  return hasH3 ? { kind: 'h2-lead-in', min: 100, max: 200, keyword: 'primary' } : { kind: 'h2-only', max: 500 }
+}
+
 export default function AdminBlogEditor() {
   const { id } = useParams<{ id: string }>()
   const isNew = !id
@@ -196,9 +264,13 @@ export default function AdminBlogEditor() {
             onChange={(e) => handleTitleChange(e.target.value)}
             className="w-full rounded-xl border-2 border-vibe-ink/10 px-3.5 py-2.5 text-sm outline-none focus:border-vibe-pink/50"
           />
-          <div className="mt-1 text-right">
+          <div className="mt-1 flex items-center justify-between">
+            <KeywordHint text={form.title} keyword={form.primaryKeyword} label="chứa từ khoá chính" />
             <RangeHint value={form.title.length} min={50} max={60} unit="ký tự" />
           </div>
+          {isShoutingCase(form.title) && (
+            <p className="mt-1 text-[11px] font-medium text-amber-600">Tiêu đề đang viết hoa toàn bộ — chỉ nên viết hoa chữ đầu.</p>
+          )}
         </Field>
 
         <Field label="Slug (đường dẫn URL)">
@@ -263,7 +335,8 @@ export default function AdminBlogEditor() {
               onChange={(e) => setForm((f) => ({ ...f, metaDescription: e.target.value }))}
               className="w-full resize-none rounded-xl border-2 border-vibe-ink/10 px-3.5 py-2.5 text-sm outline-none focus:border-vibe-pink/50"
             />
-            <div className="mt-1 text-right">
+            <div className="mt-1 flex items-center justify-between">
+              <KeywordHint text={form.metaDescription} keyword={form.primaryKeyword} label="chứa từ khoá chính" />
               <RangeHint value={form.metaDescription.length} min={120} max={150} unit="ký tự" />
             </div>
           </Field>
@@ -277,7 +350,11 @@ export default function AdminBlogEditor() {
             onChange={(e) => setForm((f) => ({ ...f, excerpt: e.target.value }))}
             className="w-full resize-none rounded-xl border-2 border-vibe-ink/10 px-3.5 py-2.5 text-sm outline-none focus:border-vibe-pink/50"
           />
-          <div className="mt-1 text-right">
+          <div className="mt-1 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <KeywordHint text={form.excerpt} keyword={form.primaryKeyword} label="chứa từ khoá chính" />
+              <KeywordHint text={form.excerpt} keyword="VIBEU" label="nhắc VIBEU" />
+            </div>
             <RangeHint value={wordCount(form.excerpt)} min={80} max={100} unit="từ" />
           </div>
         </Field>
@@ -292,6 +369,9 @@ export default function AdminBlogEditor() {
                 index={i}
                 total={blocks.length}
                 uploading={uploadingBlock === i}
+                paragraphGuidance={block.type === 'paragraph' ? paragraphGuidance(blocks, i) : null}
+                primaryKeyword={form.primaryKeyword}
+                secondaryKeyword={form.secondaryKeyword}
                 onChange={(patch) => updateBlock(i, patch)}
                 onMove={(dir) => moveBlock(i, dir)}
                 onRemove={() => removeBlock(i)}
@@ -341,6 +421,9 @@ export default function AdminBlogEditor() {
               onChange={(e) => setForm((f) => ({ ...f, coverAlt: e.target.value || null }))}
               className="w-full rounded-xl border-2 border-vibe-ink/10 px-3.5 py-2.5 text-sm outline-none focus:border-vibe-pink/50"
             />
+            <div className="mt-1">
+              <KeywordHint text={form.coverAlt ?? ''} keyword={form.primaryKeyword} label="chứa từ khoá chính" />
+            </div>
           </Field>
         </div>
 
@@ -399,6 +482,9 @@ function BlockEditor({
   index,
   total,
   uploading,
+  paragraphGuidance,
+  primaryKeyword,
+  secondaryKeyword,
   onChange,
   onMove,
   onRemove,
@@ -408,6 +494,9 @@ function BlockEditor({
   index: number
   total: number
   uploading: boolean
+  paragraphGuidance: ParagraphGuidance
+  primaryKeyword: string
+  secondaryKeyword: string
   onChange: (patch: Partial<ContentBlock>) => void
   onMove: (dir: -1 | 1) => void
   onRemove: () => void
@@ -472,6 +561,7 @@ function BlockEditor({
             placeholder="Caption ảnh (nên chứa từ khoá chính)…"
             className="w-full rounded-lg border-2 border-vibe-ink/10 px-3 py-2 text-sm outline-none focus:border-vibe-pink/50"
           />
+          <KeywordHint text={block.caption ?? ''} keyword={primaryKeyword} label="caption chứa từ khoá chính" />
           <input
             value={block.alt}
             onChange={(e) => onChange({ alt: e.target.value })}
@@ -492,12 +582,39 @@ function BlockEditor({
             }
             className="w-full resize-y rounded-lg border-2 border-vibe-ink/10 px-3 py-2 text-sm outline-none focus:border-vibe-pink/50"
           />
-          {/* Word-count target depends on whether this paragraph sits under an H2-only section
-              (tối đa 500 từ) or right before an H3 (150-200 từ) — rather than guessing that
-              structurally, just show a plain count so the admin can judge it against whichever
-              guidance applies to that spot. */}
+          {block.type === 'heading2' && (
+            <div className="mt-1">
+              <KeywordHint text={block.text} keyword={primaryKeyword} label="ưu tiên chứa từ khoá chính" />
+            </div>
+          )}
           {block.type === 'paragraph' && block.text.trim() && (
-            <div className="mt-1 text-right text-[11px] font-medium text-vibe-ink-soft">{wordCount(block.text)} từ</div>
+            <>
+              <div className="mt-1 flex items-center justify-between">
+                {paragraphGuidance?.kind === 'h2-lead-in' && (
+                  <KeywordHint text={block.text} keyword={primaryKeyword} label="chứa từ khoá chính" />
+                )}
+                {paragraphGuidance?.kind === 'h3-body' && (
+                  <KeywordHint text={block.text} keyword={secondaryKeyword} label="chứa từ khoá phụ" />
+                )}
+                {!paragraphGuidance && <span />}
+                {paragraphGuidance?.kind === 'h2-only' ? (
+                  <MaxHint value={wordCount(block.text)} max={paragraphGuidance.max} unit="từ" />
+                ) : paragraphGuidance ? (
+                  <RangeHint value={wordCount(block.text)} min={paragraphGuidance.min} max={paragraphGuidance.max} unit="từ" />
+                ) : (
+                  <span className="text-[11px] font-medium text-vibe-ink-soft">{wordCount(block.text)} từ</span>
+                )}
+              </div>
+              {/* Kết bài: the template's last paragraph must tie together the primary keyword,
+                  the brand name and a CTA — flagged only on the very last block. */}
+              {index === total - 1 && (
+                <div className="mt-1 flex items-center gap-2">
+                  <span className="text-[11px] font-medium text-vibe-ink-soft/60">Đoạn kết:</span>
+                  <KeywordHint text={block.text} keyword={primaryKeyword} label="từ khoá chính" />
+                  <KeywordHint text={block.text} keyword="VIBEU" label="tên VIBEU" />
+                </div>
+              )}
+            </>
           )}
         </>
       )}
