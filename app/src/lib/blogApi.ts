@@ -20,6 +20,7 @@ export interface BlogPostRow {
   primary_keyword: string
   secondary_keyword: string
   credit_line: string
+  show_toc: boolean
   accent_color: string
   cover_src: string | null
   cover_alt: string | null
@@ -46,6 +47,7 @@ function mapRowToPost(row: BlogPostRow): BlogPost {
     primaryKeyword: row.primary_keyword ?? '',
     secondaryKeyword: row.secondary_keyword ?? '',
     creditLine: row.credit_line ?? DEFAULT_CREDIT_LINE,
+    showToc: row.show_toc ?? true,
   }
 }
 
@@ -87,6 +89,7 @@ export interface BlogPostInput {
   primaryKeyword: string
   secondaryKeyword: string
   creditLine: string
+  showToc: boolean
   accentColor: string
   coverSrc: string | null
   coverAlt: string | null
@@ -107,6 +110,7 @@ export async function createBlogPost(input: BlogPostInput, authorId: string): Pr
     primary_keyword: input.primaryKeyword,
     secondary_keyword: input.secondaryKeyword,
     credit_line: input.creditLine,
+    show_toc: input.showToc,
     accent_color: input.accentColor,
     cover_src: input.coverSrc,
     cover_alt: input.coverAlt,
@@ -132,6 +136,7 @@ export async function updateBlogPost(id: string, input: BlogPostInput): Promise<
       primary_keyword: input.primaryKeyword,
       secondary_keyword: input.secondaryKeyword,
       credit_line: input.creditLine,
+      show_toc: input.showToc,
       accent_color: input.accentColor,
       cover_src: input.coverSrc,
       cover_alt: input.coverAlt,

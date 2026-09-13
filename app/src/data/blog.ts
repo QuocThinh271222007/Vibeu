@@ -47,6 +47,9 @@ export interface BlogPost {
   /** Closing credit line per the writing template ("Bài viết và hình ảnh được thực hiện bởi
    * VIBEU") — editable per post from the admin editor, rendered as the page's last line. */
   creditLine: string
+  /** Editorial opt-out for the auto-generated table of contents (built from this post's own
+   * heading2/heading3 blocks) — see buildHeadingIds in BlogPost.tsx. */
+  showToc: boolean
 }
 
 // The original editorial posts have been migrated into Supabase rows (see

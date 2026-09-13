@@ -23,6 +23,7 @@ const EMPTY: BlogPostInput = {
   primaryKeyword: '',
   secondaryKeyword: '',
   creditLine: DEFAULT_CREDIT_LINE,
+  showToc: true,
   accentColor: '#B6C7EA',
   coverSrc: null,
   coverAlt: null,
@@ -165,6 +166,7 @@ export default function AdminBlogEditor() {
         primaryKeyword: row.primary_keyword ?? '',
         secondaryKeyword: row.secondary_keyword ?? '',
         creditLine: row.credit_line ?? DEFAULT_CREDIT_LINE,
+        showToc: row.show_toc ?? true,
         accentColor: row.accent_color,
         coverSrc: row.cover_src,
         coverAlt: row.cover_alt,
@@ -436,6 +438,16 @@ export default function AdminBlogEditor() {
             className="w-full rounded-xl border-2 border-vibe-ink/10 px-3.5 py-2.5 text-sm outline-none focus:border-vibe-pink/50"
           />
         </Field>
+
+        <label className="flex items-center gap-2.5 text-sm font-medium text-vibe-ink">
+          <input
+            type="checkbox"
+            checked={form.showToc}
+            onChange={(e) => setForm((f) => ({ ...f, showToc: e.target.checked }))}
+            className="h-4 w-4 rounded border-2 border-vibe-ink/20"
+          />
+          Hiển thị mục lục (tự động tạo từ các Heading 2/3 bên trên)
+        </label>
 
         <label className="flex items-center gap-2.5 text-sm font-medium text-vibe-ink">
           <input

@@ -1,11 +1,35 @@
 import { Link, useParams, Navigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, List } from 'lucide-react'
 import { Logo } from '@/components/ui/Logo'
 import { MediaPlaceholder } from '@/components/ui/MediaPlaceholder'
-import { BLOG_CATEGORY_LABEL, findBlogPost, relatedPosts, type BlogPost as BlogPostType } from '@/data/blog'
+import { BLOG_CATEGORY_LABEL, findBlogPost, relatedPosts, type ContentBlock, type BlogPost as BlogPostType } from '@/data/blog'
 import { useBlogPosts } from '@/hooks/useBlogPosts'
 import { PageMeta } from '@/components/seo/PageMeta'
+import { slugify } from '@/lib/slug'
+
+interface HeadingId {
+  id: string
+  level: 2 | 3
+  text: string
+}
+
+/** Table of contents entries come straight from the post's own heading2/heading3 blocks — no
+ * separate authored field to keep in sync. Ids are deduped (two headings with the same text
+ * would otherwise collide on the same #anchor) and keyed by block index so the content
+ * renderer below can look up the exact same id for its <h2>/<h3>. */
+function buildHeadingIds(blocks: ContentBlock[]): Map<number, HeadingId> {
+  const used = new Map<string, number>()
+  const map = new Map<number, HeadingId>()
+  blocks.forEach((block, i) => {
+    if (block.type !== 'heading2' && block.type !== 'heading3') return
+    const base = slugify(block.text) || `muc-${i}`
+    const count = used.get(base) ?? 0
+    used.set(base, count + 1)
+    map.set(i, { id: count === 0 ? base : `${base}-${count + 1}`, level: block.type === 'heading2' ? 2 : 3, text: block.text })
+  })
+  return map
+}
 
 function CoverMedia({ post, className, compact = false, priority = false }: { post: BlogPostType; className: string; compact?: boolean; priority?: boolean }) {
   return (
@@ -39,6 +63,8 @@ export default function BlogPost() {
   }
 
   const related = relatedPosts(post.slug, posts)
+  const headingIds = buildHeadingIds(post.contentBlocks)
+  const showToc = post.showToc && headingIds.size >= 2
   const keywords = [post.primaryKeyword, post.secondaryKeyword].filter(Boolean).join(', ')
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -125,19 +151,39 @@ export default function BlogPost() {
           </p>
         )}
 
+        {/* Mục lục: auto-built from this post's own H2/H3 blocks (see buildHeadingIds above) —
+            never a separately-authored field, so it can't drift out of sync with the content.
+            Editors can turn it off per post (post.showToc) for short posts where it's pointless. */}
+        {showToc && (
+          <nav aria-label="Mục lục" className="mt-8 rounded-2xl border-2 border-vibe-ink/10 bg-white/70 p-4">
+            <p className="mb-2.5 flex items-center gap-1.5 font-display text-sm font-semibold text-vibe-ink">
+              <List size={16} /> Mục lục
+            </p>
+            <ol className="space-y-1.5 text-sm">
+              {Array.from(headingIds.values()).map((h) => (
+                <li key={h.id} className={h.level === 3 ? 'ml-4' : undefined}>
+                  <a href={`#${h.id}`} className="text-vibe-ink-soft transition-colors hover:text-vibe-pink-dark hover:underline">
+                    {h.text}
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </nav>
+        )}
+
         <div className="mt-8 space-y-4 text-[15px] leading-relaxed text-vibe-ink/90">
           {post.contentBlocks.length > 0
             ? post.contentBlocks.map((block, i) => {
                 if (block.type === 'heading2') {
                   return (
-                    <h2 key={i} className="!mt-10 font-display text-xl font-semibold text-vibe-ink">
+                    <h2 key={i} id={headingIds.get(i)?.id} className="!mt-10 scroll-mt-24 font-display text-xl font-semibold text-vibe-ink">
                       {block.text}
                     </h2>
                   )
                 }
                 if (block.type === 'heading3') {
                   return (
-                    <h3 key={i} className="!mt-6 font-display text-base font-semibold text-vibe-ink">
+                    <h3 key={i} id={headingIds.get(i)?.id} className="!mt-6 scroll-mt-24 font-display text-base font-semibold text-vibe-ink">
                       {block.text}
                     </h3>
                   )
