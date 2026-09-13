@@ -106,11 +106,14 @@ export const EFFECT_LABEL_VI: Record<EffectId, string> = {
 
 export type NailShape = 'oval' | 'square' | 'coffin' | 'almond'
 
+// The `almond` id's own traced geometry/real hand photos are a soft tapered point (an actual
+// almond shape), not a razor-sharp stiletto — this label previously said "Nhọn" (pointy/
+// stiletto), which doesn't match what the shape actually looks like when rendered.
 export const SHAPE_LABEL_VI: Record<NailShape, string> = {
   oval: 'Oval',
   square: 'Vuông',
   coffin: 'Coffin',
-  almond: 'Nhọn',
+  almond: 'Hạnh nhân',
 }
 
 export type NailLength = 'S' | 'M' | 'L'
