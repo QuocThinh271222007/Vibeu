@@ -26,12 +26,19 @@ export const HAND_VARIANTS: Partial<Record<SkinToneId, Partial<Record<HandVarian
     'square-S': true, 'square-M': true, 'square-L': true,
     'coffin-S': true, 'coffin-M': true, 'coffin-L': true,
     'almond-S': true, 'almond-M': true, 'almond-L': true,
+    // stiletto-M NOT enabled yet — not published to nail_geometry_variants as of 2026-09-15
+    // (cozy-S/L and matcha-S/M/L are). Enabling it now would make Studio use the shared
+    // placeholder coordinates.json every stiletto combo was seeded with (a copy of the
+    // cozy-S calibration, see the static coordinates.json under variants/stiletto-M/),
+    // not this specific photo's own real calibration.
+    'stiletto-S': true, 'stiletto-L': true,
   },
   matcha: {
     'oval-S': true, 'oval-L': true,
     'square-S': true, 'square-M': true, 'square-L': true,
     'coffin-S': true, 'coffin-M': true, 'coffin-L': true,
     'almond-S': true, 'almond-M': true, 'almond-L': true,
+    'stiletto-S': true, 'stiletto-M': true, 'stiletto-L': true,
   },
 }
 
