@@ -6,7 +6,6 @@ import { MediaPlaceholder } from '@/components/ui/MediaPlaceholder'
 import type { BlogPost } from '@/data/blog'
 import { useBlogPosts } from '@/hooks/useBlogPosts'
 import { useBlogCategories } from '@/hooks/useBlogCategories'
-import { useBlogSeries } from '@/hooks/useBlogSeries'
 import { PageMeta } from '@/components/seo/PageMeta'
 
 function BlogCoverMedia({ post, className, compact = false, priority = false }: { post: BlogPost; className: string; compact?: boolean; priority?: boolean }) {
@@ -31,18 +30,10 @@ function BlogCoverMedia({ post, className, compact = false, priority = false }: 
 
 export default function Blog() {
   const [cat, setCat] = useState<string | 'all'>('all')
-  const [seriesFilter, setSeriesFilter] = useState<string | 'all'>('all')
   const { posts } = useBlogPosts()
   const { categories, labelFor } = useBlogCategories()
-  const { series } = useBlogSeries()
 
-  const filtered = useMemo(
-    () =>
-      posts
-        .filter((p) => cat === 'all' || p.category === cat)
-        .filter((p) => seriesFilter === 'all' || p.seriesId === seriesFilter),
-    [cat, seriesFilter, posts],
-  )
+  const filtered = useMemo(() => posts.filter((p) => cat === 'all' || p.category === cat), [cat, posts])
   const [featured, ...rest] = filtered
 
   return (
@@ -70,19 +61,13 @@ export default function Blog() {
         ))}
       </div>
 
-      {series.length > 0 && (
-        <div className="mt-3 flex flex-wrap items-center justify-center gap-2">
-          <span className="text-xs font-semibold text-vibe-ink-soft">Mục lục:</span>
-          <Chip active={seriesFilter === 'all'} onClick={() => setSeriesFilter('all')}>
-            Tất cả
-          </Chip>
-          {series.map((s) => (
-            <Chip key={s.id} active={seriesFilter === s.id} onClick={() => setSeriesFilter(s.id)}>
-              {s.name}
-            </Chip>
-          ))}
-        </div>
-      )}
+      {/* Mục lục (blog series) has no reader-facing feature beyond this filter today, so the
+          filter itself was hidden per request — the admin CRUD (/admin/blog-series), the
+          per-post picker in AdminBlogEditor, and AdminBlogList's filter column all stay, in
+          case a real customer-facing use (a dedicated series page, "next in this mục lục"
+          nav, etc.) gets built later. To bring this filter chip row back, restore the
+          useBlogSeries() call above and this block from git history (see the commit removing
+          it) — the seriesId data on each post was never removed. */}
 
       {!featured ? (
         <p className="py-20 text-center text-vibe-ink-soft">Chưa có bài viết trong danh mục này.</p>
