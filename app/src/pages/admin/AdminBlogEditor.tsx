@@ -4,7 +4,17 @@ import { ArrowDown, ArrowLeft, ArrowUp, Heading2, Heading3, ImagePlus, Pilcrow, 
 import { Button } from '@/components/ui/Button'
 import type { BlogCategory, ContentBlock } from '@/data/blog'
 import { BLOG_CATEGORY_LABEL } from '@/data/blog'
-import { createBlogPost, DEFAULT_CREDIT_LINE, fetchBlogPostByIdAdmin, updateBlogPost, uploadBlogCover, type BlogPostInput } from '@/lib/blogApi'
+import {
+  createBlogPost,
+  DEFAULT_CREDIT_LINE,
+  DEFAULT_CTA_BUTTON_LABEL,
+  DEFAULT_CTA_BUTTON_URL,
+  DEFAULT_CTA_TITLE,
+  fetchBlogPostByIdAdmin,
+  updateBlogPost,
+  uploadBlogCover,
+  type BlogPostInput,
+} from '@/lib/blogApi'
 import { slugify } from '@/lib/slug'
 import { useAuthStore } from '@/store/authStore'
 
@@ -24,6 +34,10 @@ const EMPTY: BlogPostInput = {
   secondaryKeyword: '',
   creditLine: DEFAULT_CREDIT_LINE,
   showToc: true,
+  ctaEnabled: true,
+  ctaTitle: DEFAULT_CTA_TITLE,
+  ctaButtonLabel: DEFAULT_CTA_BUTTON_LABEL,
+  ctaButtonUrl: DEFAULT_CTA_BUTTON_URL,
   accentColor: '#B6C7EA',
   coverSrc: null,
   coverAlt: null,
@@ -167,6 +181,10 @@ export default function AdminBlogEditor() {
         secondaryKeyword: row.secondary_keyword ?? '',
         creditLine: row.credit_line ?? DEFAULT_CREDIT_LINE,
         showToc: row.show_toc ?? true,
+        ctaEnabled: row.cta_enabled ?? true,
+        ctaTitle: row.cta_title ?? DEFAULT_CTA_TITLE,
+        ctaButtonLabel: row.cta_button_label ?? DEFAULT_CTA_BUTTON_LABEL,
+        ctaButtonUrl: row.cta_button_url ?? DEFAULT_CTA_BUTTON_URL,
         accentColor: row.accent_color,
         coverSrc: row.cover_src,
         coverAlt: row.cover_alt,
@@ -438,6 +456,45 @@ export default function AdminBlogEditor() {
             className="w-full rounded-xl border-2 border-vibe-ink/10 px-3.5 py-2.5 text-sm outline-none focus:border-vibe-pink/50"
           />
         </Field>
+
+        <div className="space-y-3 rounded-2xl border-2 border-vibe-blue/30 bg-vibe-blue/5 p-4">
+          <label className="flex items-center gap-2.5 text-sm font-semibold text-vibe-ink">
+            <input
+              type="checkbox"
+              checked={form.ctaEnabled}
+              onChange={(e) => setForm((f) => ({ ...f, ctaEnabled: e.target.checked }))}
+              className="h-4 w-4 rounded border-2 border-vibe-ink/20"
+            />
+            Hiển thị khối CTA cuối bài
+          </label>
+          {form.ctaEnabled && (
+            <>
+              <Field label="Tiêu đề CTA">
+                <input
+                  value={form.ctaTitle}
+                  onChange={(e) => setForm((f) => ({ ...f, ctaTitle: e.target.value }))}
+                  className="w-full rounded-xl border-2 border-vibe-ink/10 px-3.5 py-2.5 text-sm outline-none focus:border-vibe-pink/50"
+                />
+              </Field>
+              <div className="grid grid-cols-2 gap-4">
+                <Field label="Chữ trên nút">
+                  <input
+                    value={form.ctaButtonLabel}
+                    onChange={(e) => setForm((f) => ({ ...f, ctaButtonLabel: e.target.value }))}
+                    className="w-full rounded-xl border-2 border-vibe-ink/10 px-3.5 py-2.5 text-sm outline-none focus:border-vibe-pink/50"
+                  />
+                </Field>
+                <Field label="Đường dẫn nút (vd: /studio)">
+                  <input
+                    value={form.ctaButtonUrl}
+                    onChange={(e) => setForm((f) => ({ ...f, ctaButtonUrl: e.target.value }))}
+                    className="w-full rounded-xl border-2 border-vibe-ink/10 px-3.5 py-2.5 text-sm outline-none focus:border-vibe-pink/50"
+                  />
+                </Field>
+              </div>
+            </>
+          )}
+        </div>
 
         <label className="flex items-center gap-2.5 text-sm font-medium text-vibe-ink">
           <input

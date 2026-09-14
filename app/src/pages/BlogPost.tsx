@@ -1,6 +1,7 @@
-import { Link, useParams, Navigate } from 'react-router-dom'
+import { Link, useNavigate, useParams, Navigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { ArrowLeft, List } from 'lucide-react'
+import { ArrowLeft, ArrowRight, List } from 'lucide-react'
+import { Button } from '@/components/ui/Button'
 import { Logo } from '@/components/ui/Logo'
 import { MediaPlaceholder } from '@/components/ui/MediaPlaceholder'
 import { BLOG_CATEGORY_LABEL, findBlogPost, relatedPosts, type ContentBlock, type BlogPost as BlogPostType } from '@/data/blog'
@@ -54,6 +55,7 @@ function CoverMedia({ post, className, compact = false, priority = false }: { po
 
 export default function BlogPost() {
   const { slug } = useParams<{ slug: string }>()
+  const navigate = useNavigate()
   const { posts, loading } = useBlogPosts()
   const post = slug ? findBlogPost(slug, posts) : undefined
 
@@ -209,6 +211,23 @@ export default function BlogPost() {
               // same plain-paragraph rendering this page always used, so nothing regresses.
               post.content.map((p, i) => <p key={i}>{p}</p>)}
         </div>
+
+        {/* CTA cuối bài — editable per post from admin (title/button label/button url), so a
+            Studio-focused post can point at /studio while another points elsewhere. */}
+        {post.ctaEnabled && (
+          <div className="mt-10 rounded-2xl bg-[linear-gradient(100deg,#7fa8e022,#ff92f922_55%,#ffd87922)] p-6 text-center">
+            <p className="font-display text-lg font-semibold text-vibe-ink">{post.ctaTitle}</p>
+            <Button
+              className="mt-4"
+              onClick={() => {
+                if (post.ctaButtonUrl.startsWith('/')) navigate(post.ctaButtonUrl)
+                else window.open(post.ctaButtonUrl, '_blank', 'noreferrer')
+              }}
+            >
+              {post.ctaButtonLabel} <ArrowRight size={18} />
+            </Button>
+          </div>
+        )}
 
         {/* Credit/signature line the writing template asks every post to close with
             ("Bài viết và hình ảnh được thực hiện bởi [doanh nghiệp]" + a signature) — editable

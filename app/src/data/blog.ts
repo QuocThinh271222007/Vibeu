@@ -50,6 +50,12 @@ export interface BlogPost {
   /** Editorial opt-out for the auto-generated table of contents (built from this post's own
    * heading2/heading3 blocks) — see buildHeadingIds in BlogPost.tsx. */
   showToc: boolean
+  /** Call-to-action banner rendered after the post's own content — per-post so a
+   * Studio-focused post can point at /studio while another points elsewhere. */
+  ctaEnabled: boolean
+  ctaTitle: string
+  ctaButtonLabel: string
+  ctaButtonUrl: string
 }
 
 // The original editorial posts have been migrated into Supabase rows (see

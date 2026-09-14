@@ -7,6 +7,9 @@ const MAX_COVER_BYTES = 8 * 1024 * 1024
 /** Matches the schema.sql column default — used as a fallback for rows saved before
  * credit_line existed. */
 export const DEFAULT_CREDIT_LINE = 'Bài viết và hình ảnh được thực hiện bởi VIBEU'
+export const DEFAULT_CTA_TITLE = 'Thử ngay ý tưởng này trên Nail Studio'
+export const DEFAULT_CTA_BUTTON_LABEL = 'Bắt đầu thiết kế miễn phí'
+export const DEFAULT_CTA_BUTTON_URL = '/studio'
 
 export interface BlogPostRow {
   id: string
@@ -21,6 +24,10 @@ export interface BlogPostRow {
   secondary_keyword: string
   credit_line: string
   show_toc: boolean
+  cta_enabled: boolean
+  cta_title: string
+  cta_button_label: string
+  cta_button_url: string
   accent_color: string
   cover_src: string | null
   cover_alt: string | null
@@ -48,6 +55,10 @@ function mapRowToPost(row: BlogPostRow): BlogPost {
     secondaryKeyword: row.secondary_keyword ?? '',
     creditLine: row.credit_line ?? DEFAULT_CREDIT_LINE,
     showToc: row.show_toc ?? true,
+    ctaEnabled: row.cta_enabled ?? true,
+    ctaTitle: row.cta_title ?? DEFAULT_CTA_TITLE,
+    ctaButtonLabel: row.cta_button_label ?? DEFAULT_CTA_BUTTON_LABEL,
+    ctaButtonUrl: row.cta_button_url ?? DEFAULT_CTA_BUTTON_URL,
   }
 }
 
@@ -90,6 +101,10 @@ export interface BlogPostInput {
   secondaryKeyword: string
   creditLine: string
   showToc: boolean
+  ctaEnabled: boolean
+  ctaTitle: string
+  ctaButtonLabel: string
+  ctaButtonUrl: string
   accentColor: string
   coverSrc: string | null
   coverAlt: string | null
@@ -111,6 +126,10 @@ export async function createBlogPost(input: BlogPostInput, authorId: string): Pr
     secondary_keyword: input.secondaryKeyword,
     credit_line: input.creditLine,
     show_toc: input.showToc,
+    cta_enabled: input.ctaEnabled,
+    cta_title: input.ctaTitle,
+    cta_button_label: input.ctaButtonLabel,
+    cta_button_url: input.ctaButtonUrl,
     accent_color: input.accentColor,
     cover_src: input.coverSrc,
     cover_alt: input.coverAlt,
@@ -137,6 +156,10 @@ export async function updateBlogPost(id: string, input: BlogPostInput): Promise<
       secondary_keyword: input.secondaryKeyword,
       credit_line: input.creditLine,
       show_toc: input.showToc,
+      cta_enabled: input.ctaEnabled,
+      cta_title: input.ctaTitle,
+      cta_button_label: input.ctaButtonLabel,
+      cta_button_url: input.ctaButtonUrl,
       accent_color: input.accentColor,
       cover_src: input.coverSrc,
       cover_alt: input.coverAlt,

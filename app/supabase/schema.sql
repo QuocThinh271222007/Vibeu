@@ -348,6 +348,12 @@ create table if not exists public.blog_posts (
   -- Auto-generated table of contents (from this post's own heading2/heading3 blocks) — an
   -- editorial opt-out, not a content field: a short post with only one heading doesn't need one.
   show_toc boolean not null default true,
+  -- Call-to-action banner rendered after the post's own content — editable per post so a
+  -- Studio-focused post can point at /studio while a community-focused one points elsewhere.
+  cta_enabled boolean not null default true,
+  cta_title text not null default 'Thử ngay ý tưởng này trên Nail Studio',
+  cta_button_label text not null default 'Bắt đầu thiết kế miễn phí',
+  cta_button_url text not null default '/studio',
   accent_color text not null default '#B6C7EA',
   cover_src text,
   cover_alt text,
@@ -365,6 +371,10 @@ alter table public.blog_posts add column if not exists primary_keyword text not 
 alter table public.blog_posts add column if not exists secondary_keyword text not null default '';
 alter table public.blog_posts add column if not exists credit_line text not null default 'Bài viết và hình ảnh được thực hiện bởi VIBEU';
 alter table public.blog_posts add column if not exists show_toc boolean not null default true;
+alter table public.blog_posts add column if not exists cta_enabled boolean not null default true;
+alter table public.blog_posts add column if not exists cta_title text not null default 'Thử ngay ý tưởng này trên Nail Studio';
+alter table public.blog_posts add column if not exists cta_button_label text not null default 'Bắt đầu thiết kế miễn phí';
+alter table public.blog_posts add column if not exists cta_button_url text not null default '/studio';
 
 -- One-time backfill: turn each existing plain paragraph into a paragraph block, so posts
 -- written before content_blocks existed still render via the new block-based path.
