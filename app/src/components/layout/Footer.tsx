@@ -17,14 +17,14 @@ const LEGAL_LINKS = [{ to: '/chinh-sach', label: 'Chính sách bảo mật' }]
 const SOCIALS = [
   { href: 'https://www.instagram.com/vibe_u_art', icon: InstagramGlyph, label: 'Instagram' },
   { href: 'https://www.threads.com/@vibe_u_art', icon: ThreadsGlyph, label: 'Threads' },
-  { href: 'https://www.facebook.com/people/Vibeu-Art/61593942691951/', icon: FacebookGlyph, label: 'Facebook' },
+  { href: 'https://www.facebook.com/profile.php?id=61593919006915', icon: FacebookGlyph, label: 'Facebook' },
 ]
 
 // Same three real channels as SOCIALS/ContactSection, just as an icon+label list here
 // instead of icon-only buttons.
 const CONTACT_CHANNELS = [
   { icon: Mail, label: 'vibeu.nail.vn@gmail.com', href: 'mailto:vibeu.nail.vn@gmail.com' },
-  { icon: FacebookGlyph, label: 'Vibeu Art', href: 'https://www.facebook.com/people/Vibeu-Art/61593942691951/' },
+  { icon: FacebookGlyph, label: 'Vibeu Art', href: 'https://www.facebook.com/profile.php?id=61593919006915' },
   { icon: InstagramGlyph, label: '@vibe_u_art', href: 'https://www.instagram.com/vibe_u_art' },
 ]
 

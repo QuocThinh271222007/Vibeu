@@ -18,7 +18,7 @@ const CHANNELS = [
     icon: FacebookGlyph,
     label: 'Facebook Fanpage',
     value: 'Vibeu Art (Fanpage Official)',
-    href: 'https://www.facebook.com/people/Vibeu-Art/61593942691951/',
+    href: 'https://www.facebook.com/profile.php?id=61593919006915',
   },
   {
     icon: InstagramGlyph,
