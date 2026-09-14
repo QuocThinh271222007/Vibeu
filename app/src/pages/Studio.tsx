@@ -22,7 +22,7 @@ import { getLockedTemplateView } from '@/lib/templateLock'
 import { FINGER_LABEL_VI, type NailLength, type NailShape, type SkinToneId } from '@/types/vibeu'
 
 const VALID_TONES = new Set<SkinToneId>(['cozy', 'matcha'])
-const VALID_SHAPES = new Set<NailShape>(['oval', 'square', 'coffin', 'almond'])
+const VALID_SHAPES = new Set<NailShape>(['oval', 'square', 'coffin', 'almond', 'stiletto'])
 const VALID_LENGTHS = new Set<NailLength>(['S', 'M', 'L'])
 
 const TABS: { id: StudioTab; label: string; icon: typeof Palette }[] = [

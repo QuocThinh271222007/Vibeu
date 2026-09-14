@@ -104,16 +104,20 @@ export const EFFECT_LABEL_VI: Record<EffectId, string> = {
   velvet: 'Velvet',
 }
 
-export type NailShape = 'oval' | 'square' | 'coffin' | 'almond'
+export type NailShape = 'oval' | 'square' | 'coffin' | 'almond' | 'stiletto'
 
 // The `almond` id's own traced geometry/real hand photos are a soft tapered point (an actual
 // almond shape), not a razor-sharp stiletto — this label previously said "Nhọn" (pointy/
-// stiletto), which doesn't match what the shape actually looks like when rendered.
+// stiletto), which doesn't match what the shape actually looks like when rendered. `stiletto`
+// is the real sharp-point shape ("Nhọn") added alongside it — no real hand photos yet, so it
+// renders via the same "no photo for this shape/length yet" fallback every shape already
+// supports (see ShapeLengthTab.tsx) until real photos are traced in via /admin/geometry.
 export const SHAPE_LABEL_VI: Record<NailShape, string> = {
   oval: 'Oval',
   square: 'Vuông',
   coffin: 'Coffin',
   almond: 'Hạnh nhân',
+  stiletto: 'Nhọn',
 }
 
 export type NailLength = 'S' | 'M' | 'L'

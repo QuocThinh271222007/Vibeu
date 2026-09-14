@@ -27,7 +27,7 @@ export interface DetectedGeometryTarget {
 }
 
 const SKIN_TONES = new Set<SkinToneId>(['cozy', 'matcha'])
-const SHAPES = new Set<NailShape>(['oval', 'square', 'coffin', 'almond'])
+const SHAPES = new Set<NailShape>(['oval', 'square', 'coffin', 'almond', 'stiletto'])
 const LENGTHS = new Set<NailLength>(['S', 'M', 'L'])
 const FINGERS = new Set<FingerId>(['thumb', 'index', 'middle', 'ring', 'little'])
 
@@ -68,7 +68,7 @@ export function detectGeometryTarget(value: unknown, filename = ''): DetectedGeo
     }
   }
 
-  const match = filename.match(/(?:^|[-_])(cozy|matcha)[-_](oval|square|coffin|almond)[-_]([sml])(?:[-_.]|$)/i)
+  const match = filename.match(/(?:^|[-_])(cozy|matcha)[-_](oval|square|coffin|almond|stiletto)[-_]([sml])(?:[-_.]|$)/i)
   if (!match) return null
   return {
     tone: match[1].toLowerCase() as SkinToneId,

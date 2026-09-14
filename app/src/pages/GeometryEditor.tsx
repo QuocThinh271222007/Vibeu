@@ -107,7 +107,7 @@ type DragState =
       sourceView: ViewState
     }
 
-const SHAPES: NailShape[] = ['oval', 'square', 'coffin', 'almond']
+const SHAPES: NailShape[] = ['oval', 'square', 'coffin', 'almond', 'stiletto']
 const LENGTHS: NailLength[] = ['S', 'M', 'L']
 const TONES: { id: SkinToneId; label: string }[] = [
   { id: 'cozy', label: 'Da sáng' },

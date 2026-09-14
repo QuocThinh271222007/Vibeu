@@ -4,7 +4,7 @@ import { SHAPE_LABEL_VI } from '@/types/vibeu'
 import { availableLengthsForShape } from '@/data/handVariants'
 import { uniformShapeLength } from '@/lib/geometry'
 
-const SHAPES: NailShape[] = ['oval', 'square', 'coffin', 'almond']
+const SHAPES: NailShape[] = ['oval', 'square', 'coffin', 'almond', 'stiletto']
 const LENGTHS: NailLength[] = ['S', 'M', 'L']
 
 export function ShapeLengthTab({
@@ -28,7 +28,7 @@ export function ShapeLengthTab({
     <div className="space-y-7">
       <div>
         <p className="mb-3 text-sm font-semibold text-vibe-ink">Form móng</p>
-        <div className="grid grid-cols-4 gap-2.5">
+        <div className="grid grid-cols-3 gap-2.5 sm:grid-cols-5">
           {SHAPES.map((s) => (
             <button
               key={s}
@@ -97,6 +97,8 @@ function ShapeIcon({ shape, active }: { shape: NailShape; active: boolean }) {
     square: 'M4 3H14V13C14 18 11 20 9 20C7 20 4 18 4 13V3Z',
     coffin: 'M5 3H13L14 13C14 17 12 20 9 20C6 20 4 17 4 13L5 3Z',
     almond: 'M9 2C13 6 16 11 16 14C16 18 13 20 9 20C5 20 2 18 2 14C2 11 5 6 9 2Z',
+    // Sharp straight-line taper to a fine point — visibly pointier than almond's soft curve.
+    stiletto: 'M9 1L14 13C14.8 16.5 13 19 9 20C5 19 3.2 16.5 4 13L9 1Z',
   }
   return (
     <svg width="18" height="22" viewBox="0 0 18 22" fill="none">
