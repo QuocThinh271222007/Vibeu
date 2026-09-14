@@ -15,3 +15,4 @@ export const supabase: SupabaseClient | null = isSupabaseConfigured ? createClie
 export const COMMUNITY_MEDIA_BUCKET = 'community-media'
 export const BLOG_COVERS_BUCKET = 'blog-covers'
 export const TEMPLATE_COVERS_BUCKET = 'template-covers'
+export const DECAL_ASSETS_BUCKET = 'decal-assets'

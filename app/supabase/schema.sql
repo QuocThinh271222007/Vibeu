@@ -518,6 +518,56 @@ create policy "Admins manage templates"
   );
 
 -- =========================================================================
+-- decals — nail-art sticker/charm library (Thư viện Charm in Studio). Public read, admin-only
+-- write/CRUD from /admin/decals. The original ~520 built-in decals (flat-vector "standard" set +
+-- illustrated "premium" pack, previously public/assets/decals/manifest.json and
+-- .../premium/manifest.json) are migrated into this table by
+-- supabase/migrations/20260915_seed_decals.sql — same "static catalog → fully Supabase-backed"
+-- move already done for templates (see data/templates.ts). `path`/`thumbnail` may be either a
+-- path relative to /assets/decals/ (the original built-in assets, left on disk as-is — no need
+-- to re-upload ~520 files) or a full Storage URL (new decals uploaded from /admin/decals) —
+-- resolveDecalPath() in data/loaders.ts already handles both.
+-- =========================================================================
+create table if not exists public.decals (
+  id text primary key,
+  name text not null,
+  name_vi text not null,
+  category text not null,
+  category_vi text not null,
+  tags text[] not null default '{}',
+  path text not null,
+  thumbnail text,
+  view_box_w numeric not null default 100,
+  view_box_h numeric not null default 100,
+  -- [x, y, w, h] in 0..1 image-space — the asset's real (non-transparent-padding) content region.
+  content_bounds numeric[] not null default '{0,0,1,1}',
+  default_scale numeric not null default 0.6,
+  tintable boolean not null default false,
+  layer_type text not null default 'decal' check (layer_type in ('decal', 'foil', 'raised')),
+  style text,
+  source text not null default '',
+  license text not null default '',
+  tier text not null default 'standard' check (tier in ('standard', 'premium')),
+  created_by uuid references public.profiles (id) on delete set null,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+alter table public.decals enable row level security;
+
+drop policy if exists "Decals are viewable by everyone" on public.decals;
+create policy "Decals are viewable by everyone"
+  on public.decals for select using (true);
+
+drop policy if exists "Admins manage decals" on public.decals;
+create policy "Admins manage decals"
+  on public.decals for all using (
+    exists (select 1 from public.profiles where id = auth.uid() and role = 'admin')
+  ) with check (
+    exists (select 1 from public.profiles where id = auth.uid() and role = 'admin')
+  );
+
+-- =========================================================================
 -- nail_geometry_variants — runtime-published nail geometry from /admin/geometry's "Publish"
 -- button, checked before the static coordinates.json fallback (see getHandData in
 -- data/loaders.ts) so a recalibration goes live without a redeploy. `shape`'s check list must
@@ -916,6 +966,30 @@ drop policy if exists "Admins can delete template covers" on storage.objects;
 create policy "Admins can delete template covers"
   on storage.objects for delete using (
     bucket_id = 'template-covers' and exists (select 1 from public.profiles where id = auth.uid() and role = 'admin')
+  );
+
+-- =========================================================================
+-- Storage bucket for newly-uploaded decal/charm art from /admin/decals — the ~520 migrated
+-- built-in decals stay on disk under public/assets/decals/ and are never uploaded here.
+-- =========================================================================
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values ('decal-assets', 'decal-assets', true, 4194304, array['image/svg+xml', 'image/png', 'image/webp', 'image/gif'])
+on conflict (id) do update set file_size_limit = excluded.file_size_limit, allowed_mime_types = excluded.allowed_mime_types;
+
+drop policy if exists "Public read decal assets" on storage.objects;
+create policy "Public read decal assets"
+  on storage.objects for select using (bucket_id = 'decal-assets');
+
+drop policy if exists "Admins can upload decal assets" on storage.objects;
+create policy "Admins can upload decal assets"
+  on storage.objects for insert with check (
+    bucket_id = 'decal-assets' and exists (select 1 from public.profiles where id = auth.uid() and role = 'admin')
+  );
+
+drop policy if exists "Admins can delete decal assets" on storage.objects;
+create policy "Admins can delete decal assets"
+  on storage.objects for delete using (
+    bucket_id = 'decal-assets' and exists (select 1 from public.profiles where id = auth.uid() and role = 'admin')
   );
 
 -- =========================================================================

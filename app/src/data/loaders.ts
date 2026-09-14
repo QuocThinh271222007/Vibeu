@@ -4,6 +4,7 @@ import { handVariantSegment } from '@/data/handVariants'
 import { fetchGeometryOverride } from '@/lib/geometryAdminApi'
 import { validateHandData } from '@/lib/geometryEditor'
 import { getAllTemplates, getAllTemplatesAsync } from '@/data/templates'
+import { getAllDecalsAsync } from '@/data/decals'
 
 interface ColorManifest {
   presets: ColorPreset[]
@@ -28,8 +29,6 @@ function cachedFetch<T>(url: string): () => Promise<T> {
 }
 
 const getColorManifest = cachedFetch<ColorManifest>('/assets/colors/manifest.json')
-const getStandardDecalManifest = cachedFetch<DecalManifest>('/assets/decals/manifest.json')
-const getPremiumDecalManifest = cachedFetch<DecalManifest>('/assets/decals/premium/manifest.json')
 
 const handDataLoaders = new Map<string, () => Promise<HandData>>()
 // Bump whenever hand photos/coordinates are recalibrated. Static hosts and browser
@@ -68,25 +67,21 @@ export function invalidateHandData(tone: SkinToneId, shape: NailShape, length: N
 }
 
 /**
- * Merges the original flat-vector decal library with the richer illustrated premium pack
- * into one list — same architecture either way (one manifest + a `path` the compositor
- * decodes to pixels), so new/replacement decal packs never require hard-coding individual
- * asset ids anywhere else in the app. `tier` is stamped here (not stored in either raw
- * manifest) purely so the picker UI can group/badge premium items separately per the
- * "separate quality tier until migration is finished" requirement.
+ * Every decal (the ~520 migrated built-ins + anything added from /admin/decals), fetched from
+ * Supabase (see data/decals.ts) — the old two-manifest merge (flat-vector + illustrated premium
+ * pack) is gone now that both live as `tier` on the same table. `categories` is derived here by
+ * grouping the actual decal rows instead of trusting a separately-authored count, so it can
+ * never drift out of sync with what's really in the library.
  */
 async function getDecalManifest(): Promise<DecalManifest> {
-  const [standard, premium] = await Promise.all([
-    getStandardDecalManifest(),
-    getPremiumDecalManifest().catch(() => ({ categories: [], decals: [] }) as DecalManifest),
-  ])
-  return {
-    categories: [...standard.categories, ...premium.categories],
-    decals: [
-      ...standard.decals.map((d) => ({ ...d, tier: 'standard' as const })),
-      ...premium.decals.map((d) => ({ ...d, tier: 'premium' as const })),
-    ],
+  const decals = await getAllDecalsAsync()
+  const categories = new Map<string, StickerCategory>()
+  for (const d of decals) {
+    const existing = categories.get(d.category)
+    if (existing) existing.count += 1
+    else categories.set(d.category, { id: d.category, nameVi: d.categoryVi, count: 1 })
   }
+  return { decals, categories: [...categories.values()] }
 }
 
 /** `shape`/`length` only change anything when a matching hand-variants.ts entry exists;

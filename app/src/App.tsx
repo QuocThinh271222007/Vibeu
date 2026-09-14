@@ -35,6 +35,7 @@ const AdminBlogCategories = lazy(() => import('@/pages/admin/AdminBlogCategories
 const AdminCommunity = lazy(() => import('@/pages/admin/AdminCommunity'))
 const AdminFeedback = lazy(() => import('@/pages/admin/AdminFeedback'))
 const AdminTemplates = lazy(() => import('@/pages/admin/AdminTemplates'))
+const AdminDecals = lazy(() => import('@/pages/admin/AdminDecals'))
 const AdminUsers = lazy(() => import('@/pages/admin/AdminUsers'))
 const AdminRecipes = lazy(() => import('@/pages/admin/AdminRecipes'))
 const AdminSettings = lazy(() => import('@/pages/admin/AdminSettings'))
@@ -167,6 +168,7 @@ export default function App() {
             <Route path="community" element={<AdminCommunity />} />
             <Route path="feedback" element={<AdminFeedback />} />
             <Route path="templates" element={<AdminTemplates />} />
+            <Route path="decals" element={<AdminDecals />} />
             <Route path="users" element={<AdminUsers />} />
             <Route path="recipes" element={<AdminRecipes />} />
             <Route path="geometry" element={<GeometryEditor adminMode />} />
