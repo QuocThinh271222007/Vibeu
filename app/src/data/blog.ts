@@ -1,10 +1,6 @@
-export type BlogCategory = 'tips' | 'trend' | 'care'
-
-export const BLOG_CATEGORY_LABEL: Record<BlogCategory, string> = {
-  tips: 'Mẹo làm đẹp',
-  trend: 'Trend móng mới',
-  care: 'Hướng dẫn dưỡng móng',
-}
+/** A slug into blog_categories ("Danh mục"), managed from /admin/blog-categories — no longer
+ * a fixed union. Use useBlogCategories()'s `labelFor` to resolve it to a display name. */
+export type BlogCategory = string
 
 /**
  * Real editorial cover photo/illustration for a post. Optional: a post without one falls

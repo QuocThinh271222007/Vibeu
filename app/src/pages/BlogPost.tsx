@@ -4,8 +4,9 @@ import { ArrowLeft, ArrowRight, List } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Logo } from '@/components/ui/Logo'
 import { MediaPlaceholder } from '@/components/ui/MediaPlaceholder'
-import { BLOG_CATEGORY_LABEL, findBlogPost, relatedPosts, type ContentBlock, type BlogPost as BlogPostType } from '@/data/blog'
+import { findBlogPost, relatedPosts, type ContentBlock, type BlogPost as BlogPostType } from '@/data/blog'
 import { useBlogPosts } from '@/hooks/useBlogPosts'
+import { useBlogCategories } from '@/hooks/useBlogCategories'
 import { PageMeta } from '@/components/seo/PageMeta'
 import { slugify } from '@/lib/slug'
 
@@ -57,6 +58,7 @@ export default function BlogPost() {
   const { slug } = useParams<{ slug: string }>()
   const navigate = useNavigate()
   const { posts, loading } = useBlogPosts()
+  const { labelFor } = useBlogCategories()
   const post = slug ? findBlogPost(slug, posts) : undefined
 
   if (!post) {
@@ -97,7 +99,7 @@ export default function BlogPost() {
 
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
         <span className="mt-6 inline-block text-xs font-semibold uppercase tracking-wide text-vibe-pink-dark">
-          {BLOG_CATEGORY_LABEL[post.category]}
+          {labelFor(post.category)}
         </span>
         <h1 className="mt-2 font-display text-3xl font-semibold text-vibe-ink sm:text-4xl">{post.title}</h1>
         <p className="mt-3 text-sm text-vibe-ink-soft">

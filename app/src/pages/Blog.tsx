@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Chip } from '@/components/ui/Chip'
 import { MediaPlaceholder } from '@/components/ui/MediaPlaceholder'
-import { BLOG_CATEGORY_LABEL, type BlogCategory, type BlogPost } from '@/data/blog'
+import type { BlogPost } from '@/data/blog'
 import { useBlogPosts } from '@/hooks/useBlogPosts'
+import { useBlogCategories } from '@/hooks/useBlogCategories'
 import { useBlogSeries } from '@/hooks/useBlogSeries'
 import { PageMeta } from '@/components/seo/PageMeta'
 
@@ -28,12 +29,11 @@ function BlogCoverMedia({ post, className, compact = false, priority = false }: 
   )
 }
 
-const CATS: (BlogCategory | 'all')[] = ['all', 'tips', 'trend', 'care']
-
 export default function Blog() {
-  const [cat, setCat] = useState<BlogCategory | 'all'>('all')
+  const [cat, setCat] = useState<string | 'all'>('all')
   const [seriesFilter, setSeriesFilter] = useState<string | 'all'>('all')
   const { posts } = useBlogPosts()
+  const { categories, labelFor } = useBlogCategories()
   const { series } = useBlogSeries()
 
   const filtered = useMemo(
@@ -60,9 +60,12 @@ export default function Blog() {
       </div>
 
       <div className="mt-8 flex flex-wrap justify-center gap-2">
-        {CATS.map((c) => (
-          <Chip key={c} active={cat === c} onClick={() => setCat(c)}>
-            {c === 'all' ? 'Tất cả' : BLOG_CATEGORY_LABEL[c]}
+        <Chip active={cat === 'all'} onClick={() => setCat('all')}>
+          Tất cả
+        </Chip>
+        {categories.map((c) => (
+          <Chip key={c.id} active={cat === c.slug} onClick={() => setCat(c.slug)}>
+            {c.name}
           </Chip>
         ))}
       </div>
@@ -92,7 +95,7 @@ export default function Blog() {
             >
               <BlogCoverMedia post={featured} className="aspect-video overflow-hidden sm:aspect-auto" priority />
               <div className="flex flex-col justify-center p-7 sm:p-9">
-                <span className="text-xs font-semibold uppercase tracking-wide text-vibe-pink-dark">{BLOG_CATEGORY_LABEL[featured.category]}</span>
+                <span className="text-xs font-semibold uppercase tracking-wide text-vibe-pink-dark">{labelFor(featured.category)}</span>
                 <h2 className="mt-2 font-display text-2xl font-semibold text-vibe-ink transition-colors group-hover:text-vibe-pink-dark">{featured.title}</h2>
                 <p className="mt-3 text-sm leading-relaxed text-vibe-ink-soft">{featured.excerpt}</p>
                 <p className="mt-4 text-xs text-vibe-ink-soft">{formatDate(featured.date)} · {featured.readMinutes} phút đọc</p>
@@ -107,7 +110,7 @@ export default function Blog() {
                   <BlogCoverMedia post={p} className="h-16 w-16 shrink-0 overflow-hidden rounded-xl" compact />
                   <div className="min-w-0 flex-1">
                     <p className="truncate font-display text-sm font-semibold text-vibe-ink group-hover:text-vibe-pink-dark">{p.title}</p>
-                    <p className="mt-1 text-xs text-vibe-ink-soft">{BLOG_CATEGORY_LABEL[p.category]} · {formatDate(p.date)}</p>
+                    <p className="mt-1 text-xs text-vibe-ink-soft">{labelFor(p.category)} · {formatDate(p.date)}</p>
                   </div>
                 </Link>
               </motion.div>

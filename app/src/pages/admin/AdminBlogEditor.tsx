@@ -2,8 +2,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { ArrowDown, ArrowLeft, ArrowUp, Heading2, Heading3, ImagePlus, Pilcrow, Save, Trash2, Upload } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
-import type { BlogCategory, ContentBlock } from '@/data/blog'
-import { BLOG_CATEGORY_LABEL } from '@/data/blog'
+import type { ContentBlock } from '@/data/blog'
 import {
   createBlogPost,
   DEFAULT_CREDIT_LINE,
@@ -15,11 +14,10 @@ import {
   uploadBlogCover,
   type BlogPostInput,
 } from '@/lib/blogApi'
+import { fetchAllBlogCategories, type BlogCategoryRow } from '@/lib/blogCategoriesApi'
 import { fetchAllBlogSeries, type BlogSeriesRow } from '@/lib/blogSeriesApi'
 import { slugify } from '@/lib/slug'
 import { useAuthStore } from '@/store/authStore'
-
-const CATEGORIES: BlogCategory[] = ['tips', 'trend', 'care']
 
 const EMPTY_BLOCKS: ContentBlock[] = [{ type: 'paragraph', text: '' }]
 
@@ -154,9 +152,11 @@ export default function AdminBlogEditor() {
   const [uploadingBlock, setUploadingBlock] = useState<number | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [seriesOptions, setSeriesOptions] = useState<BlogSeriesRow[]>([])
+  const [categoryOptions, setCategoryOptions] = useState<BlogCategoryRow[]>([])
 
   useEffect(() => {
     fetchAllBlogSeries().then(setSeriesOptions)
+    fetchAllBlogCategories().then(setCategoryOptions)
   }, [])
 
   useEffect(() => {
@@ -319,12 +319,12 @@ export default function AdminBlogEditor() {
           <Field label="Danh mục">
             <select
               value={form.category}
-              onChange={(e) => setForm((f) => ({ ...f, category: e.target.value as BlogCategory }))}
+              onChange={(e) => setForm((f) => ({ ...f, category: e.target.value }))}
               className="w-full rounded-xl border-2 border-vibe-ink/10 px-3.5 py-2.5 text-sm outline-none focus:border-vibe-pink/50"
             >
-              {CATEGORIES.map((c) => (
-                <option key={c} value={c}>
-                  {BLOG_CATEGORY_LABEL[c]}
+              {categoryOptions.map((c) => (
+                <option key={c.id} value={c.slug}>
+                  {c.name}
                 </option>
               ))}
             </select>

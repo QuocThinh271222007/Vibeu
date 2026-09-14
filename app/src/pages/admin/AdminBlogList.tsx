@@ -1,22 +1,24 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Pencil, Plus, Trash2 } from 'lucide-react'
-import { BLOG_CATEGORY_LABEL } from '@/data/blog'
 import { useToast } from '@/components/ui/Toast'
 import { deleteBlogPost, fetchAllBlogPostsAdmin, type BlogPostRow } from '@/lib/blogApi'
+import { fetchAllBlogCategories, type BlogCategoryRow } from '@/lib/blogCategoriesApi'
 import { fetchAllBlogSeries, type BlogSeriesRow } from '@/lib/blogSeriesApi'
 
 export default function AdminBlogList() {
   const { push } = useToast()
   const [rows, setRows] = useState<BlogPostRow[]>([])
+  const [categories, setCategories] = useState<BlogCategoryRow[]>([])
   const [series, setSeries] = useState<BlogSeriesRow[]>([])
   const [seriesFilter, setSeriesFilter] = useState<string | 'all'>('all')
   const [loading, setLoading] = useState(true)
 
   function reload() {
     setLoading(true)
-    Promise.all([fetchAllBlogPostsAdmin(), fetchAllBlogSeries()]).then(([posts, allSeries]) => {
+    Promise.all([fetchAllBlogPostsAdmin(), fetchAllBlogCategories(), fetchAllBlogSeries()]).then(([posts, allCategories, allSeries]) => {
       setRows(posts)
+      setCategories(allCategories)
       setSeries(allSeries)
       setLoading(false)
     })
@@ -24,6 +26,7 @@ export default function AdminBlogList() {
 
   useEffect(reload, [])
 
+  const categoryBySlug = useMemo(() => new Map(categories.map((c) => [c.slug, c.name])), [categories])
   const seriesById = useMemo(() => new Map(series.map((s) => [s.id, s.name])), [series])
   const filteredRows = seriesFilter === 'all' ? rows : rows.filter((r) => r.series_id === seriesFilter)
 
@@ -97,7 +100,7 @@ export default function AdminBlogList() {
               filteredRows.map((r) => (
                 <tr key={r.id} className="border-b border-vibe-ink/5 last:border-0">
                   <td className="px-4 py-3 font-medium text-vibe-ink">{r.title}</td>
-                  <td className="px-4 py-3 text-vibe-ink-soft">{BLOG_CATEGORY_LABEL[r.category]}</td>
+                  <td className="px-4 py-3 text-vibe-ink-soft">{categoryBySlug.get(r.category) ?? r.category}</td>
                   <td className="px-4 py-3 text-vibe-ink-soft">{r.series_id ? (seriesById.get(r.series_id) ?? '—') : '—'}</td>
                   <td className="px-4 py-3">
                     <span className={`rounded-full px-2.5 py-1 text-xs font-medium ${r.published ? 'bg-emerald-50 text-emerald-700' : 'bg-vibe-cream text-vibe-ink-soft'}`}>

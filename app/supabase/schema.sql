@@ -353,13 +353,51 @@ create policy "Admins manage blog series"
   );
 
 -- =========================================================================
+-- blog_categories — the blog's category taxonomy ("Danh mục": Mẹo làm đẹp /
+-- Trend móng mới / Hướng dẫn dưỡng móng out of the box, extensible from
+-- /admin). Public read, admin write. blog_posts.category stores the slug as
+-- plain text below — no FK — so this table is just where the canonical
+-- slug->display-name list lives; it no longer has to be a hardcoded 3-value
+-- TypeScript union + check constraint.
+-- =========================================================================
+create table if not exists public.blog_categories (
+  id uuid primary key default gen_random_uuid(),
+  slug text not null unique,
+  name text not null,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+alter table public.blog_categories enable row level security;
+
+drop policy if exists "Blog categories are viewable by everyone" on public.blog_categories;
+create policy "Blog categories are viewable by everyone"
+  on public.blog_categories for select using (true);
+
+drop policy if exists "Admins manage blog categories" on public.blog_categories;
+create policy "Admins manage blog categories"
+  on public.blog_categories for all using (
+    exists (select 1 from public.profiles where id = auth.uid() and role = 'admin')
+  ) with check (
+    exists (select 1 from public.profiles where id = auth.uid() and role = 'admin')
+  );
+
+insert into public.blog_categories (slug, name) values
+  ('tips', 'Mẹo làm đẹp'),
+  ('trend', 'Trend móng mới'),
+  ('care', 'Hướng dẫn dưỡng móng')
+on conflict (slug) do nothing;
+
+-- =========================================================================
 -- blog_posts — editorial posts, created/edited only from /admin.
 -- =========================================================================
 create table if not exists public.blog_posts (
   id uuid primary key default gen_random_uuid(),
   slug text not null unique,
   title text not null,
-  category text not null default 'tips' check (category in ('tips', 'trend', 'care')),
+  -- Slug into blog_categories (above) — plain text, no FK: same shape as before, just no
+  -- longer restricted to a hardcoded 3-value check (see the constraint drop further below).
+  category text not null default 'tips',
   excerpt text not null default '',
   content text[] not null default '{}',
   -- Ordered rich content: [{type:'paragraph'|'heading2'|'heading3', text} | {type:'image', src, alt, caption}].
@@ -406,6 +444,8 @@ alter table public.blog_posts add column if not exists cta_title text not null d
 alter table public.blog_posts add column if not exists cta_button_label text not null default 'Bắt đầu thiết kế miễn phí';
 alter table public.blog_posts add column if not exists cta_button_url text not null default '/studio';
 alter table public.blog_posts add column if not exists series_id uuid references public.blog_series (id) on delete set null;
+-- category is now a dynamic slug into blog_categories, not one of a hardcoded 3 values.
+alter table public.blog_posts drop constraint if exists blog_posts_category_check;
 
 -- One-time backfill: turn each existing plain paragraph into a paragraph block, so posts
 -- written before content_blocks existed still render via the new block-based path.

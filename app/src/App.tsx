@@ -31,6 +31,7 @@ const AdminHome = lazy(() => import('@/pages/admin/AdminHome'))
 const AdminBlogList = lazy(() => import('@/pages/admin/AdminBlogList'))
 const AdminBlogEditor = lazy(() => import('@/pages/admin/AdminBlogEditor'))
 const AdminBlogSeries = lazy(() => import('@/pages/admin/AdminBlogSeries'))
+const AdminBlogCategories = lazy(() => import('@/pages/admin/AdminBlogCategories'))
 const AdminCommunity = lazy(() => import('@/pages/admin/AdminCommunity'))
 const AdminFeedback = lazy(() => import('@/pages/admin/AdminFeedback'))
 const AdminTemplates = lazy(() => import('@/pages/admin/AdminTemplates'))
@@ -162,6 +163,7 @@ export default function App() {
             <Route path="blog/new" element={<AdminBlogEditor />} />
             <Route path="blog/:id" element={<AdminBlogEditor />} />
             <Route path="blog-series" element={<AdminBlogSeries />} />
+            <Route path="blog-categories" element={<AdminBlogCategories />} />
             <Route path="community" element={<AdminCommunity />} />
             <Route path="feedback" element={<AdminFeedback />} />
             <Route path="templates" element={<AdminTemplates />} />
