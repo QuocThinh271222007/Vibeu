@@ -518,6 +518,34 @@ create policy "Admins manage templates"
   );
 
 -- =========================================================================
+-- decal_categories — the canonical pick-list for decals.category/category_vi, managed from
+-- /admin/decals' "Quản lý danh mục" panel. decals keeps its own denormalized category/
+-- category_vi columns (unchanged, no join needed for the Charm library's normal reads) —
+-- renaming a category here cascades into every decals row referencing it (see
+-- updateDecalCategory in decalCategoriesApi.ts) so the two never drift apart.
+-- =========================================================================
+create table if not exists public.decal_categories (
+  id text primary key,
+  name_vi text not null,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+alter table public.decal_categories enable row level security;
+
+drop policy if exists "Decal categories are viewable by everyone" on public.decal_categories;
+create policy "Decal categories are viewable by everyone"
+  on public.decal_categories for select using (true);
+
+drop policy if exists "Admins manage decal categories" on public.decal_categories;
+create policy "Admins manage decal categories"
+  on public.decal_categories for all using (
+    exists (select 1 from public.profiles where id = auth.uid() and role = 'admin')
+  ) with check (
+    exists (select 1 from public.profiles where id = auth.uid() and role = 'admin')
+  );
+
+-- =========================================================================
 -- decals — nail-art sticker/charm library (Thư viện Charm in Studio). Public read, admin-only
 -- write/CRUD from /admin/decals. The original ~520 built-in decals (flat-vector "standard" set +
 -- illustrated "premium" pack, previously public/assets/decals/manifest.json and

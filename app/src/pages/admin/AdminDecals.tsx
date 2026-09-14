@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Pencil, Plus, Search, Trash2, Upload, X } from 'lucide-react'
+import { FolderCog, Pencil, Plus, Search, Trash2, Upload, X } from 'lucide-react'
 import { resolveDecalPath } from '@/data/loaders'
 import { invalidateDecals } from '@/data/decals'
 import { useToast } from '@/components/ui/Toast'
@@ -13,6 +13,13 @@ import {
   type DecalInput,
   type DecalRow,
 } from '@/lib/decalsApi'
+import {
+  createDecalCategory,
+  deleteDecalCategory,
+  fetchAllDecalCategories,
+  updateDecalCategory,
+  type DecalCategoryRow,
+} from '@/lib/decalCategoriesApi'
 import { slugify } from '@/lib/slug'
 import { useAuthStore } from '@/store/authStore'
 import type { DecalLayerType } from '@/types/vibeu'
@@ -67,23 +74,30 @@ const EMPTY_INPUT: DecalInput = {
 export default function AdminDecals() {
   const { push } = useToast()
   const [rows, setRows] = useState<DecalRow[]>([])
+  const [categoryRows, setCategoryRows] = useState<DecalCategoryRow[]>([])
   const [loading, setLoading] = useState(true)
   const [search, setSearch] = useState('')
   const [tierFilter, setTierFilter] = useState<'all' | 'standard' | 'premium'>('all')
   const [categoryFilter, setCategoryFilter] = useState('all')
   const [editing, setEditing] = useState<DecalRow | 'new' | null>(null)
+  const [managingCategories, setManagingCategories] = useState(false)
 
   function reload() {
     setLoading(true)
-    fetchAllDecalsAdmin().then((data) => {
-      setRows(data)
+    Promise.all([fetchAllDecalsAdmin(), fetchAllDecalCategories()]).then(([decals, categories]) => {
+      setRows(decals)
+      setCategoryRows(categories)
       setLoading(false)
     })
   }
 
   useEffect(reload, [])
 
-  const categories = useMemo(() => [...new Set(rows.map((r) => r.category))].sort(), [rows])
+  const categoryCount = useMemo(() => {
+    const counts = new Map<string, number>()
+    for (const r of rows) counts.set(r.category, (counts.get(r.category) ?? 0) + 1)
+    return counts
+  }, [rows])
 
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase()
@@ -116,12 +130,20 @@ export default function AdminDecals() {
             Toàn bộ thư viện sticker/charm trong Nail Studio ({rows.length} decal) — thêm/sửa/xoá tại đây, có hiệu lực ngay không cần deploy.
           </p>
         </div>
-        <button
-          onClick={() => setEditing('new')}
-          className="flex shrink-0 items-center gap-1.5 rounded-full bg-vibe-ink px-4 py-2 text-sm font-semibold text-white"
-        >
-          <Plus size={16} /> Decal mới
-        </button>
+        <div className="flex shrink-0 gap-2">
+          <button
+            onClick={() => setManagingCategories(true)}
+            className="flex items-center gap-1.5 rounded-full border-2 border-vibe-ink/10 px-4 py-2 text-sm font-semibold text-vibe-ink-soft hover:border-vibe-pink/40 hover:text-vibe-ink"
+          >
+            <FolderCog size={16} /> Quản lý danh mục
+          </button>
+          <button
+            onClick={() => setEditing('new')}
+            className="flex items-center gap-1.5 rounded-full bg-vibe-ink px-4 py-2 text-sm font-semibold text-white"
+          >
+            <Plus size={16} /> Decal mới
+          </button>
+        </div>
       </div>
 
       <div className="mt-4 flex flex-wrap items-center gap-2">
@@ -149,9 +171,9 @@ export default function AdminDecals() {
           className="rounded-full border-2 border-vibe-ink/10 px-3.5 py-2 text-sm outline-none focus:border-vibe-pink/50"
         >
           <option value="all">Mọi danh mục</option>
-          {categories.map((c) => (
-            <option key={c} value={c}>
-              {c}
+          {categoryRows.map((c) => (
+            <option key={c.id} value={c.id}>
+              {c.name_vi}
             </option>
           ))}
         </select>
@@ -199,9 +221,22 @@ export default function AdminDecals() {
       {editing && (
         <EditDecalModal
           row={editing === 'new' ? null : editing}
+          categoryRows={categoryRows}
           onClose={() => setEditing(null)}
           onSaved={() => {
             setEditing(null)
+            void invalidateDecals()
+            reload()
+          }}
+        />
+      )}
+
+      {managingCategories && (
+        <CategoryManagerModal
+          categoryRows={categoryRows}
+          categoryCount={categoryCount}
+          onClose={() => setManagingCategories(false)}
+          onChanged={() => {
             void invalidateDecals()
             reload()
           }}
@@ -211,7 +246,138 @@ export default function AdminDecals() {
   )
 }
 
-function EditDecalModal({ row, onClose, onSaved }: { row: DecalRow | null; onClose: () => void; onSaved: () => void }) {
+function CategoryManagerModal({
+  categoryRows,
+  categoryCount,
+  onClose,
+  onChanged,
+}: {
+  categoryRows: DecalCategoryRow[]
+  categoryCount: Map<string, number>
+  onClose: () => void
+  onChanged: () => void
+}) {
+  const { push } = useToast()
+  const [newName, setNewName] = useState('')
+  const [renaming, setRenaming] = useState<Record<string, string>>({})
+  const [busyId, setBusyId] = useState<string | null>(null)
+  const [creating, setCreating] = useState(false)
+
+  async function handleCreate() {
+    if (!newName.trim()) return
+    const id = slugify(newName)
+    setCreating(true)
+    const { error } = await createDecalCategory(id, newName.trim())
+    setCreating(false)
+    if (error) {
+      push('error', error)
+      return
+    }
+    setNewName('')
+    push('success', 'Đã tạo danh mục.')
+    onChanged()
+  }
+
+  async function handleRename(row: DecalCategoryRow) {
+    const nextName = (renaming[row.id] ?? row.name_vi).trim()
+    if (!nextName || nextName === row.name_vi) return
+    setBusyId(row.id)
+    const { error } = await updateDecalCategory(row.id, nextName)
+    setBusyId(null)
+    if (error) {
+      push('error', error)
+      return
+    }
+    push('success', 'Đã đổi tên danh mục — mọi decal đang dùng đã cập nhật theo.')
+    onChanged()
+  }
+
+  async function handleDelete(row: DecalCategoryRow) {
+    const count = categoryCount.get(row.id) ?? 0
+    const warning = count > 0 ? ` ${count} decal đang dùng danh mục này sẽ vẫn giữ nguyên nhãn "${row.name_vi}" cho tới khi bạn sửa lại.` : ''
+    if (!confirm(`Xoá danh mục "${row.name_vi}"?${warning}`)) return
+    setBusyId(row.id)
+    const { error } = await deleteDecalCategory(row.id)
+    setBusyId(null)
+    if (error) {
+      push('error', error)
+      return
+    }
+    push('success', 'Đã xoá danh mục.')
+    onChanged()
+  }
+
+  return (
+    <div className="fixed inset-0 z-50 grid place-items-center overflow-y-auto bg-black/40 p-4" onClick={onClose}>
+      <div className="my-8 w-full max-w-md rounded-2xl bg-white p-5 shadow-vibe-lg" onClick={(e) => e.stopPropagation()}>
+        <div className="flex items-center justify-between">
+          <p className="font-display text-base font-semibold text-vibe-ink">Quản lý danh mục Charm/Decal</p>
+          <button onClick={onClose} className="grid h-8 w-8 place-items-center rounded-full text-vibe-ink-soft hover:bg-vibe-cream">
+            <X size={16} />
+          </button>
+        </div>
+
+        <div className="mt-3 flex gap-2">
+          <input
+            value={newName}
+            onChange={(e) => setNewName(e.target.value)}
+            placeholder="Tên danh mục mới…"
+            className="w-full rounded-full border-2 border-vibe-ink/10 px-3 py-1.5 text-sm outline-none focus:border-vibe-pink/50"
+          />
+          <button
+            onClick={handleCreate}
+            disabled={!newName.trim() || creating}
+            className="shrink-0 rounded-full bg-vibe-ink px-3.5 py-1.5 text-xs font-semibold text-white disabled:opacity-40"
+          >
+            {creating ? 'Đang tạo...' : 'Thêm'}
+          </button>
+        </div>
+
+        <div className="mt-4 max-h-80 space-y-1.5 overflow-y-auto">
+          {categoryRows.map((c) => (
+            <div key={c.id} className="flex items-center gap-1.5 rounded-xl border-2 border-vibe-ink/10 p-2">
+              <input
+                value={renaming[c.id] ?? c.name_vi}
+                onChange={(e) => setRenaming((r) => ({ ...r, [c.id]: e.target.value }))}
+                className="w-full rounded-lg border-0 bg-transparent px-1.5 py-1 text-sm outline-none focus:bg-vibe-cream"
+              />
+              <span className="shrink-0 text-[11px] text-vibe-ink-soft">{categoryCount.get(c.id) ?? 0} decal</span>
+              <button
+                onClick={() => handleRename(c)}
+                disabled={busyId === c.id || (renaming[c.id] ?? c.name_vi) === c.name_vi}
+                title="Lưu tên mới"
+                className="grid h-7 w-7 shrink-0 place-items-center rounded-lg text-vibe-ink-soft hover:bg-vibe-cream hover:text-vibe-ink disabled:opacity-30"
+              >
+                <Pencil size={13} />
+              </button>
+              <button
+                onClick={() => handleDelete(c)}
+                disabled={busyId === c.id}
+                title="Xoá danh mục"
+                className="grid h-7 w-7 shrink-0 place-items-center rounded-lg text-vibe-ink-soft hover:bg-red-50 hover:text-red-600"
+              >
+                <Trash2 size={13} />
+              </button>
+            </div>
+          ))}
+          {categoryRows.length === 0 && <p className="py-4 text-center text-sm text-vibe-ink-soft">Chưa có danh mục nào.</p>}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function EditDecalModal({
+  row,
+  categoryRows,
+  onClose,
+  onSaved,
+}: {
+  row: DecalRow | null
+  categoryRows: DecalCategoryRow[]
+  onClose: () => void
+  onSaved: () => void
+}) {
   const { push } = useToast()
   const profile = useAuthStore((s) => s.profile)
   const [form, setForm] = useState<DecalInput>(row ? rowToInput(row) : EMPTY_INPUT)
@@ -351,21 +517,28 @@ function EditDecalModal({ row, onClose, onSaved }: { row: DecalRow | null; onClo
             />
           </label>
 
-          <label className="block">
-            <span className="text-xs font-medium text-vibe-ink-soft">Danh mục (id, vd: floral) *</span>
-            <input
+          <label className="col-span-2 block">
+            <span className="text-xs font-medium text-vibe-ink-soft">Danh mục *</span>
+            <select
               value={form.category}
-              onChange={(e) => setForm((f) => ({ ...f, category: slugify(e.target.value) }))}
+              onChange={(e) => {
+                const chosen = categoryRows.find((c) => c.id === e.target.value)
+                setForm((f) => ({ ...f, category: e.target.value, categoryVi: chosen?.name_vi ?? f.categoryVi }))
+              }}
               className="mt-1 w-full rounded-lg border-2 border-vibe-ink/10 px-3 py-1.5 text-sm outline-none focus:border-vibe-pink/50"
-            />
-          </label>
-          <label className="block">
-            <span className="text-xs font-medium text-vibe-ink-soft">Tên danh mục (VI)</span>
-            <input
-              value={form.categoryVi}
-              onChange={(e) => setForm((f) => ({ ...f, categoryVi: e.target.value }))}
-              className="mt-1 w-full rounded-lg border-2 border-vibe-ink/10 px-3 py-1.5 text-sm outline-none focus:border-vibe-pink/50"
-            />
+            >
+              <option value="" disabled>
+                Chọn danh mục…
+              </option>
+              {categoryRows.map((c) => (
+                <option key={c.id} value={c.id}>
+                  {c.name_vi}
+                </option>
+              ))}
+            </select>
+            {categoryRows.length === 0 && (
+              <p className="mt-1 text-[11px] text-amber-600">Chưa có danh mục nào — bấm "Quản lý danh mục" ở trang danh sách để tạo trước.</p>
+            )}
           </label>
 
           <label className="col-span-2 block">
