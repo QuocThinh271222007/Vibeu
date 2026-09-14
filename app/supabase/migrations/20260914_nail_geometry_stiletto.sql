@@ -1,7 +1,61 @@
--- nail_geometry_variants.shape's check constraint still only allowed the original 4 shapes
--- ('oval','square','coffin','almond') — publishing a calibration for the new 'stiletto' shape
--- from /admin/geometry failed with "violates check constraint
--- nail_geometry_variants_shape_check". Widen it to include 'stiletto'. Idempotent.
+-- Self-contained and safe to run regardless of whether nail_geometry_variants already exists
+-- in your database: the original 20260905_nail_geometry_variants.sql migration may not have
+-- been applied here yet ("relation does not exist"), or it may have been applied with its old
+-- shape check (only oval/square/coffin/almond), which rejects the new 'stiletto' shape
+-- ("violates check constraint nail_geometry_variants_shape_check"). This creates the table with
+-- the widened constraint already baked in if missing, and widens it if the table already
+-- exists with the old constraint. Idempotent either way — safe to re-run.
+create table if not exists public.nail_geometry_variants (
+  tone text not null check (tone in ('cozy', 'matcha')),
+  shape text not null check (shape in ('oval', 'square', 'coffin', 'almond', 'stiletto')),
+  length text not null check (length in ('S', 'M', 'L')),
+  coordinates jsonb not null
+    check (jsonb_typeof(coordinates) = 'object')
+    check (jsonb_typeof(coordinates -> 'nails') = 'array')
+    check (jsonb_array_length(coordinates -> 'nails') = 5),
+  updated_by uuid references auth.users (id) on delete set null,
+  updated_at timestamptz not null default now(),
+  primary key (tone, shape, length)
+);
+
 alter table public.nail_geometry_variants drop constraint if exists nail_geometry_variants_shape_check;
 alter table public.nail_geometry_variants add constraint nail_geometry_variants_shape_check
   check (shape in ('oval', 'square', 'coffin', 'almond', 'stiletto'));
+
+alter table public.nail_geometry_variants enable row level security;
+
+create or replace function public.is_vibeu_admin()
+returns boolean
+language sql
+stable
+security definer
+set search_path = public
+as $$
+  select exists (
+    select 1
+    from public.profiles
+    where id = auth.uid() and role = 'admin'
+  );
+$$;
+
+revoke all on function public.is_vibeu_admin() from public;
+grant execute on function public.is_vibeu_admin() to authenticated;
+
+drop policy if exists "nail geometry is publicly readable" on public.nail_geometry_variants;
+create policy "nail geometry is publicly readable"
+  on public.nail_geometry_variants for select
+  to anon, authenticated
+  using (true);
+
+drop policy if exists "admins can insert nail geometry" on public.nail_geometry_variants;
+create policy "admins can insert nail geometry"
+  on public.nail_geometry_variants for insert
+  to authenticated
+  with check (public.is_vibeu_admin() and updated_by = auth.uid());
+
+drop policy if exists "admins can update nail geometry" on public.nail_geometry_variants;
+create policy "admins can update nail geometry"
+  on public.nail_geometry_variants for update
+  to authenticated
+  using (public.is_vibeu_admin())
+  with check (public.is_vibeu_admin() and updated_by = auth.uid());
