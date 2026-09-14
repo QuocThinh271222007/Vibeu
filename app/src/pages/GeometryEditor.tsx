@@ -27,9 +27,9 @@ import {
 } from 'lucide-react'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { handBaseUrl, getHandData } from '@/data/loaders'
+import { getHandData } from '@/data/loaders'
 import { invalidateHandData } from '@/data/loaders'
-import { publishGeometryOverride } from '@/lib/geometryAdminApi'
+import { fetchGeometryOverride, publishGeometryOverride } from '@/lib/geometryAdminApi'
 import {
   detectGeometryTarget,
   geometryEditorDocument,
@@ -135,6 +135,49 @@ function destinationPath(tone: SkinToneId, shape: NailShape, length: NailLength)
   return `public/assets/hands/${tone}/variants/${shape}-${length}/coordinates.json`
 }
 
+/** Direct (public/)`/assets/...` URL for a shape/length combo's staged photo — bypasses
+ * `handVariants.ts`'s HAND_VARIANTS registry entirely, unlike `handBaseUrl()`. This tool's whole
+ * purpose is calibrating a combo BEFORE it's registered there (registering it early would make
+ * Studio try to load a coordinates.json that doesn't exist yet for real visitors) — so the
+ * editor needs to load a newly-staged `variants/<shape>-<length>/base.jpg` straight from disk
+ * the moment it exists, from the ordinary tone/shape/length dropdowns, with no code change and
+ * no registry entry needed until calibration is actually done. */
+function rawVariantImageUrl(tone: SkinToneId, shape: NailShape, length: NailLength): string {
+  const path = shape === 'oval' && length === 'M' ? `/assets/hands/${tone}/base.jpg` : `/assets/hands/${tone}/variants/${shape}-${length}/base.jpg`
+  return `${path}?v=raw`
+}
+
+function rawVariantCoordsUrl(tone: SkinToneId, shape: NailShape, length: NailLength): string {
+  const path =
+    shape === 'oval' && length === 'M'
+      ? `/assets/hands/${tone}/coordinates.json`
+      : `/assets/hands/${tone}/variants/${shape}-${length}/coordinates.json`
+  return `${path}?v=raw-${Date.now()}`
+}
+
+/** Same "raw, unregistered" idea as `rawVariantImageUrl` for the nail-outline data: checks the
+ * live Supabase override first (so this never shows stale data next to something already
+ * published from this same tool), then the raw static coordinates.json for this exact combo if
+ * one has been calibrated and saved, and only then falls back to the tone's own default
+ * (oval-M) shape as a starting template to drag into place. */
+async function loadCalibrationTarget(tone: SkinToneId, shape: NailShape, length: NailLength): Promise<HandData> {
+  const override = await fetchGeometryOverride(tone, shape, length).catch(() => null)
+  if (override) {
+    try {
+      return validateHandData(override.coordinates)
+    } catch {
+      // A malformed override must never make the editor unusable — fall through.
+    }
+  }
+  try {
+    const res = await fetch(rawVariantCoordsUrl(tone, shape, length))
+    if (res.ok) return validateHandData(await res.json())
+  } catch {
+    // No calibrated file yet for this combo — fall through to the default starting template.
+  }
+  return getHandData(tone)
+}
+
 function downloadJson(filename: string, value: unknown) {
   const blob = new Blob([`${JSON.stringify(value, null, 2)}\n`], { type: 'application/json' })
   const url = URL.createObjectURL(blob)
@@ -232,14 +275,14 @@ export default function GeometryEditor({ adminMode = false }: { adminMode?: bool
   const pendingImportRef = useRef<{ key: string; message: string } | null>(null)
 
   const key = variantKey(tone, shape, length)
-  const imageUrl = customImage ?? handBaseUrl(tone, shape, length)
+  const imageUrl = customImage ?? rawVariantImageUrl(tone, shape, length)
 
   useEffect(() => {
     let alive = true
     setLoading(true)
     setMessage('')
     setCustomImage(null)
-    getHandData(tone, shape, length)
+    loadCalibrationTarget(tone, shape, length)
       .then((loaded) => {
         if (!alive) return
         const clean = cloneHand(loaded)
