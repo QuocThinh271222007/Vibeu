@@ -7,6 +7,7 @@ interface TurnstileRenderOptions {
   'expired-callback': () => void
   'error-callback': () => void
   theme?: 'light' | 'dark' | 'auto'
+  size?: 'normal' | 'compact' | 'flexible'
 }
 
 declare global {
@@ -56,6 +57,12 @@ export function Captcha({ onToken, resetKey }: { onToken: (token: string | null)
         callback: (token) => onToken(token),
         'expired-callback': () => onToken(null),
         'error-callback': () => onToken(null),
+        // The default 'normal' size is a hard-coded 300px wide. Auth.tsx's card leaves it
+        // exactly 300px on a 375px-wide phone and LESS than that on the far more common
+        // 360px-wide Android default — the widget was overflowing its rounded card there,
+        // pushing part of the checkbox/challenge UI outside the visible, tappable area.
+        // 'flexible' makes it fill (and shrink to) its container's actual width instead.
+        size: 'flexible',
       })
     })
     return () => {
@@ -71,7 +78,7 @@ export function Captcha({ onToken, resetKey }: { onToken: (token: string | null)
 
   if (!isCaptchaAvailable()) return null
 
-  return <div ref={containerRef} id={`turnstile-${domId}`} className="my-1" />
+  return <div ref={containerRef} id={`turnstile-${domId}`} className="my-1 w-full" />
 }
 
 function isCaptchaAvailable() {
