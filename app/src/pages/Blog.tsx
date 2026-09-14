@@ -5,6 +5,7 @@ import { Chip } from '@/components/ui/Chip'
 import { MediaPlaceholder } from '@/components/ui/MediaPlaceholder'
 import { BLOG_CATEGORY_LABEL, type BlogCategory, type BlogPost } from '@/data/blog'
 import { useBlogPosts } from '@/hooks/useBlogPosts'
+import { useBlogSeries } from '@/hooks/useBlogSeries'
 import { PageMeta } from '@/components/seo/PageMeta'
 
 function BlogCoverMedia({ post, className, compact = false, priority = false }: { post: BlogPost; className: string; compact?: boolean; priority?: boolean }) {
@@ -31,9 +32,17 @@ const CATS: (BlogCategory | 'all')[] = ['all', 'tips', 'trend', 'care']
 
 export default function Blog() {
   const [cat, setCat] = useState<BlogCategory | 'all'>('all')
+  const [seriesFilter, setSeriesFilter] = useState<string | 'all'>('all')
   const { posts } = useBlogPosts()
+  const { series } = useBlogSeries()
 
-  const filtered = useMemo(() => (cat === 'all' ? posts : posts.filter((p) => p.category === cat)), [cat, posts])
+  const filtered = useMemo(
+    () =>
+      posts
+        .filter((p) => cat === 'all' || p.category === cat)
+        .filter((p) => seriesFilter === 'all' || p.seriesId === seriesFilter),
+    [cat, seriesFilter, posts],
+  )
   const [featured, ...rest] = filtered
 
   return (
@@ -57,6 +66,20 @@ export default function Blog() {
           </Chip>
         ))}
       </div>
+
+      {series.length > 0 && (
+        <div className="mt-3 flex flex-wrap items-center justify-center gap-2">
+          <span className="text-xs font-semibold text-vibe-ink-soft">Mục lục:</span>
+          <Chip active={seriesFilter === 'all'} onClick={() => setSeriesFilter('all')}>
+            Tất cả
+          </Chip>
+          {series.map((s) => (
+            <Chip key={s.id} active={seriesFilter === s.id} onClick={() => setSeriesFilter(s.id)}>
+              {s.name}
+            </Chip>
+          ))}
+        </div>
+      )}
 
       {!featured ? (
         <p className="py-20 text-center text-vibe-ink-soft">Chưa có bài viết trong danh mục này.</p>

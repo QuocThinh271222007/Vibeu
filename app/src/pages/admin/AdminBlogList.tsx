@@ -1,24 +1,31 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Pencil, Plus, Trash2 } from 'lucide-react'
 import { BLOG_CATEGORY_LABEL } from '@/data/blog'
 import { useToast } from '@/components/ui/Toast'
 import { deleteBlogPost, fetchAllBlogPostsAdmin, type BlogPostRow } from '@/lib/blogApi'
+import { fetchAllBlogSeries, type BlogSeriesRow } from '@/lib/blogSeriesApi'
 
 export default function AdminBlogList() {
   const { push } = useToast()
   const [rows, setRows] = useState<BlogPostRow[]>([])
+  const [series, setSeries] = useState<BlogSeriesRow[]>([])
+  const [seriesFilter, setSeriesFilter] = useState<string | 'all'>('all')
   const [loading, setLoading] = useState(true)
 
   function reload() {
     setLoading(true)
-    fetchAllBlogPostsAdmin().then((data) => {
-      setRows(data)
+    Promise.all([fetchAllBlogPostsAdmin(), fetchAllBlogSeries()]).then(([posts, allSeries]) => {
+      setRows(posts)
+      setSeries(allSeries)
       setLoading(false)
     })
   }
 
   useEffect(reload, [])
+
+  const seriesById = useMemo(() => new Map(series.map((s) => [s.id, s.name])), [series])
+  const filteredRows = seriesFilter === 'all' ? rows : rows.filter((r) => r.series_id === seriesFilter)
 
   async function handleDelete(id: string) {
     if (!confirm('Xoá bài viết này?')) return
@@ -43,12 +50,31 @@ export default function AdminBlogList() {
         </Link>
       </div>
 
+      {series.length > 0 && (
+        <label className="mt-4 flex items-center gap-2 text-sm text-vibe-ink-soft">
+          Lọc theo mục lục:
+          <select
+            value={seriesFilter}
+            onChange={(e) => setSeriesFilter(e.target.value)}
+            className="rounded-xl border-2 border-vibe-ink/10 px-3 py-1.5 text-sm outline-none focus:border-vibe-pink/50"
+          >
+            <option value="all">Tất cả</option>
+            {series.map((s) => (
+              <option key={s.id} value={s.id}>
+                {s.name}
+              </option>
+            ))}
+          </select>
+        </label>
+      )}
+
       <div className="mt-6 overflow-x-auto rounded-2xl bg-white shadow-sm">
         <table className="w-full text-left text-sm">
           <thead>
             <tr className="border-b border-vibe-ink/10 text-xs uppercase tracking-wide text-vibe-ink-soft">
               <th className="px-4 py-3">Tiêu đề</th>
               <th className="px-4 py-3">Danh mục</th>
+              <th className="px-4 py-3">Mục lục</th>
               <th className="px-4 py-3">Trạng thái</th>
               <th className="px-4 py-3">Ngày tạo</th>
               <th className="px-4 py-3" />
@@ -57,21 +83,22 @@ export default function AdminBlogList() {
           <tbody>
             {loading ? (
               <tr>
-                <td colSpan={5} className="px-4 py-8 text-center text-vibe-ink-soft">
+                <td colSpan={6} className="px-4 py-8 text-center text-vibe-ink-soft">
                   Đang tải...
                 </td>
               </tr>
-            ) : rows.length === 0 ? (
+            ) : filteredRows.length === 0 ? (
               <tr>
-                <td colSpan={5} className="px-4 py-8 text-center text-vibe-ink-soft">
-                  Chưa có bài viết nào đăng từ trang quản trị.
+                <td colSpan={6} className="px-4 py-8 text-center text-vibe-ink-soft">
+                  {rows.length === 0 ? 'Chưa có bài viết nào đăng từ trang quản trị.' : 'Không có bài viết nào thuộc mục lục này.'}
                 </td>
               </tr>
             ) : (
-              rows.map((r) => (
+              filteredRows.map((r) => (
                 <tr key={r.id} className="border-b border-vibe-ink/5 last:border-0">
                   <td className="px-4 py-3 font-medium text-vibe-ink">{r.title}</td>
                   <td className="px-4 py-3 text-vibe-ink-soft">{BLOG_CATEGORY_LABEL[r.category]}</td>
+                  <td className="px-4 py-3 text-vibe-ink-soft">{r.series_id ? (seriesById.get(r.series_id) ?? '—') : '—'}</td>
                   <td className="px-4 py-3">
                     <span className={`rounded-full px-2.5 py-1 text-xs font-medium ${r.published ? 'bg-emerald-50 text-emerald-700' : 'bg-vibe-cream text-vibe-ink-soft'}`}>
                       {r.published ? 'Đã đăng' : 'Bản nháp'}

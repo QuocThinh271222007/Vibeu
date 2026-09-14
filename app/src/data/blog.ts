@@ -24,6 +24,17 @@ export type ContentBlock =
   | { type: 'heading2' | 'heading3' | 'paragraph'; text: string }
   | { type: 'image'; src: string; alt: string; caption?: string }
 
+/** A "Mục lục" — an editorial collection grouping several blog posts together (e.g. "Series
+ * chăm sóc da tay"), managed from /admin/blog-series and optionally attached to a post
+ * (BlogPost.seriesId). Not to be confused with the per-post in-page heading outline BlogPost.tsx
+ * auto-builds from that one post's own H2/H3 blocks — this groups multiple posts instead. */
+export interface BlogSeries {
+  id: string
+  slug: string
+  name: string
+  description: string
+}
+
 export interface BlogPost {
   slug: string
   title: string
@@ -56,6 +67,8 @@ export interface BlogPost {
   ctaTitle: string
   ctaButtonLabel: string
   ctaButtonUrl: string
+  /** Which Mục lục (see BlogSeries) this post belongs to, if any. */
+  seriesId: string | null
 }
 
 // The original editorial posts have been migrated into Supabase rows (see

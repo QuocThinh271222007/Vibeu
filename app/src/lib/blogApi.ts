@@ -28,6 +28,7 @@ export interface BlogPostRow {
   cta_title: string
   cta_button_label: string
   cta_button_url: string
+  series_id: string | null
   accent_color: string
   cover_src: string | null
   cover_alt: string | null
@@ -59,6 +60,7 @@ function mapRowToPost(row: BlogPostRow): BlogPost {
     ctaTitle: row.cta_title ?? DEFAULT_CTA_TITLE,
     ctaButtonLabel: row.cta_button_label ?? DEFAULT_CTA_BUTTON_LABEL,
     ctaButtonUrl: row.cta_button_url ?? DEFAULT_CTA_BUTTON_URL,
+    seriesId: row.series_id ?? null,
   }
 }
 
@@ -105,6 +107,7 @@ export interface BlogPostInput {
   ctaTitle: string
   ctaButtonLabel: string
   ctaButtonUrl: string
+  seriesId: string | null
   accentColor: string
   coverSrc: string | null
   coverAlt: string | null
@@ -130,6 +133,7 @@ export async function createBlogPost(input: BlogPostInput, authorId: string): Pr
     cta_title: input.ctaTitle,
     cta_button_label: input.ctaButtonLabel,
     cta_button_url: input.ctaButtonUrl,
+    series_id: input.seriesId,
     accent_color: input.accentColor,
     cover_src: input.coverSrc,
     cover_alt: input.coverAlt,
@@ -160,6 +164,7 @@ export async function updateBlogPost(id: string, input: BlogPostInput): Promise<
       cta_title: input.ctaTitle,
       cta_button_label: input.ctaButtonLabel,
       cta_button_url: input.ctaButtonUrl,
+      series_id: input.seriesId,
       accent_color: input.accentColor,
       cover_src: input.coverSrc,
       cover_alt: input.coverAlt,

@@ -15,6 +15,7 @@ import {
   uploadBlogCover,
   type BlogPostInput,
 } from '@/lib/blogApi'
+import { fetchAllBlogSeries, type BlogSeriesRow } from '@/lib/blogSeriesApi'
 import { slugify } from '@/lib/slug'
 import { useAuthStore } from '@/store/authStore'
 
@@ -38,6 +39,7 @@ const EMPTY: BlogPostInput = {
   ctaTitle: DEFAULT_CTA_TITLE,
   ctaButtonLabel: DEFAULT_CTA_BUTTON_LABEL,
   ctaButtonUrl: DEFAULT_CTA_BUTTON_URL,
+  seriesId: null,
   accentColor: '#B6C7EA',
   coverSrc: null,
   coverAlt: null,
@@ -151,6 +153,11 @@ export default function AdminBlogEditor() {
   const [uploadingCover, setUploadingCover] = useState(false)
   const [uploadingBlock, setUploadingBlock] = useState<number | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const [seriesOptions, setSeriesOptions] = useState<BlogSeriesRow[]>([])
+
+  useEffect(() => {
+    fetchAllBlogSeries().then(setSeriesOptions)
+  }, [])
 
   useEffect(() => {
     if (isNew || !id) return
@@ -185,6 +192,7 @@ export default function AdminBlogEditor() {
         ctaTitle: row.cta_title ?? DEFAULT_CTA_TITLE,
         ctaButtonLabel: row.cta_button_label ?? DEFAULT_CTA_BUTTON_LABEL,
         ctaButtonUrl: row.cta_button_url ?? DEFAULT_CTA_BUTTON_URL,
+        seriesId: row.series_id ?? null,
         accentColor: row.accent_color,
         coverSrc: row.cover_src,
         coverAlt: row.cover_alt,
@@ -331,6 +339,21 @@ export default function AdminBlogEditor() {
             />
           </Field>
         </div>
+
+        <Field label="Mục lục (tuỳ chọn — gom bài này vào một series)">
+          <select
+            value={form.seriesId ?? ''}
+            onChange={(e) => setForm((f) => ({ ...f, seriesId: e.target.value || null }))}
+            className="w-full rounded-xl border-2 border-vibe-ink/10 px-3.5 py-2.5 text-sm outline-none focus:border-vibe-pink/50"
+          >
+            <option value="">Không thuộc mục lục nào</option>
+            {seriesOptions.map((s) => (
+              <option key={s.id} value={s.id}>
+                {s.name}
+              </option>
+            ))}
+          </select>
+        </Field>
 
         <div className="rounded-2xl border-2 border-vibe-blue/30 bg-vibe-blue/5 p-4">
           <p className="text-xs font-semibold uppercase tracking-wide text-vibe-blue-dark">Tối ưu SEO</p>

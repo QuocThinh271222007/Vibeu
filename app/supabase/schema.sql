@@ -325,6 +325,34 @@ create trigger on_comment_change
   for each row execute procedure public.handle_comment_change();
 
 -- =========================================================================
+-- blog_series — an editorial "Mục lục" grouping several blog_posts together
+-- (e.g. "Series chăm sóc da tay"). Public read (the blog listing/detail pages
+-- need the name to filter/display), admin-only write/CRUD from /admin.
+-- =========================================================================
+create table if not exists public.blog_series (
+  id uuid primary key default gen_random_uuid(),
+  slug text not null unique,
+  name text not null,
+  description text not null default '',
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+alter table public.blog_series enable row level security;
+
+drop policy if exists "Blog series are viewable by everyone" on public.blog_series;
+create policy "Blog series are viewable by everyone"
+  on public.blog_series for select using (true);
+
+drop policy if exists "Admins manage blog series" on public.blog_series;
+create policy "Admins manage blog series"
+  on public.blog_series for all using (
+    exists (select 1 from public.profiles where id = auth.uid() and role = 'admin')
+  ) with check (
+    exists (select 1 from public.profiles where id = auth.uid() and role = 'admin')
+  );
+
+-- =========================================================================
 -- blog_posts — editorial posts, created/edited only from /admin.
 -- =========================================================================
 create table if not exists public.blog_posts (
@@ -354,6 +382,8 @@ create table if not exists public.blog_posts (
   cta_title text not null default 'Thử ngay ý tưởng này trên Nail Studio',
   cta_button_label text not null default 'Bắt đầu thiết kế miễn phí',
   cta_button_url text not null default '/studio',
+  -- Optional "Mục lục" (series) this post belongs to — see blog_series above.
+  series_id uuid references public.blog_series (id) on delete set null,
   accent_color text not null default '#B6C7EA',
   cover_src text,
   cover_alt text,
@@ -375,6 +405,7 @@ alter table public.blog_posts add column if not exists cta_enabled boolean not n
 alter table public.blog_posts add column if not exists cta_title text not null default 'Thử ngay ý tưởng này trên Nail Studio';
 alter table public.blog_posts add column if not exists cta_button_label text not null default 'Bắt đầu thiết kế miễn phí';
 alter table public.blog_posts add column if not exists cta_button_url text not null default '/studio';
+alter table public.blog_posts add column if not exists series_id uuid references public.blog_series (id) on delete set null;
 
 -- One-time backfill: turn each existing plain paragraph into a paragraph block, so posts
 -- written before content_blocks existed still render via the new block-based path.
