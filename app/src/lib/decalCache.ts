@@ -11,15 +11,30 @@ export function getDecalPixels(url: string): Promise<DecalPixels> {
     cached = new Promise<DecalPixels>((resolve, reject) => {
       const img = new Image()
       img.decoding = 'sync'
+      // Admin-uploaded decals (src/pages/admin/AdminDecals.tsx) point at a cross-origin
+      // Supabase Storage URL, not a same-origin path or data: URI like every decal before
+      // that feature existed. Without this, the <img> itself still loads and displays fine,
+      // but drawImage() below taints the canvas and getImageData() throws a SecurityError —
+      // uncaught inside this onload handler, so the promise never resolves OR rejects, and
+      // that decal just silently never finishes rendering wherever it's placed. Harmless to
+      // set unconditionally for same-origin/data: URIs too.
+      img.crossOrigin = 'anonymous'
       img.onload = () => {
-        const scale = Math.min(1, MAX_UPLOAD_DIM / Math.max(img.naturalWidth, img.naturalHeight))
-        const canvas = document.createElement('canvas')
-        canvas.width = Math.max(1, Math.round(img.naturalWidth * scale))
-        canvas.height = Math.max(1, Math.round(img.naturalHeight * scale))
-        const ctx = canvas.getContext('2d')!
-        ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
-        const { data, width, height } = ctx.getImageData(0, 0, canvas.width, canvas.height)
-        resolve({ data, width, height })
+        try {
+          const scale = Math.min(1, MAX_UPLOAD_DIM / Math.max(img.naturalWidth, img.naturalHeight))
+          const canvas = document.createElement('canvas')
+          canvas.width = Math.max(1, Math.round(img.naturalWidth * scale))
+          canvas.height = Math.max(1, Math.round(img.naturalHeight * scale))
+          const ctx = canvas.getContext('2d')!
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
+          const { data, width, height } = ctx.getImageData(0, 0, canvas.width, canvas.height)
+          resolve({ data, width, height })
+        } catch (err) {
+          // Make any future tainted-canvas case (or other decode failure) fail loudly via a
+          // rejected promise instead of hanging forever the way this did before crossOrigin
+          // was set above.
+          reject(err instanceof Error ? err : new Error(`Failed to decode decal image ${url}`))
+        }
       }
       img.onerror = () => reject(new Error(`Failed to decode decal image ${url}`))
       img.src = url
