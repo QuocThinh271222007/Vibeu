@@ -52,7 +52,9 @@ const METRICS: {
     label: 'TTFB — Phản hồi máy chủ',
     thresholds: TTFBThresholds as [number, number],
     format: (v) => `${(v / 1000).toFixed(2)}s`,
-    hint: 'Thời gian chờ phản hồi đầu tiên từ máy chủ/Supabase trước khi trang bắt đầu tải.',
+    // Only about the initial HTML document request (wherever index.html is hosted) — never about
+    // Supabase, which isn't involved until after the page has already started loading.
+    hint: 'Thời gian chờ phản hồi trang HTML ban đầu từ nơi host web (không liên quan Supabase) — phụ thuộc hosting/CDN, không phải do code app.',
   },
 ]
 
@@ -177,9 +179,7 @@ export default function AdminPerformance() {
         <p className="mt-4 rounded-2xl bg-white p-8 text-center text-sm text-vibe-ink-soft shadow-sm">Đang tải...</p>
       ) : totalSamples === 0 ? (
         <p className="mt-4 rounded-2xl bg-white p-8 text-center text-sm text-vibe-ink-soft shadow-sm">
-          Chưa có dữ liệu trong khoảng thời gian này — dữ liệu chỉ bắt đầu ghi nhận từ khi tính năng này được bật, và cần chạy migration
-          <code className="mx-1 rounded bg-vibe-cream px-1.5 py-0.5 text-xs">20260916_performance_metrics.sql</code>
-          trong Supabase trước.
+          Chưa có dữ liệu trong khoảng thời gian này.
         </p>
       ) : (
         <div className="mt-4 space-y-3">

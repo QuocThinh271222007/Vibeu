@@ -11,6 +11,10 @@ import { supabase } from '@/lib/supabaseClient'
 export function initPerformanceMonitoring(): void {
   if (!supabase) return
   if (location.pathname.startsWith('/admin')) return
+  // Vite's dev server compiles modules on demand (no bundling/minification), so TTFB especially
+  // reads far worse than a real production load and would just be noise mixed into real visitor
+  // data — only report from an actual production build (`npm run build` + preview/deploy).
+  if (import.meta.env.DEV) return
 
   const device = window.innerWidth < 768 ? 'mobile' : 'desktop'
   const path = normalizePath(location.pathname)
