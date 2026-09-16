@@ -401,9 +401,15 @@ create table if not exists public.blog_posts (
   excerpt text not null default '',
   content text[] not null default '{}',
   -- Ordered rich content: [{type:'paragraph'|'heading2'|'heading3', text} | {type:'image', src, alt, caption}].
-  -- `content` (above) is kept as a plain-text mirror (paragraph/heading text only) for any
-  -- simple text search, but content_blocks is what BlogPost.tsx actually renders.
+  -- Legacy block-based body — superseded by content_html below (the admin editor moved from a
+  -- discrete-block UI to a real WYSIWYG editor), kept only so posts saved before that change
+  -- still render exactly as before until someone re-saves them through the new editor.
   content_blocks jsonb not null default '[]'::jsonb,
+  -- Sanitized HTML body from the WYSIWYG editor (AdminBlogEditor.tsx's RichTextEditor) —
+  -- BlogPost.tsx renders this when non-empty, falling back to content_blocks/content for posts
+  -- that predate this column. `content` (above) is kept as a plain-text mirror either way, for
+  -- any simple text search.
+  content_html text not null default '',
   meta_description text not null default '',
   primary_keyword text not null default '',
   secondary_keyword text not null default '',
@@ -444,6 +450,7 @@ alter table public.blog_posts add column if not exists cta_title text not null d
 alter table public.blog_posts add column if not exists cta_button_label text not null default 'Bắt đầu thiết kế miễn phí';
 alter table public.blog_posts add column if not exists cta_button_url text not null default '/studio';
 alter table public.blog_posts add column if not exists series_id uuid references public.blog_series (id) on delete set null;
+alter table public.blog_posts add column if not exists content_html text not null default '';
 -- category is now a dynamic slug into blog_categories, not one of a hardcoded 3 values.
 alter table public.blog_posts drop constraint if exists blog_posts_category_check;
 

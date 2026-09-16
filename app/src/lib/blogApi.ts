@@ -19,6 +19,7 @@ export interface BlogPostRow {
   excerpt: string
   content: string[]
   content_blocks: ContentBlock[]
+  content_html: string
   meta_description: string
   primary_keyword: string
   secondary_keyword: string
@@ -51,6 +52,7 @@ function mapRowToPost(row: BlogPostRow): BlogPost {
     readMinutes: row.read_minutes,
     content: row.content,
     contentBlocks: row.content_blocks ?? [],
+    contentHtml: row.content_html ?? '',
     metaDescription: row.meta_description ?? '',
     primaryKeyword: row.primary_keyword ?? '',
     secondaryKeyword: row.secondary_keyword ?? '',
@@ -98,6 +100,7 @@ export interface BlogPostInput {
   excerpt: string
   content: string[]
   contentBlocks: ContentBlock[]
+  contentHtml: string
   metaDescription: string
   primaryKeyword: string
   secondaryKeyword: string
@@ -124,6 +127,7 @@ export async function createBlogPost(input: BlogPostInput, authorId: string): Pr
     excerpt: input.excerpt,
     content: input.content,
     content_blocks: input.contentBlocks,
+    content_html: input.contentHtml,
     meta_description: input.metaDescription,
     primary_keyword: input.primaryKeyword,
     secondary_keyword: input.secondaryKeyword,
@@ -155,6 +159,7 @@ export async function updateBlogPost(id: string, input: BlogPostInput): Promise<
       excerpt: input.excerpt,
       content: input.content,
       content_blocks: input.contentBlocks,
+      content_html: input.contentHtml,
       meta_description: input.metaDescription,
       primary_keyword: input.primaryKeyword,
       secondary_keyword: input.secondaryKeyword,

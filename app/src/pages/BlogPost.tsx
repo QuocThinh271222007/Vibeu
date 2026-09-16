@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate, useParams, Navigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowLeft, ArrowRight, List } from 'lucide-react'
@@ -8,12 +9,54 @@ import { findBlogPost, relatedPosts, type ContentBlock, type BlogPost as BlogPos
 import { useBlogPosts } from '@/hooks/useBlogPosts'
 import { useBlogCategories } from '@/hooks/useBlogCategories'
 import { PageMeta } from '@/components/seo/PageMeta'
+import { sanitizeBlogHtml } from '@/lib/blogContentHtml'
 import { slugify } from '@/lib/slug'
 
 interface HeadingId {
   id: string
   level: 2 | 3
   text: string
+}
+
+const RICH_CONTENT_CLASSES =
+  'mt-8 space-y-4 text-[15px] leading-relaxed text-vibe-ink/90 ' +
+  '[&_h2]:!mt-10 [&_h2]:scroll-mt-24 [&_h2]:font-display [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:text-vibe-ink ' +
+  '[&_h3]:!mt-6 [&_h3]:scroll-mt-24 [&_h3]:font-display [&_h3]:text-base [&_h3]:font-semibold [&_h3]:text-vibe-ink ' +
+  '[&_p]:mt-4 [&_ul]:mt-4 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:mt-4 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:mt-1 ' +
+  '[&_blockquote]:mt-4 [&_blockquote]:border-l-4 [&_blockquote]:border-vibe-pink/30 [&_blockquote]:pl-4 [&_blockquote]:italic ' +
+  '[&_img]:mt-4 [&_img]:rounded-2xl [&_img]:w-full ' +
+  '[&_table]:mt-4 [&_table]:block [&_table]:w-full [&_table]:overflow-x-auto [&_table]:border-collapse [&_table]:text-sm ' +
+  '[&_th]:border [&_th]:border-vibe-ink/15 [&_th]:bg-vibe-cream [&_th]:px-3 [&_th]:py-2 [&_th]:text-left [&_th]:font-semibold ' +
+  '[&_td]:border [&_td]:border-vibe-ink/15 [&_td]:px-3 [&_td]:py-2 ' +
+  '[&_a]:text-vibe-pink-dark [&_a]:underline [&_strong]:font-semibold'
+
+/** Renders the WYSIWYG editor's sanitized HTML body and, since that HTML has no per-heading id
+ * baked in, walks the actually-rendered h2/h3 elements after mount to assign deduped slug ids and
+ * report them back up for the Mục lục nav — the HTML equivalent of buildHeadingIds below, which
+ * only works on the legacy ContentBlock[] shape. */
+function RichContent({ html, onHeadings }: { html: string; onHeadings: (headings: HeadingId[]) => void }) {
+  const ref = useRef<HTMLDivElement>(null)
+  const safeHtml = sanitizeBlogHtml(html)
+
+  useEffect(() => {
+    const container = ref.current
+    if (!container) return
+    const used = new Map<string, number>()
+    const headings: HeadingId[] = []
+    container.querySelectorAll('h2, h3').forEach((el, i) => {
+      const text = el.textContent?.trim() ?? ''
+      const base = slugify(text) || `muc-${i}`
+      const count = used.get(base) ?? 0
+      used.set(base, count + 1)
+      const id = count === 0 ? base : `${base}-${count + 1}`
+      el.id = id
+      headings.push({ id, level: el.tagName === 'H2' ? 2 : 3, text })
+    })
+    onHeadings(headings)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [safeHtml])
+
+  return <div ref={ref} className={RICH_CONTENT_CLASSES} dangerouslySetInnerHTML={{ __html: safeHtml }} />
 }
 
 /** Table of contents entries come straight from the post's own heading2/heading3 blocks — no
@@ -60,6 +103,7 @@ export default function BlogPost() {
   const { posts, loading } = useBlogPosts()
   const { labelFor } = useBlogCategories()
   const post = slug ? findBlogPost(slug, posts) : undefined
+  const [htmlHeadings, setHtmlHeadings] = useState<HeadingId[]>([])
 
   if (!post) {
     if (loading) return null
@@ -67,8 +111,10 @@ export default function BlogPost() {
   }
 
   const related = relatedPosts(post.slug, posts)
+  const usesRichContent = post.contentHtml.trim().length > 0
   const headingIds = buildHeadingIds(post.contentBlocks)
-  const showToc = post.showToc && headingIds.size >= 2
+  const tocEntries = usesRichContent ? htmlHeadings : Array.from(headingIds.values())
+  const showToc = post.showToc && tocEntries.length >= 2
   const keywords = [post.primaryKeyword, post.secondaryKeyword].filter(Boolean).join(', ')
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -164,7 +210,7 @@ export default function BlogPost() {
               <List size={16} /> Mục lục
             </p>
             <ol className="space-y-1.5 text-sm">
-              {Array.from(headingIds.values()).map((h) => (
+              {tocEntries.map((h) => (
                 <li key={h.id} className={h.level === 3 ? 'ml-4' : undefined}>
                   <a href={`#${h.id}`} className="text-vibe-ink-soft transition-colors hover:text-vibe-pink-dark hover:underline">
                     {h.text}
@@ -175,6 +221,9 @@ export default function BlogPost() {
           </nav>
         )}
 
+        {usesRichContent ? (
+          <RichContent html={post.contentHtml} onHeadings={setHtmlHeadings} />
+        ) : (
         <div className="mt-8 space-y-4 text-[15px] leading-relaxed text-vibe-ink/90">
           {post.contentBlocks.length > 0
             ? post.contentBlocks.map((block, i) => {
@@ -213,6 +262,7 @@ export default function BlogPost() {
               // same plain-paragraph rendering this page always used, so nothing regresses.
               post.content.map((p, i) => <p key={i}>{p}</p>)}
         </div>
+        )}
 
         {/* CTA cuối bài — editable per post from admin (title/button label/button url), so a
             Studio-focused post can point at /studio while another points elsewhere. */}
