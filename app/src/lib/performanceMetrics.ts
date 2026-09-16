@@ -17,13 +17,22 @@ export function initPerformanceMonitoring(): void {
 
   function report(metric: Metric) {
     if (!supabase) return
-    void supabase.from('performance_metrics').insert({
-      path,
-      metric: metric.name,
-      value: metric.value,
-      rating: metric.rating,
-      device,
-    })
+    supabase
+      .from('performance_metrics')
+      .insert({
+        path,
+        metric: metric.name,
+        value: metric.value,
+        rating: metric.rating,
+        device,
+      })
+      .then(({ error }) => {
+        // Was previously fire-and-forget with no error visibility at all — a schema-cache-not-
+        // reloaded or RLS mistake on the DB side would silently drop every single metric with no
+        // trace anywhere. Logging (never throwing) costs nothing for real visitors and is the only
+        // way to debug "I ran the migration but the dashboard is still empty" from devtools.
+        if (error) console.warn('[performanceMetrics] insert failed:', error.message)
+      })
   }
 
   onCLS(report)
