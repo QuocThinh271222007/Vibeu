@@ -93,8 +93,8 @@ export function PostCardSkeleton() {
   )
 }
 
-/** One post card — used on the feed (/community), a user's profile grid isn't this component
- * (it needs a denser thumbnail grid instead), and the detail page (/community/:id) via the
+/** One post card — used on the feed (/cong-dong), a user's profile grid isn't this component
+ * (it needs a denser thumbnail grid instead), and the detail page (/cong-dong/:id) via the
  * `linkToDetail` prop toggling whether the caption area is itself a link to that page. */
 export function PostCard({
   post,
@@ -120,7 +120,7 @@ export function PostCard({
   const template = post.templateId ? findTemplate(post.templateId) : undefined
 
   async function handleShare() {
-    const shareData = { title: `${post.userName} trên VIBEU`, text: post.caption, url: `${window.location.origin}/community/${post.id}` }
+    const shareData = { title: `${post.userName} trên VIBEU`, text: post.caption, url: `${window.location.origin}/cong-dong/${post.id}` }
     if (navigator.share) {
       try {
         await navigator.share(shareData)
@@ -230,7 +230,7 @@ export function PostCard({
         )}
       </div>
 
-      {linkToDetail ? <Link to={`/community/${post.id}`}>{media}</Link> : media}
+      {linkToDetail ? <Link to={`/cong-dong/${post.id}`}>{media}</Link> : media}
 
       <div className="p-4">
         <p className="text-sm leading-relaxed text-vibe-ink">{post.caption}</p>
@@ -242,7 +242,7 @@ export function PostCard({
             <Heart size={18} className={liked ? 'fill-vibe-pink-dark text-vibe-pink-dark' : ''} /> {likeCount}
           </button>
           {linkToDetail ? (
-            <Link to={`/community/${post.id}`} className="flex items-center gap-1.5 text-sm font-medium text-vibe-ink-soft transition-colors hover:text-vibe-ink">
+            <Link to={`/cong-dong/${post.id}`} className="flex items-center gap-1.5 text-sm font-medium text-vibe-ink-soft transition-colors hover:text-vibe-ink">
               <MessageCircle size={18} /> {post.comments}
             </Link>
           ) : (

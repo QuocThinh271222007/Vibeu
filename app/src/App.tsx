@@ -1,4 +1,4 @@
-import { BrowserRouter, Navigate, Routes, Route, useLocation } from 'react-router-dom'
+import { BrowserRouter, Navigate, Routes, Route, useLocation, useParams } from 'react-router-dom'
 import { lazy, Suspense, useEffect } from 'react'
 import { Wrench } from 'lucide-react'
 import { Header } from '@/components/layout/Header'
@@ -78,6 +78,11 @@ function MaintenanceNotice({ message }: { message: string }) {
   )
 }
 
+function RedirectCommunityPost() {
+  const { id } = useParams<{ id: string }>()
+  return <Navigate to={`/cong-dong/${id}`} replace />
+}
+
 function SiteLayout({ children }: { children: React.ReactNode }) {
   const profile = useAuthStore((s) => s.profile)
   const settings = useSiteSettings()
@@ -117,10 +122,16 @@ export default function App() {
               </Suspense>
             }
           />
-          <Route path="/library" element={<SiteLayout><Library /></SiteLayout>} />
-          <Route path="/community" element={<SiteLayout><Community /></SiteLayout>} />
-          <Route path="/community/:id" element={<SiteLayout><CommunityPost /></SiteLayout>} />
+          <Route path="/thu-vien" element={<SiteLayout><Library /></SiteLayout>} />
+          <Route path="/cong-dong" element={<SiteLayout><Community /></SiteLayout>} />
+          <Route path="/cong-dong/:id" element={<SiteLayout><CommunityPost /></SiteLayout>} />
           <Route path="/u/:id" element={<SiteLayout><CommunityProfile /></SiteLayout>} />
+          {/* Old English slugs — kept as redirects so existing bookmarks/search-indexed links
+              (Search Console had already started crawling /library and /community) still land
+              on the right page instead of 404ing. */}
+          <Route path="/library" element={<Navigate to="/thu-vien" replace />} />
+          <Route path="/community" element={<Navigate to="/cong-dong" replace />} />
+          <Route path="/community/:id" element={<RedirectCommunityPost />} />
           <Route path="/blog" element={<SiteLayout><Blog /></SiteLayout>} />
           <Route path="/blog/:slug" element={<SiteLayout><BlogPost /></SiteLayout>} />
           <Route path="/about" element={<SiteLayout><About /></SiteLayout>} />

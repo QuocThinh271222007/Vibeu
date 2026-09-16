@@ -10,8 +10,8 @@ import { useAuthStore } from '@/store/authStore'
 const NAV = [
   { to: '/', label: 'Trang chủ' },
   { to: '/studio', label: 'Nail studio' },
-  { to: '/library', label: 'Thư viện mẫu' },
-  { to: '/community', label: 'Cộng đồng' },
+  { to: '/thu-vien', label: 'Thư viện mẫu' },
+  { to: '/cong-dong', label: 'Cộng đồng' },
   { to: '/blog', label: 'Blog' },
   { to: '/about', label: 'Về chúng tôi' },
 ]

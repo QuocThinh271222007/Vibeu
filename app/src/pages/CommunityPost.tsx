@@ -79,7 +79,7 @@ export default function CommunityPost() {
   return (
     <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6">
       <button
-        onClick={() => navigate('/community')}
+        onClick={() => navigate('/cong-dong')}
         className="mb-6 flex items-center gap-1.5 rounded-full bg-white px-4 py-2 text-sm font-semibold text-vibe-ink shadow-sm transition-colors hover:bg-vibe-cream"
       >
         <ArrowLeft size={16} /> Về Cộng đồng
@@ -96,7 +96,7 @@ export default function CommunityPost() {
           <PageMeta
             title={`Bài đăng của ${post.userName}`}
             description={post.caption.slice(0, 150) || `Xem thiết kế nail của ${post.userName} trên VIBEU.`}
-            canonicalPath={`/community/${id}`}
+            canonicalPath={`/cong-dong/${id}`}
             image={post.media?.src}
             type="article"
           />
@@ -105,7 +105,7 @@ export default function CommunityPost() {
             currentUserId={profile?.id ?? null}
             isAdmin={profile?.role === 'admin'}
             linkToDetail={false}
-            onChanged={() => navigate('/community')}
+            onChanged={() => navigate('/cong-dong')}
           />
 
           <div className="mt-6 rounded-[1.75rem] bg-vibe-highlight p-5 shadow-[0_10px_30px_-18px_rgba(80,50,120,0.3)] sm:p-6">

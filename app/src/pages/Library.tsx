@@ -30,7 +30,7 @@ export default function Library() {
       <PageMeta
         title="Thư viện mẫu nail"
         description="Hàng trăm mẫu nail được tuyển chọn theo cung hoàng đạo, mùa, xu hướng — dùng ngay trong Studio hoặc lưu lại để dành cho dịp khác."
-        canonicalPath="/library"
+        canonicalPath="/thu-vien"
       />
       <div className="text-center">
         <span className="inline-flex items-center gap-1.5 rounded-full bg-vibe-cream px-3.5 py-1 text-xs font-semibold uppercase tracking-wide text-vibe-pink-dark">

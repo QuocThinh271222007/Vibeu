@@ -16,7 +16,7 @@ import { useAuthStore } from '@/store/authStore'
 function PostThumb({ post }: { post: RemoteCommunityPost }) {
   const template = post.templateId ? findTemplate(post.templateId) : undefined
   return (
-    <Link to={`/community/${post.id}`} className="relative block aspect-[4/5] overflow-hidden rounded-2xl bg-vibe-cream">
+    <Link to={`/cong-dong/${post.id}`} className="relative block aspect-[4/5] overflow-hidden rounded-2xl bg-vibe-cream">
       {post.media ? (
         <img src={post.media.src} alt={post.media.alt} className="h-full w-full object-cover" loading="lazy" />
       ) : template ? (
@@ -70,7 +70,7 @@ export default function CommunityProfile() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6">
       <Link
-        to="/community"
+        to="/cong-dong"
         className="mb-6 inline-flex items-center gap-1.5 rounded-full bg-white px-4 py-2 text-sm font-semibold text-vibe-ink shadow-sm transition-colors hover:bg-vibe-cream"
       >
         <ArrowLeft size={16} /> Về Cộng đồng

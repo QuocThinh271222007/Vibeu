@@ -16,7 +16,7 @@ export function SuggestedDesigns() {
     <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <SectionHeading eyebrow="Mẫu đề xuất" title="Gợi ý riêng cho vibe hôm nay của bạn" />
-        <Button variant="secondary" onClick={() => navigate('/library')}>
+        <Button variant="secondary" onClick={() => navigate('/thu-vien')}>
           Xem tất cả mẫu <ArrowRight size={18} />
         </Button>
       </div>

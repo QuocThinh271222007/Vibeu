@@ -27,7 +27,7 @@ const env = loadEnvLocal()
 const SUPABASE_URL = env.VITE_SUPABASE_URL
 const SUPABASE_ANON_KEY = env.VITE_SUPABASE_ANON_KEY
 
-const STATIC_ROUTES = ['/', '/studio', '/library', '/community', '/blog', '/about', '/chinh-sach']
+const STATIC_ROUTES = ['/', '/studio', '/thu-vien', '/cong-dong', '/blog', '/about', '/chinh-sach']
 
 async function fetchTable(table, select, filter) {
   if (!SUPABASE_URL || !SUPABASE_ANON_KEY) return []
@@ -54,7 +54,7 @@ async function main() {
   ])
 
   for (const p of blogPosts) entries.push(urlEntry(`/blog/${p.slug}`, p.updated_at))
-  for (const p of communityPosts) entries.push(urlEntry(`/community/${p.id}`, p.created_at))
+  for (const p of communityPosts) entries.push(urlEntry(`/cong-dong/${p.id}`, p.created_at))
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${entries.join('\n')}\n</urlset>\n`
   writeFileSync(join(__dirname, '..', 'public', 'sitemap.xml'), xml)

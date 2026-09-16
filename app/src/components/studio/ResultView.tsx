@@ -156,7 +156,7 @@ export function ResultView({
       }
       setPosted(true)
       flashToast(autoApproved ? 'Đã đăng lên Cộng đồng!' : 'Đã đăng lên Cộng đồng! Bài chờ admin duyệt trước khi công khai.')
-      setTimeout(() => navigate('/community'), 1400)
+      setTimeout(() => navigate('/cong-dong'), 1400)
     } catch {
       flashToast('Đăng bài thất bại, thử lại nhé.')
     } finally {

@@ -49,7 +49,7 @@ export default function Community() {
       <PageMeta
         title="Cộng đồng"
         description="Xem bộ nail của cộng đồng VIBEU, thích, bình luận và chia sẻ thiết kế bạn vừa hoàn thành từ Studio."
-        canonicalPath="/community"
+        canonicalPath="/cong-dong"
       />
       <div className="text-center">
         <span className="inline-flex items-center gap-1.5 rounded-full bg-vibe-cream px-3.5 py-1 text-xs font-semibold uppercase tracking-wide text-vibe-pink-dark">
