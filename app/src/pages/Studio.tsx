@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useShallow } from 'zustand/react/shallow'
 import { ChevronUp, History, Lock, Palette, PenLine, QrCode, Ruler, Sticker as StickerIcon, X, ZoomIn, ZoomOut } from 'lucide-react'
 import { useStudioStore, type StudioTab } from '@/store/studioStore'
 import { useColorPresets } from '@/data/loaders'
@@ -41,9 +42,57 @@ const TABS: { id: StudioTab; label: string; icon: typeof Palette }[] = [
 const ZOOM_LEVELS = [1, 1.25, 1.5, 1.75, 2]
 const BASE_MAX_WIDTH_REM = 24 // matches the previous static max-w-sm
 
+// Everything Studio.tsx itself reads/calls — deliberately excludes fields it never renders
+// from (lightExposure/lightStrength/lightAngleDeg, debugMode, savedDesigns, past/future) so
+// dragging the lighting sliders or opening the save panel doesn't re-render this whole tree on
+// every tick; those live behind their own fine-grained selectors in LightingPanel/StudioTopBar.
+const STUDIO_SELECTOR = (st: ReturnType<typeof useStudioStore.getState>) => ({
+  view: st.view,
+  skinTone: st.skinTone,
+  fingers: st.fingers,
+  selectedFinger: st.selectedFinger,
+  selectedStickerInstance: st.selectedStickerInstance,
+  activeTab: st.activeTab,
+  activeTemplateName: st.activeTemplateName,
+  activeTemplateId: st.activeTemplateId,
+  brushWidth: st.brushWidth,
+  brushColor: st.brushColor,
+  brushOpacity: st.brushOpacity,
+  brushRender: st.brushRender,
+  setActiveTab: st.setActiveTab,
+  setShape: st.setShape,
+  setLength: st.setLength,
+  setPreset: st.setPreset,
+  setEffect: st.setEffect,
+  setCustomColor: st.setCustomColor,
+  setCustomGradient: st.setCustomGradient,
+  addStickerToAllFingers: st.addStickerToAllFingers,
+  addSticker: st.addSticker,
+  setBrushWidth: st.setBrushWidth,
+  setBrushColor: st.setBrushColor,
+  setBrushOpacity: st.setBrushOpacity,
+  setBrushRender: st.setBrushRender,
+  undoLastStroke: st.undoLastStroke,
+  clearStrokes: st.clearStrokes,
+  goToResult: st.goToResult,
+  backToDesign: st.backToDesign,
+  setSkinTone: st.setSkinTone,
+  reset: st.reset,
+  selectFinger: st.selectFinger,
+  selectSticker: st.selectSticker,
+  updateSticker: st.updateSticker,
+  removeSticker: st.removeSticker,
+  duplicateSticker: st.duplicateSticker,
+  addStroke: st.addStroke,
+  loadTemplate: st.loadTemplate,
+  loadSharedDesign: st.loadSharedDesign,
+})
+
 export default function Studio() {
   const [params] = useSearchParams()
-  const s = useStudioStore()
+  const s = useStudioStore(useShallow(STUDIO_SELECTOR))
+  const customDecals = useStudioStore((st) => st.customDecals)
+  const pastLength = useStudioStore((st) => st.past.length)
   const { presets } = useColorPresets()
   const presetsById = Object.fromEntries(presets.map((p) => [p.id, p]))
   const [zoomIndex, setZoomIndex] = useState(0)
@@ -75,16 +124,16 @@ export default function Studio() {
   // Debounced so a drag/slider mid-gesture doesn't hit localStorage on every frame — only once
   // the user has actually made a change (s.past.length > 0) is there anything worth backing up.
   useEffect(() => {
-    if (s.view !== 'design' || s.past.length === 0) return
+    if (s.view !== 'design' || pastLength === 0) return
     if (autosaveTimerRef.current) clearTimeout(autosaveTimerRef.current)
     autosaveTimerRef.current = setTimeout(() => {
-      saveStudioDraft({ skinTone: s.skinTone, fingers: s.fingers, customDecals: s.customDecals })
+      saveStudioDraft({ skinTone: s.skinTone, fingers: s.fingers, customDecals })
     }, 800)
     return () => {
       if (autosaveTimerRef.current) clearTimeout(autosaveTimerRef.current)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [s.skinTone, s.fingers, s.customDecals, s.past.length, s.view])
+  }, [s.skinTone, s.fingers, customDecals, pastLength, s.view])
 
   useEffect(() => {
     const templateId = params.get('template')

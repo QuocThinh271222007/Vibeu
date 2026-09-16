@@ -648,7 +648,12 @@ function CharmLayer({
       }
     }
     return list
-  }, [hand, fingers, stickersById, liveDrag])
+    // liveDrag's .patch changes every pointermove during a drag but never affects which items
+    // belong in this list (only .finger/.instanceId identity does) — depending on the whole
+    // object would re-run this (and the composeCharmLayer bake below) on every drag frame
+    // whenever the hand has any raised charm at all, dragged sticker or not.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hand, fingers, stickersById, liveDrag?.finger, liveDrag?.instanceId])
 
   const urls = useMemo(() => charmInstances.map(({ st }) => resolveDecalPath(stickersById[st.stickerId].path)), [charmInstances, stickersById])
   const resolvedAssets = useResolvedDecalAssets(urls)

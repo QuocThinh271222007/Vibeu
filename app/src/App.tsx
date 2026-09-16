@@ -39,6 +39,7 @@ const AdminDecals = lazy(() => import('@/pages/admin/AdminDecals'))
 const AdminUsers = lazy(() => import('@/pages/admin/AdminUsers'))
 const AdminRecipes = lazy(() => import('@/pages/admin/AdminRecipes'))
 const AdminSettings = lazy(() => import('@/pages/admin/AdminSettings'))
+const AdminPerformance = lazy(() => import('@/pages/admin/AdminPerformance'))
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation()
@@ -184,6 +185,7 @@ export default function App() {
             <Route path="recipes" element={<AdminRecipes />} />
             <Route path="geometry" element={<GeometryEditor adminMode />} />
             <Route path="settings" element={<AdminSettings />} />
+            <Route path="performance" element={<AdminPerformance />} />
           </Route>
         </Routes>
       </BrowserRouter>

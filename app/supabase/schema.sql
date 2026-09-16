@@ -939,6 +939,45 @@ create policy "Admins can update site settings"
   );
 
 -- =========================================================================
+-- performance_metrics — real-user Core Web Vitals reported by lib/performanceMetrics.ts on
+-- every non-admin page load (LCP/CLS/INP/FCP/TTFB via the `web-vitals` package). Anonymous,
+-- write-only from the client's point of view — no user_id, nothing personally identifying —
+-- read only from /admin/performance. Same anonymous-insert/admin-only-read shape as
+-- shared_designs/site_feedback above.
+-- =========================================================================
+create table if not exists public.performance_metrics (
+  id uuid primary key default gen_random_uuid(),
+  -- Route pattern, not the raw URL — dynamic segments are normalized client-side (e.g.
+  -- /blog/:slug, /cong-dong/:id) so this doesn't fragment into one bucket per blog post.
+  path text not null,
+  metric text not null check (metric in ('LCP', 'CLS', 'INP', 'FCP', 'TTFB')),
+  value double precision not null check (value >= 0),
+  rating text not null check (rating in ('good', 'needs-improvement', 'poor')),
+  device text not null default 'desktop' check (device in ('mobile', 'desktop')),
+  created_at timestamptz not null default now()
+);
+
+create index if not exists performance_metrics_created_at_idx on public.performance_metrics (created_at desc);
+
+alter table public.performance_metrics enable row level security;
+
+drop policy if exists "Anyone can report a performance metric" on public.performance_metrics;
+create policy "Anyone can report a performance metric"
+  on public.performance_metrics for insert with check (true);
+
+drop policy if exists "Admins can read performance metrics" on public.performance_metrics;
+create policy "Admins can read performance metrics"
+  on public.performance_metrics for select using (
+    exists (select 1 from public.profiles where id = auth.uid() and role = 'admin')
+  );
+
+drop policy if exists "Admins can delete performance metrics" on public.performance_metrics;
+create policy "Admins can delete performance metrics"
+  on public.performance_metrics for delete using (
+    exists (select 1 from public.profiles where id = auth.uid() and role = 'admin')
+  );
+
+-- =========================================================================
 -- Storage bucket for user-uploaded community photos.
 -- =========================================================================
 insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)

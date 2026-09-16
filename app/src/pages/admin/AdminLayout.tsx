@@ -1,5 +1,5 @@
 import { Link, NavLink, Navigate, Outlet, useLocation } from 'react-router-dom'
-import { AlertTriangle, LayoutDashboard, LibraryBig, ListOrdered, MessageSquareText, Newspaper, QrCode, ScanLine, Settings, ShieldOff, Sparkles, Tags, Users2, Users, ArrowLeft } from 'lucide-react'
+import { AlertTriangle, Gauge, LayoutDashboard, LibraryBig, ListOrdered, MessageSquareText, Newspaper, QrCode, ScanLine, Settings, ShieldOff, Sparkles, Tags, Users2, Users, ArrowLeft } from 'lucide-react'
 import { Logo } from '@/components/ui/Logo'
 import { useAuthStore } from '@/store/authStore'
 import { isSupabaseConfigured } from '@/lib/supabaseClient'
@@ -16,6 +16,7 @@ const NAV = [
   { to: '/admin/recipes', label: 'Công thức & QR', icon: QrCode, end: false },
   { to: '/admin/geometry', label: 'Căn chỉnh móng', icon: ScanLine, end: false },
   { to: '/admin/users', label: 'Người dùng', icon: Users, end: false },
+  { to: '/admin/performance', label: 'Hiệu năng', icon: Gauge, end: false },
   { to: '/admin/settings', label: 'Cài đặt hệ thống', icon: Settings, end: false },
 ]
 

@@ -1,6 +1,33 @@
-import { useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { ChevronDown, RotateCcw, Sun } from 'lucide-react'
 import { useStudioStore } from '@/store/studioStore'
+
+/**
+ * Dragging a range input can fire far more often than the screen can redraw (well past 60/s on
+ * some trackpads/mice), and each commit to the store re-bakes all 5 nail rasters per-pixel
+ * (composeNail in nailFill.ts) — the single biggest source of Studio jank customers reported.
+ * This caps actual store commits to once per animation frame while the slider's own displayed
+ * value still updates on every native input event, so dragging still feels instant.
+ */
+function useRafThrottled<T>(fn: (v: T) => void): (v: T) => void {
+  const fnRef = useRef(fn)
+  useEffect(() => {
+    fnRef.current = fn
+  })
+  const rafRef = useRef<number | null>(null)
+  const latestRef = useRef<T>(undefined as T)
+  useEffect(() => () => {
+    if (rafRef.current !== null) cancelAnimationFrame(rafRef.current)
+  }, [])
+  return useCallback((v: T) => {
+    latestRef.current = v
+    if (rafRef.current !== null) return
+    rafRef.current = requestAnimationFrame(() => {
+      rafRef.current = null
+      fnRef.current(latestRef.current)
+    })
+  }, [])
+}
 
 /**
  * Optional, collapsible user lighting control (DEFECT F's "Ánh sáng" section) — surfaced
@@ -39,7 +66,7 @@ export function LightingPanel() {
             min={-0.2}
             max={0.25}
             step={0.01}
-            display={`${exposure >= 0 ? '+' : ''}${Math.round(exposure * 100)}%`}
+            format={(v) => `${v >= 0 ? '+' : ''}${Math.round(v * 100)}%`}
             onChange={setLightExposure}
           />
           <LightSlider
@@ -48,7 +75,7 @@ export function LightingPanel() {
             min={0}
             max={1}
             step={0.02}
-            display={`${Math.round(strength * 100)}%`}
+            format={(v) => `${Math.round(v * 100)}%`}
             onChange={setLightStrength}
           />
           <LightSlider
@@ -57,7 +84,7 @@ export function LightingPanel() {
             min={-180}
             max={180}
             step={1}
-            display={`${Math.round(angleDeg)}°`}
+            format={(v) => `${Math.round(v)}°`}
             onChange={setLightAngleDeg}
           />
 
@@ -79,7 +106,7 @@ function LightSlider({
   min,
   max,
   step,
-  display,
+  format,
   onChange,
 }: {
   label: string
@@ -87,22 +114,38 @@ function LightSlider({
   min: number
   max: number
   step: number
-  display: string
+  format: (v: number) => string
   onChange: (v: number) => void
 }) {
+  // Own local value so the thumb position and % label track every native input event
+  // instantly — the actual store commit (and the expensive nail re-bake it triggers) is
+  // throttled to once per frame via useRafThrottled below, and re-synced whenever `value`
+  // changes from outside this slider (e.g. the "Tự động" reset button).
+  const [live, setLive] = useState(value)
+  const [syncedValue, setSyncedValue] = useState(value)
+  if (value !== syncedValue) {
+    setSyncedValue(value)
+    setLive(value)
+  }
+  const commit = useRafThrottled(onChange)
+
   return (
     <label className="block">
       <div className="mb-1 flex items-center justify-between text-[11px] text-vibe-ink-soft">
         <span>{label}</span>
-        <span className="font-semibold text-vibe-ink">{display}</span>
+        <span className="font-semibold text-vibe-ink">{format(live)}</span>
       </div>
       <input
         type="range"
         min={min}
         max={max}
         step={step}
-        value={value}
-        onChange={(e) => onChange(parseFloat(e.target.value))}
+        value={live}
+        onChange={(e) => {
+          const v = parseFloat(e.target.value)
+          setLive(v)
+          commit(v)
+        }}
         className="w-full accent-vibe-pink-dark"
       />
     </label>
