@@ -143,8 +143,17 @@ export default function BlogPost() {
         <ArrowLeft size={16} /> Quay lại Blog
       </Link>
 
-      <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-        <span className="mt-6 inline-block text-xs font-semibold uppercase tracking-wide text-vibe-pink-dark">
+      {/* Frosted "paper" surface behind the article — the page body has a diagonal striped
+          backdrop (see body's background-image in index.css) that reads fine behind cards
+          elsewhere, but was sitting directly behind long-form reading text here with nothing
+          to separate the two, making the stripes distracting/harder to read against. */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="mt-4 rounded-[2rem] bg-vibe-highlight/95 p-6 shadow-vibe backdrop-blur-sm sm:p-10"
+      >
+        <span className="inline-block text-xs font-semibold uppercase tracking-wide text-vibe-pink-dark">
           {labelFor(post.category)}
         </span>
         <h1 className="mt-2 font-display text-3xl font-semibold text-vibe-ink sm:text-4xl">{post.title}</h1>
