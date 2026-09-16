@@ -198,7 +198,7 @@ export default function AdminBlogEditor() {
   if (loading) return <p className="text-vibe-ink-soft">Đang tải...</p>
 
   return (
-    <div className="max-w-2xl">
+    <div className="max-w-4xl">
       <button onClick={() => navigate('/admin/blog')} className="flex items-center gap-1.5 text-sm font-medium text-vibe-ink-soft hover:text-vibe-ink">
         <ArrowLeft size={16} /> Quay lại danh sách
       </button>

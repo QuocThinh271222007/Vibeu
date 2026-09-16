@@ -6,6 +6,7 @@ import { TEMPLATE_TAGS } from '@/data/templateTags'
 import { invalidateTemplates } from '@/data/templates'
 import { createTemplate, templateIdExists, uploadTemplateCover } from '@/lib/templatesApi'
 import { slugify } from '@/lib/slug'
+import { clearStudioDraft } from '@/lib/studioDraft'
 import { useAuthStore } from '@/store/authStore'
 import { useStudioStore } from '@/store/studioStore'
 import type { SkinToneId } from '@/types/vibeu'
@@ -341,6 +342,7 @@ function SavePanel({ onClose }: { onClose: () => void }) {
       setError(error)
       return
     }
+    clearStudioDraft()
     setName('')
   }
 

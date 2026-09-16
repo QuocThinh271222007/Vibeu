@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronUp, Lock, Palette, PenLine, QrCode, Ruler, Sticker as StickerIcon, ZoomIn, ZoomOut } from 'lucide-react'
+import { ChevronUp, History, Lock, Palette, PenLine, QrCode, Ruler, Sticker as StickerIcon, X, ZoomIn, ZoomOut } from 'lucide-react'
 import { useStudioStore, type StudioTab } from '@/store/studioStore'
 import { useColorPresets } from '@/data/loaders'
 import { HandCanvas } from '@/components/studio/HandCanvas'
@@ -19,6 +19,7 @@ import { Button } from '@/components/ui/Button'
 import { findTemplateAsync } from '@/data/templates'
 import { fetchSavedDesign } from '@/lib/savedDesignsApi'
 import { getLockedTemplateView } from '@/lib/templateLock'
+import { clearStudioDraft, loadStudioDraft, saveStudioDraft } from '@/lib/studioDraft'
 import { FINGER_LABEL_VI, type NailLength, type NailShape, type SkinToneId } from '@/types/vibeu'
 
 const VALID_TONES = new Set<SkinToneId>(['cozy', 'matcha'])
@@ -51,8 +52,39 @@ export default function Studio() {
   // page flow, so the canvas is fully reachable without scrolling past a wall of controls.
   // Desktop keeps its always-visible sidebar regardless of this.
   const [mobileToolsOpen, setMobileToolsOpen] = useState(false)
+  const [draftRestored, setDraftRestored] = useState(false)
   const appliedVariantRef = useRef('')
+  const autosaveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const zoom = ZOOM_LEVELS[zoomIndex]
+
+  // Local safety net (not the account-level "Lưu thiết kế"): if a customer's connection drops or
+  // the tab crashes/reloads mid-edit, restore whatever they were working on instead of losing it —
+  // see lib/studioDraft.ts. Skipped whenever the URL itself asks for something specific
+  // (?template=/?design=/?tone+shape+length) — an explicit deep link should always win over an
+  // old local draft. Runs once on mount only: params is read from the initial URL on purpose.
+  useEffect(() => {
+    const hasExplicitLoad = params.get('template') || params.get('design') || (params.get('tone') && params.get('shape') && params.get('length'))
+    if (hasExplicitLoad) return
+    const draft = loadStudioDraft()
+    if (!draft) return
+    useStudioStore.getState().loadSharedDesign(draft)
+    setDraftRestored(true)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  // Debounced so a drag/slider mid-gesture doesn't hit localStorage on every frame — only once
+  // the user has actually made a change (s.past.length > 0) is there anything worth backing up.
+  useEffect(() => {
+    if (s.view !== 'design' || s.past.length === 0) return
+    if (autosaveTimerRef.current) clearTimeout(autosaveTimerRef.current)
+    autosaveTimerRef.current = setTimeout(() => {
+      saveStudioDraft({ skinTone: s.skinTone, fingers: s.fingers, customDecals: s.customDecals })
+    }, 800)
+    return () => {
+      if (autosaveTimerRef.current) clearTimeout(autosaveTimerRef.current)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [s.skinTone, s.fingers, s.customDecals, s.past.length, s.view])
 
   useEffect(() => {
     const templateId = params.get('template')
@@ -236,7 +268,34 @@ export default function Studio() {
         description="Tự thiết kế bộ nail của riêng bạn: chọn form móng, phối màu, đính charm 3D và xuất công thức mang ra tiệm."
         canonicalPath="/studio"
       />
-      <StudioTopBar skinTone={s.skinTone} onSkinTone={s.setSkinTone} onReset={s.reset} />
+      <StudioTopBar
+        skinTone={s.skinTone}
+        onSkinTone={s.setSkinTone}
+        onReset={() => {
+          clearStudioDraft()
+          s.reset()
+        }}
+      />
+
+      {draftRestored && (
+        <div className="mx-4 mt-3 flex items-center gap-2.5 rounded-2xl border-2 border-vibe-blue/30 bg-vibe-blue/10 px-4 py-2.5 text-sm sm:mx-8">
+          <History size={16} className="shrink-0 text-vibe-blue-dark" />
+          <p className="flex-1 font-medium text-vibe-ink">Đã khôi phục thiết kế bạn đang làm dở lần trước.</p>
+          <button
+            onClick={() => {
+              clearStudioDraft()
+              s.reset()
+              setDraftRestored(false)
+            }}
+            className="shrink-0 text-xs font-semibold text-vibe-ink-soft underline hover:text-vibe-ink"
+          >
+            Làm lại từ đầu
+          </button>
+          <button onClick={() => setDraftRestored(false)} className="shrink-0 rounded-full p-1 text-vibe-ink-soft hover:bg-white/60">
+            <X size={14} />
+          </button>
+        </div>
+      )}
 
       <div className="flex flex-1 flex-col lg:min-h-0 lg:flex-row lg:overflow-hidden">
         <div className="flex flex-col items-center gap-4 px-4 pb-24 pt-5 sm:px-8 lg:flex-1 lg:overflow-y-auto lg:pb-5">

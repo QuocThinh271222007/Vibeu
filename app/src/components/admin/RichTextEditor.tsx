@@ -59,7 +59,7 @@ export function RichTextEditor({
     editorProps: {
       attributes: {
         class:
-          'rich-content min-h-[240px] rounded-b-xl px-3.5 py-3 text-sm outline-none ' +
+          'rich-content min-h-[420px] rounded-b-xl px-3.5 py-3 text-sm outline-none ' +
           '[&_h2]:mt-6 [&_h2]:font-display [&_h2]:text-lg [&_h2]:font-semibold [&_h2]:first:mt-0 ' +
           '[&_h3]:mt-4 [&_h3]:font-display [&_h3]:text-base [&_h3]:font-semibold ' +
           '[&_p]:mt-2 [&_ul]:mt-2 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:mt-2 [&_ol]:list-decimal [&_ol]:pl-5 ' +
