@@ -1,0 +1,79 @@
+# VIBEU (vibeu.design) — reference nginx server block.
+#
+# WHY THIS FILE EXISTS: this app is a static SPA build (`npm run build` produces app/dist/,
+# uploaded by hand — there is no server-side app/framework running). Several SEO requirements
+# fundamentally cannot be satisfied from inside the React app itself, no matter how it's coded,
+# because a client-side <Navigate> redirect and a client-rendered "page not found" screen both
+# still return a real HTTP 200 from the web server — only the actual web server sitting in front
+# of the static files can emit a true 301 or 404 status code. This file is that missing piece.
+# It is NOT applied automatically — copy the relevant blocks into your real vhost config and
+# reload nginx (`nginx -t && systemctl reload nginx`) on the server yourself.
+#
+# Everything below assumes `root` points at the extracted dist/ folder from this app's build.
+
+server {
+    listen 80;
+    server_name www.vibeu.design;
+    return 301 https://vibeu.design$request_uri;
+}
+
+server {
+    listen 443 ssl http2;
+    server_name www.vibeu.design;
+    # ... your existing ssl_certificate / ssl_certificate_key directives ...
+    return 301 https://vibeu.design$request_uri;
+}
+
+server {
+    listen 443 ssl http2;
+    server_name vibeu.design;
+    # ... your existing ssl_certificate / ssl_certificate_key directives ...
+
+    root /var/www/vibeu/dist;   # <-- adjust to wherever dist/ actually lives on this server
+    index index.html;
+
+    # --- Legacy slug redirects (real 301s — the in-app <Navigate> equivalents were only ever a
+    # client-side fallback for users who already had JS running; this is what search engines and
+    # link-preview bots actually need to see). ---
+    location = /library { return 301 /thu-vien; }
+    location = /community { return 301 /cong-dong; }
+    location ~ ^/community/(.+)$ { return 301 /cong-dong/$1; }
+
+    # --- Prerendered static pages take priority over the SPA shell when they exist (see
+    # scripts/prerender.mjs — it writes real index.html files into dist/blog/, dist/blog/<slug>/,
+    # dist/thu-vien/, dist/about/, dist/chinh-sach/, and overwrites the root dist/index.html and
+    # dist/studio/index.html). try_files finds the prerendered file first; anything it can't find
+    # falls through to the SPA shell so client-side routing still works for every other route
+    # (/admin/*, /cong-dong/:id, /u/:id, /r/:id, etc.). ---
+    location / {
+        try_files $uri $uri/index.html $uri.html /_spa.html;
+    }
+
+    # --- OPTIONAL: real HTTP 404 for unknown blog slugs. Every published post has its own
+    # prerendered dist/blog/<slug>/index.html, so a slug with no file genuinely doesn't exist.
+    # NOT enabled by default because of the trade-off: a post published in the admin panel is
+    # a 404 until the next `npm run build` + upload creates its file (the app itself would show
+    # it fine via the SPA shell). Uncomment only if you rebuild on every publish.
+    # location ~ ^/blog/[^/]+/?$ { try_files $uri $uri/index.html =404; }
+
+    # --- Private/utility routes: noindex at the HTTP level. The app also emits <meta name="robots"
+    # content="noindex,follow"> for these (PageMeta's `noindex` prop), but that only exists after
+    # JavaScript runs (these routes are deliberately not prerendered), so this header is the one
+    # signal a non-JS crawler can actually see. The routes are still crawlable (no robots.txt
+    # Disallow) on purpose — a blocked URL can't have its noindex observed. ---
+    location ~ ^/(admin|auth|reset-password|settings|geometry-editor|r/) {
+        add_header X-Robots-Tag "noindex, follow" always;
+        try_files $uri /_spa.html;
+    }
+
+    # Static assets are content-hashed by Vite — safe to cache indefinitely.
+    location /assets/ {
+        try_files $uri =404;
+        add_header Cache-Control "public, max-age=31536000, immutable";
+    }
+
+    # sitemap.xml / robots.txt should never fall through to the SPA shell if they're somehow
+    # missing — a 404 there is more honest than silently serving index.html as XML.
+    location = /sitemap.xml { try_files $uri =404; }
+    location = /robots.txt { try_files $uri =404; }
+}
