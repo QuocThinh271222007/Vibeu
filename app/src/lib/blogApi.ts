@@ -50,6 +50,7 @@ function mapRowToPost(row: BlogPostRow): BlogPost {
     accentColor: row.accent_color,
     cover: row.cover_src ? { src: row.cover_src, alt: row.cover_alt ?? '' } : undefined,
     date: row.created_at.slice(0, 10),
+    updatedAt: row.updated_at,
     readMinutes: row.read_minutes,
     content: row.content,
     contentBlocks: row.content_blocks ?? [],

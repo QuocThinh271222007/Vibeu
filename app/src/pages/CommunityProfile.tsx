@@ -81,7 +81,10 @@ export default function CommunityProfile() {
           <div className="h-16 w-16 rounded-full bg-vibe-cream" />
         </div>
       ) : notFound || !profile ? (
-        <p className="rounded-2xl bg-vibe-highlight p-8 text-center text-sm text-vibe-ink-soft shadow-sm">Không tìm thấy người dùng này.</p>
+        <>
+          <PageMeta title="Không tìm thấy người dùng" description="Trang cá nhân này không tồn tại." canonicalPath="/cong-dong" noindex />
+          <p className="rounded-2xl bg-vibe-highlight p-8 text-center text-sm text-vibe-ink-soft shadow-sm">Không tìm thấy người dùng này.</p>
+        </>
       ) : (
         <>
           <PageMeta
@@ -93,14 +96,14 @@ export default function CommunityProfile() {
           <div className="flex flex-wrap items-center gap-4 rounded-[1.75rem] bg-vibe-highlight p-6 shadow-[0_10px_30px_-18px_rgba(80,50,120,0.3)]">
             <Avatar name={profile.displayName} color={profile.avatarColor} url={profile.avatarUrl} size={72} />
             <div className="min-w-0 flex-1">
-              <p className="flex items-center gap-1.5 font-display text-lg font-semibold text-vibe-ink">
+              <h1 className="flex items-center gap-1.5 font-display text-lg font-semibold text-vibe-ink">
                 {profile.displayName}
                 {profile.role === 'admin' && (
                   <span className="flex items-center gap-1 rounded-full bg-vibe-blue/15 px-2 py-0.5 text-[10px] font-semibold text-vibe-blue-dark">
                     <ShieldCheck size={11} /> Admin
                   </span>
                 )}
-              </p>
+              </h1>
               <p className="text-sm text-vibe-ink-soft">{profile.handle ?? '@vibeu'}</p>
               <p className="mt-1 text-xs text-vibe-ink-soft">
                 {posts.length} bài đăng · {designs.length} thiết kế · {favorites.length} yêu thích · Tham gia{' '}

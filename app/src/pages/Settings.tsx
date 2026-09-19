@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/Button'
 import { Avatar } from '@/components/ui/Avatar'
 import { useToast } from '@/components/ui/Toast'
 import { SavedDesignThumb } from '@/components/studio/SavedDesignThumb'
+import { PageMeta } from '@/components/seo/PageMeta'
 import { useAuthStore } from '@/store/authStore'
 import { isSupabaseConfigured } from '@/lib/supabaseClient'
 import { updateProfile, uploadAvatar } from '@/lib/profileApi'
@@ -125,6 +126,7 @@ export default function Settings() {
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-14 sm:px-6">
+      <PageMeta title="Cài đặt tài khoản" description="Quản lý hồ sơ và bảo mật tài khoản VIBEU." canonicalPath="/settings" noindex />
       <h1 className="font-display text-3xl font-semibold text-vibe-ink">Cài đặt tài khoản</h1>
       <p className="mt-1.5 text-sm text-vibe-ink-soft">Quản lý hồ sơ và bảo mật tài khoản VIBEU của bạn.</p>
 

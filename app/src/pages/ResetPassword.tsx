@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { AlertCircle, CheckCircle2, Lock } from 'lucide-react'
 import { Logo } from '@/components/ui/Logo'
 import { Button } from '@/components/ui/Button'
+import { PageMeta } from '@/components/seo/PageMeta'
 import { useAuthStore } from '@/store/authStore'
 import { isSupabaseConfigured, supabase } from '@/lib/supabaseClient'
 
@@ -64,6 +65,7 @@ export default function ResetPassword() {
 
   return (
     <div className="grid min-h-screen place-items-center bg-vibe-cream px-4">
+      <PageMeta title="Đặt lại mật khẩu" description="Đặt lại mật khẩu tài khoản VIBEU." canonicalPath="/reset-password" noindex />
       <div className="w-full max-w-sm rounded-[2rem] bg-vibe-highlight p-8 shadow-vibe-lg">
         <div className="mb-6 flex justify-center">
           <Logo />

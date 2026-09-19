@@ -317,6 +317,18 @@ export default function Studio() {
         description="Tự thiết kế bộ nail của riêng bạn: chọn form móng, phối màu, đính charm 3D và xuất công thức mang ra tiệm."
         canonicalPath="/studio"
       />
+      {/* Minimal and genuinely accurate on purpose — no fabricated rating/review, and offers is
+          omitted entirely rather than guessing at a schema-correct way to represent "free". */}
+      <script type="application/ld+json">
+        {JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'SoftwareApplication',
+          name: 'VIBEU Nail Studio',
+          applicationCategory: 'DesignApplication',
+          operatingSystem: 'Web',
+          url: 'https://vibeu.design/studio',
+        })}
+      </script>
       <StudioTopBar
         skinTone={s.skinTone}
         onSkinTone={s.setSkinTone}
@@ -348,6 +360,14 @@ export default function Studio() {
 
       <div className="flex flex-1 flex-col lg:min-h-0 lg:flex-row lg:overflow-hidden">
         <div className="flex flex-col items-center gap-4 px-4 pb-24 pt-5 sm:px-8 lg:flex-1 lg:overflow-y-auto lg:pb-5">
+          {/* The tool itself doesn't need a heading to be usable, but the page did — every other
+              route has a real, visible h1, and this is the single most-linked page on the site.
+              Kept visible at every width on purpose (not sr-only-below-sm): Google indexes with
+              a mobile viewport by default, so hiding it on small screens would hide it from the
+              exact crawl that matters most. */}
+          <h1 className="text-center text-xs font-medium text-vibe-ink-soft">
+            Nail Studio — thiết kế nail 3D miễn phí, xuất công thức và mã QR mang ra tiệm
+          </h1>
           {s.activeTemplateName && (
             <div className="flex flex-wrap items-center justify-center gap-2">
               <span className="rounded-full bg-white px-3.5 py-1 text-xs font-semibold text-vibe-pink-dark shadow-sm">

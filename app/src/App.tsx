@@ -40,6 +40,7 @@ const AdminUsers = lazy(() => import('@/pages/admin/AdminUsers'))
 const AdminRecipes = lazy(() => import('@/pages/admin/AdminRecipes'))
 const AdminSettings = lazy(() => import('@/pages/admin/AdminSettings'))
 const AdminPerformance = lazy(() => import('@/pages/admin/AdminPerformance'))
+const NotFound = lazy(() => import('@/pages/NotFound'))
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation()
@@ -187,6 +188,9 @@ export default function App() {
             <Route path="settings" element={<AdminSettings />} />
             <Route path="performance" element={<AdminPerformance />} />
           </Route>
+          {/* Catch-all — must stay last. See NotFound.tsx for why this can't be a real HTTP 404
+              on this static-hosting setup without a server/CDN rewrite rule. */}
+          <Route path="*" element={<SiteLayout><NotFound /></SiteLayout>} />
         </Routes>
       </BrowserRouter>
     </ToastProvider>

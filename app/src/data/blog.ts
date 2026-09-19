@@ -45,6 +45,9 @@ export interface BlogPost {
   accentColor: string
   cover?: BlogCover
   date: string
+  /** ISO timestamp, only ever later than `date` once an admin edits and re-saves the post — used
+   * for BlogPosting JSON-LD's dateModified (article:modified_time). */
+  updatedAt: string
   readMinutes: number
   /** Plain-text mirror of contentBlocks' paragraph/heading text — kept for any post that
    * predates contentBlocks; BlogPost.tsx only falls back to this when contentBlocks is empty. */

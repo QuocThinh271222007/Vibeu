@@ -13,6 +13,7 @@ export function PageMeta({
   canonicalPath,
   image,
   type = 'website',
+  noindex = false,
 }: {
   /** Page-specific title — SITE_NAME is appended automatically, don't repeat it here. */
   title: string
@@ -21,6 +22,11 @@ export function PageMeta({
   canonicalPath: string
   image?: string
   type?: 'website' | 'article'
+  /** Utility/private pages (login, admin, 404, settings) — kept crawlable (robots.txt still
+   * allows fetching them) but excluded from the index. Meta robots controls indexing; robots.txt
+   * controls crawling — the two aren't interchangeable, so this exists as its own prop rather
+   * than being folded into a Disallow rule. */
+  noindex?: boolean
 }) {
   const url = `${SITE_URL}${canonicalPath}`
   const fullTitle = `${title} — ${SITE_NAME}`
@@ -29,6 +35,7 @@ export function PageMeta({
       <title>{fullTitle}</title>
       <meta name="description" content={description} />
       <link rel="canonical" href={url} />
+      <meta name="robots" content={noindex ? 'noindex,follow' : 'index,follow'} />
       <meta property="og:type" content={type} />
       <meta property="og:site_name" content={SITE_NAME} />
       <meta property="og:title" content={fullTitle} />

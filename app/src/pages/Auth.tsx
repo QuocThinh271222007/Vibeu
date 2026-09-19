@@ -5,6 +5,7 @@ import { Mail, Lock, User, Sparkles, ArrowLeft, CheckCircle2, AlertCircle } from
 import { Logo } from '@/components/ui/Logo'
 import { Button } from '@/components/ui/Button'
 import { Captcha } from '@/components/ui/Captcha'
+import { PageMeta } from '@/components/seo/PageMeta'
 import { useAuthStore } from '@/store/authStore'
 import { isSupabaseConfigured } from '@/lib/supabaseClient'
 import { isCaptchaConfigured } from '@/lib/captcha'
@@ -119,6 +120,7 @@ export default function Auth() {
 
   return (
     <div className="grid min-h-screen lg:grid-cols-2">
+      <PageMeta title="Đăng nhập" description="Đăng nhập hoặc tạo tài khoản VIBEU." canonicalPath="/auth" noindex />
       <div className="relative hidden flex-col justify-between overflow-hidden bg-[linear-gradient(150deg,#90B8EB,#FF92F9_55%,#FFD879)] p-10 lg:flex">
         <div className="pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full bg-white/20 blur-3xl" />
         <div className="pointer-events-none absolute -bottom-32 -right-16 h-80 w-80 rounded-full bg-white/15 blur-3xl" />

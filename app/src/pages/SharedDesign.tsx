@@ -100,6 +100,7 @@ export default function SharedDesign() {
   if (state === 'not-found' || !payload) {
     return (
       <div className="grid min-h-screen place-items-center bg-vibe-cream px-4">
+        <PageMeta title="Không tìm thấy thiết kế" description="Liên kết công thức làm móng này không hợp lệ." canonicalPath={`/r/${id}`} noindex />
         <div className="max-w-sm rounded-[2rem] bg-vibe-highlight p-8 text-center shadow-vibe-lg">
           <div className="mx-auto mb-4 grid h-14 w-14 place-items-center rounded-2xl bg-vibe-cream">
             <AlertTriangle size={28} className="text-amber-500" />
@@ -122,6 +123,9 @@ export default function SharedDesign() {
         title="Công thức làm móng"
         description="Bảng thông số kỹ thuật thiết kế nail từ VIBEU — mở lại chính xác từ mã QR, dùng để pha màu và lên form tại tiệm."
         canonicalPath={`/r/${id}`}
+        // Personal, ephemeral, one-recipe-per-link content — see the route-policy notes in
+        // scripts/seo-check.mjs. Never worth indexing regardless of whether the link resolves.
+        noindex
       />
       <div className="mx-auto max-w-6xl px-4 pb-16 pt-8 sm:px-6">
         <button onClick={() => navigate('/')} className="mb-6 flex items-center gap-1.5 text-sm font-semibold text-vibe-ink-soft hover:text-vibe-ink">

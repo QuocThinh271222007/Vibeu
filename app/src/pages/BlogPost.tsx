@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
-import { Link, useNavigate, useParams, Navigate } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowLeft, ArrowRight, List } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Logo } from '@/components/ui/Logo'
 import { MediaPlaceholder } from '@/components/ui/MediaPlaceholder'
 import { FacebookGlyph } from '@/components/ui/SocialGlyphs'
+import { BlogShareButtons } from '@/components/blog/BlogShareButtons'
+import NotFound from '@/pages/NotFound'
 import { findBlogPost, relatedPosts, type ContentBlock, type BlogPost as BlogPostType } from '@/data/blog'
 import { useBlogPosts } from '@/hooks/useBlogPosts'
 import { useBlogCategories } from '@/hooks/useBlogCategories'
@@ -176,20 +178,35 @@ export default function BlogPost() {
 
   if (!post) {
     if (loading) return null
-    return <Navigate to="/blog" replace />
+    // An unknown slug used to silently redirect to /blog — indistinguishable from a real page to
+    // both users and crawlers (a classic soft-404: HTTP 200, generic content, no signal that the
+    // requested thing doesn't exist). Rendering NotFound directly gives it a noindex instead.
+    return <NotFound />
   }
 
   const related = relatedPosts(post.slug, posts)
   const keywords = [post.primaryKeyword, post.secondaryKeyword].filter(Boolean).join(', ')
+  const postUrl = `https://vibeu.design/blog/${post.slug}`
   const jsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'Article',
+    '@type': 'BlogPosting',
     headline: post.title,
     description: post.metaDescription || post.excerpt,
     image: post.cover?.src,
     datePublished: post.date,
+    dateModified: post.updatedAt ? post.updatedAt.slice(0, 10) : post.date,
     author: { '@type': 'Organization', name: 'VIBEU' },
-    publisher: { '@type': 'Organization', name: 'VIBEU' },
+    publisher: { '@type': 'Organization', name: 'VIBEU', logo: { '@type': 'ImageObject', url: 'https://vibeu.design/assets/brand/logo-mark.png' } },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': postUrl },
+  }
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Trang chủ', item: 'https://vibeu.design/' },
+      { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://vibeu.design/blog' },
+      { '@type': 'ListItem', position: 3, name: post.title, item: postUrl },
+    ],
   }
 
   return (
@@ -203,6 +220,7 @@ export default function BlogPost() {
       />
       {keywords && <meta name="keywords" content={keywords} />}
       <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
+      <script type="application/ld+json">{JSON.stringify(breadcrumbJsonLd)}</script>
 
       <Link to="/blog" className="inline-flex items-center gap-1.5 text-sm font-semibold text-vibe-ink-soft transition-colors hover:text-vibe-pink-dark">
         <ArrowLeft size={16} /> Quay lại Blog
@@ -262,13 +280,26 @@ export default function BlogPost() {
           transition={{ duration: 0.5 }}
           className="order-1 rounded-[2rem] bg-vibe-highlight/95 p-6 shadow-vibe backdrop-blur-sm sm:p-10 lg:order-2 lg:col-span-2"
         >
-          <span className="inline-block text-xs font-semibold uppercase tracking-wide text-vibe-pink-dark">
+          {/* Visible trail matching breadcrumbJsonLd above — schema without matching on-page
+              content is the kind of thing Google's structured-data guidelines explicitly warn
+              against. */}
+          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-vibe-ink-soft">
+            <Link to="/" className="hover:text-vibe-pink-dark hover:underline">Trang chủ</Link>
+            <span aria-hidden="true">/</span>
+            <Link to="/blog" className="hover:text-vibe-pink-dark hover:underline">Blog</Link>
+            <span aria-hidden="true">/</span>
+            <span className="truncate text-vibe-ink-soft/70">{post.title}</span>
+          </nav>
+          <span className="mt-3 inline-block text-xs font-semibold uppercase tracking-wide text-vibe-pink-dark">
             {labelFor(post.category)}
           </span>
           <h1 className="mt-2 font-display text-3xl font-semibold text-vibe-ink sm:text-4xl">{post.title}</h1>
-          <p className="mt-3 text-sm text-vibe-ink-soft">
-            {new Date(post.date).toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' })} · {post.readMinutes} phút đọc
-          </p>
+          <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
+            <p className="text-sm text-vibe-ink-soft">
+              {new Date(post.date).toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' })} · {post.readMinutes} phút đọc
+            </p>
+            <BlogShareButtons url={postUrl} title={post.title} />
+          </div>
 
           {/* Sapo: "đoạn mở đầu dẫn dắt người đọc đến nội dung chính" per the writing template —
               this is meant to be read on the article page itself, not just used as the listing

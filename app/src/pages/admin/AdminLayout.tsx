@@ -1,6 +1,7 @@
 import { Link, NavLink, Navigate, Outlet, useLocation } from 'react-router-dom'
 import { AlertTriangle, Gauge, LayoutDashboard, LibraryBig, ListOrdered, MessageSquareText, Newspaper, QrCode, ScanLine, Settings, ShieldOff, Sparkles, Tags, Users2, Users, ArrowLeft } from 'lucide-react'
 import { Logo } from '@/components/ui/Logo'
+import { PageMeta } from '@/components/seo/PageMeta'
 import { useAuthStore } from '@/store/authStore'
 import { isSupabaseConfigured } from '@/lib/supabaseClient'
 
@@ -25,23 +26,35 @@ export default function AdminLayout() {
   const { pathname } = useLocation()
   const geometryEditor = pathname === '/admin/geometry'
 
+  // One noindex here covers every /admin/* route (none of the individual admin pages render
+  // their own PageMeta) — centralized so admin tooling can never accidentally end up indexed
+  // just because it renders a generic SPA shell. Applies in every auth state below, including
+  // the login-wall/loading/no-permission screens, since those are served at the same URLs.
+  const adminMeta = <PageMeta title="Quản trị" description="Trang quản trị nội bộ VIBEU." canonicalPath={pathname} noindex />
+
   if (!isSupabaseConfigured) {
     return (
-      <FullScreenNotice
-        icon={<AlertTriangle size={28} className="text-amber-500" />}
-        title="Chưa kết nối Supabase"
-        message="Thêm VITE_SUPABASE_URL và VITE_SUPABASE_ANON_KEY vào app/.env.local (xem .env.example), chạy supabase/schema.sql trong SQL Editor của dự án Supabase, rồi tải lại trang."
-      />
+      <>
+        {adminMeta}
+        <FullScreenNotice
+          icon={<AlertTriangle size={28} className="text-amber-500" />}
+          title="Chưa kết nối Supabase"
+          message="Thêm VITE_SUPABASE_URL và VITE_SUPABASE_ANON_KEY vào app/.env.local (xem .env.example), chạy supabase/schema.sql trong SQL Editor của dự án Supabase, rồi tải lại trang."
+        />
+      </>
     )
   }
 
   if (status === 'loading') {
     return (
-      <FullScreenNotice
-        icon={<div className="h-7 w-7 animate-spin rounded-full border-2 border-vibe-pink border-t-transparent" />}
-        title="Đang tải..."
-        message=""
-      />
+      <>
+        {adminMeta}
+        <FullScreenNotice
+          icon={<div className="h-7 w-7 animate-spin rounded-full border-2 border-vibe-pink border-t-transparent" />}
+          title="Đang tải..."
+          message=""
+        />
+      </>
     )
   }
 
@@ -51,16 +64,20 @@ export default function AdminLayout() {
 
   if (profile.role !== 'admin') {
     return (
-      <FullScreenNotice
-        icon={<ShieldOff size={28} className="text-red-500" />}
-        title="Không có quyền truy cập"
-        message="Tài khoản của bạn chưa có quyền quản trị. Một admin có thể cấp quyền cho bạn trong bảng profiles (cột role = 'admin')."
-      />
+      <>
+        {adminMeta}
+        <FullScreenNotice
+          icon={<ShieldOff size={28} className="text-red-500" />}
+          title="Không có quyền truy cập"
+          message="Tài khoản của bạn chưa có quyền quản trị. Một admin có thể cấp quyền cho bạn trong bảng profiles (cột role = 'admin')."
+        />
+      </>
     )
   }
 
   return (
     <div className="flex min-h-screen bg-vibe-cream">
+      {adminMeta}
       <aside className="flex w-60 shrink-0 flex-col gap-1 border-r border-vibe-ink/10 bg-white p-4">
         <div className="mb-4 flex items-center justify-between px-1">
           <Logo />

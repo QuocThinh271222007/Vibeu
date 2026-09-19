@@ -88,9 +88,12 @@ export default function CommunityPost() {
       {loading ? (
         <PostCardSkeleton />
       ) : notFound || !post ? (
-        <p className="rounded-2xl bg-vibe-highlight p-8 text-center text-sm text-vibe-ink-soft shadow-sm">
-          Không tìm thấy bài đăng này — có thể đã bị xoá hoặc chưa được duyệt công khai.
-        </p>
+        <>
+          <PageMeta title="Không tìm thấy bài đăng" description="Bài đăng này không tồn tại hoặc chưa được duyệt." canonicalPath="/cong-dong" noindex />
+          <p className="rounded-2xl bg-vibe-highlight p-8 text-center text-sm text-vibe-ink-soft shadow-sm">
+            Không tìm thấy bài đăng này — có thể đã bị xoá hoặc chưa được duyệt công khai.
+          </p>
+        </>
       ) : (
         <>
           <PageMeta
@@ -100,6 +103,12 @@ export default function CommunityPost() {
             image={post.media?.src}
             type="article"
           />
+          {/* PostCard (shared with the feed listing, where per-card h1s would be wrong) shows the
+              username as a <span>, not a heading — this single-post page is the one place that
+              content really is the page's subject, so it gets a real, visible h1 of its own
+              (styled as a small eyebrow label so it doesn't visually duplicate the card's own
+              username line right below it). */}
+          <h1 className="mb-3 text-xs font-semibold uppercase tracking-wide text-vibe-ink-soft">Bài đăng của {post.userName}</h1>
           <PostCard
             post={post}
             currentUserId={profile?.id ?? null}
