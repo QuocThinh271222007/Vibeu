@@ -1,11 +1,11 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { EditorContent, useEditor, type Editor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import { TextStyleKit } from '@tiptap/extension-text-style'
 import TextAlign from '@tiptap/extension-text-align'
 import { Table, TableRow, TableHeader as BaseTableHeader, TableCell as BaseTableCell } from '@tiptap/extension-table'
 import Underline from '@tiptap/extension-underline'
-import { AlignCenter, AlignLeft, AlignRight, Bold, Italic, PaintBucket, Strikethrough, Underline as UnderlineIcon } from 'lucide-react'
+import { AlignCenter, AlignLeft, AlignRight, Bold, Highlighter, Italic, PaintBucket, Strikethrough, Underline as UnderlineIcon } from 'lucide-react'
 import { sanitizeBlogHtml } from '@/lib/blogContentHtml'
 
 // TipTap's stock table cell/header nodes have no color of their own — "tô màu bảng" needs a
@@ -37,13 +37,7 @@ const TableHeader = BaseTableHeader.extend({
   },
 })
 
-const FONT_SIZES = [
-  { label: 'Mặc định', value: '' },
-  { label: 'Nhỏ', value: '13px' },
-  { label: 'Vừa', value: '16px' },
-  { label: 'Lớn', value: '20px' },
-  { label: 'Rất lớn', value: '26px' },
-]
+const DEFAULT_FONT_SIZE = 15
 
 /**
  * Small TipTap instance scoped to ONE content_blocks entry — a `paragraph` block's inline text
@@ -72,7 +66,7 @@ export function RichBlockEditor({
         horizontalRule: false,
       }),
       Underline,
-      TextStyleKit.configure({ fontFamily: false, lineHeight: false, backgroundColor: false }),
+      TextStyleKit.configure({ fontFamily: false, lineHeight: false }),
       TextAlign.configure({ types: ['paragraph'] }),
       Table.configure({ resizable: false }),
       TableRow,
@@ -93,9 +87,15 @@ export function RichBlockEditor({
   })
 
   // A freshly-added table block starts with no rows at all — seed it with a real 3x3 table once,
-  // instead of making the admin insert one manually right after creating the block.
+  // instead of making the admin insert one manually right after creating the block. Guarded by a
+  // ref, not just `editor.isEmpty`: a table with every cell blank still counts as "empty" (no
+  // text content anywhere), so relying on isEmpty alone let this fire a second time — React's
+  // StrictMode double-invokes effects in dev — and insert a second table on top of the first
+  // ("bảng chồng bảng").
+  const seededRef = useRef(false)
   useEffect(() => {
-    if (variant === 'table' && editor && editor.isEmpty) {
+    if (variant === 'table' && editor && !seededRef.current && editor.isEmpty) {
+      seededRef.current = true
       editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -104,6 +104,8 @@ export function RichBlockEditor({
   if (!editor) return null
 
   const inTable = editor.isActive('table')
+  const currentFontSize = editor.getAttributes('textStyle').fontSize as string | undefined
+  const fontSizePx = currentFontSize ? parseInt(currentFontSize, 10) : undefined
 
   return (
     <div className="rounded-lg border-2 border-vibe-ink/10 focus-within:border-vibe-pink/50">
@@ -123,22 +125,26 @@ export function RichBlockEditor({
 
         <Divider />
 
-        <select
-          value={(editor.getAttributes('textStyle').fontSize as string | undefined) ?? ''}
-          onChange={(e) => {
-            const v = e.target.value
-            if (v) editor.chain().focus().setFontSize(v).run()
-            else editor.chain().focus().unsetFontSize().run()
-          }}
-          className="h-6 rounded-md border border-vibe-ink/10 bg-white px-1 text-[11px] font-medium text-vibe-ink-soft outline-none"
-          title="Cỡ chữ"
-        >
-          {FONT_SIZES.map((f) => (
-            <option key={f.value} value={f.value}>
-              {f.label}
-            </option>
-          ))}
-        </select>
+        <div className="flex h-6 items-center gap-0.5 rounded-md border border-vibe-ink/10 bg-white px-1" title="Cỡ chữ (px)">
+          <input
+            type="number"
+            min={8}
+            max={72}
+            placeholder={String(DEFAULT_FONT_SIZE)}
+            value={fontSizePx ?? ''}
+            onChange={(e) => {
+              const raw = e.target.value
+              if (raw === '') {
+                editor.chain().focus().unsetFontSize().run()
+                return
+              }
+              const n = Math.max(8, Math.min(72, Number(raw)))
+              editor.chain().focus().setFontSize(`${n}px`).run()
+            }}
+            className="w-9 text-[11px] font-medium text-vibe-ink-soft outline-none"
+          />
+          <span className="text-[10px] text-vibe-ink-soft/60">px</span>
+        </div>
 
         <label title="Màu chữ" className="ml-0.5 grid h-6 w-6 cursor-pointer place-items-center rounded-md hover:bg-white">
           <span className="text-[11px] font-bold" style={{ color: (editor.getAttributes('textStyle').color as string) || undefined }}>
@@ -148,6 +154,16 @@ export function RichBlockEditor({
             type="color"
             value={(editor.getAttributes('textStyle').color as string | undefined) ?? '#2c2740'}
             onChange={(e) => editor.chain().focus().setColor(e.target.value).run()}
+            className="sr-only"
+          />
+        </label>
+
+        <label title="Màu nền chữ (highlight)" className="grid h-6 w-6 cursor-pointer place-items-center rounded-md hover:bg-white">
+          <Highlighter size={13} style={{ color: (editor.getAttributes('textStyle').backgroundColor as string) || undefined }} />
+          <input
+            type="color"
+            value={(editor.getAttributes('textStyle').backgroundColor as string | undefined) ?? '#fff7da'}
+            onChange={(e) => editor.chain().focus().setBackgroundColor(e.target.value).run()}
             className="sr-only"
           />
         </label>

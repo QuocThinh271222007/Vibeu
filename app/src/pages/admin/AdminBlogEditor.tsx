@@ -409,7 +409,7 @@ export default function AdminBlogEditor() {
               rows={2}
               value={form.metaDescription}
               onChange={(e) => setForm((f) => ({ ...f, metaDescription: e.target.value }))}
-              className="w-full resize-none rounded-xl border-2 border-vibe-ink/10 px-3.5 py-2.5 text-sm outline-none focus:border-vibe-pink/50"
+              className="w-full resize-y rounded-xl border-2 border-vibe-ink/10 px-3.5 py-2.5 text-sm outline-none focus:border-vibe-pink/50"
             />
             <div className="mt-1 flex items-center justify-between">
               <KeywordHint text={form.metaDescription} keyword={form.primaryKeyword} label="chứa từ khoá chính" />
@@ -424,7 +424,7 @@ export default function AdminBlogEditor() {
             rows={2}
             value={form.excerpt}
             onChange={(e) => setForm((f) => ({ ...f, excerpt: e.target.value }))}
-            className="w-full resize-none rounded-xl border-2 border-vibe-ink/10 px-3.5 py-2.5 text-sm outline-none focus:border-vibe-pink/50"
+            className="w-full resize-y rounded-xl border-2 border-vibe-ink/10 px-3.5 py-2.5 text-sm outline-none focus:border-vibe-pink/50"
           />
           <div className="mt-1 flex items-center justify-between">
             <div className="flex items-center gap-2">
