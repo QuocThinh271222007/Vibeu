@@ -20,6 +20,7 @@ export interface BlogPostRow {
   content: string[]
   content_blocks: ContentBlock[]
   content_html: string
+  facebook_post_url: string | null
   meta_description: string
   primary_keyword: string
   secondary_keyword: string
@@ -53,6 +54,7 @@ function mapRowToPost(row: BlogPostRow): BlogPost {
     content: row.content,
     contentBlocks: row.content_blocks ?? [],
     contentHtml: row.content_html ?? '',
+    facebookPostUrl: row.facebook_post_url ?? null,
     metaDescription: row.meta_description ?? '',
     primaryKeyword: row.primary_keyword ?? '',
     secondaryKeyword: row.secondary_keyword ?? '',
@@ -101,6 +103,7 @@ export interface BlogPostInput {
   content: string[]
   contentBlocks: ContentBlock[]
   contentHtml: string
+  facebookPostUrl: string | null
   metaDescription: string
   primaryKeyword: string
   secondaryKeyword: string
@@ -128,6 +131,7 @@ export async function createBlogPost(input: BlogPostInput, authorId: string): Pr
     content: input.content,
     content_blocks: input.contentBlocks,
     content_html: input.contentHtml,
+    facebook_post_url: input.facebookPostUrl,
     meta_description: input.metaDescription,
     primary_keyword: input.primaryKeyword,
     secondary_keyword: input.secondaryKeyword,
@@ -160,6 +164,7 @@ export async function updateBlogPost(id: string, input: BlogPostInput): Promise<
       content: input.content,
       content_blocks: input.contentBlocks,
       content_html: input.contentHtml,
+      facebook_post_url: input.facebookPostUrl,
       meta_description: input.metaDescription,
       primary_keyword: input.primaryKeyword,
       secondary_keyword: input.secondaryKeyword,

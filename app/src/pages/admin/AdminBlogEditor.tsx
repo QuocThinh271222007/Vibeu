@@ -48,6 +48,7 @@ const EMPTY: BlogPostInput = {
   content: [],
   contentBlocks: EMPTY_BLOCKS,
   contentHtml: '',
+  facebookPostUrl: null,
   metaDescription: '',
   primaryKeyword: '',
   secondaryKeyword: '',
@@ -213,6 +214,7 @@ export default function AdminBlogEditor() {
         // WYSIWYG editor could still have some, so it's carried through untouched on save
         // rather than silently wiped, even though nothing here edits it.
         contentHtml: row.content_html ?? '',
+        facebookPostUrl: row.facebook_post_url ?? null,
         metaDescription: row.meta_description ?? '',
         primaryKeyword: row.primary_keyword ?? '',
         secondaryKeyword: row.secondary_keyword ?? '',
@@ -508,6 +510,15 @@ export default function AdminBlogEditor() {
           <input
             value={form.creditLine}
             onChange={(e) => setForm((f) => ({ ...f, creditLine: e.target.value }))}
+            className="w-full rounded-xl border-2 border-vibe-ink/10 px-3.5 py-2.5 text-sm outline-none focus:border-vibe-pink/50"
+          />
+        </Field>
+
+        <Field label="Link bài viết Facebook để nhúng ở sidebar (tuỳ chọn — để trống thì ẩn khung này)">
+          <input
+            value={form.facebookPostUrl ?? ''}
+            onChange={(e) => setForm((f) => ({ ...f, facebookPostUrl: e.target.value.trim() || null }))}
+            placeholder="https://www.facebook.com/.../posts/..."
             className="w-full rounded-xl border-2 border-vibe-ink/10 px-3.5 py-2.5 text-sm outline-none focus:border-vibe-pink/50"
           />
         </Field>

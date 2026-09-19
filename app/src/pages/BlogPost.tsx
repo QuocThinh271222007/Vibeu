@@ -13,8 +13,6 @@ import { PageMeta } from '@/components/seo/PageMeta'
 import { sanitizeBlogHtml } from '@/lib/blogContentHtml'
 import { slugify } from '@/lib/slug'
 
-const VIBEU_FACEBOOK_URL = 'https://www.facebook.com/profile.php?id=61593919006915'
-
 interface HeadingId {
   id: string
   level: 2 | 3
@@ -102,26 +100,24 @@ function CoverMedia({ post, className, compact = false, priority = false }: { po
   )
 }
 
-/** VIBEU's Facebook Page, embedded via Facebook's iframe Page Plugin — no app id/SDK needed.
- * adapt_container_width lets it fill the sidebar column instead of staying a fixed pixel size. */
-function FacebookPageCard() {
-  const href = encodeURIComponent(VIBEU_FACEBOOK_URL)
+/** One specific Facebook post (set per blog post from the admin editor), embedded via Facebook's
+ * iframe Post Plugin — no app id/SDK needed. Switched away from embedding the whole Facebook Page
+ * (Page Plugin): that one's adaptive-resize/lazy-load behavior proved unreliable inside a sidebar
+ * card, sometimes leaving it stuck on a loading spinner. A single post has much less going on
+ * (no timeline pagination, no adaptive-width JS handshake) and embeds far more predictably. */
+function FacebookPostCard({ url }: { url: string }) {
+  const href = encodeURIComponent(url)
   return (
     <div className="overflow-hidden rounded-2xl border-2 border-vibe-ink/10 bg-white/70 p-4">
       <p className="mb-3 flex items-center gap-1.5 font-display text-sm font-semibold text-vibe-ink">
         <FacebookGlyph size={16} className="text-vibe-blue-dark" /> VIBEU trên Facebook
       </p>
       <iframe
-        title="Trang Facebook của VIBEU"
-        src={`https://www.facebook.com/plugins/page.php?href=${href}&tabs=timeline&width=340&height=420&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=false`}
+        title="Bài viết Facebook của VIBEU"
+        src={`https://www.facebook.com/plugins/post.php?href=${href}&show_text=true&width=340`}
         width="340"
         height={420}
         style={{ border: 'none', display: 'block', width: '100%', maxWidth: '340px', overflow: 'hidden', borderRadius: '0.75rem', colorScheme: 'light' }}
-        // Not lazy — it sits inside the sidebar's own scroll container, below the TOC and
-        // related posts, so a viewport-intersection-based lazy load would only start once
-        // scrolled into view and show a stuck spinner in the meantime. Starting the (slow)
-        // Facebook round-trip immediately means it's usually ready by the time anyone scrolls
-        // down to it.
         allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
       />
     </div>
@@ -159,7 +155,7 @@ export default function BlogPost() {
   }
 
   return (
-    <div className="max-w-6xl px-4 py-14 sm:px-6 lg:px-10">
+    <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
       <PageMeta
         title={post.title}
         description={post.metaDescription || post.excerpt}
@@ -175,12 +171,11 @@ export default function BlogPost() {
       </Link>
 
       {/* 2:1 split — sidebar (Mục lục + bài liên quan + Facebook) on the left, article on the
-          right. Sidebar stacks below the article on mobile (there's no room for 3 real columns
-          or independent scroll panes on a small screen) — on desktop each column is its own
-          fixed-height scroll container instead of tracking the page's own scroll. */}
-      <div className="mt-4 grid gap-6 lg:h-[calc(100vh-11rem)] lg:grid-cols-3 lg:items-stretch">
-        <aside className="order-2 lg:order-1 lg:col-span-1 lg:h-full lg:min-h-0 lg:overflow-x-hidden lg:overflow-y-auto lg:pr-1 vibe-scrollbar">
-          <div className="space-y-4">
+          right. Sidebar stacks below the article on mobile (there's no room for 3 real columns),
+          and stays pinned (lg:sticky) while the much taller article column scrolls past it. */}
+      <div className="mt-4 grid gap-6 lg:grid-cols-3">
+        <aside className="order-2 lg:order-1 lg:col-span-1">
+          <div className="space-y-4 lg:sticky lg:top-24">
             {showToc && (
               <nav aria-label="Mục lục" className="rounded-2xl border-2 border-vibe-ink/10 bg-white/70 p-4">
                 <p className="mb-2.5 flex items-center gap-1.5 font-display text-sm font-semibold text-vibe-ink">
@@ -212,7 +207,7 @@ export default function BlogPost() {
               </div>
             )}
 
-            <FacebookPageCard />
+            {post.facebookPostUrl && <FacebookPostCard url={post.facebookPostUrl} />}
           </div>
         </aside>
 
@@ -220,7 +215,7 @@ export default function BlogPost() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="order-1 rounded-[2rem] bg-vibe-highlight/95 p-6 shadow-vibe backdrop-blur-sm sm:p-10 lg:order-2 lg:col-span-2 lg:h-full lg:min-h-0 lg:overflow-y-auto vibe-scrollbar"
+          className="order-1 rounded-[2rem] bg-vibe-highlight/95 p-6 shadow-vibe backdrop-blur-sm sm:p-10 lg:order-2 lg:col-span-2"
         >
           <span className="inline-block text-xs font-semibold uppercase tracking-wide text-vibe-pink-dark">
             {labelFor(post.category)}

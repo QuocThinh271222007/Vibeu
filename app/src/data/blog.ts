@@ -53,6 +53,10 @@ export interface BlogPost {
   /** Sanitized HTML body from the WYSIWYG admin editor — BlogPost.tsx renders this when
    * non-empty, falling back to contentBlocks/content for posts saved before this existed. */
   contentHtml: string
+  /** A specific Facebook post to embed in the sidebar's "VIBEU trên Facebook" card on the public
+   * page — null hides the card. One specific post embeds far more reliably than the full
+   * Facebook Page Plugin (no adaptive-resize/lazy-load edge cases). */
+  facebookPostUrl: string | null
   /** SEO fields from the content team's writing template (meta description 120-150 chars,
    * primary/secondary keyword) — metaDescription feeds <meta name="description">, both
    * keywords feed <meta name="keywords"> on the post page. Never rendered as visible copy. */

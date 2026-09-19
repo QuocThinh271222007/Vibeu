@@ -410,6 +410,11 @@ create table if not exists public.blog_posts (
   -- that predate this column. `content` (above) is kept as a plain-text mirror either way, for
   -- any simple text search.
   content_html text not null default '',
+  -- Optional specific Facebook post to embed in the sidebar's "VIBEU trên Facebook" card (see
+  -- BlogPost.tsx) — null hides the card entirely. A single specific post embeds far more
+  -- reliably than the full Page Plugin (no adaptive-resize/lazy-load edge cases), and lets each
+  -- post link a genuinely relevant FB post instead of always showing the same page timeline.
+  facebook_post_url text,
   meta_description text not null default '',
   primary_keyword text not null default '',
   secondary_keyword text not null default '',
@@ -451,6 +456,7 @@ alter table public.blog_posts add column if not exists cta_button_label text not
 alter table public.blog_posts add column if not exists cta_button_url text not null default '/studio';
 alter table public.blog_posts add column if not exists series_id uuid references public.blog_series (id) on delete set null;
 alter table public.blog_posts add column if not exists content_html text not null default '';
+alter table public.blog_posts add column if not exists facebook_post_url text;
 -- category is now a dynamic slug into blog_categories, not one of a hardcoded 3 values.
 alter table public.blog_posts drop constraint if exists blog_posts_category_check;
 

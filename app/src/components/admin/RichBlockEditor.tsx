@@ -1,10 +1,8 @@
-import { useEffect, useRef } from 'react'
 import { EditorContent, useEditor, type Editor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import { TextStyleKit } from '@tiptap/extension-text-style'
 import TextAlign from '@tiptap/extension-text-align'
 import { Table, TableRow, TableHeader as BaseTableHeader, TableCell as BaseTableCell } from '@tiptap/extension-table'
-import Underline from '@tiptap/extension-underline'
 import { AlignCenter, AlignLeft, AlignRight, Bold, Highlighter, Italic, PaintBucket, Strikethrough, Underline as UnderlineIcon } from 'lucide-react'
 import { sanitizeBlogHtml } from '@/lib/blogContentHtml'
 
@@ -65,7 +63,6 @@ export function RichBlockEditor({
         codeBlock: false,
         horizontalRule: false,
       }),
-      Underline,
       TextStyleKit.configure({ fontFamily: false, lineHeight: false }),
       TextAlign.configure({ types: ['paragraph'] }),
       Table.configure({ resizable: false }),
@@ -75,6 +72,24 @@ export function RichBlockEditor({
     ],
     content,
     onUpdate: ({ editor }) => onChange(sanitizeBlogHtml(editor.getHTML())),
+    // A freshly-added table block starts with no rows at all — seed it with a real 3x3 table
+    // once, instead of making the admin insert one manually right after creating the block.
+    // onCreate (not a useEffect keyed on the returned `editor`) is the correct place for this:
+    // it fires exactly once per real Editor instance, strictly after every extension — including
+    // the table commands — has finished initializing. Verified directly against this editor
+    // config that the alternative breaks in exactly the way it looks like it shouldn't: right
+    // after useEditor() first returns a non-null editor, its extensionManager can still be
+    // mid-setup, so editor.chain().insertTable(...).run() silently returns false — and since a
+    // table with every cell blank still reads as isEmpty (no text content anywhere), there's no
+    // safe way to tell "seed failed, try again" from "already seeded" without this hook.
+    onCreate: ({ editor }) => {
+      if (variant === 'table' && editor.isEmpty) {
+        // Deferred a tick: inserting synchronously here runs the resulting onUpdate (which calls
+        // the parent's onChange/setState) before this component has finished its own first
+        // mount, which React flags as a state update on an unmounted component.
+        setTimeout(() => editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run(), 0)
+      }
+    },
     editorProps: {
       attributes: {
         class:
@@ -85,21 +100,6 @@ export function RichBlockEditor({
       },
     },
   })
-
-  // A freshly-added table block starts with no rows at all — seed it with a real 3x3 table once,
-  // instead of making the admin insert one manually right after creating the block. Guarded by a
-  // ref, not just `editor.isEmpty`: a table with every cell blank still counts as "empty" (no
-  // text content anywhere), so relying on isEmpty alone let this fire a second time — React's
-  // StrictMode double-invokes effects in dev — and insert a second table on top of the first
-  // ("bảng chồng bảng").
-  const seededRef = useRef(false)
-  useEffect(() => {
-    if (variant === 'table' && editor && !seededRef.current && editor.isEmpty) {
-      seededRef.current = true
-      editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [editor])
 
   if (!editor) return null
 
