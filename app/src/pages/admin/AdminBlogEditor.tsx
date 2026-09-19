@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { ArrowLeft, Save, Upload } from 'lucide-react'
+import { ArrowDown, ArrowLeft, ArrowUp, Heading2, Heading3, ImagePlus, Pilcrow, Save, Table2, Trash2, Upload } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
-import { RichTextEditor } from '@/components/admin/RichTextEditor'
+import { RichBlockEditor } from '@/components/admin/RichBlockEditor'
+import type { ContentBlock } from '@/data/blog'
 import {
   createBlogPost,
   DEFAULT_CREDIT_LINE,
@@ -14,11 +15,30 @@ import {
   uploadBlogCover,
   type BlogPostInput,
 } from '@/lib/blogApi'
-import { blocksToHtml, htmlToPlainText } from '@/lib/blogContentHtml'
+import { htmlToText } from '@/lib/blogContentHtml'
 import { fetchAllBlogCategories, type BlogCategoryRow } from '@/lib/blogCategoriesApi'
 import { fetchAllBlogSeries, type BlogSeriesRow } from '@/lib/blogSeriesApi'
 import { slugify } from '@/lib/slug'
 import { useAuthStore } from '@/store/authStore'
+
+/** A `RichBlockEditor` (paragraph/table blocks) is a real TipTap instance that only reads its
+ * `content` prop once, on mount — it doesn't react to later prop changes the way a controlled
+ * `<textarea>` does. Reordering blocks by array index (the old `key={i}`) would keep the same
+ * component instances mounted across a swap and now show stale content for whichever two blocks
+ * just traded places. Each block gets a stable `_key` here instead, generated once and carried
+ * through every update/move so React always matches the right editor instance to the right
+ * block. Stripped back out before saving — it's a client-only rendering concern, not part of
+ * the persisted ContentBlock shape. */
+type KeyedBlock = ContentBlock & { _key: number }
+let blockKeyCounter = 0
+function nextBlockKey(): number {
+  return ++blockKeyCounter
+}
+function toKeyedBlocks(blocks: ContentBlock[]): KeyedBlock[] {
+  return blocks.map((b) => ({ ...b, _key: nextBlockKey() }))
+}
+
+const EMPTY_BLOCKS: KeyedBlock[] = toKeyedBlocks([{ type: 'paragraph', text: '' }])
 
 const EMPTY: BlogPostInput = {
   slug: '',
@@ -26,7 +46,7 @@ const EMPTY: BlogPostInput = {
   category: 'tips',
   excerpt: '',
   content: [],
-  contentBlocks: [],
+  contentBlocks: EMPTY_BLOCKS,
   contentHtml: '',
   metaDescription: '',
   primaryKeyword: '',
@@ -50,6 +70,19 @@ function wordCount(text: string): number {
   return trimmed ? trimmed.split(/\s+/).length : 0
 }
 
+/** Plain-text mirror stored alongside content_blocks — see blog_posts.content in schema.sql.
+ * Paragraph/table blocks hold rich HTML now, so this flattens each down to plain text first. */
+function blocksToPlainText(blocks: ContentBlock[]): string[] {
+  return blocks
+    .map((b) => {
+      if (b.type === 'image') return ''
+      if (b.type === 'table') return htmlToText(b.html)
+      return htmlToText(b.text)
+    })
+    .map((s) => s.trim())
+    .filter(Boolean)
+}
+
 /** Counter that turns green/amber/red around a target range — mirrors the writing template's
  * per-field word/char count guidance. Purely informational, never blocks saving. */
 function RangeHint({ value, min, max, unit }: { value: number; min: number; max: number; unit: string }) {
@@ -58,6 +91,17 @@ function RangeHint({ value, min, max, unit }: { value: number; min: number; max:
   return (
     <span className={`text-[11px] font-medium ${inRange ? 'text-emerald-600' : close ? 'text-amber-600' : 'text-vibe-ink-soft'}`}>
       {value} {unit} (mục tiêu {min}-{max})
+    </span>
+  )
+}
+
+/** Max-only counter — for the H2-without-H3 case, the template only gives a ceiling (500 từ),
+ * no minimum. */
+function MaxHint({ value, max, unit }: { value: number; max: number; unit: string }) {
+  const over = value > max
+  return (
+    <span className={`text-[11px] font-medium ${over ? 'text-amber-600' : 'text-vibe-ink-soft'}`}>
+      {value} {unit} (tối đa {max})
     </span>
   )
 }
@@ -87,16 +131,50 @@ function KeywordHint({ text, keyword, label }: { text: string; keyword: string; 
   return <span className={`text-[11px] font-medium ${ok ? 'text-emerald-600' : 'text-vibe-ink-soft/60'}`}>{ok ? '✓' : '—'} {label}</span>
 }
 
+type ParagraphGuidance =
+  | { kind: 'h2-only'; max: number }
+  | { kind: 'h2-lead-in'; min: number; max: number; keyword: 'primary' }
+  | { kind: 'h3-body'; min: number; max: number; keyword: 'secondary' }
+  | null
+
+/** Which word-count/keyword rule applies to a paragraph block, based on the nearest heading
+ * above it — the writing template gives a different target depending on whether that heading is
+ * an H2 with no H3 children (≤500 từ), an H2 that leads into an H3 (100-200 từ, KW chính), or an
+ * H3 itself (150-200 từ, KW phụ). */
+function paragraphGuidance(blocks: ContentBlock[], index: number): ParagraphGuidance {
+  let headingIdx = -1
+  for (let i = index - 1; i >= 0; i--) {
+    if (blocks[i].type === 'heading2' || blocks[i].type === 'heading3') {
+      headingIdx = i
+      break
+    }
+  }
+  if (headingIdx === -1) return null
+  const heading = blocks[headingIdx]
+  if (heading.type === 'heading3') return { kind: 'h3-body', min: 150, max: 200, keyword: 'secondary' }
+  let hasH3 = false
+  for (let i = headingIdx + 1; i < blocks.length; i++) {
+    if (blocks[i].type === 'heading2') break
+    if (blocks[i].type === 'heading3') {
+      hasH3 = true
+      break
+    }
+  }
+  return hasH3 ? { kind: 'h2-lead-in', min: 100, max: 200, keyword: 'primary' } : { kind: 'h2-only', max: 500 }
+}
+
 export default function AdminBlogEditor() {
   const { id } = useParams<{ id: string }>()
   const isNew = !id
   const navigate = useNavigate()
   const { profile } = useAuthStore()
   const [form, setForm] = useState<BlogPostInput>(EMPTY)
+  const [blocks, setBlocks] = useState<KeyedBlock[]>(EMPTY_BLOCKS)
   const [slugTouched, setSlugTouched] = useState(false)
   const [loading, setLoading] = useState(!isNew)
   const [saving, setSaving] = useState(false)
   const [uploadingCover, setUploadingCover] = useState(false)
+  const [uploadingBlock, setUploadingBlock] = useState<number | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [seriesOptions, setSeriesOptions] = useState<BlogSeriesRow[]>([])
   const [categoryOptions, setCategoryOptions] = useState<BlogCategoryRow[]>([])
@@ -114,19 +192,27 @@ export default function AdminBlogEditor() {
         setLoading(false)
         return
       }
-      // Posts saved before the WYSIWYG editor existed only have content_blocks — convert them to
-      // HTML once so they open with their content intact instead of a blank editor. Posts already
-      // saved through the new editor keep their content_html as-is; content_blocks is preserved
-      // untouched either way (see blogApi.ts / schema.sql notes).
-      const initialHtml = row.content_html?.trim() ? row.content_html : blocksToHtml(row.content_blocks ?? [])
+      // Posts written before content_blocks existed (or before the one-time DB backfill has
+      // run) still open with their old paragraphs intact, just as plain-paragraph blocks.
+      const rawBlocks: ContentBlock[] =
+        row.content_blocks?.length > 0
+          ? row.content_blocks
+          : row.content.length > 0
+            ? row.content.map((text) => ({ type: 'paragraph' as const, text }))
+            : EMPTY_BLOCKS
+      const initialBlocks = toKeyedBlocks(rawBlocks)
+      setBlocks(initialBlocks)
       setForm({
         slug: row.slug,
         title: row.title,
         category: row.category,
         excerpt: row.excerpt,
         content: row.content,
-        contentBlocks: row.content_blocks ?? [],
-        contentHtml: initialHtml,
+        contentBlocks: rawBlocks,
+        // This editor no longer produces content_html — but a post briefly saved through the
+        // WYSIWYG editor could still have some, so it's carried through untouched on save
+        // rather than silently wiped, even though nothing here edits it.
+        contentHtml: row.content_html ?? '',
         metaDescription: row.meta_description ?? '',
         primaryKeyword: row.primary_keyword ?? '',
         secondaryKeyword: row.secondary_keyword ?? '',
@@ -165,14 +251,39 @@ export default function AdminBlogEditor() {
     setForm((f) => ({ ...f, coverSrc: url }))
   }
 
-  async function handleEditorImageUpload(file: File): Promise<string | null> {
-    if (!profile) return null
+  function updateBlock(index: number, patch: Partial<ContentBlock>) {
+    setBlocks((cur) => cur.map((b, i) => (i === index ? ({ ...b, ...patch } as KeyedBlock) : b)))
+  }
+
+  function moveBlock(index: number, dir: -1 | 1) {
+    setBlocks((cur) => {
+      const target = index + dir
+      if (target < 0 || target >= cur.length) return cur
+      const next = [...cur]
+      ;[next[index], next[target]] = [next[target], next[index]]
+      return next
+    })
+  }
+
+  function removeBlock(index: number) {
+    setBlocks((cur) => (cur.length <= 1 ? cur : cur.filter((_, i) => i !== index)))
+  }
+
+  function addBlock(block: ContentBlock) {
+    setBlocks((cur) => [...cur, { ...block, _key: nextBlockKey() }])
+  }
+
+  async function handleBlockImageFile(index: number, file: File) {
+    if (!profile) return
+    setUploadingBlock(index)
+    setError(null)
     const { url, error } = await uploadBlogCover(file, profile.id)
+    setUploadingBlock(null)
     if (error) {
       setError(error)
-      return null
+      return
     }
-    return url
+    if (url) updateBlock(index, { src: url } as Partial<ContentBlock>)
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -184,7 +295,8 @@ export default function AdminBlogEditor() {
     }
     setError(null)
     setSaving(true)
-    const input: BlogPostInput = { ...form, content: htmlToPlainText(form.contentHtml) }
+    const cleanBlocks: ContentBlock[] = blocks.map(({ _key, ...b }) => b)
+    const input: BlogPostInput = { ...form, contentBlocks: cleanBlocks, content: blocksToPlainText(cleanBlocks) }
 
     const { error } = isNew ? await createBlogPost(input, profile.id) : await updateBlogPost(id!, input)
     setSaving(false)
@@ -198,7 +310,7 @@ export default function AdminBlogEditor() {
   if (loading) return <p className="text-vibe-ink-soft">Đang tải...</p>
 
   return (
-    <div className="max-w-4xl">
+    <div className="max-w-2xl">
       <button onClick={() => navigate('/admin/blog')} className="flex items-center gap-1.5 text-sm font-medium text-vibe-ink-soft hover:text-vibe-ink">
         <ArrowLeft size={16} /> Quay lại danh sách
       </button>
@@ -323,13 +435,35 @@ export default function AdminBlogEditor() {
           </div>
         </Field>
 
-        <Field label="Nội dung bài viết">
-          <RichTextEditor
-            content={form.contentHtml}
-            onChange={(html) => setForm((f) => ({ ...f, contentHtml: html }))}
-            onUploadImage={handleEditorImageUpload}
-          />
-        </Field>
+        <div>
+          <span className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-vibe-ink-soft">Nội dung bài viết</span>
+          <div className="space-y-3">
+            {blocks.map((block, i) => (
+              <BlockEditor
+                key={block._key}
+                block={block}
+                index={i}
+                total={blocks.length}
+                uploading={uploadingBlock === i}
+                paragraphGuidance={block.type === 'paragraph' ? paragraphGuidance(blocks, i) : null}
+                primaryKeyword={form.primaryKeyword}
+                secondaryKeyword={form.secondaryKeyword}
+                onChange={(patch) => updateBlock(i, patch)}
+                onMove={(dir) => moveBlock(i, dir)}
+                onRemove={() => removeBlock(i)}
+                onUploadImage={(file) => handleBlockImageFile(i, file)}
+              />
+            ))}
+          </div>
+
+          <div className="mt-3 flex flex-wrap gap-1.5">
+            <AddBlockButton icon={Pilcrow} label="Đoạn văn" onClick={() => addBlock({ type: 'paragraph', text: '' })} />
+            <AddBlockButton icon={Heading2} label="Heading 2" onClick={() => addBlock({ type: 'heading2', text: '' })} />
+            <AddBlockButton icon={Heading3} label="Heading 3" onClick={() => addBlock({ type: 'heading3', text: '' })} />
+            <AddBlockButton icon={ImagePlus} label="Hình ảnh" onClick={() => addBlock({ type: 'image', src: '', alt: '', caption: '' })} />
+            <AddBlockButton icon={Table2} label="Bảng" onClick={() => addBlock({ type: 'table', html: '' })} />
+          </div>
+        </div>
 
         <div className="grid grid-cols-2 gap-4">
           <Field label="Ảnh đại diện bài viết (tải lên hoặc dán URL)">
@@ -455,5 +589,170 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
       <span className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-vibe-ink-soft">{label}</span>
       {children}
     </label>
+  )
+}
+
+function AddBlockButton({ icon: Icon, label, onClick }: { icon: typeof Pilcrow; label: string; onClick: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="flex items-center gap-1.5 rounded-full border-2 border-dashed border-vibe-ink/15 px-3 py-1.5 text-xs font-semibold text-vibe-ink-soft hover:border-vibe-pink/40 hover:text-vibe-ink"
+    >
+      <Icon size={13} /> {label}
+    </button>
+  )
+}
+
+const BLOCK_LABEL: Record<ContentBlock['type'], string> = {
+  paragraph: 'Đoạn văn',
+  heading2: 'Heading 2',
+  heading3: 'Heading 3',
+  image: 'Hình ảnh',
+  table: 'Bảng',
+}
+
+function BlockEditor({
+  block,
+  index,
+  total,
+  uploading,
+  paragraphGuidance,
+  primaryKeyword,
+  secondaryKeyword,
+  onChange,
+  onMove,
+  onRemove,
+  onUploadImage,
+}: {
+  block: ContentBlock
+  index: number
+  total: number
+  uploading: boolean
+  paragraphGuidance: ParagraphGuidance
+  primaryKeyword: string
+  secondaryKeyword: string
+  onChange: (patch: Partial<ContentBlock>) => void
+  onMove: (dir: -1 | 1) => void
+  onRemove: () => void
+  onUploadImage: (file: File) => void
+}) {
+  const plainText = block.type === 'paragraph' ? htmlToText(block.text) : ''
+
+  return (
+    <div className="rounded-xl border-2 border-vibe-ink/10 p-3">
+      <div className="mb-2 flex items-center justify-between">
+        <span className="rounded-full bg-vibe-cream px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-vibe-ink-soft">
+          {BLOCK_LABEL[block.type]}
+        </span>
+        <div className="flex items-center gap-1">
+          <button
+            type="button"
+            onClick={() => onMove(-1)}
+            disabled={index === 0}
+            className="grid h-6 w-6 place-items-center rounded-md text-vibe-ink-soft hover:bg-vibe-cream disabled:opacity-30"
+          >
+            <ArrowUp size={13} />
+          </button>
+          <button
+            type="button"
+            onClick={() => onMove(1)}
+            disabled={index === total - 1}
+            className="grid h-6 w-6 place-items-center rounded-md text-vibe-ink-soft hover:bg-vibe-cream disabled:opacity-30"
+          >
+            <ArrowDown size={13} />
+          </button>
+          <button
+            type="button"
+            onClick={onRemove}
+            disabled={total <= 1}
+            className="grid h-6 w-6 place-items-center rounded-md text-vibe-ink-soft hover:bg-red-50 hover:text-red-600 disabled:opacity-30"
+          >
+            <Trash2 size={13} />
+          </button>
+        </div>
+      </div>
+
+      {block.type === 'image' ? (
+        <div className="space-y-2">
+          <div className="flex items-center gap-2">
+            {block.src && <img src={block.src} alt="" className="h-14 w-14 shrink-0 rounded-lg object-cover" />}
+            <label className="flex flex-1 cursor-pointer items-center justify-center gap-1.5 rounded-xl border-2 border-dashed border-vibe-blue/50 bg-vibe-blue/10 py-2.5 text-xs font-semibold text-vibe-blue-dark hover:border-vibe-blue">
+              <ImagePlus size={14} /> {uploading ? 'Đang tải...' : block.src ? 'Đổi ảnh' : 'Tải ảnh minh hoạ'}
+              <input
+                type="file"
+                accept="image/png,image/jpeg,image/webp,image/gif"
+                className="hidden"
+                disabled={uploading}
+                onChange={(e) => {
+                  const file = e.target.files?.[0]
+                  if (file) onUploadImage(file)
+                  e.target.value = ''
+                }}
+              />
+            </label>
+          </div>
+          <input
+            value={block.caption ?? ''}
+            onChange={(e) => onChange({ caption: e.target.value })}
+            placeholder="Caption ảnh (nên chứa từ khoá chính)…"
+            className="w-full rounded-lg border-2 border-vibe-ink/10 px-3 py-2 text-sm outline-none focus:border-vibe-pink/50"
+          />
+          <KeywordHint text={block.caption ?? ''} keyword={primaryKeyword} label="caption chứa từ khoá chính" />
+          <input
+            value={block.alt}
+            onChange={(e) => onChange({ alt: e.target.value })}
+            placeholder="Mô tả ảnh (alt text, cho SEO)…"
+            className="w-full rounded-lg border-2 border-vibe-ink/10 px-3 py-2 text-sm outline-none focus:border-vibe-pink/50"
+          />
+        </div>
+      ) : block.type === 'table' ? (
+        <RichBlockEditor variant="table" content={block.html} onChange={(html) => onChange({ html })} />
+      ) : block.type === 'paragraph' ? (
+        <>
+          <RichBlockEditor variant="paragraph" content={block.text} onChange={(text) => onChange({ text })} />
+          {plainText && (
+            <>
+              <div className="mt-1 flex items-center justify-between">
+                {paragraphGuidance?.kind === 'h2-lead-in' && <KeywordHint text={plainText} keyword={primaryKeyword} label="chứa từ khoá chính" />}
+                {paragraphGuidance?.kind === 'h3-body' && <KeywordHint text={plainText} keyword={secondaryKeyword} label="chứa từ khoá phụ" />}
+                {!paragraphGuidance && <span />}
+                {paragraphGuidance?.kind === 'h2-only' ? (
+                  <MaxHint value={wordCount(plainText)} max={paragraphGuidance.max} unit="từ" />
+                ) : paragraphGuidance ? (
+                  <RangeHint value={wordCount(plainText)} min={paragraphGuidance.min} max={paragraphGuidance.max} unit="từ" />
+                ) : (
+                  <span className="text-[11px] font-medium text-vibe-ink-soft">{wordCount(plainText)} từ</span>
+                )}
+              </div>
+              {/* Kết bài: the template's last paragraph must tie together the primary keyword,
+                  the brand name and a CTA — flagged only on the very last block. */}
+              {index === total - 1 && (
+                <div className="mt-1 flex items-center gap-2">
+                  <span className="text-[11px] font-medium text-vibe-ink-soft/60">Đoạn kết:</span>
+                  <KeywordHint text={plainText} keyword={primaryKeyword} label="từ khoá chính" />
+                  <KeywordHint text={plainText} keyword="VIBEU" label="tên VIBEU" />
+                </div>
+              )}
+            </>
+          )}
+        </>
+      ) : (
+        <>
+          <textarea
+            value={block.text}
+            onChange={(e) => onChange({ text: e.target.value })}
+            rows={1}
+            placeholder="Tiêu đề mục — ưu tiên chứa từ khoá chính/phụ…"
+            className="w-full resize-y rounded-lg border-2 border-vibe-ink/10 px-3 py-2 text-sm outline-none focus:border-vibe-pink/50"
+          />
+          {block.type === 'heading2' && (
+            <div className="mt-1">
+              <KeywordHint text={block.text} keyword={primaryKeyword} label="ưu tiên chứa từ khoá chính" />
+            </div>
+          )}
+        </>
+      )}
+    </div>
   )
 }

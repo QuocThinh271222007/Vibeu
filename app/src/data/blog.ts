@@ -15,10 +15,15 @@ export interface BlogCover {
 }
 
 /** Ordered rich content a post is built from — see AdminBlogEditor.tsx's block editor and
- * BlogPost.tsx's renderer. Headings are h2/h3 only; the post title itself is the page's h1. */
+ * BlogPost.tsx's renderer. Headings are h2/h3 only; the post title itself is the page's h1.
+ * A `paragraph` block's `text` is sanitized inline-rich HTML (bold/italic/underline/strike,
+ * font size, text color, alignment) from RichBlockEditor.tsx, not plain text — legacy posts
+ * saved before that existed just have plain text in the same field, which renders identically
+ * since plain text has nothing for the HTML renderer to interpret. */
 export type ContentBlock =
   | { type: 'heading2' | 'heading3' | 'paragraph'; text: string }
   | { type: 'image'; src: string; alt: string; caption?: string }
+  | { type: 'table'; html: string }
 
 /** A "Mục lục" — an editorial collection grouping several blog posts together (e.g. "Series
  * chăm sóc da tay"), managed from /admin/blog-series and optionally attached to a post
