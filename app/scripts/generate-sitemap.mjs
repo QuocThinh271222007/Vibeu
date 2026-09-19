@@ -2,59 +2,49 @@
 // current without needing a live server endpoint — this is a static SPA. A Supabase fetch
 // failure (offline dev machine, misconfigured env) must never fail the whole build: falls back
 // to the static routes only.
-import { writeFileSync, readFileSync, existsSync } from 'node:fs'
+//
+// Deliberately excluded from every list below (audited against src/App.tsx's actual routes):
+// /admin/*, /auth, /reset-password, /settings, /geometry-editor (all noindex'd in-app — see
+// PageMeta's `noindex` prop) — never valid sitemap content regardless of noindex, since a URL
+// telling Google "please crawl this" while also telling it "don't index what you find" is
+// contradictory; /library, /community, /community/:id (superseded by /thu-vien, /cong-dong,
+// /cong-dong/:id — the old slugs are pure redirects, and a sitemap should never point at a
+// redirecting URL); /u/:id and /r/:id (thin/personal — see NotFound.tsx and SharedDesign.tsx's
+// own noindex for the latter).
+import { writeFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { dirname, join } from 'node:path'
+import { fetchTable } from './lib/supabase-fetch.mjs'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const SITE_URL = 'https://vibeu.design'
 
-function loadEnvLocal() {
-  const path = join(__dirname, '..', '.env.local')
-  if (!existsSync(path)) return {}
-  const env = {}
-  for (const line of readFileSync(path, 'utf8').split('\n')) {
-    const trimmed = line.trim()
-    if (!trimmed || trimmed.startsWith('#')) continue
-    const eq = trimmed.indexOf('=')
-    if (eq === -1) continue
-    env[trimmed.slice(0, eq).trim()] = trimmed.slice(eq + 1).trim()
-  }
-  return env
-}
-
-const env = loadEnvLocal()
-const SUPABASE_URL = env.VITE_SUPABASE_URL
-const SUPABASE_ANON_KEY = env.VITE_SUPABASE_ANON_KEY
-
 const STATIC_ROUTES = ['/', '/studio', '/thu-vien', '/cong-dong', '/blog', '/about', '/chinh-sach']
-
-async function fetchTable(table, select, filter) {
-  if (!SUPABASE_URL || !SUPABASE_ANON_KEY) return []
-  try {
-    const url = `${SUPABASE_URL}/rest/v1/${table}?select=${encodeURIComponent(select)}${filter ? `&${filter}` : ''}`
-    const res = await fetch(url, { headers: { apikey: SUPABASE_ANON_KEY, Authorization: `Bearer ${SUPABASE_ANON_KEY}` } })
-    if (!res.ok) return []
-    return await res.json()
-  } catch {
-    return []
-  }
-}
 
 function urlEntry(loc, lastmod) {
   return `  <url>\n    <loc>${SITE_URL}${loc}</loc>${lastmod ? `\n    <lastmod>${lastmod.slice(0, 10)}</lastmod>` : ''}\n  </url>`
 }
 
 async function main() {
-  const entries = STATIC_ROUTES.map((path) => urlEntry(path))
+  const seenPaths = new Set()
+  const entries = []
+  function addEntry(path, lastmod) {
+    // Belt-and-suspenders dedupe — nothing here should ever produce a real collision given the
+    // route set above, but a sitemap with duplicate URLs is an explicit correctness bug either way.
+    if (seenPaths.has(path)) return
+    seenPaths.add(path)
+    entries.push(urlEntry(path, lastmod))
+  }
+
+  for (const path of STATIC_ROUTES) addEntry(path)
 
   const [blogPosts, communityPosts] = await Promise.all([
     fetchTable('blog_posts', 'slug,updated_at', 'published=eq.true'),
     fetchTable('community_posts', 'id,created_at', 'approved=eq.true'),
   ])
 
-  for (const p of blogPosts) entries.push(urlEntry(`/blog/${p.slug}`, p.updated_at))
-  for (const p of communityPosts) entries.push(urlEntry(`/cong-dong/${p.id}`, p.created_at))
+  for (const p of blogPosts) addEntry(`/blog/${p.slug}`, p.updated_at)
+  for (const p of communityPosts) addEntry(`/cong-dong/${p.id}`, p.created_at)
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${entries.join('\n')}\n</urlset>\n`
   writeFileSync(join(__dirname, '..', 'public', 'sitemap.xml'), xml)

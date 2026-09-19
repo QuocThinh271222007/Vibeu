@@ -25,10 +25,12 @@
     <title>VIBEU — Thiết kế nail của riêng bạn</title>
     <!-- Google Analytics (GA4) — inert until VITE_GA_MEASUREMENT_ID is set in .env.local (Vite
          substitutes %VITE_X% placeholders from env at build time). Nothing loads, no network
-         request fires, while it's empty. -->
+         request fires, while it's empty. Also skipped under automated browser control
+         (navigator.webdriver — set by Puppeteer/Playwright/Selenium) so scripts/prerender.mjs
+         visiting every route at build time doesn't get counted as real pageviews in GA4. -->
     <script>
       var VIBEU_GA_ID = '%VITE_GA_MEASUREMENT_ID%'
-      if (VIBEU_GA_ID) {
+      if (VIBEU_GA_ID && !navigator.webdriver) {
         var gaScript = document.createElement('script')
         gaScript.async = true
         gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=' + VIBEU_GA_ID
