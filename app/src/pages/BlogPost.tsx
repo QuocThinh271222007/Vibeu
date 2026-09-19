@@ -131,6 +131,48 @@ export default function BlogPost() {
   const { labelFor } = useBlogCategories()
   const post = slug ? findBlogPost(slug, posts) : undefined
   const [htmlHeadings, setHtmlHeadings] = useState<HeadingId[]>([])
+  const [activeHeadingId, setActiveHeadingId] = useState<string | null>(null)
+
+  // All of these read from `post` with a safe fallback (rather than after the early-return
+  // below) purely so the scrollspy effect — which depends on them — can stay an unconditional
+  // hook call, same reason htmlHeadings/activeHeadingId are declared up here too.
+  const usesRichContent = post ? post.contentHtml.trim().length > 0 : false
+  const headingIds = post ? buildHeadingIds(post.contentBlocks) : new Map<number, HeadingId>()
+  const tocEntries = usesRichContent ? htmlHeadings : Array.from(headingIds.values())
+  const showToc = post ? post.showToc && tocEntries.length >= 2 : false
+  const tocIdsKey = tocEntries.map((h) => h.id).join('|')
+
+  // Scrollspy: highlight whichever Mục lục entry the reader is currently under — the last
+  // heading that's scrolled up past the sticky header, not just whichever is nearest the top of
+  // the viewport, so the highlight matches "which section am I reading" all the way until the
+  // next heading actually arrives. Depends on tocIdsKey (not tocEntries itself, a fresh array
+  // every render) so it only re-attaches once the actual set of headings changes — for the
+  // WYSIWYG-HTML path that's after RichContent's own effect has assigned real ids to the DOM.
+  useEffect(() => {
+    if (!showToc) return
+    const headingEls = tocEntries
+      .map((h) => document.getElementById(h.id))
+      .filter((el): el is HTMLElement => el !== null)
+    if (headingEls.length === 0) return
+
+    // Matches the scroll-mt-24 offset used on every heading (keeps the "active" switch lined up
+    // with where the heading actually settles under the sticky site header).
+    const OFFSET = 110
+
+    function updateActive() {
+      let current = headingEls[0].id
+      for (const el of headingEls) {
+        if (el.getBoundingClientRect().top - OFFSET <= 0) current = el.id
+        else break
+      }
+      setActiveHeadingId(current)
+    }
+
+    updateActive()
+    window.addEventListener('scroll', updateActive, { passive: true })
+    return () => window.removeEventListener('scroll', updateActive)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [showToc, tocIdsKey])
 
   if (!post) {
     if (loading) return null
@@ -138,10 +180,6 @@ export default function BlogPost() {
   }
 
   const related = relatedPosts(post.slug, posts)
-  const usesRichContent = post.contentHtml.trim().length > 0
-  const headingIds = buildHeadingIds(post.contentBlocks)
-  const tocEntries = usesRichContent ? htmlHeadings : Array.from(headingIds.values())
-  const showToc = post.showToc && tocEntries.length >= 2
   const keywords = [post.primaryKeyword, post.secondaryKeyword].filter(Boolean).join(', ')
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -184,7 +222,14 @@ export default function BlogPost() {
                 <ol className="space-y-1.5 text-sm">
                   {tocEntries.map((h) => (
                     <li key={h.id} className={h.level === 3 ? 'ml-4' : undefined}>
-                      <a href={`#${h.id}`} className="text-vibe-ink-soft transition-colors hover:text-vibe-pink-dark hover:underline">
+                      <a
+                        href={`#${h.id}`}
+                        className={`block border-l-2 pl-2.5 -ml-px transition-colors hover:text-vibe-pink-dark hover:underline ${
+                          h.id === activeHeadingId
+                            ? 'border-vibe-pink-dark font-semibold text-vibe-pink-dark'
+                            : 'border-transparent text-vibe-ink-soft'
+                        }`}
+                      >
                         {h.text}
                       </a>
                     </li>
