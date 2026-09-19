@@ -95,8 +95,15 @@ export function RichBlockEditor({
         class:
           'min-h-[2.5rem] rounded-b-lg px-3 py-2 text-sm outline-none ' +
           '[&_table]:w-full [&_table]:table-fixed [&_table]:border-collapse ' +
-          '[&_th]:border [&_th]:border-vibe-ink/15 [&_th]:px-2 [&_th]:py-1.5 [&_th]:text-left [&_th]:text-xs [&_th]:font-semibold ' +
-          '[&_td]:border [&_td]:border-vibe-ink/15 [&_td]:px-2 [&_td]:py-1.5 [&_td]:text-xs',
+          '[&_th]:relative [&_th]:border [&_th]:border-vibe-ink/15 [&_th]:px-2 [&_th]:py-1.5 [&_th]:text-left [&_th]:text-xs [&_th]:font-semibold ' +
+          '[&_td]:relative [&_td]:border [&_td]:border-vibe-ink/15 [&_td]:px-2 [&_td]:py-1.5 [&_td]:text-xs ' +
+          // ProseMirror's table plugin marks a multi-cell drag selection by adding this class to
+          // each selected <td>/<th> — but ships no visual styling for it at all, so a real drag
+          // was internally selecting cells correctly (bold/color/etc. did apply) while looking
+          // like nothing happened. This is the missing highlight, styled like Excel's own
+          // drag-select overlay.
+          "[&_.selectedCell]:after:absolute [&_.selectedCell]:after:inset-0 [&_.selectedCell]:after:z-10 " +
+          "[&_.selectedCell]:after:bg-vibe-pink/25 [&_.selectedCell]:after:content-[''] [&_.selectedCell]:after:pointer-events-none",
       },
     },
   })
