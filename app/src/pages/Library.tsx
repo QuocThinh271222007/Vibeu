@@ -13,7 +13,7 @@ const FILTERS = [{ id: 'all', label: 'Tất cả' }, ...TEMPLATE_TAGS]
 export default function Library() {
   const [filter, setFilter] = useState('all')
   const [query, setQuery] = useState('')
-  const { templates: allTemplates } = useTemplates()
+  const { templates: allTemplates, loading } = useTemplates()
 
   const templates = useMemo(() => {
     let list = allTemplates
@@ -36,7 +36,7 @@ export default function Library() {
         <span className="inline-flex items-center gap-1.5 rounded-full bg-vibe-cream px-3.5 py-1 text-xs font-semibold uppercase tracking-wide text-vibe-pink-dark">
           Thư viện mẫu
         </span>
-        <h1 className="mt-3 font-display text-3xl font-semibold text-vibe-ink sm:text-4xl">{allTemplates.length}+ mẫu nail chất lượng cao</h1>
+        <h1 className="mt-3 font-display text-3xl font-semibold text-vibe-ink sm:text-4xl">{loading ? '…' : `${allTemplates.length}+`} mẫu nail chất lượng cao</h1>
         <p className="mx-auto mt-3 max-w-xl text-vibe-ink-soft">Tìm cảm hứng và dùng ngay trong Studio — hoặc lưu vào tủ đồ để dành cho dịp khác.</p>
       </div>
 
@@ -60,7 +60,23 @@ export default function Library() {
         ))}
       </ScrollableRow>
 
-      {templates.length === 0 ? (
+      {loading ? (
+        // Reserves the grid's footprint instead of flashing "Không tìm thấy mẫu phù hợp" (wrong
+        // message for "still loading") then jumping to full height once real cards arrive — that
+        // 0-to-full jump was a real, measured CLS contributor on this page.
+        <div className="mt-10 grid grid-cols-2 gap-5 lg:grid-cols-3 xl:grid-cols-4">
+          {Array.from({ length: 8 }, (_, i) => (
+            <div key={i} className="animate-pulse overflow-hidden rounded-[1.75rem] bg-vibe-highlight">
+              <div className="aspect-[2/3] bg-vibe-cream" />
+              <div className="p-4">
+                <div className="h-4 w-3/4 rounded bg-vibe-cream" />
+                <div className="mt-2 h-3 w-1/2 rounded bg-vibe-cream" />
+                <div className="mt-3 h-8 w-full rounded-full bg-vibe-cream" />
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : templates.length === 0 ? (
         <p className="py-20 text-center text-vibe-ink-soft">Không tìm thấy mẫu phù hợp, thử bộ lọc khác nhé.</p>
       ) : (
         <div className="mt-10 grid grid-cols-2 gap-5 lg:grid-cols-3 xl:grid-cols-4">

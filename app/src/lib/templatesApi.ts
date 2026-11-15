@@ -41,6 +41,19 @@ export async function fetchAllTemplates(): Promise<Template[]> {
   return (data as TemplateRow[]).map(mapRowToTemplate)
 }
 
+/** A handful of templates by id, for spots that only ever need a fixed few (the homepage Hero's
+ * 3 floating cards, SuggestedDesigns' featured picks) — NOT the whole table. Some admin-drawn
+ * templates carry a multi-hundred-KB `fingers` payload (free-hand pen strokes), so pulling in
+ * fetchAllTemplates()'s full ~5MB just to pick 2-3 ids by id was a real, measured contributor to
+ * this project hitting Supabase's free-tier egress quota — see the 2026-09-26 incident. Empty
+ * `ids` returns [] without a request. */
+export async function fetchTemplatesByIds(ids: string[]): Promise<Template[]> {
+  if (!supabase || ids.length === 0) return []
+  const { data, error } = await supabase.from('templates').select('*').in('id', ids)
+  if (error || !data) return []
+  return (data as TemplateRow[]).map(mapRowToTemplate)
+}
+
 /** Same rows as fetchAllTemplates, kept as raw TemplateRow so /admin can edit cover/tags directly. */
 export async function fetchAllTemplatesAdmin(): Promise<TemplateRow[]> {
   if (!supabase) return []
@@ -124,7 +137,10 @@ export async function uploadTemplateCover(file: File, adminId: string): Promise<
   }
   const ext = file.name.split('.').pop() || 'jpg'
   const path = `${adminId}/${Date.now()}.${ext}`
-  const { error } = await supabase.storage.from(TEMPLATE_COVERS_BUCKET).upload(path, file, { upsert: false })
+  // Long cache: paths here are never overwritten (upsert: false, unique per upload), so there's
+  // no staleness risk — this just stops Supabase re-serving the exact same bytes on every repeat
+  // view (was defaulting to 1h, a real contributor to hitting the free-tier egress quota).
+  const { error } = await supabase.storage.from(TEMPLATE_COVERS_BUCKET).upload(path, file, { upsert: false, cacheControl: '31536000' })
   if (error) return { url: null, error: error.message }
   const { data } = supabase.storage.from(TEMPLATE_COVERS_BUCKET).getPublicUrl(path)
   return { url: data.publicUrl, error: null }

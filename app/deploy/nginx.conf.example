@@ -1,4 +1,9 @@
-# VIBEU (vibeu.design) — reference nginx server block.
+# VIBEU (vibeu.design) — matches the real /etc/nginx/sites-available/vibeu.design on the VPS
+# (confirmed via `sudo nginx -T` on 2026-09-23): root /var/www/cuchoami/dist, Certbot-managed SSL
+# for both vibeu.design and www.vibeu.design on one cert, plain HTTP->HTTPS redirect already in
+# place. This file is the same vhost with the SPA-fallback/redirect/noindex logic this app's
+# prerender build needs layered in — it does NOT replace the Certbot-managed HTTP (port 80) block,
+# only the two HTTPS (port 443) server blocks.
 #
 # WHY THIS FILE EXISTS: this app is a static SPA build (`npm run build` produces app/dist/,
 # uploaded by hand — there is no server-side app/framework running). Several SEO requirements
@@ -6,31 +11,37 @@
 # because a client-side <Navigate> redirect and a client-rendered "page not found" screen both
 # still return a real HTTP 200 from the web server — only the actual web server sitting in front
 # of the static files can emit a true 301 or 404 status code. This file is that missing piece.
-# It is NOT applied automatically — copy the relevant blocks into your real vhost config and
-# reload nginx (`nginx -t && systemctl reload nginx`) on the server yourself.
+# It is NOT applied automatically — see the deploy runbook for the exact commands to apply it.
 #
-# Everything below assumes `root` points at the extracted dist/ folder from this app's build.
+# NOT in this file: the port-80 server block already on the VPS (Certbot-managed — leave it
+# untouched, it already redirects both hostnames to https).
 
+# HTTPS — the real app. Only vibeu.design serves content; www is a separate server block below
+# that redirects here, so the two hostnames never serve identical content at 200 (a duplicate-
+# content pair search engines would otherwise see as two copies of every page).
 server {
-    listen 80;
-    server_name www.vibeu.design;
-    return 301 https://vibeu.design$request_uri;
-}
-
-server {
-    listen 443 ssl http2;
-    server_name www.vibeu.design;
-    # ... your existing ssl_certificate / ssl_certificate_key directives ...
-    return 301 https://vibeu.design$request_uri;
-}
-
-server {
-    listen 443 ssl http2;
+    listen 443 ssl;
+    listen [::]:443 ssl ipv6only=on;
     server_name vibeu.design;
-    # ... your existing ssl_certificate / ssl_certificate_key directives ...
 
-    root /var/www/vibeu/dist;   # <-- adjust to wherever dist/ actually lives on this server
+    ssl_certificate /etc/letsencrypt/live/vibeu.design/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/vibeu.design/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+    root /var/www/cuchoami/dist;
     index index.html;
+
+    # --- Compression: confirmed via `sudo nginx -T` (2026-09-30) that this vhost had NO gzip at
+    # all, so every text response (the ~1.8MB prerendered index.html included) went out byte-for-
+    # byte uncompressed — nginx's own build-time default gzip_types is just text/html, so gzip on
+    # by itself would still skip JS/CSS/JSON/SVG. This is a real, measured, large contributor to
+    # this project's poor Lighthouse performance score (2026-09-30 perf pass). ---
+    gzip on;
+    gzip_vary on;
+    gzip_min_length 512;
+    gzip_comp_level 6;
+    gzip_types text/plain text/css text/xml application/xml application/xml+rss application/javascript application/json image/svg+xml font/ttf font/otf;
 
     # --- Legacy slug redirects (real 301s — the in-app <Navigate> equivalents were only ever a
     # client-side fallback for users who already had JS running; this is what search engines and
@@ -41,10 +52,10 @@ server {
 
     # --- Prerendered static pages take priority over the SPA shell when they exist (see
     # scripts/prerender.mjs — it writes real index.html files into dist/blog/, dist/blog/<slug>/,
-    # dist/thu-vien/, dist/about/, dist/chinh-sach/, and overwrites the root dist/index.html and
-    # dist/studio/index.html). try_files finds the prerendered file first; anything it can't find
-    # falls through to the SPA shell so client-side routing still works for every other route
-    # (/admin/*, /cong-dong/:id, /u/:id, /r/:id, etc.). ---
+    # dist/thu-vien/, dist/about/, dist/chinh-sach/, dist/cong-dong/, dist/cong-dong/<id>/, and
+    # overwrites the root dist/index.html and dist/studio/index.html). try_files finds the
+    # prerendered file first; anything it can't find falls through to the SPA shell so
+    # client-side routing still works for every other route (/admin/*, /u/:id, /r/:id, etc.). ---
     location / {
         try_files $uri $uri/index.html $uri.html /_spa.html;
     }
@@ -60,10 +71,18 @@ server {
     # content="noindex,follow"> for these (PageMeta's `noindex` prop), but that only exists after
     # JavaScript runs (these routes are deliberately not prerendered), so this header is the one
     # signal a non-JS crawler can actually see. The routes are still crawlable (no robots.txt
-    # Disallow) on purpose — a blocked URL can't have its noindex observed. ---
+    # Disallow) on purpose — a blocked URL can't have its noindex observed.
+    #
+    # The trailing `=404` matters and must not be dropped: without it, `/_spa.html` is try_files'
+    # LAST parameter, which nginx treats as an internal-redirect target rather than a plain file
+    # check — that redirect re-runs location matching for the new URI from scratch, so it lands
+    # back in the plain `location /` block below and silently drops this block's add_header
+    # (confirmed live: X-Robots-Tag was missing on /admin until this was added). With `=404` as
+    # the true last parameter, `/_spa.html` becomes an ordinary file-existence check that's
+    # served from within this same location, so the header survives. ---
     location ~ ^/(admin|auth|reset-password|settings|geometry-editor|r/) {
         add_header X-Robots-Tag "noindex, follow" always;
-        try_files $uri /_spa.html;
+        try_files $uri /_spa.html =404;
     }
 
     # Static assets are content-hashed by Vite — safe to cache indefinitely.
@@ -77,3 +96,25 @@ server {
     location = /sitemap.xml { try_files $uri =404; }
     location = /robots.txt { try_files $uri =404; }
 }
+
+# HTTPS — www.vibeu.design redirects to the apex. Same cert (issued for both names) reused here;
+# no content served from this block at all. `ipv6only=on` is a socket-level option that can only
+# be declared once per address:port across the whole config — it's already set on the vibeu.design
+# block above for this same [::]:443 socket, so it must NOT be repeated here (nginx -t fails with
+# "duplicate listen options" if it is).
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+    server_name www.vibeu.design;
+
+    ssl_certificate /etc/letsencrypt/live/vibeu.design/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/vibeu.design/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+    return 301 https://vibeu.design$request_uri;
+}
+
+# --- Leave the existing port-80 server block in /etc/nginx/sites-available/vibeu.design exactly
+# as Certbot generated it (it already redirects both vibeu.design and www.vibeu.design to https)
+# — nothing above changes it, this file only replaces the two port-443 server blocks. ---

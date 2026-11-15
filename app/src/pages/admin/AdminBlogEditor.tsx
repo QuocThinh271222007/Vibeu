@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { ArrowDown, ArrowLeft, ArrowUp, Heading2, Heading3, ImagePlus, Pilcrow, Save, Table2, Trash2, Upload } from 'lucide-react'
+import { ArrowDown, ArrowLeft, ArrowUp, Heading2, Heading3, ImagePlus, Pilcrow, Plus, Save, Table2, Trash2, Upload, X } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { RichBlockEditor } from '@/components/admin/RichBlockEditor'
 import type { ContentBlock } from '@/data/blog'
@@ -10,10 +10,12 @@ import {
   DEFAULT_CTA_BUTTON_LABEL,
   DEFAULT_CTA_BUTTON_URL,
   DEFAULT_CTA_TITLE,
+  fetchAllBlogPostsAdmin,
   fetchBlogPostByIdAdmin,
   updateBlogPost,
   uploadBlogCover,
   type BlogPostInput,
+  type BlogPostRow,
 } from '@/lib/blogApi'
 import { htmlToText } from '@/lib/blogContentHtml'
 import { fetchAllBlogCategories, type BlogCategoryRow } from '@/lib/blogCategoriesApi'
@@ -59,6 +61,7 @@ const EMPTY: BlogPostInput = {
   ctaButtonLabel: DEFAULT_CTA_BUTTON_LABEL,
   ctaButtonUrl: DEFAULT_CTA_BUTTON_URL,
   seriesId: null,
+  relatedPostIds: [],
   accentColor: '#B6C7EA',
   coverSrc: null,
   coverAlt: null,
@@ -179,10 +182,12 @@ export default function AdminBlogEditor() {
   const [error, setError] = useState<string | null>(null)
   const [seriesOptions, setSeriesOptions] = useState<BlogSeriesRow[]>([])
   const [categoryOptions, setCategoryOptions] = useState<BlogCategoryRow[]>([])
+  const [allPosts, setAllPosts] = useState<BlogPostRow[]>([])
 
   useEffect(() => {
     fetchAllBlogSeries().then(setSeriesOptions)
     fetchAllBlogCategories().then(setCategoryOptions)
+    fetchAllBlogPostsAdmin().then(setAllPosts)
   }, [])
 
   useEffect(() => {
@@ -225,6 +230,7 @@ export default function AdminBlogEditor() {
         ctaButtonLabel: row.cta_button_label ?? DEFAULT_CTA_BUTTON_LABEL,
         ctaButtonUrl: row.cta_button_url ?? DEFAULT_CTA_BUTTON_URL,
         seriesId: row.series_id ?? null,
+        relatedPostIds: row.related_post_ids ?? [],
         accentColor: row.accent_color,
         coverSrc: row.cover_src,
         coverAlt: row.cover_alt,
@@ -523,6 +529,12 @@ export default function AdminBlogEditor() {
           />
         </Field>
 
+        <RelatedPostsPicker
+          candidates={allPosts.filter((p) => p.id !== id)}
+          selectedIds={form.relatedPostIds}
+          onChange={(relatedPostIds) => setForm((f) => ({ ...f, relatedPostIds }))}
+        />
+
         <div className="space-y-3 rounded-2xl border-2 border-vibe-blue/30 bg-vibe-blue/5 p-4">
           <label className="flex items-center gap-2.5 text-sm font-semibold text-vibe-ink">
             <input
@@ -603,6 +615,109 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
   )
 }
 
+/** Picks which posts the sidebar's "Bài viết liên quan" shows. Selecting none keeps the automatic
+ * selection (same category first), so this is purely an override. Selected posts keep their
+ * chosen order; ids that no longer resolve (post deleted) are shown as such and can be dropped. */
+function RelatedPostsPicker({
+  candidates,
+  selectedIds,
+  onChange,
+}: {
+  candidates: BlogPostRow[]
+  selectedIds: string[]
+  onChange: (ids: string[]) => void
+}) {
+  const [query, setQuery] = useState('')
+  const byId = new Map(candidates.map((p) => [p.id, p]))
+  const q = normalizeForSearch(query.trim())
+  const matches = candidates
+    .filter((p) => !selectedIds.includes(p.id))
+    .filter((p) => !q || normalizeForSearch(p.title).includes(q))
+    .slice(0, 8)
+
+  function move(index: number, dir: -1 | 1) {
+    const target = index + dir
+    if (target < 0 || target >= selectedIds.length) return
+    const next = [...selectedIds]
+    ;[next[index], next[target]] = [next[target], next[index]]
+    onChange(next)
+  }
+
+  return (
+    <div className="rounded-2xl border-2 border-vibe-ink/10 p-4">
+      <p className="text-xs font-semibold uppercase tracking-wide text-vibe-ink-soft">Bài viết liên quan (tuỳ chọn)</p>
+      <p className="mt-1 text-[11px] text-vibe-ink-soft">
+        Chọn các bài sẽ hiện ở khung &quot;Bài viết liên quan&quot;. Không chọn bài nào thì hiển thị tự động như trước.
+      </p>
+
+      {selectedIds.length > 0 && (
+        <ul className="mt-3 space-y-1.5">
+          {selectedIds.map((sid, i) => {
+            const p = byId.get(sid)
+            return (
+              <li key={sid} className="flex items-center gap-2 rounded-lg bg-vibe-cream px-2.5 py-1.5">
+                <span className="min-w-0 flex-1 truncate text-sm text-vibe-ink">
+                  {p ? p.title : 'Bài viết đã bị xoá'}
+                  {p && !p.published && <span className="ml-1.5 text-[11px] font-medium text-amber-600">(nháp — chưa hiện công khai)</span>}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => move(i, -1)}
+                  disabled={i === 0}
+                  className="grid h-6 w-6 place-items-center rounded-md text-vibe-ink-soft hover:bg-white disabled:opacity-30"
+                >
+                  <ArrowUp size={13} />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => move(i, 1)}
+                  disabled={i === selectedIds.length - 1}
+                  className="grid h-6 w-6 place-items-center rounded-md text-vibe-ink-soft hover:bg-white disabled:opacity-30"
+                >
+                  <ArrowDown size={13} />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => onChange(selectedIds.filter((x) => x !== sid))}
+                  className="grid h-6 w-6 place-items-center rounded-md text-vibe-ink-soft hover:bg-red-50 hover:text-red-600"
+                >
+                  <X size={13} />
+                </button>
+              </li>
+            )
+          })}
+        </ul>
+      )}
+
+      <input
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        placeholder="Tìm bài viết theo tiêu đề để thêm…"
+        className="mt-3 w-full rounded-xl border-2 border-vibe-ink/10 px-3.5 py-2 text-sm outline-none focus:border-vibe-pink/50"
+      />
+      {matches.length > 0 ? (
+        <ul className="mt-2 space-y-1">
+          {matches.map((p) => (
+            <li key={p.id}>
+              <button
+                type="button"
+                onClick={() => onChange([...selectedIds, p.id])}
+                className="flex w-full items-center gap-2 rounded-lg px-2.5 py-1.5 text-left text-sm text-vibe-ink hover:bg-vibe-cream"
+              >
+                <Plus size={13} className="shrink-0 text-vibe-ink-soft" />
+                <span className="min-w-0 flex-1 truncate">{p.title}</span>
+                {!p.published && <span className="shrink-0 text-[11px] font-medium text-amber-600">nháp</span>}
+              </button>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="mt-2 text-[11px] text-vibe-ink-soft">{q ? 'Không có bài nào khớp.' : 'Không còn bài nào để thêm.'}</p>
+      )}
+    </div>
+  )
+}
+
 function AddBlockButton({ icon: Icon, label, onClick }: { icon: typeof Pilcrow; label: string; onClick: () => void }) {
   return (
     <button
@@ -614,6 +729,13 @@ function AddBlockButton({ icon: Icon, label, onClick }: { icon: typeof Pilcrow; 
     </button>
   )
 }
+
+// Matches BlogPost.tsx's default Tailwind heading sizes (text-xl / text-base) — shown as the
+// input's placeholder so "empty" visibly means "use the default", not "zero".
+const DEFAULT_H2_SIZE = 20
+const DEFAULT_H3_SIZE = 16
+const HEADING_FONT_SIZE_MIN = 12
+const HEADING_FONT_SIZE_MAX = 48
 
 const BLOCK_LABEL: Record<ContentBlock['type'], string> = {
   paragraph: 'Đoạn văn',
@@ -757,11 +879,30 @@ function BlockEditor({
             placeholder="Tiêu đề mục — ưu tiên chứa từ khoá chính/phụ…"
             className="w-full resize-y rounded-lg border-2 border-vibe-ink/10 px-3 py-2 text-sm outline-none focus:border-vibe-pink/50"
           />
-          {block.type === 'heading2' && (
-            <div className="mt-1">
+          <div className="mt-1.5 flex items-center justify-between gap-2">
+            {block.type === 'heading2' ? (
               <KeywordHint text={block.text} keyword={primaryKeyword} label="ưu tiên chứa từ khoá chính" />
+            ) : (
+              <span />
+            )}
+            <div className="flex shrink-0 items-center gap-1 rounded-md border border-vibe-ink/10 bg-white px-1.5 py-0.5" title="Cỡ chữ tiêu đề (px)">
+              <input
+                type="number"
+                min={HEADING_FONT_SIZE_MIN}
+                max={HEADING_FONT_SIZE_MAX}
+                placeholder={String(block.type === 'heading2' ? DEFAULT_H2_SIZE : DEFAULT_H3_SIZE)}
+                value={block.fontSize ?? ''}
+                onChange={(e) => {
+                  const raw = e.target.value
+                  if (raw === '') return onChange({ fontSize: undefined })
+                  const n = Math.max(HEADING_FONT_SIZE_MIN, Math.min(HEADING_FONT_SIZE_MAX, Number(raw)))
+                  onChange({ fontSize: n })
+                }}
+                className="w-10 text-[11px] font-medium text-vibe-ink-soft outline-none"
+              />
+              <span className="text-[10px] text-vibe-ink-soft/60">px</span>
             </div>
-          )}
+          </div>
         </>
       )}
     </div>

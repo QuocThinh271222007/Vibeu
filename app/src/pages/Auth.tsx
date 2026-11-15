@@ -260,6 +260,8 @@ export default function Auth() {
                       <User size={18} className="text-vibe-ink-soft" />
                       <input
                         required
+                        name="name"
+                        autoComplete="name"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         placeholder="Tên của bạn"
@@ -272,6 +274,8 @@ export default function Auth() {
                     <input
                       required
                       type="email"
+                      name="email"
+                      autoComplete="username"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="Email"
@@ -284,6 +288,18 @@ export default function Auth() {
                       <input
                         required
                         type="password"
+                        name={tab === 'register' ? 'new-password' : 'current-password'}
+                        // iOS/Safari's Keychain has no idea whether this is "create an account" or
+                        // "sign in to an existing one" without this hint — and since register/login
+                        // share this exact input, leaving it unset let Safari guess, sometimes
+                        // offering/saving a *different* suggested password than what someone typed
+                        // at signup. A customer confirming their email, landing back on the login
+                        // tab, then using Safari's own "quick" autofill suggestion got "Invalid
+                        // login credentials" back — the account's real password and whatever Safari
+                        // autofilled were never the same string (2026-10-04, reported iOS-only,
+                        // consistent with this: Android/Chrome's autofill heuristics don't have the
+                        // same failure mode here).
+                        autoComplete={tab === 'register' ? 'new-password' : 'current-password'}
                         minLength={6}
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}

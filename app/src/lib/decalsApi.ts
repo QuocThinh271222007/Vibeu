@@ -59,6 +59,16 @@ export async function fetchAllDecals(): Promise<DecalAsset[]> {
   return (data as DecalRow[]).map(mapRowToDecal)
 }
 
+/** Just the row count — for a marketing "N decal nail art" stat (Hero.tsx) that has no business
+ * downloading all ~520 rows' full SVG paths/tags/etc. just to read `.length`. `head: true` makes
+ * PostgREST return the count in a response header with an empty body, not the rows themselves. */
+export async function fetchDecalsCount(): Promise<number> {
+  if (!supabase) return 0
+  const { count, error } = await supabase.from('decals').select('*', { count: 'exact', head: true })
+  if (error || count === null) return 0
+  return count
+}
+
 /** Same rows as fetchAllDecals, kept as raw DecalRow so /admin/decals can edit fields directly. */
 export async function fetchAllDecalsAdmin(): Promise<DecalRow[]> {
   if (!supabase) return []
@@ -164,7 +174,10 @@ export async function uploadDecalAsset(file: File, adminId: string): Promise<{ u
   }
   const ext = file.name.split('.').pop() || 'svg'
   const path = `${adminId}/${Date.now()}.${ext}`
-  const { error } = await supabase.storage.from(DECAL_ASSETS_BUCKET).upload(path, file, { upsert: false })
+  // Long cache: paths here are never overwritten (upsert: false, unique per upload), so there's
+  // no staleness risk — this just stops Supabase re-serving the exact same bytes on every repeat
+  // view (was defaulting to 1h, a real contributor to hitting the free-tier egress quota).
+  const { error } = await supabase.storage.from(DECAL_ASSETS_BUCKET).upload(path, file, { upsert: false, cacheControl: '31536000' })
   if (error) return { url: null, error: error.message }
   const { data } = supabase.storage.from(DECAL_ASSETS_BUCKET).getPublicUrl(path)
   return { url: data.publicUrl, error: null }

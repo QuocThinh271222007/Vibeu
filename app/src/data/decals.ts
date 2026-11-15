@@ -45,8 +45,12 @@ async function loadStaticFallbackDecals(): Promise<DecalAsset[]> {
 
 /** All decals — the ~520 migrated built-ins plus anything created from /admin/decals — now live
  * in Supabase (see decalsApi.ts and supabase/migrations/20260915_seed_decals.sql for the
- * one-time migration), same move already made for templates (see data/templates.ts). Fetched
- * once and cached module-wide, kicked off as soon as this module is first imported. */
+ * one-time migration), same move already made for templates (see data/templates.ts). Fetched on
+ * first real demand (getAllDecalsAsync, only ever called from Studio's decal library) and cached
+ * module-wide — this used to kick off unconditionally on import instead, which meant every route
+ * in the app (Home, Blog, About...) paid for this fetch even when nothing on the page used
+ * decals at all. getAllDecalsSync has no callers left that need a pre-warmed cache — if that
+ * changes, warm it explicitly from that caller the way Community.tsx now does for templates. */
 let remoteDecals: DecalAsset[] = []
 let remoteDecalsPromise: Promise<DecalAsset[]> | null = null
 
@@ -62,8 +66,6 @@ function loadRemoteDecals(): Promise<DecalAsset[]> {
   }
   return remoteDecalsPromise
 }
-
-void loadRemoteDecals()
 
 /** Drops the memoized fetch and starts a new one immediately — call right after a
  * create/update/delete from /admin/decals succeeds, same reasoning as invalidateTemplates(). */

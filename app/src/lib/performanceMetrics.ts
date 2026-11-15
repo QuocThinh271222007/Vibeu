@@ -15,6 +15,11 @@ export function initPerformanceMonitoring(): void {
   // reads far worse than a real production load and would just be noise mixed into real visitor
   // data — only report from an actual production build (`npm run build` + preview/deploy).
   if (import.meta.env.DEV) return
+  // Same check main.tsx's GA4 loader already uses — Lighthouse/PageSpeed Insights/other automated
+  // audits set this, and a synthetic run's numbers would just dilute the real-visitor data this
+  // exists to track. Also removes one more Supabase round trip from the page a performance audit
+  // is specifically trying to measure (2026-09-30 perf pass).
+  if (navigator.webdriver) return
 
   const device = window.innerWidth < 768 ? 'mobile' : 'desktop'
   const path = normalizePath(location.pathname)

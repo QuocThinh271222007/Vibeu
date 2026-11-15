@@ -457,6 +457,7 @@ alter table public.blog_posts add column if not exists cta_button_url text not n
 alter table public.blog_posts add column if not exists series_id uuid references public.blog_series (id) on delete set null;
 alter table public.blog_posts add column if not exists content_html text not null default '';
 alter table public.blog_posts add column if not exists facebook_post_url text;
+alter table public.blog_posts add column if not exists related_post_ids uuid[] not null default '{}';
 -- category is now a dynamic slug into blog_categories, not one of a hardcoded 3 values.
 alter table public.blog_posts drop constraint if exists blog_posts_category_check;
 
@@ -924,6 +925,11 @@ create table if not exists public.site_settings (
   -- admin approves them — see /admin/community. Off: posts insert already approved, so they go
   -- public immediately (still rate-limited) — see createCommunityPost's `approved` argument.
   community_moderation boolean not null default true,
+  -- Ordered template ids for the 3 floating showcase cards on the homepage Hero (see
+  -- src/components/home/Hero.tsx). Empty array (default) = fall back to the hardcoded starter
+  -- picks baked into Hero.tsx; a deleted/hidden template id left in this list is silently skipped
+  -- and backfilled from the live template pool at render time, never a broken/blank card.
+  homepage_showcase_template_ids jsonb not null default '[]'::jsonb,
   updated_at timestamptz not null default now()
 );
 
@@ -931,6 +937,7 @@ insert into public.site_settings (id) values (true) on conflict (id) do nothing;
 
 -- Added after the initial release — safe no-op if the column already exists.
 alter table public.site_settings add column if not exists community_moderation boolean not null default true;
+alter table public.site_settings add column if not exists homepage_showcase_template_ids jsonb not null default '[]'::jsonb;
 
 alter table public.site_settings enable row level security;
 

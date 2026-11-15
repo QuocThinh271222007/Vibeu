@@ -6,6 +6,7 @@ import { NewPostComposer } from '@/components/community/NewPostComposer'
 import { COMMUNITY_POSTS } from '@/data/community'
 import { fetchCommunityPosts } from '@/lib/communityApi'
 import { isSupabaseConfigured } from '@/lib/supabaseClient'
+import { getAllTemplatesAsync } from '@/data/templates'
 import { useAuthStore } from '@/store/authStore'
 import { PageMeta } from '@/components/seo/PageMeta'
 
@@ -16,6 +17,14 @@ export default function Community() {
   const [hashtagFilter, setHashtagFilter] = useState<string | null>(null)
   const [params] = useSearchParams()
   const highlightId = params.get('post')
+
+  // PostCard's `findTemplate` lookup is synchronous — it only sees data once this resolves at
+  // least once. Kicked off here (not eagerly on module import) so the ~5MB template table is only
+  // ever fetched on the one route that actually renders template-based preview thumbnails.
+  const [, setTemplatesReady] = useState(0)
+  useEffect(() => {
+    getAllTemplatesAsync().then(() => setTemplatesReady((n) => n + 1))
+  }, [])
 
   const reload = useCallback(() => {
     if (!isSupabaseConfigured) return

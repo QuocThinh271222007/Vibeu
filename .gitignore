@@ -23,3 +23,7 @@ lerna-debug.log*
 .claude/settings.local.json
 .claude/scheduled_tasks.lock
 .claude/*.lock
+
+# local-only, never commit
+supabase-export-*/
+app/AP.zip

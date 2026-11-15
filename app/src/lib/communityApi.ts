@@ -200,7 +200,10 @@ export async function uploadCommunityMedia(file: File, userId: string): Promise<
   }
   const ext = file.name.split('.').pop() || 'jpg'
   const path = `${userId}/${Date.now()}.${ext}`
-  const { error } = await supabase.storage.from(COMMUNITY_MEDIA_BUCKET).upload(path, file, { upsert: false })
+  // Long cache: paths here are never overwritten (upsert: false, unique per upload), so there's
+  // no staleness risk — this just stops Supabase re-serving the exact same bytes on every repeat
+  // view (was defaulting to 1h, a real contributor to hitting the free-tier egress quota).
+  const { error } = await supabase.storage.from(COMMUNITY_MEDIA_BUCKET).upload(path, file, { upsert: false, cacheControl: '31536000' })
   if (error) return { url: null, error: error.message }
   const { data } = supabase.storage.from(COMMUNITY_MEDIA_BUCKET).getPublicUrl(path)
   return { url: data.publicUrl, error: null }

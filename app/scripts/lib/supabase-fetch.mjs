@@ -43,3 +43,10 @@ export async function fetchPublishedBlogSlugs() {
   const rows = await fetchTable('blog_posts', 'slug', 'published=eq.true')
   return rows.map((r) => r.slug)
 }
+
+/** Approved community post ids — same "which community posts are public" question the sitemap
+ * and the prerender pass both need answered identically. */
+export async function fetchApprovedCommunityPostIds() {
+  const rows = await fetchTable('community_posts', 'id', 'approved=eq.true')
+  return rows.map((r) => r.id)
+}

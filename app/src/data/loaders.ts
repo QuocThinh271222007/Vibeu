@@ -142,21 +142,28 @@ export function useHandData(tone: SkinToneId, shape?: NailShape, length?: NailLe
   return { hand: data, loading, error }
 }
 
-/** Static seed templates + admin-created ones from Supabase (see data/templates.ts). Seeds with
- * the static list synchronously (so the Library never flashes empty) and re-renders once the
- * Supabase fetch of admin-created templates resolves. */
+/** Static seed templates + admin-created ones from Supabase (see data/templates.ts). Seeds
+ * synchronously from whatever's already cached module-wide (non-empty only if some earlier
+ * mount on this same page already warmed it) and kicks off/awaits the real fetch itself, then
+ * re-renders once it resolves. `loading` lets a caller reserve layout space instead of rendering
+ * (and then un-rendering) an empty/"no results" state — Library briefly flashing 0 cards before
+ * its grid popped in was a real, measured CLS contributor. */
 export function useTemplates() {
   const [templates, setTemplates] = useState(getAllTemplates)
+  const [loading, setLoading] = useState(templates.length === 0)
   useEffect(() => {
     let alive = true
     getAllTemplatesAsync().then((list) => {
-      if (alive) setTemplates(list)
+      if (alive) {
+        setTemplates(list)
+        setLoading(false)
+      }
     })
     return () => {
       alive = false
     }
   }, [])
-  return { templates }
+  return { templates, loading }
 }
 
 export function decalAssetUrl(path: string) {
@@ -198,9 +205,16 @@ export async function getMaterialPreviewUrl(effectId: string): Promise<string | 
   return rel ? `/assets/materials/${rel}` : null
 }
 
-export function handBaseUrl(tone: SkinToneId, shape?: NailShape, length?: NailLength) {
+/** `preview: true` serves the 512x768 `base-sm.jpg` sibling instead of the full 1024x1536 photo —
+ * generated once (see the resize pass, 2026-09-30 perf pass) for the marketing/library preview
+ * cards (Hero, SuggestedDesigns, Library grid) that render HandCanvas at ~150-300px: those were
+ * downloading the same studio-editing-quality image a real Studio canvas needs, at up to 90% waste
+ * per instance (confirmed via Lighthouse's image-delivery audit on production). Studio itself still
+ * gets the full-resolution photo — accurate paint/lighting there benefits from the extra detail. */
+export function handBaseUrl(tone: SkinToneId, shape?: NailShape, length?: NailLength, preview = false) {
   const segment = handVariantSegment(tone, shape, length)
-  const path = segment ? `/assets/hands/${tone}/${segment}/base.jpg` : `/assets/hands/${tone}/base.jpg`
+  const file = preview ? 'base-sm.jpg' : 'base.jpg'
+  const path = segment ? `/assets/hands/${tone}/${segment}/${file}` : `/assets/hands/${tone}/${file}`
   return `${path}?v=${HAND_ASSET_REVISION}`
 }
 

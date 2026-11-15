@@ -19,9 +19,12 @@ export interface BlogCover {
  * A `paragraph` block's `text` is sanitized inline-rich HTML (bold/italic/underline/strike,
  * font size, text color, alignment) from RichBlockEditor.tsx, not plain text — legacy posts
  * saved before that existed just have plain text in the same field, which renders identically
- * since plain text has nothing for the HTML renderer to interpret. */
+ * since plain text has nothing for the HTML renderer to interpret. A heading block's optional
+ * `fontSize` (px) overrides its default Tailwind size (h2 20px / h3 16px) — undefined keeps
+ * the default so every pre-existing post renders unchanged. */
 export type ContentBlock =
-  | { type: 'heading2' | 'heading3' | 'paragraph'; text: string }
+  | { type: 'heading2' | 'heading3'; text: string; fontSize?: number }
+  | { type: 'paragraph'; text: string }
   | { type: 'image'; src: string; alt: string; caption?: string }
   | { type: 'table'; html: string }
 
@@ -37,6 +40,7 @@ export interface BlogSeries {
 }
 
 export interface BlogPost {
+  id: string
   slug: string
   title: string
   category: BlogCategory
@@ -80,6 +84,9 @@ export interface BlogPost {
   ctaButtonUrl: string
   /** Which Mục lục (see BlogSeries) this post belongs to, if any. */
   seriesId: string | null
+  /** Admin-picked "Bài viết liên quan", in display order. Empty = fall back to the automatic
+   * selection in relatedPosts(). Ids of deleted/unpublished posts are skipped at render time. */
+  relatedPostIds: string[]
 }
 
 // The original editorial posts have been migrated into Supabase rows (see
@@ -95,6 +102,12 @@ export function findBlogPost(slug: string, posts: BlogPost[] = BLOG_POSTS): Blog
 export function relatedPosts(slug: string, posts: BlogPost[] = BLOG_POSTS, count = 3): BlogPost[] {
   const current = findBlogPost(slug, posts)
   if (!current) return posts.slice(0, count)
+  // Editor-picked posts win over the automatic selection (and aren't capped at `count`); if none
+  // of the picks resolve to a published post any more, fall through to the automatic behaviour.
+  const picked = current.relatedPostIds
+    .map((id) => posts.find((p) => p.id === id))
+    .filter((p): p is BlogPost => !!p && p.slug !== slug)
+  if (picked.length > 0) return picked
   return posts.filter((p) => p.slug !== slug && p.category === current.category).slice(0, count).concat(
     posts.filter((p) => p.slug !== slug && p.category !== current.category),
   ).slice(0, count)

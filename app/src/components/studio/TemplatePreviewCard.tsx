@@ -5,7 +5,19 @@ import { useNavigate } from 'react-router-dom'
 import { TemplatePreviewMedia } from '@/components/studio/TemplatePreviewMedia'
 import type { Template } from '@/types/vibeu'
 
-export function TemplatePreviewCard({ template, index = 0 }: { template: Template; index?: number }) {
+export function TemplatePreviewCard({
+  template,
+  index = 0,
+  eager,
+}: {
+  template: Template
+  index?: number
+  /** Defaults to the first 4 cards (Library.tsx's grid, where those are genuinely above the
+   * fold) — SuggestedDesigns.tsx overrides this to false since its whole section sits well
+   * below the homepage's fold, so eager-loading its images was pure bandwidth contention
+   * against the Hero images that actually gate LCP (2026-09-30 perf pass). */
+  eager?: boolean
+}) {
   const [saved, setSaved] = useState(false)
   const navigate = useNavigate()
 
@@ -22,7 +34,8 @@ export function TemplatePreviewCard({ template, index = 0 }: { template: Templat
           template={template}
           className="h-full w-full"
           imageClassName="transition-transform duration-500 ease-out group-hover:scale-[1.025]"
-          eager={index < 4}
+          eager={eager ?? index < 4}
+          staggerIndex={index}
         />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/10 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
         <button

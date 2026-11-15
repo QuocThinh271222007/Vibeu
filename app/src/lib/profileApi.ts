@@ -64,7 +64,10 @@ export async function uploadAvatar(file: File, userId: string): Promise<{ url: s
   // Fixed filename per user (not timestamped like community media) so old avatars don't pile up
   // in storage — `upsert: true` overwrites the previous one in place.
   const path = `${userId}/avatar.${ext}`
-  const { error } = await supabase.storage.from(AVATAR_BUCKET).upload(path, file, { upsert: true })
+  // Long cache is safe despite `upsert: true` reusing the same path: the `?t=` query string below
+  // makes every re-upload a distinct URL the browser/CDN has never seen, so nothing ever serves a
+  // stale cached avatar — this just stops Supabase re-serving the same bytes on every repeat view.
+  const { error } = await supabase.storage.from(AVATAR_BUCKET).upload(path, file, { upsert: true, cacheControl: '31536000' })
   if (error) return { url: null, error: error.message }
   const { data } = supabase.storage.from(AVATAR_BUCKET).getPublicUrl(path)
   // Cache-bust so the new avatar shows immediately even though the URL/path is unchanged.

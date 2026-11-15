@@ -1,16 +1,21 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
 import { ArrowRight, PlayCircle, Sparkles } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Logo } from '@/components/ui/Logo'
 import { TemplatePreviewMedia } from '@/components/studio/TemplatePreviewMedia'
-import { useDecals, useTemplates } from '@/data/loaders'
+import { fetchDecalsCount } from '@/lib/decalsApi'
+import { useSiteSettings } from '@/hooks/useSiteSettings'
+import { useHomepageShowcaseTemplates } from '@/lib/homepageShowcase'
 
-const SHOWCASE_META = [
-  { templateId: 'gemini-sparkle', rotate: -9, x: -58, y: 40, z: 10, delay: 0 },
-  { templateId: 'strawberry-lace-dream', rotate: 4, x: 22, y: -14, z: 30, delay: 0.6 },
-  { templateId: 'xuan-cherry-blossom', rotate: 13, x: 102, y: 52, z: 20, delay: 1.2 },
+// Fixed visual choreography for the 3 floating cards — position/rotation/animation-delay never
+// change, only WHICH template fills each slot does (admin-configurable, see AdminSettings.tsx's
+// "Thẻ mẫu trôi nổi trên trang chủ" section — resolveHomepageShowcase decides the ids).
+const SHOWCASE_SLOTS = [
+  { rotate: -9, x: -58, y: 40, z: 10, delay: 0 },
+  { rotate: 4, x: 22, y: -14, z: 30, delay: 0.6 },
+  { rotate: 13, x: 102, y: 52, z: 20, delay: 1.2 },
 ]
 
 /** How far (px) the non-hovered cards dodge away from the hovered one. */
@@ -18,18 +23,27 @@ const DODGE_DISTANCE = 46
 
 export function Hero() {
   const navigate = useNavigate()
-  const { decals } = useDecals()
-  const { templates } = useTemplates()
-  // Templates now only ever come from Supabase (see data/templates.ts) — never available
-  // synchronously on first module load — so this has to be a hook-driven lookup that
-  // re-renders once the fetch resolves, not a module-level constant computed at import time
-  // (that was reading `undefined` and crashing the whole page before this fix).
-  const SHOWCASE = useMemo(() => {
-    const byId = Object.fromEntries(templates.map((t) => [t.id, t]))
-    return SHOWCASE_META.map((m) => ({ ...m, template: byId[m.templateId] })).filter(
-      (s): s is typeof s & { template: NonNullable<typeof s.template> } => Boolean(s.template),
-    )
-  }, [templates])
+  // A row-count query, not fetchAllDecals()/useDecals() — this stat only ever reads `.length`,
+  // so there's no reason to download all ~520 decals' full SVG paths/tags just for a number
+  // (2026-09-30 perf pass).
+  const [decalsCount, setDecalsCount] = useState<number | null>(null)
+  useEffect(() => {
+    let alive = true
+    fetchDecalsCount().then((n) => {
+      if (alive) setDecalsCount(n)
+    })
+    return () => {
+      alive = false
+    }
+  }, [])
+  const settings = useSiteSettings()
+  // Admin's picks (AdminSettings.tsx) win once `settings` loads; undefined while it's in flight
+  // falls back to the starter ids inside the hook, so no special-casing needed here.
+  const showcaseTemplates = useHomepageShowcaseTemplates(settings?.homepageShowcaseTemplateIds)
+  const SHOWCASE = useMemo(
+    () => showcaseTemplates.map((template, i) => ({ ...SHOWCASE_SLOTS[i], template })),
+    [showcaseTemplates],
+  )
   const [hoveredId, setHoveredId] = useState<string | null>(null)
   const hoveredCard = SHOWCASE.find((s) => s.template.id === hoveredId)
 
@@ -87,13 +101,13 @@ export function Hero() {
 
             <div className="mt-10 flex items-center gap-6 text-sm text-vibe-ink-soft">
               <Stat value="24" label="bảng phối màu" />
-              <Stat value={decals.length ? `${decals.length}` : '…'} label="decal nail art" />
+              <Stat value={decalsCount ? `${decalsCount}` : '…'} label="decal nail art" />
               <Stat value="0đ" label="phí xuất công thức" />
             </div>
           </motion.div>
 
           <div className="relative mx-auto h-[480px] w-full max-w-lg lg:h-[560px]">
-            {SHOWCASE.map((s) => {
+            {SHOWCASE.map((s, i) => {
               const isHovered = hoveredId === s.template.id
               const isOtherHovered = hoveredId !== null && !isHovered
 
@@ -137,9 +151,10 @@ export function Hero() {
                       className="aspect-[2/3] w-full"
                       imageClassName="scale-[1.01]"
                       eager
-                      // The front-most card (highest z in SHOWCASE_META) is this page's likely
+                      // The front-most card (highest z in SHOWCASE_SLOTS) is this page's likely
                       // LCP element.
-                      priority={s.z === Math.max(...SHOWCASE_META.map((m) => m.z))}
+                      priority={s.z === Math.max(...SHOWCASE_SLOTS.map((m) => m.z))}
+                      staggerIndex={i}
                     />
                     {/* Caption lives inside the card's own clipped frame — as a sibling outside
                         this rotated/offset motion.div it would inherit the same rotate+translate

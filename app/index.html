@@ -2,7 +2,7 @@
 <html lang="vi">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/assets/brand/logo-mark.png" />
+    <link rel="icon" type="image/png" href="/assets/brand/logo-mark.png?v=20260930-resize" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- No static <meta name="description"> here on purpose: every real page renders its own
          via <PageMeta> (src/components/seo/PageMeta.tsx), which React 19 hoists into <head>.
@@ -18,10 +18,14 @@
          live that <PageMeta>'s per-page <link rel="canonical"> correctly takes over with no
          static default competing against it. -->
     <meta name="google-site-verification" content="%VITE_GSC_VERIFICATION%" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://dozhgjmjqkxhfpsesmus.supabase.co" />
-    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="preconnect" href="https://adudffeboftbayytpyxv.supabase.co" />
+    <!-- Baloo 2 + Inter are self-hosted now (see src/index.css's @font-face rules) — this used to
+         be a non-blocking Google Fonts <link> (fixed from render-blocking in an earlier pass), but
+         fonts.googleapis.com + fonts.gstatic.com were still two extra cross-origin DNS+TLS round
+         trips on every page's critical path. Self-hosting removes both origins entirely; the font
+         files themselves are now just ordinary same-origin requests Vite bundles/serves like any
+         other asset, with font-display: swap already set per @font-face so there's still no FOIT
+         wait (2026-10-01 perf pass). -->
     <title>VIBEU — Thiết kế nail của riêng bạn</title>
     <!-- Google Analytics (GA4) — inert until VITE_GA_MEASUREMENT_ID is set in .env.local (Vite
          substitutes %VITE_X% placeholders from env at build time). Nothing loads, no network

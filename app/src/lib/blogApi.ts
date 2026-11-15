@@ -31,6 +31,7 @@ export interface BlogPostRow {
   cta_button_label: string
   cta_button_url: string
   series_id: string | null
+  related_post_ids: string[] | null
   accent_color: string
   cover_src: string | null
   cover_alt: string | null
@@ -43,6 +44,7 @@ export interface BlogPostRow {
 
 function mapRowToPost(row: BlogPostRow): BlogPost {
   return {
+    id: row.id,
     slug: row.slug,
     title: row.title,
     category: row.category,
@@ -66,6 +68,7 @@ function mapRowToPost(row: BlogPostRow): BlogPost {
     ctaButtonLabel: row.cta_button_label ?? DEFAULT_CTA_BUTTON_LABEL,
     ctaButtonUrl: row.cta_button_url ?? DEFAULT_CTA_BUTTON_URL,
     seriesId: row.series_id ?? null,
+    relatedPostIds: row.related_post_ids ?? [],
   }
 }
 
@@ -115,6 +118,7 @@ export interface BlogPostInput {
   ctaButtonLabel: string
   ctaButtonUrl: string
   seriesId: string | null
+  relatedPostIds: string[]
   accentColor: string
   coverSrc: string | null
   coverAlt: string | null
@@ -143,6 +147,7 @@ export async function createBlogPost(input: BlogPostInput, authorId: string): Pr
     cta_button_label: input.ctaButtonLabel,
     cta_button_url: input.ctaButtonUrl,
     series_id: input.seriesId,
+    related_post_ids: input.relatedPostIds,
     accent_color: input.accentColor,
     cover_src: input.coverSrc,
     cover_alt: input.coverAlt,
@@ -176,6 +181,7 @@ export async function updateBlogPost(id: string, input: BlogPostInput): Promise<
       cta_button_label: input.ctaButtonLabel,
       cta_button_url: input.ctaButtonUrl,
       series_id: input.seriesId,
+      related_post_ids: input.relatedPostIds,
       accent_color: input.accentColor,
       cover_src: input.coverSrc,
       cover_alt: input.coverAlt,
@@ -203,7 +209,10 @@ export async function uploadBlogCover(file: File, adminId: string): Promise<{ ur
   }
   const ext = file.name.split('.').pop() || 'jpg'
   const path = `${adminId}/${Date.now()}.${ext}`
-  const { error } = await supabase.storage.from(BLOG_COVERS_BUCKET).upload(path, file, { upsert: false })
+  // Long cache: paths here are never overwritten (upsert: false, unique per upload), so there's
+  // no staleness risk — this just stops Supabase re-serving the exact same bytes on every repeat
+  // view (was defaulting to 1h, a real contributor to hitting the free-tier egress quota).
+  const { error } = await supabase.storage.from(BLOG_COVERS_BUCKET).upload(path, file, { upsert: false, cacheControl: '31536000' })
   if (error) return { url: null, error: error.message }
   const { data } = supabase.storage.from(BLOG_COVERS_BUCKET).getPublicUrl(path)
   return { url: data.publicUrl, error: null }

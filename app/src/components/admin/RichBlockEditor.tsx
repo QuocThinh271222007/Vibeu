@@ -1,9 +1,30 @@
+import { Extension } from '@tiptap/core'
 import { EditorContent, useEditor, type Editor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import { TextStyleKit } from '@tiptap/extension-text-style'
 import TextAlign from '@tiptap/extension-text-align'
 import { Table, TableRow, TableHeader as BaseTableHeader, TableCell as BaseTableCell } from '@tiptap/extension-table'
-import { AlignCenter, AlignLeft, AlignRight, Bold, Highlighter, Italic, PaintBucket, Strikethrough, Underline as UnderlineIcon } from 'lucide-react'
+import Link from '@tiptap/extension-link'
+import {
+  AlignCenter,
+  AlignJustify,
+  AlignLeft,
+  Link as LinkIcon,
+  Unlink,
+  AlignRight,
+  Bold,
+  Highlighter,
+  IndentDecrease,
+  IndentIncrease,
+  Italic,
+  List,
+  ListOrdered,
+  Quote,
+  CodeXml,
+  PaintBucket,
+  Strikethrough,
+  Underline as UnderlineIcon,
+} from 'lucide-react'
 import { sanitizeBlogHtml } from '@/lib/blogContentHtml'
 
 // TipTap's stock table cell/header nodes have no color of their own — "tô màu bảng" needs a
@@ -36,12 +57,67 @@ const TableHeader = BaseTableHeader.extend({
 })
 
 const DEFAULT_FONT_SIZE = 15
+const MAX_INDENT = 8
+const INDENT_REM = 2
+
+declare module '@tiptap/core' {
+  interface Commands<ReturnType> {
+    paragraphIndent: {
+      indentParagraph: (delta: 1 | -1) => ReturnType
+    }
+  }
+}
+
+// Word-style block indent for plain paragraphs (list items use sinkListItem/liftListItem instead).
+// Stored as an inline margin-left so it survives the sanitizer and renders on the public page
+// with no extra CSS.
+const ParagraphIndent = Extension.create({
+  name: 'paragraphIndent',
+  addGlobalAttributes() {
+    return [
+      {
+        types: ['paragraph'],
+        attributes: {
+          indent: {
+            default: 0,
+            parseHTML: (el: HTMLElement) => {
+              const m = el.style.marginLeft
+              return m && m.endsWith('rem') ? Math.min(MAX_INDENT, Math.round(parseFloat(m) / INDENT_REM)) : 0
+            },
+            renderHTML: (attrs: { indent?: number }) =>
+              attrs.indent ? { style: `margin-left: ${attrs.indent * INDENT_REM}rem` } : {},
+          },
+        },
+      },
+    ]
+  },
+  addCommands() {
+    return {
+      indentParagraph:
+        (delta) =>
+        ({ tr, state, dispatch }) => {
+          const { from, to } = state.selection
+          let changed = false
+          state.doc.nodesBetween(from, to, (node, pos, parent) => {
+            if (node.type.name !== 'paragraph' || parent?.type.name === 'listItem') return
+            const next = Math.max(0, Math.min(MAX_INDENT, ((node.attrs.indent as number) || 0) + delta))
+            if (next === node.attrs.indent) return
+            tr.setNodeMarkup(pos, undefined, { ...node.attrs, indent: next })
+            changed = true
+          })
+          if (changed && dispatch) dispatch(tr)
+          return changed
+        },
+    }
+  },
+})
 
 /**
  * Small TipTap instance scoped to ONE content_blocks entry — a `paragraph` block's inline text
- * (bold/italic/underline/strike, font size, text color, left/center/right alignment) or a
+ * (bold/italic/underline/strike, font size, text color, left/center/right/justify alignment, bullet
+ * and numbered lists incl. nested, blockquote, code block, links) or a
  * `table` block's whole table (same inline formatting inside cells, plus per-cell background
- * color). Deliberately excludes headings/lists/images/links: those already exist as their own
+ * color). Deliberately excludes headings/images/horizontal rules: those already exist as their own
  * block types in AdminBlogEditor.tsx, so allowing them here too would just duplicate structure.
  */
 export function RichBlockEditor({
@@ -57,14 +133,19 @@ export function RichBlockEditor({
     extensions: [
       StarterKit.configure({
         heading: false,
-        bulletList: false,
-        orderedList: false,
-        blockquote: false,
-        codeBlock: false,
         horizontalRule: false,
+        link: false,
+      }),
+      Link.configure({
+        openOnClick: false,
+        autolink: true,
+        linkOnPaste: true,
+        protocols: ['http', 'https', 'mailto', 'tel'],
+        HTMLAttributes: { target: '_blank', rel: 'noopener noreferrer nofollow' },
       }),
       TextStyleKit.configure({ fontFamily: false, lineHeight: false }),
       TextAlign.configure({ types: ['paragraph'] }),
+      ParagraphIndent,
       Table.configure({ resizable: false }),
       TableRow,
       TableHeader,
@@ -94,6 +175,9 @@ export function RichBlockEditor({
       attributes: {
         class:
           'min-h-[2.5rem] rounded-b-lg px-3 py-2 text-sm outline-none ' +
+          '[&_blockquote]:my-1 [&_blockquote]:border-l-4 [&_blockquote]:border-vibe-pink/40 [&_blockquote]:pl-3 [&_blockquote]:italic [&_pre]:my-1 [&_pre]:overflow-x-auto [&_pre]:rounded-lg [&_pre]:bg-vibe-ink [&_pre]:px-3 [&_pre]:py-2 [&_pre]:font-mono [&_pre]:text-xs [&_pre]:text-white ' +
+          '[&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_ul_ul]:list-[circle] [&_li_p]:m-0 [&_li]:mt-0.5 ' +
+          '[&_a]:text-vibe-pink-dark [&_a]:underline [&_a]:cursor-text ' +
           '[&_table]:w-full [&_table]:table-fixed [&_table]:border-collapse ' +
           '[&_th]:relative [&_th]:border [&_th]:border-vibe-ink/15 [&_th]:px-2 [&_th]:py-1.5 [&_th]:text-left [&_th]:text-xs [&_th]:font-semibold ' +
           '[&_td]:relative [&_td]:border [&_td]:border-vibe-ink/15 [&_td]:px-2 [&_td]:py-1.5 [&_td]:text-xs ' +
@@ -186,6 +270,52 @@ export function RichBlockEditor({
         <ToolbarButton active={editor.isActive({ textAlign: 'right' })} onClick={() => editor.chain().focus().setTextAlign('right').run()} label="Căn phải">
           <AlignRight size={13} />
         </ToolbarButton>
+        <ToolbarButton active={editor.isActive({ textAlign: 'justify' })} onClick={() => editor.chain().focus().setTextAlign('justify').run()} label="Căn đều hai bên">
+          <AlignJustify size={13} />
+        </ToolbarButton>
+
+        <Divider />
+
+        <ToolbarButton active={editor.isActive('bulletList')} onClick={() => editor.chain().focus().toggleBulletList().run()} label="Danh sách dấu chấm">
+          <List size={13} />
+        </ToolbarButton>
+        <ToolbarButton active={editor.isActive('orderedList')} onClick={() => editor.chain().focus().toggleOrderedList().run()} label="Danh sách đánh số (1, 2, 3…)">
+          <ListOrdered size={13} />
+        </ToolbarButton>
+        <ToolbarButton
+          active={false}
+          onClick={() => indent(editor, 1)}
+          label="Thụt vào (Tab trong danh sách)"
+        >
+          <IndentIncrease size={13} />
+        </ToolbarButton>
+        <ToolbarButton
+          active={false}
+          onClick={() => indent(editor, -1)}
+          label="Thụt ra (Shift+Tab trong danh sách)"
+        >
+          <IndentDecrease size={13} />
+        </ToolbarButton>
+
+        <Divider />
+
+        <ToolbarButton active={editor.isActive('blockquote')} onClick={() => editor.chain().focus().toggleBlockquote().run()} label="Trích dẫn (Quote)">
+          <Quote size={13} />
+        </ToolbarButton>
+        <ToolbarButton active={editor.isActive('codeBlock')} onClick={() => editor.chain().focus().toggleCodeBlock().run()} label="Khối mã (Code block)">
+          <CodeXml size={13} />
+        </ToolbarButton>
+
+        <Divider />
+
+        <ToolbarButton active={editor.isActive('link')} onClick={() => setLink(editor)} label="Chèn liên kết (link)">
+          <LinkIcon size={13} />
+        </ToolbarButton>
+        {editor.isActive('link') && (
+          <ToolbarButton active={false} onClick={() => editor.chain().focus().extendMarkRange('link').unsetLink().run()} label="Gỡ liên kết">
+            <Unlink size={13} />
+          </ToolbarButton>
+        )}
 
         {inTable && (
           <>
@@ -209,6 +339,54 @@ export function RichBlockEditor({
       <EditorContent editor={editor as Editor} />
     </div>
   )
+}
+
+// Normalizes a bare "vibeu.design"/"example.com" into "https://…" so autolink/rendering treats
+// it as a real navigable URL instead of relative text — an internal path ("/studio") or a
+// mailto:/tel: the admin already typed in full is left untouched.
+function normalizeUrl(raw: string): string {
+  const url = raw.trim()
+  if (!url) return url
+  if (/^(https?:|mailto:|tel:)/i.test(url) || url.startsWith('/') || url.startsWith('#')) return url
+  return `https://${url}`
+}
+
+function setLink(editor: Editor) {
+  const existing = (editor.getAttributes('link').href as string | undefined) ?? ''
+  const input = window.prompt('Dán URL cần liên kết tới (VD: /blog hoặc https://facebook.com/...):', existing)
+  if (input === null) return
+  const url = normalizeUrl(input)
+  if (!url) {
+    editor.chain().focus().extendMarkRange('link').unsetLink().run()
+    return
+  }
+  if (editor.state.selection.empty) {
+    // No text selected to turn into a link — insert the URL itself as the visible link text, then
+    // mark just that inserted range (same path a manual text-selection takes) and explicitly clear
+    // the cursor's stored mark afterwards so continuing to type right after doesn't extend the link.
+    const { from } = editor.state.selection
+    editor
+      .chain()
+      .focus()
+      .insertContent(url)
+      .setTextSelection({ from, to: from + url.length })
+      .setLink({ href: url })
+      .setTextSelection(from + url.length)
+      .unsetMark('link')
+      .run()
+    return
+  }
+  editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run()
+}
+
+function indent(editor: Editor, delta: 1 | -1) {
+  const chain = editor.chain().focus()
+  if (editor.isActive('listItem')) {
+    if (delta === 1) chain.sinkListItem('listItem').run()
+    else chain.liftListItem('listItem').run()
+  } else {
+    chain.indentParagraph(delta).run()
+  }
 }
 
 function Divider() {

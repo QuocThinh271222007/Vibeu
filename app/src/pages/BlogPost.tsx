@@ -25,8 +25,10 @@ const RICH_CONTENT_CLASSES =
   'mt-8 space-y-4 text-[15px] leading-relaxed text-vibe-ink/90 ' +
   '[&_h2]:!mt-10 [&_h2]:scroll-mt-24 [&_h2]:font-display [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:text-vibe-ink ' +
   '[&_h3]:!mt-6 [&_h3]:scroll-mt-24 [&_h3]:font-display [&_h3]:text-base [&_h3]:font-semibold [&_h3]:text-vibe-ink ' +
-  '[&_p]:mt-4 [&_ul]:mt-4 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:mt-4 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:mt-1 ' +
-  '[&_blockquote]:mt-4 [&_blockquote]:border-l-4 [&_blockquote]:border-vibe-pink/30 [&_blockquote]:pl-4 [&_blockquote]:italic ' +
+  '[&_p]:mt-4 [&_ul]:mt-4 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:mt-4 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:mt-1 [&_li_p]:mt-0 [&_ul_ul]:list-[circle] [&_li>ul]:mt-1 [&_li>ol]:mt-1 ' +
+  '[&_blockquote]:mt-4 [&_blockquote]:border-l-4 [&_blockquote]:border-vibe-pink/30 [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote>p:first-child]:mt-0 ' +
+  '[&_pre]:mt-4 [&_pre]:overflow-x-auto [&_pre]:rounded-xl [&_pre]:bg-vibe-ink [&_pre]:px-4 [&_pre]:py-3 [&_pre]:font-mono [&_pre]:text-[13px] [&_pre]:leading-relaxed [&_pre]:text-white [&_pre_code]:bg-transparent ' +
+  '[&_p_code]:rounded [&_p_code]:bg-vibe-cream [&_p_code]:px-1 [&_p_code]:font-mono [&_p_code]:text-[13px] ' +
   '[&_img]:mt-4 [&_img]:rounded-2xl [&_img]:w-full ' +
   '[&_table]:mt-4 [&_table]:block [&_table]:w-full [&_table]:overflow-x-auto [&_table]:border-collapse [&_table]:text-sm ' +
   '[&_th]:border [&_th]:border-vibe-ink/15 [&_th]:bg-vibe-cream [&_th]:px-3 [&_th]:py-2 [&_th]:text-left [&_th]:font-semibold ' +
@@ -333,14 +335,24 @@ export default function BlogPost() {
                 ? post.contentBlocks.map((block, i) => {
                     if (block.type === 'heading2') {
                       return (
-                        <h2 key={i} id={headingIds.get(i)?.id} className="!mt-10 scroll-mt-24 font-display text-xl font-semibold text-vibe-ink">
+                        <h2
+                          key={i}
+                          id={headingIds.get(i)?.id}
+                          style={block.fontSize ? { fontSize: `${block.fontSize}px` } : undefined}
+                          className="!mt-10 scroll-mt-24 font-display text-xl font-semibold text-vibe-ink"
+                        >
                           {block.text}
                         </h2>
                       )
                     }
                     if (block.type === 'heading3') {
                       return (
-                        <h3 key={i} id={headingIds.get(i)?.id} className="!mt-6 scroll-mt-24 font-display text-base font-semibold text-vibe-ink">
+                        <h3
+                          key={i}
+                          id={headingIds.get(i)?.id}
+                          style={block.fontSize ? { fontSize: `${block.fontSize}px` } : undefined}
+                          className="!mt-6 scroll-mt-24 font-display text-base font-semibold text-vibe-ink"
+                        >
                           {block.text}
                         </h3>
                       )

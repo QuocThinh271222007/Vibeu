@@ -25,6 +25,37 @@ export function imageToLocal(nail: NailCoord, pt: [number, number]): UV {
   return [u, v]
 }
 
+// A nail renders at most a few hundred px wide, so anything past 4 decimals of UV precision
+// (~0.0001 of that) is visually meaningless — yet pointer coordinates default to full float64
+// precision (~17 significant digits) when JSON-serialized (rounding alone cuts stored bytes/point
+// roughly 3x). On top of that, pointermove fires more often than a visible stroke needs — real
+// captured strokes were measured landing consecutive points ~0.004-0.006 UV apart even during
+// deliberate drawing, so this also thins out redundant points without visibly changing the shape.
+// Combined, some hand-drawn templates had ended up with a single finger's strokes over 1MB of
+// JSON (real example found: "creeper" — 1.04MB for one finger).
+const STROKE_MIN_STEP = 0.006
+
+/** Rounds a UV point to 4 decimals — see STROKE_MIN_STEP for why. */
+export function roundUv([u, v]: UV): UV {
+  return [Math.round(u * 10000) / 10000, Math.round(v * 10000) / 10000]
+}
+
+/** Appends `next` to a stroke's points, skipping it if it's too close to the last kept point to
+ * be visually distinguishable (see STROKE_MIN_STEP) — cuts stored/rendered point count for slow
+ * or careful pen movements without changing how the stroke looks. Used while a stroke is being
+ * actively drawn (src/components/studio/HandCanvas.tsx); the first point of a stroke is always
+ * kept regardless of distance. */
+export function appendStrokePoint(points: UV[], next: UV): UV[] {
+  const rounded = roundUv(next)
+  const last = points[points.length - 1]
+  if (last) {
+    const du = rounded[0] - last[0]
+    const dv = rounded[1] - last[1]
+    if (du * du + dv * dv < STROKE_MIN_STEP * STROKE_MIN_STEP) return points
+  }
+  return [...points, rounded]
+}
+
 /** Nail width in image-space px (u extent), used to size stickers relative to nail. */
 export function nailWidthPx(nail: NailCoord): number {
   return nail.uvFrame.maxU - nail.uvFrame.minU

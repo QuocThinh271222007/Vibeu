@@ -11,7 +11,7 @@ export function htmlToText(html: string): string {
 }
 
 /** Allow-listed for what RichBlockEditor.tsx's TipTap config can actually produce (bold/italic/
- * underline/strike, inline color/font-size spans, paragraph alignment, tables with per-cell
+ * underline/strike, inline color/font-size spans, paragraph alignment, bullet/numbered lists, blockquote/code blocks, tables with per-cell
  * background color) — run on both the admin editor's output before saving and again defensively
  * before dangerouslySetInnerHTML on the public BlogPost.tsx page. `style` is intentionally
  * allowed on every tag below (color/font-size/text-align/background-color all render as inline
@@ -21,10 +21,10 @@ export function sanitizeBlogHtml(html: string): string {
   return DOMPurify.sanitize(html, {
     ALLOWED_TAGS: [
       'p', 'br', 'span', 'strong', 'em', 'u', 's', 'a',
-      'h2', 'h3', 'ul', 'ol', 'li', 'blockquote',
+      'h2', 'h3', 'ul', 'ol', 'li', 'blockquote', 'pre', 'code',
       'img', 'figure', 'figcaption',
       'table', 'thead', 'tbody', 'tr', 'th', 'td',
     ],
-    ALLOWED_ATTR: ['href', 'target', 'rel', 'src', 'alt', 'title', 'colspan', 'rowspan', 'style'],
+    ALLOWED_ATTR: ['href', 'target', 'rel', 'src', 'alt', 'title', 'colspan', 'rowspan', 'style', 'start'],
   })
 }

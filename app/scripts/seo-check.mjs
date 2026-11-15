@@ -2,18 +2,19 @@
 // Usage: npm run seo:check   (exits 1 on any failure)
 //
 // Route policy encoded here (single place to read it):
-//   indexable + prerendered : / /studio /thu-vien /blog /about /chinh-sach /blog/<published slug>
+//   indexable + prerendered : / /studio /thu-vien /blog /cong-dong /about /chinh-sach
+//                             /blog/<published slug> /cong-dong/<approved post id>
 //   noindex (in-app meta)   : /admin/* /auth /reset-password /settings /geometry-editor /r/:id, 404
-//   conditional, CSR-only   : /cong-dong/:id /u/:id (in sitemap/left as SPA shell — see prerender.mjs)
+//   conditional, CSR-only   : /u/:id (in sitemap/left as SPA shell — see prerender.mjs)
 import { existsSync, readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { dirname, join } from 'node:path'
-import { fetchPublishedBlogSlugs } from './lib/supabase-fetch.mjs'
+import { fetchPublishedBlogSlugs, fetchApprovedCommunityPostIds } from './lib/supabase-fetch.mjs'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const DIST = join(__dirname, '..', 'dist')
 const SITE = 'https://vibeu.design'
-const STATIC = ['/', '/studio', '/thu-vien', '/blog', '/about', '/chinh-sach']
+const STATIC = ['/', '/studio', '/thu-vien', '/blog', '/cong-dong', '/about', '/chinh-sach']
 const PRIVATE_PREFIXES = ['/admin', '/auth', '/reset-password', '/settings', '/geometry-editor', '/library', '/community', '/r/', '/u/']
 
 const failures = []
@@ -63,8 +64,8 @@ function checkPage(route, seen) {
 }
 
 async function main() {
-  const slugs = await fetchPublishedBlogSlugs()
-  const routes = [...STATIC, ...slugs.map((s) => `/blog/${s}`)]
+  const [slugs, communityIds] = await Promise.all([fetchPublishedBlogSlugs(), fetchApprovedCommunityPostIds()])
+  const routes = [...STATIC, ...slugs.map((s) => `/blog/${s}`), ...communityIds.map((id) => `/cong-dong/${id}`)]
   const seen = { titles: new Map(), descs: new Map() }
   for (const r of routes) checkPage(r, seen)
 
@@ -93,7 +94,8 @@ async function main() {
       if (PRIVATE_PREFIXES.some((p) => path === p || path.startsWith(p + '/') || path.startsWith(p))) fail(`sitemap: private/redirecting URL ${u}`)
     }
     for (const s of slugs) if (!urls.includes(`${SITE}/blog/${s}`)) fail(`sitemap: published post missing /blog/${s}`)
-    console.log(`sitemap: ${urls.length} URLs (${slugs.length} published posts)`)
+    for (const id of communityIds) if (!urls.includes(`${SITE}/cong-dong/${id}`)) fail(`sitemap: approved community post missing /cong-dong/${id}`)
+    console.log(`sitemap: ${urls.length} URLs (${slugs.length} blog posts, ${communityIds.length} community posts)`)
   }
 
   console.log(`checked ${routes.length} prerendered routes`)

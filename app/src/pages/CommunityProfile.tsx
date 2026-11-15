@@ -5,7 +5,7 @@ import { ArrowLeft, ShieldCheck } from 'lucide-react'
 import { HandCanvas } from '@/components/studio/HandCanvas'
 import { SavedDesignThumb } from '@/components/studio/SavedDesignThumb'
 import { Avatar } from '@/components/ui/Avatar'
-import { findTemplate } from '@/data/templates'
+import { findTemplate, getAllTemplatesAsync } from '@/data/templates'
 import { fingersFromTemplate } from '@/lib/templateUtils'
 import { fetchLikedPosts, fetchPostsByAuthor, type RemoteCommunityPost } from '@/lib/communityApi'
 import { fetchPublicProfile, type PublicProfile } from '@/lib/profileApi'
@@ -46,11 +46,15 @@ export default function CommunityProfile() {
     if (!id) return
     setLoading(true)
     setNotFound(false)
+    // getAllTemplatesAsync warms data/templates.ts's module cache so PostThumb's sync
+    // `findTemplate` below can resolve — that eager fetch used to fire on every route; now it's
+    // only kicked off here, where a template-based preview thumbnail can actually be rendered.
     Promise.all([
       fetchPublicProfile(id),
       fetchPostsByAuthor(id, viewer?.id ?? null),
       fetchSavedDesigns(id),
       fetchLikedPosts(id, viewer?.id ?? null),
+      getAllTemplatesAsync(),
     ]).then(([p, postList, designList, favoriteList]) => {
       if (!p) {
         setNotFound(true)

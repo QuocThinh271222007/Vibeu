@@ -2,11 +2,13 @@ import { useEffect, useId, useMemo, useRef, useState } from 'react'
 import { Copy, RotateCw, X } from 'lucide-react'
 import { useColorPresets, useHandData, useDecalsById, handBaseUrl, resolveDecalPath } from '@/data/loaders'
 import {
+  appendStrokePoint,
   lengthScaleMatrix,
   LENGTH_SCALE,
   localToImage,
   imageToLocal,
   nailWidthPx,
+  roundUv,
   rotatePointDeg,
   shapeTrimUv,
   trimPolygonToImagePoints,
@@ -107,6 +109,11 @@ interface HandCanvasProps {
   brushOpacity?: number
   onAddStroke?: (finger: FingerId, points: [number, number][]) => void
   className?: string
+  /** Marketing/library preview cards (TemplatePreviewMedia) render this at ~150-300px — serves
+   * the downsized 512x768 hand photo instead of the full 1024x1536 Studio-quality one, which
+   * Lighthouse's image-delivery audit flagged as ~90% wasted bytes at that display size
+   * (2026-09-30 perf pass). Never set this for an actually-editable/large canvas. */
+  lowResPhoto?: boolean
 }
 
 /** Image-space SVG path "d" for a polyline of nail-local uv points — shared by the
@@ -132,6 +139,7 @@ export function HandCanvas({
   brushOpacity = 1,
   onAddStroke,
   className = '',
+  lowResPhoto = false,
 }: HandCanvasProps) {
   // Only a whole-hand shape+length (all 5 fingers agreeing) can select a different real
   // photo — see uniformShapeLength's doc comment in geometry.ts for why a mixed set can't.
@@ -176,7 +184,7 @@ export function HandCanvas({
       // Some input sources (synthetic events, certain touch/pen edge cases) don't have an
       // active pointer to capture — the stroke still works via bubbled pointermove/pointerup.
     }
-    setLiveStroke({ finger: nail.id, points: [imageToLocal(nail, point)] })
+    setLiveStroke({ finger: nail.id, points: [roundUv(imageToLocal(nail, point))] })
   }
 
   const continueStroke = (nail: NailCoord, e: React.PointerEvent) => {
@@ -185,7 +193,7 @@ export function HandCanvas({
     if (!svg) return
     const point = clientToSvgPoint(svg, e.clientX, e.clientY)
     if (!point) return
-    setLiveStroke((s) => (s ? { ...s, points: [...s.points, imageToLocal(nail, point)] } : s))
+    setLiveStroke((s) => (s ? { ...s, points: appendStrokePoint(s.points, imageToLocal(nail, point)) } : s))
   }
 
   const endStroke = () => {
@@ -245,9 +253,11 @@ export function HandCanvas({
       onPointerLeave={() => setDebugPointer(null)}
     >
       <img
-        src={handBaseUrl(skinTone, variant?.shape, variant?.length)}
+        src={handBaseUrl(skinTone, variant?.shape, variant?.length, lowResPhoto)}
         alt="Bàn tay mô phỏng"
         draggable={false}
+        width={1024}
+        height={1536}
         className="pointer-events-none absolute inset-0 h-full w-full rounded-[2rem] object-cover"
       />
       <svg

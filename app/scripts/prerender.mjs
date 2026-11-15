@@ -10,7 +10,9 @@
 // (createRoot re-renders over the static markup — a plain "prerender", not true hydration).
 //
 // Deliberately NOT prerendered: /admin/*, /auth, /reset-password, /settings (noindex, private),
-// /cong-dong/:id, /u/:id, /r/:id (dynamic user content; still fall back to the SPA shell).
+// /u/:id, /r/:id (dynamic user content; still fall back to the SPA shell). /cong-dong and its
+// individual /cong-dong/:id posts ARE prerendered (added once a cron job on the VPS started
+// rebuilding on a schedule — see deploy.sh — so this list no longer goes stale between builds).
 //
 // Graceful degradation: no Chrome found, or any route failing, logs a warning and leaves that
 // route as the plain SPA shell — a missing browser must never fail the whole build.
@@ -19,7 +21,7 @@ import { spawn } from 'node:child_process'
 import { fileURLToPath } from 'node:url'
 import { dirname, join } from 'node:path'
 import puppeteer from 'puppeteer-core'
-import { fetchPublishedBlogSlugs } from './lib/supabase-fetch.mjs'
+import { fetchPublishedBlogSlugs, fetchApprovedCommunityPostIds } from './lib/supabase-fetch.mjs'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const ROOT = join(__dirname, '..')
@@ -27,7 +29,7 @@ const DIST = join(ROOT, 'dist')
 const PORT = 4321
 const ORIGIN = `http://localhost:${PORT}`
 
-const STATIC_ROUTES = ['/', '/studio', '/thu-vien', '/blog', '/about', '/chinh-sach']
+const STATIC_ROUTES = ['/', '/studio', '/thu-vien', '/blog', '/about', '/chinh-sach', '/cong-dong']
 
 function findChrome() {
   const candidates = [
@@ -75,8 +77,8 @@ async function main() {
     return
   }
 
-  const slugs = await fetchPublishedBlogSlugs()
-  const routes = [...STATIC_ROUTES, ...slugs.map((s) => `/blog/${s}`)]
+  const [slugs, communityIds] = await Promise.all([fetchPublishedBlogSlugs(), fetchApprovedCommunityPostIds()])
+  const routes = [...STATIC_ROUTES, ...slugs.map((s) => `/blog/${s}`), ...communityIds.map((id) => `/cong-dong/${id}`)]
 
   const viteBin = join(ROOT, 'node_modules', 'vite', 'bin', 'vite.js')
   const server = spawn(process.execPath, [viteBin, 'preview', '--port', String(PORT), '--strictPort'], { cwd: ROOT, stdio: 'ignore' })
@@ -91,10 +93,23 @@ async function main() {
     for (const route of routes) {
       const page = await browser.newPage()
       try {
+        // Tells TemplatePreviewMedia's deferred-mount logic to never promote a non-priority
+        // HandCanvas fallback past its skeleton placeholder — each live instance bakes a
+        // 150-300KB inline SVG into the snapshot, and the homepage alone showed several at once
+        // (2026-09-30 perf pass: a 1.8MB prerendered index.html, most of it exactly this). A
+        // crawler/first-paint snapshot gets zero SEO value from that art anyway (the template
+        // name is already in a visible caption); real visitors still get it once React hydrates.
+        await page.evaluateOnNewDocument(() => {
+          window.__VIBEU_PRERENDER__ = true
+        })
         await page.goto(`${ORIGIN}${route}`, { waitUntil: 'networkidle0', timeout: 45000 })
         await page.waitForSelector('h1', { timeout: 15000 })
-        // Let post-render effects (head-tag hoisting, scrollspy, animations) settle.
-        await new Promise((r) => setTimeout(r, 400))
+        // Let post-render effects settle: head-tag hoisting, scrollspy, animations, and also any
+        // component's own async Supabase fetch that only starts in a useEffect AFTER first paint
+        // (h1 appearing doesn't guarantee those have resolved yet) — 400ms here once left a
+        // homepage section's cards empty in the prerendered snapshot because its data fetch
+        // hadn't finished by the time this window closed (2026-09-26).
+        await new Promise((r) => setTimeout(r, 1200))
         const html =
           '<!doctype html>\n' +
           (await page.evaluate(() => {
@@ -111,6 +126,15 @@ async function main() {
             document.head
               .querySelectorAll('meta[name]:not([content]), meta[property]:not([content]), link[rel="canonical"]:not([href])')
               .forEach((el) => el.remove())
+            // index.html's Google Fonts <link> starts as rel="preload" and its own onload handler
+            // flips it to rel="stylesheet" once the CSS arrives — by the time this snapshot is
+            // taken (well after that 1200ms settle window), it's already flipped, so serializing
+            // outerHTML as-is would ship a permanently render-blocking stylesheet link to every
+            // visitor who loads this prerendered document, defeating the whole point of loading it
+            // non-blocking in the first place (2026-09-30 perf pass). Reset it back to the pending
+            // preload state the real onload handler expects to find on a fresh page load.
+            const fontLink = document.head.querySelector('link[as="style"][href*="fonts.googleapis.com"]')
+            if (fontLink) fontLink.setAttribute('rel', 'preload')
             // Mark every per-page head tag so src/main.tsx can drop them at boot — otherwise, when
             // a snapshot doubles as the SPA shell for client-side navigation, its (page-specific)
             // tags would linger next to the ones React's PageMeta renders for the next route.
@@ -129,7 +153,7 @@ async function main() {
       }
     }
     // Keep the untouched SPA shell: dist/index.html is about to become the prerendered HOME page,
-    // but every non-prerendered route (/admin, /auth, /cong-dong/:id, unknown URLs...) must fall
+    // but every non-prerendered route (/admin, /auth, /u/:id, unknown URLs...) must fall
     // back to a shell with NO page-specific head tags — see deploy/nginx.conf.example.
     copyFileSync(join(DIST, 'index.html'), join(DIST, '_spa.html'))
     for (const { route, html } of results) {

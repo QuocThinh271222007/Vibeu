@@ -5,13 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/generate-sitemap.mjs && tsc -b && vite build && node scripts/prerender.mjs",
+    "build": "node scripts/generate-sitemap.mjs && tsc -b && vite build && node scripts/inline-critical-css.mjs && node scripts/prerender.mjs",
     "seo:check": "node scripts/seo-check.mjs",
     "lint": "oxlint",
     "preview": "vite preview"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.115.0",
+    "@tiptap/extension-link": "^3.31.3",
     "@tiptap/extension-table": "^3.31.3",
     "@tiptap/extension-text-align": "^3.31.3",
     "@tiptap/extension-text-style": "^3.31.3",

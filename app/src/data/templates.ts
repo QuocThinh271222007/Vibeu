@@ -3,9 +3,14 @@ import { fetchAllTemplates } from '@/lib/templatesApi'
 
 /** All templates — the old built-in set plus everything admin creates — now live in Supabase
  * (see templatesApi.ts and supabase/migrations/20260906_seed_static_content.sql for the
- * one-time migration of the original 21). Fetched once and cached module-wide so `findTemplate`
- * (called synchronously during render by templateLock.ts, Community.tsx, Hero.tsx) can see them
- * too, not just the async `useTemplates()` consumers like Library.tsx. */
+ * one-time migration of the original 21). Fetched on first real demand and cached module-wide so
+ * `findTemplate` (called synchronously during render by templateLock.ts, PostCard.tsx,
+ * CommunityProfile.tsx) can see them too, not just the async `useTemplates()` consumers like
+ * Library.tsx. This used to kick off unconditionally the moment this module was first imported —
+ * but that module is reachable from the app's main entry chunk, so it fired the ~5MB full-table
+ * fetch on *every* route (Home, Blog, About...), not just the ones that actually need it. Callers
+ * that rely on the sync `findTemplate` (rather than `getAllTemplatesAsync`/`findTemplateAsync`)
+ * must trigger `getAllTemplatesAsync()` themselves first (see Community.tsx/CommunityProfile.tsx). */
 let remoteTemplates: Template[] = []
 let remoteTemplatesPromise: Promise<Template[]> | null = null
 
@@ -18,10 +23,6 @@ function loadRemoteTemplates(): Promise<Template[]> {
   }
   return remoteTemplatesPromise
 }
-
-// Kick the fetch off as soon as this module is first imported (Library/Studio/Community all
-// import it near app start), so the sync lookups below are warm well before they're likely needed.
-void loadRemoteTemplates()
 
 /** Drops the memoized fetch and starts a new one immediately. Without this, a template
  * created/edited/deleted/hidden via /admin/templates or Studio's "Lưu làm mẫu" never showed up
